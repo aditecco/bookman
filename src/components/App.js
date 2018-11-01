@@ -1,10 +1,19 @@
 
-/* ----------------
+/******************
   App
----------------- */
+*******************/
 
-
+// js
 import React, { Component } from 'react';
+
+// components
+import Bookmark from './Bookmark';
+
+
+// assets
+
+
+// styles
 import '../styles/main.css';
 
 class App extends Component {
@@ -79,25 +88,13 @@ class App extends Component {
           {
             posts.map((post, i) => {
               return (
-                <article
-                  className='postItem'
+                <Bookmark
                   id={post.id}
-                >
-                  <a
-                    className="postWrapper"
-                    href={post.url}
-                  >
-                    <header className="bookmark-header">
-                      <h4>{post.url}</h4>
-                    </header>
-                    <div className="bookmark-body">
-                      {post.tag}
-                    </div>
-                    <footer className="bookmark-footer">
-                      {post.timeStamp}
-                    </footer>
-                  </a>
-                </article>
+                  key={i}
+                  url={post.url}
+                  tag={post.tag}
+                  timeStamp={post.timeStamp}
+                />
               )
             })
           }
