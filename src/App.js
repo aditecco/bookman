@@ -7,16 +7,16 @@
 import React, { Component } from 'react';
 
 // components
-import BookmarkItem from './BookmarkItem';
-import TagItem from './TagItem';
-import BookmarkForm from './BookmarkForm';
+import BookmarkItem from './components/BookmarkItem';
+import TagItem from './components/TagItem';
+import BookmarkForm from './components/BookmarkForm';
 
 
 // assets
 
 
 // styles
-import '../styles/main.css';
+import './styles/main.css';
 
 class App extends Component {
   constructor(props) {
