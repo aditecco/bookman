@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 
 // components
 import Bookmark from './Bookmark';
+import BookmarkForm from './BookmarkForm';
 
 
 // assets
@@ -20,35 +21,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      urlInput: '',
-      tagInput: '',
       posts: []
     }
   }
 
-  handleUrlChange = (e) => {
-    // console.log(e.target.value);
-    let currentInput = e.target.value;
-    this.setState({ urlInput: currentInput })
-  }
-
-  handleTagChange = (e) => {
-    // console.log(e.target.value);
-    let currentInput = e.target.value;
-    this.setState({ tagInput: currentInput })
-  }
-
-  handleSubmit = (e, primaryInput, secondaryInput) => {
-    // console.log(e.target);
-    primaryInput = this.state.urlInput;
-    secondaryInput = this.state.tagInput;
-
+  renderPost = (input) => {
     const
       date = new Date(),
       post = {
         id: Date.now(),
-        url: primaryInput,
-        tag: secondaryInput,
+        url: input.url,
+        tag: input.tag,
         timeStamp: date.toLocaleString()
     };
 
@@ -63,25 +46,9 @@ class App extends Component {
     return (
       <div className="wrapper">
         <section className="inputSection">
-          <input
-            className='urlInput'
-            type="text"
-            placeholder='url here'
-            onChange={this.handleUrlChange}
+          <BookmarkForm
+            passStateToParent={this.renderPost}
           />
-          <input
-            className='tagInput'
-            type="text"
-            placeholder='tag here'
-            onChange={this.handleTagChange}
-          />
-          <a
-            className='submitButton'
-            href="#"
-            onClick={this.handleSubmit}
-          >
-            submit
-          </a>
         </section>
 
         <section className="postSection">
