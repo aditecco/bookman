@@ -15,8 +15,10 @@ import BookmarkForm from './components/BookmarkForm';
 // assets
 import mockBookmarks from './data/mockBookmarks';
 
+
 // styles
 import './styles/main.css';
+
 
 class App extends Component {
   constructor(props) {
@@ -75,11 +77,11 @@ class App extends Component {
           <aside className="tagListContainer">
             <ul className="tagList">
               {
-                tags.map((tag, i) => {
+                mockBookmarks.map((b, i) => {
                   return (
                     <li key={i}>
                       <TagItem
-                        name={tag}
+                        name={b.tags}
                         count={null}
                         onClick={(e) => console.log('tag')}
                       />
@@ -87,6 +89,19 @@ class App extends Component {
                   )
                 })
               }
+              {/* { */}
+              {/*   tags.map((tag, i) => { */}
+              {/*     return ( */}
+              {/*       <li key={i}> */}
+              {/*         <TagItem */}
+              {/*           name={tag} */}
+              {/*           count={null} */}
+              {/*           onClick={(e) => console.log('tag')} */}
+              {/*         /> */}
+              {/*       </li> */}
+              {/*     ) */}
+              {/*   }) */}
+              {/* } */}
             </ul>
           </aside>
         </section>
@@ -99,19 +114,33 @@ class App extends Component {
           <main className="bookmarkContainer">
             <ol className="bookmarkList">
               {
-                reversedBookmarks.map((bookmark, i) => {
+                mockBookmarks.map((bookmark, i) => {
                   return (
                     <li key={i}>
                       <BookmarkItem
-                        id={bookmark.id}
-                        url={bookmark.url}
-                        tag={bookmark.tag}
-                        timeStamp={bookmark.timeStamp}
+                        id={null}
+                        url={bookmark.href}
+                        tag={bookmark.tags}
+                        timeStamp={null}
                       />
                     </li>
                   )
                 })
               }
+              {/* { */}
+              {/*   reversedBookmarks.map((bookmark, i) => { */}
+              {/*     return ( */}
+              {/*       <li key={i}> */}
+              {/*         <BookmarkItem */}
+              {/*           id={bookmark.id} */}
+              {/*           url={bookmark.url} */}
+              {/*           tag={bookmark.tag} */}
+              {/*           timeStamp={bookmark.timeStamp} */}
+              {/*         /> */}
+              {/*       </li> */}
+              {/*     ) */}
+              {/*   }) */}
+              {/* } */}
             </ol>
           </main>
         </section>
