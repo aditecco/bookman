@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import BookmarkItem from './components/BookmarkItem';
 import TagItem from './components/TagItem';
 import BookmarkForm from './components/BookmarkForm';
+import BaseButton from './components/BaseButton';
 
 
 // assets
@@ -24,8 +25,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarks: [],
-      tags: []
+      bookmarks: mockBookmarks,
+      tags: [],
+      sortedByTag: ''
     }
   }
 
@@ -53,10 +55,25 @@ class App extends Component {
     })
   }
 
+  handleTagSorting = (e) => {
+    e.preventDefault();
+
+    let clickedTag = e.target.innerHTML;
+
+    this.setState({ sortedByTag: clickedTag });
+    // console.log(e.target);
+    console.log(clickedTag);
+  }
+
+  resetTagSorting = (e) => {
+    this.setState({ sortedByTag: '' })
+  }
+
   render() {
     const {
       bookmarks,
-      tags
+      tags,
+      sortedByTag
     } = this.state;
 
     let reversedBookmarks = bookmarks.reverse();
@@ -75,18 +92,39 @@ class App extends Component {
           </h4>
 
           <aside className="tagListContainer">
+            <BaseButton
+              className=''
+              onClick={this.resetTagSorting}
+              onKeyDown={null}
+              label='clear tags'
+            />
+
             <ul className="tagList">
               {
-                mockBookmarks.map((b, i) => {
-                  return (
-                    <li key={i}>
-                      <TagItem
-                        name={b.tags}
-                        count={null}
-                        onClick={(e) => console.log('tag')}
-                      />
-                    </li>
-                  )
+                mockBookmarks.map((bookmark, i) => {
+                  let filter = this.state.sortedByTag;
+
+                  if (filter === '') {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={bookmark.tags}
+                          count={null}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  } else if (filter === bookmark.tags) {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={bookmark.tags}
+                          count={null}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  }
                 })
               }
               {/* { */}
@@ -108,23 +146,38 @@ class App extends Component {
 
         <section className="bookmarkSection">
           <h4 className="bookmarkSectionHeading">
-            bookmarks
+            {`Bookmarks - ${this.state.bookmarks.length}`}
           </h4>
 
           <main className="bookmarkContainer">
             <ol className="bookmarkList">
               {
                 mockBookmarks.map((bookmark, i) => {
-                  return (
-                    <li key={i}>
-                      <BookmarkItem
-                        id={null}
-                        url={bookmark.href}
-                        tag={bookmark.tags}
-                        timeStamp={null}
-                      />
-                    </li>
-                  )
+                  let filter = this.state.sortedByTag;
+
+                  if (filter === '') {
+                    return (
+                      <li key={i}>
+                        <BookmarkItem
+                          id={null}
+                          url={bookmark.href}
+                          tag={bookmark.tags}
+                          timeStamp={null}
+                        />
+                      </li>
+                    )
+                  } else if (filter === bookmark.tags) {
+                    return (
+                      <li key={i}>
+                        <BookmarkItem
+                          id={null}
+                          url={bookmark.href}
+                          tag={bookmark.tags}
+                          timeStamp={null}
+                        />
+                      </li>
+                    )
+                  }
                 })
               }
               {/* { */}
