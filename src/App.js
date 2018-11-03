@@ -13,7 +13,7 @@ import BookmarkForm from './components/BookmarkForm';
 
 
 // assets
-
+import mockBookmarks from './data/mockBookmarks';
 
 // styles
 import './styles/main.css';
