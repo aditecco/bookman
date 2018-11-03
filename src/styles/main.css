@@ -1,2 +1,25 @@
 
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 body { background-color: #444; }
+
+a, a:hover, a:visited { color: rgba(0,0,0,.8); }
+
+.tagSection,
+.bookmarkSection {
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+
+.inputSection,
+.inputSection .BookmarkForm
+ { width: 100%; }
+
+ .inputSection .BookmarkForm input { width: 45%; }
+
+.tagSection { width: 20%; }
+
+.bookmarkSection { width: 80%; }
