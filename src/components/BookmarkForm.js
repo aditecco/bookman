@@ -23,11 +23,13 @@ class BookmarkForm extends React.Component {
   handleUrlChange = (e) => {
     let currentInput = e.target.value;
     this.setState({ urlInput: currentInput });
+    // console.log(currentInput);
   }
 
   handleTagChange = (e) => {
     let currentInput = e.target.value;
     this.setState({ tagInput: currentInput });
+    // console.log(currentInput);
   }
 
   handleSubmit = (e) => {
@@ -52,10 +54,7 @@ class BookmarkForm extends React.Component {
     } = this.state;
 
     return (
-      <form
-        className={id}
-        onSubmit={this.handleSubmit}
-      >
+      <form className={id}>
         <InputField
             className='urlInput'
             label='url'
@@ -75,7 +74,7 @@ class BookmarkForm extends React.Component {
           <BaseButton
             className='submitButton'
             label='salva'
-            handleSubmit={this.handleSubmit}
+            onClick={this.handleSubmit}
           />
       </form>
     );

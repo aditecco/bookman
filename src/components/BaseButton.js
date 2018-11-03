@@ -16,7 +16,7 @@ import React from 'react';
 function BaseButton(props) {
   const {
     className,
-    handleSubmit,
+    onClick,
     label
   } = props;
 
@@ -24,7 +24,7 @@ function BaseButton(props) {
     <a
       className={className}
       href='#'
-      onClick={handleSubmit}
+      onClick={onClick}
     >
       {label}
     </a>
