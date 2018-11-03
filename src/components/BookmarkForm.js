@@ -46,6 +46,20 @@ class BookmarkForm extends React.Component {
     });
   }
 
+  // handleKeyDown = (e) => {
+  //   // e.preventDefault();
+  //   console.log(e.key);
+  //   console.log(e.target);
+
+  //   const
+  //     key = e.key,
+  //     target = e.target.classList;
+
+  //   if (key === 'Enter' && target.contains('submitButton')) {
+  //     console.log('yo');
+  //   }
+  // }
+
   render() {
     const id = 'BookmarkForm';
     const {
@@ -54,7 +68,10 @@ class BookmarkForm extends React.Component {
     } = this.state;
 
     return (
-      <form className={id}>
+      <form
+        className={id}
+        // onKeyDown={this.handleKeyDown}
+      >
         <InputField
             className='urlInput'
             label='url'

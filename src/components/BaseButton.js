@@ -17,6 +17,7 @@ function BaseButton(props) {
   const {
     className,
     onClick,
+    onKeyDown,
     label
   } = props;
 
@@ -25,6 +26,7 @@ function BaseButton(props) {
       className={className}
       href='#'
       onClick={onClick}
+      onKeyDown={onKeyDown}
     >
       {label}
     </a>
