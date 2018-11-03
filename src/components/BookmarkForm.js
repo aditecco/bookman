@@ -1,7 +1,7 @@
 
-/* ----------------
+/******************
   BookmarkForm
----------------- */
+*******************/
 
 // js
 import React, { Component } from 'react';
@@ -31,11 +31,11 @@ class BookmarkForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    let bundledState = {};
-    bundledState.url = this.state.urlInput;
-    bundledState.tag = this.state.tagInput;
-    this.props.passStateToParent(bundledState);
-    // console.log(bundledState);
+    let bundledInput = {};
+    bundledInput.url = this.state.urlInput;
+    bundledInput.tag = this.state.tagInput;
+    this.props.passInputToParent(bundledInput);
+    // console.log(bundledInput);
   }
 
   render() {
