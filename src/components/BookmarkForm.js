@@ -58,15 +58,17 @@ class BookmarkForm extends React.Component {
       >
         <InputField
             className='urlInput'
+            label='url'
             onChange={this.handleUrlChange}
-            placeholder='Your URL'
+            placeholder='e.g. www.example.com'
             value={urlInput}
           />
 
           <InputField
             className='tagInput'
+            label='tag(s)'
             onChange={this.handleTagChange}
-            placeholder='Your tag'
+            placeholder='linux, javascript (comma separated)'
             value={tagInput}
           />
 

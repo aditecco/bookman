@@ -15,7 +15,7 @@ import React from 'react';
 function InputField(props) {
   const {
     className,
-    inputLabel,
+    label,
     onChange,
     placeholder,
     value
@@ -24,7 +24,7 @@ function InputField(props) {
   return (
     <>
       <label htmlFor={className}>
-        {inputLabel}
+        {label}
       </label>
 
       <input
