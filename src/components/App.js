@@ -81,6 +81,7 @@ class App extends Component {
                       <TagItem
                         name={tag}
                         count={null}
+                        onClick={(e) => console.log('tag')}
                       />
                     </li>
                   )

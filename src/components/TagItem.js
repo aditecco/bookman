@@ -10,19 +10,26 @@ import React from 'react';
 function TagItem(props) {
 	const {
 		name,
-		count
+		count,
+		onClick
 	} = props;
 
 	return (
-		<div className="tagItemContainer">
-			<span className="tagItemName">
-				{name}
-			</span>
+		<a
+			href="#"
+			className="tagItem"
+			onClick={onClick}
+		>
+			<div className="tagItemContainer">
+				<span className="tagItemName">
+					{name}
+				</span>
 
-			<span className="tagItemCount">
-				{count}
-			</span>
-		</div>
+				<span className="tagItemCount">
+					{count}
+				</span>
+			</div>
+		</a>
 	);
 }
 
