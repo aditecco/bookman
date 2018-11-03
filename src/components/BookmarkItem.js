@@ -19,6 +19,7 @@ function BookmarkItem(props) {
     <a
       className="postWrapper"
       href={url}
+      target='_blank'
     >
       <article
         className='postItem'

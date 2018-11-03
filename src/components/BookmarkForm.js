@@ -90,7 +90,7 @@ class BookmarkForm extends React.Component {
 
           <BaseButton
             className='submitButton'
-            label='salva'
+            label='save'
             onClick={this.handleSubmit}
           />
       </form>
