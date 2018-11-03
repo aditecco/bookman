@@ -1,13 +1,13 @@
 
 /******************
-  Bookmark
+  BookmarkItem
 *******************/
 
 // js
 import React from 'react';
 
 
-function Bookmark(props) {
+function BookmarkItem(props) {
   const {
     id,
     url,
@@ -40,4 +40,4 @@ function Bookmark(props) {
   );
 }
 
-export default Bookmark;
+export default BookmarkItem;
