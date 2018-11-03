@@ -6,6 +6,7 @@
 // js
 import React from 'react';
 
+
 function Bookmark(props) {
   const {
     id,
@@ -15,25 +16,27 @@ function Bookmark(props) {
   } = props;
 
   return (
-    <article
-      className='postItem'
-      id={id}
+    <a
+      className="postWrapper"
+      href={url}
     >
-      <a
-        className="postWrapper"
-        href={url}
+      <article
+        className='postItem'
+        id={id}
       >
         <header className="bookmark-header">
           <h4>{url}</h4>
         </header>
+
         <div className="bookmark-body">
           {tag}
         </div>
+
         <footer className="bookmark-footer">
           {timeStamp}
         </footer>
-      </a>
-    </article>
+      </article>
+    </a>
   );
 }
 
