@@ -63,7 +63,7 @@ class App extends Component {
       <div className="wrapper">
         <section className="inputSection">
           <BookmarkForm
-            passInputToParent={this.renderBookmarks}
+            passToParent={this.renderBookmarks}
           />
         </section>
 

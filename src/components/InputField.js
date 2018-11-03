@@ -17,7 +17,8 @@ function InputField(props) {
     className,
     inputLabel,
     onChange,
-    placeholder
+    placeholder,
+    value
   } = props;
 
   return (
@@ -27,10 +28,11 @@ function InputField(props) {
       </label>
 
       <input
-        type="text"
         className={className}
-        placeholder={placeholder}
         onChange={onChange}
+        placeholder={placeholder}
+        type="text"
+        value={value}
       />
     </>
   );

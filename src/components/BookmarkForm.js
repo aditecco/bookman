@@ -34,12 +34,22 @@ class BookmarkForm extends React.Component {
     let bundledInput = {};
     bundledInput.url = this.state.urlInput;
     bundledInput.tag = this.state.tagInput;
-    this.props.passInputToParent(bundledInput);
+
+    this.props.passToParent(bundledInput);
     // console.log(bundledInput);
+
+    this.setState({
+      urlInput: '',
+      tagInput: ''
+    });
   }
 
   render() {
     const id = 'BookmarkForm';
+    const {
+      urlInput,
+      tagInput
+    } = this.state;
 
     return (
       <form
@@ -48,14 +58,16 @@ class BookmarkForm extends React.Component {
       >
         <InputField
             className='urlInput'
-            placeholder='Your URL'
             onChange={this.handleUrlChange}
+            placeholder='Your URL'
+            value={urlInput}
           />
 
           <InputField
             className='tagInput'
-            placeholder='Your tag'
             onChange={this.handleTagChange}
+            placeholder='Your tag'
+            value={tagInput}
           />
 
           <BaseButton
