@@ -105,7 +105,7 @@ class App extends Component {
 
         <section className="tagSection">
           <h4 className="tagSectionHeading">
-            tags
+            {`tags - ${tags.length}`}
           </h4>
 
           <aside className="tagListContainer">
