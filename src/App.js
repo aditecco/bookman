@@ -76,7 +76,7 @@ class App extends Component {
       sortedByTag
     } = this.state;
 
-    let reversedBookmarks = bookmarks.reverse();
+    // let reversedBookmarks = bookmarks.reverse();
 
     return (
       <div className="wrapper">

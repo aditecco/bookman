@@ -32,18 +32,27 @@ class BookmarkForm extends React.Component {
     // console.log(currentInput);
   }
 
+  handleEmptyInput = (e) => {
+    alert('URL is required!')
+  }
+
   handleSubmit = (e) => {
-    let bundledInput = {};
-    bundledInput.url = this.state.urlInput;
-    bundledInput.tag = this.state.tagInput;
+    // only urlInput is required
+    if (this.state.urlInput !== '') {
+      let bundledInput = {};
+      bundledInput.url = this.state.urlInput;
+      bundledInput.tag = this.state.tagInput;
 
-    this.props.passToParent(bundledInput);
-    // console.log(bundledInput);
+      this.props.passToParent(bundledInput);
+      // console.log(bundledInput);
 
-    this.setState({
-      urlInput: '',
-      tagInput: ''
-    });
+      this.setState({
+        urlInput: '',
+        tagInput: ''
+      });
+    } else {
+      return this.handleEmptyInput();
+    }
   }
 
   // handleKeyDown = (e) => {
