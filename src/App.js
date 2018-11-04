@@ -139,9 +139,9 @@ class App extends Component {
             {
               sortedByTag !== '' ?
                 filteredTags.length > 1 ?
-                `${filteredTags.length} results for tag '${sortedByTag}'`
+                `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
                 :
-                `${filteredTags.length} result for tag '${sortedByTag}'`
+                `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
               :
               `Bookmarks - ${this.state.bookmarks.length}`
             }
