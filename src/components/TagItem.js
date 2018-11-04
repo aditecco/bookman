@@ -26,7 +26,12 @@ function TagItem(props) {
 				</span>
 
 				<span className="tagItemCount">
-					{count}
+					{
+						count !== null || undefined ?
+						` (${count})`
+						:
+						null
+					}
 				</span>
 			</div>
 		</a>

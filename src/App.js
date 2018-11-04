@@ -77,6 +77,9 @@ class App extends Component {
     } = this.state;
 
     // let reversedBookmarks = bookmarks.reverse();
+    let filteredTags = bookmarks.filter(
+      (el, i) => el.tags === sortedByTag
+    );
 
     return (
       <div className="wrapper">
@@ -101,58 +104,53 @@ class App extends Component {
 
             <ul className="tagList">
               {
-                mockBookmarks.map((bookmark, i) => {
-                  let filter = this.state.sortedByTag;
+                sortedByTag === '' ?
 
-                  if (filter === '') {
-                    return (
-                      <li key={i}>
-                        <TagItem
-                          name={bookmark.tags}
-                          count={null}
-                          onClick={this.handleTagSorting}
-                        />
-                      </li>
-                    )
-                  } else if (filter === bookmark.tags) {
-                    return (
-                      <li key={i}>
-                        <TagItem
-                          name={bookmark.tags}
-                          count={null}
-                          onClick={this.handleTagSorting}
-                        />
-                      </li>
-                    )
-                  }
+                bookmarks.map((bookmark, i) => {
+                  return (
+                    <li key={i}>
+                      <TagItem
+                        name={bookmark.tags}
+                        count={null}
+                        onClick={this.handleTagSorting}
+                      />
+                    </li>
+                  )
+                })
+                :
+                filteredTags.slice(0, 1).map((bookmark, i) => {
+                  return (
+                    <li key={i}>
+                      <TagItem
+                        name={bookmark.tags}
+                        count={filteredTags.length}
+                        onClick={this.handleTagSorting}
+                      />
+                    </li>
+                  )
                 })
               }
-              {/* { */}
-              {/*   tags.map((tag, i) => { */}
-              {/*     return ( */}
-              {/*       <li key={i}> */}
-              {/*         <TagItem */}
-              {/*           name={tag} */}
-              {/*           count={null} */}
-              {/*           onClick={(e) => console.log('tag')} */}
-              {/*         /> */}
-              {/*       </li> */}
-              {/*     ) */}
-              {/*   }) */}
-              {/* } */}
             </ul>
           </aside>
         </section>
 
         <section className="bookmarkSection">
           <h4 className="bookmarkSectionHeading">
-            {`Bookmarks - ${this.state.bookmarks.length}`}
+            {
+              sortedByTag !== '' ?
+                filteredTags.length > 1 ?
+                `${filteredTags.length} results for tag '${sortedByTag}'`
+                :
+                `${filteredTags.length} result for tag '${sortedByTag}'`
+              :
+              `Bookmarks - ${this.state.bookmarks.length}`
+            }
           </h4>
 
           <main className="bookmarkContainer">
             <ol className="bookmarkList">
               {
-                mockBookmarks.map((bookmark, i) => {
+                bookmarks.map((bookmark, i) => {
                   let filter = this.state.sortedByTag;
 
                   if (filter === '') {
@@ -180,20 +178,6 @@ class App extends Component {
                   }
                 })
               }
-              {/* { */}
-              {/*   reversedBookmarks.map((bookmark, i) => { */}
-              {/*     return ( */}
-              {/*       <li key={i}> */}
-              {/*         <BookmarkItem */}
-              {/*           id={bookmark.id} */}
-              {/*           url={bookmark.url} */}
-              {/*           tag={bookmark.tag} */}
-              {/*           timeStamp={bookmark.timeStamp} */}
-              {/*         /> */}
-              {/*       </li> */}
-              {/*     ) */}
-              {/*   }) */}
-              {/* } */}
             </ol>
           </main>
         </section>
