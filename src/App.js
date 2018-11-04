@@ -36,8 +36,8 @@ class App extends Component {
       date = new Date(),
       bookmark = {
         id: Date.now(),
-        url: input.url,
-        tag: input.tag,
+        href: input.url,
+        tags: input.tags,
         timeStamp: date.toLocaleString()
     };
 
