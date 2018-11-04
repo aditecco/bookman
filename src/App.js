@@ -70,9 +70,12 @@ class App extends Component {
   }
 
   persistBookmarks = (bookmarks) => {
-    bookmarks.forEach((el, i) => {
-      localStorage.setItem(el.description, el.href);
-    });
+    let jsonBookmarks = JSON.stringify(bookmarks, true);
+    localStorage.setItem('localBookmarks', jsonBookmarks)
+
+    // bookmarks.forEach((el, i) => {
+    //   localStorage.setItem(el.description, el.href);
+    // });
 
     console.warn('Saved to localStorage')
   }
