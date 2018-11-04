@@ -69,6 +69,14 @@ class App extends Component {
     this.setState({ sortedByTag: '' })
   }
 
+  persistBookmarks = (bookmarks) => {
+    bookmarks.forEach((el, i) => {
+      localStorage.setItem(el.description, el.href);
+    });
+
+    console.warn('Saved to localStorage')
+  }
+
   render() {
     const {
       bookmarks,
@@ -83,6 +91,12 @@ class App extends Component {
 
     return (
       <div className="wrapper">
+        {
+          bookmarks.length > 0 ?
+          this.persistBookmarks(bookmarks)
+          :
+          <h4>no bookmarks!</h4>
+        }
         <section className="inputSection">
           <BookmarkForm
             passToParent={this.renderBookmarks}
