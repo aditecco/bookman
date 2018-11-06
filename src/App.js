@@ -25,13 +25,36 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarks: mockBookmarks,
+      bookmarks: [],
+      // bookmarks: mockBookmarks,
       tags: [],
       sortedByTag: ''
     }
   }
 
-  renderBookmarks = (input) => {
+  componentWillMount() {
+    const
+      localBookmarks = localStorage.getItem('localBookmarks'),
+      LOCAL_FOUND = 'Found local bookmarks. Rendering...',
+      LOCAL_NOT_FOUND = 'Local bookmarks not found. Initializing...',
+      INITIAL_BOOKMARKS = []
+    ;
+
+    if (localBookmarks) {
+      console.info(LOCAL_FOUND);
+      this.setState({ bookmarks: localBookmarks })
+    } else {
+      console.info(LOCAL_NOT_FOUND);
+      this.persistBookmarks(INITIAL_BOOKMARKS);
+    }
+  }
+
+  persistBookmarks = (bookmarks) => {
+    let jsonBookmarks = JSON.stringify(bookmarks, true);
+    localStorage.setItem('localBookmarks', jsonBookmarks)
+  }
+
+  addBookmark = (input) => {
     const
       date = new Date(),
       bookmark = {
@@ -45,6 +68,11 @@ class App extends Component {
       bookmarks: this.state.bookmarks.concat(bookmark)
       // tags: this.state.tags.concat(bookmark.tag)
     })
+
+    let existing = [];
+    existing = JSON.parse(localStorage.getItem('localBookmarks'));
+    existing.push(bookmark);
+    localStorage.setItem('localBookmarks', JSON.stringify(existing));
 
     this.updateTags(bookmark.tag);
   }
@@ -69,17 +97,6 @@ class App extends Component {
     this.setState({ sortedByTag: '' })
   }
 
-  persistBookmarks = (bookmarks) => {
-    let jsonBookmarks = JSON.stringify(bookmarks, true);
-    localStorage.setItem('localBookmarks', jsonBookmarks)
-
-    // bookmarks.forEach((el, i) => {
-    //   localStorage.setItem(el.description, el.href);
-    // });
-
-    console.warn('Saved to localStorage')
-  }
-
   render() {
     const {
       bookmarks,
@@ -88,21 +105,21 @@ class App extends Component {
     } = this.state;
 
     // let reversedBookmarks = bookmarks.reverse();
-    let filteredTags = bookmarks.filter(
-      (el, i) => el.tags === sortedByTag
-    );
+    // let filteredTags = bookmarks.filter(
+    //   (el, i) => el.tags === sortedByTag
+    // );
 
     return (
       <div className="wrapper">
-        {
-          bookmarks.length > 0 ?
-          this.persistBookmarks(bookmarks)
-          :
-          <h4>no bookmarks!</h4>
-        }
+        {/* { */}
+        {/*   bookmarks.length > 0 ? */}
+        {/*   this.persistBookmarks(bookmarks) */}
+        {/*   : */}
+        {/*   <h4>no bookmarks!</h4> */}
+        {/* } */}
         <section className="inputSection">
           <BookmarkForm
-            passToParent={this.renderBookmarks}
+            passToParent={this.addBookmark}
           />
         </section>
 
@@ -119,54 +136,56 @@ class App extends Component {
               label='clear tags'
             />
 
-            <ul className="tagList">
-              {
-                sortedByTag === '' ?
-
-                bookmarks.map((bookmark, i) => {
-                  return (
-                    <li key={i}>
-                      <TagItem
-                        name={bookmark.tags}
-                        count={null}
-                        onClick={this.handleTagSorting}
-                      />
-                    </li>
-                  )
-                })
-                :
-                filteredTags.slice(0, 1).map((bookmark, i) => {
-                  return (
-                    <li key={i}>
-                      <TagItem
-                        name={bookmark.tags}
-                        count={filteredTags.length}
-                        onClick={this.handleTagSorting}
-                      />
-                    </li>
-                  )
-                })
-              }
-            </ul>
+{/*             <ul className="tagList"> */}
+{/*               { */}
+{/*                 sortedByTag === '' ? */}
+{/*  */}
+{/*                 bookmarks.map((bookmark, i) => { */}
+{/*                   return ( */}
+{/*                     <li key={i}> */}
+{/*                       <TagItem */}
+{/*                         name={bookmark.tags} */}
+{/*                         count={null} */}
+{/*                         onClick={this.handleTagSorting} */}
+{/*                       /> */}
+{/*                     </li> */}
+{/*                   ) */}
+{/*                 }) */}
+{/*                 : */}
+{/*                 filteredTags.slice(0, 1).map((bookmark, i) => { */}
+{/*                   return ( */}
+{/*                     <li key={i}> */}
+{/*                       <TagItem */}
+{/*                         name={bookmark.tags} */}
+{/*                         count={filteredTags.length} */}
+{/*                         onClick={this.handleTagSorting} */}
+{/*                       /> */}
+{/*                     </li> */}
+{/*                   ) */}
+{/*                 }) */}
+{/*               } */}
+{/*             </ul> */}
           </aside>
         </section>
 
         <section className="bookmarkSection">
           <h4 className="bookmarkSectionHeading">
-            {
-              sortedByTag !== '' ?
-                filteredTags.length > 1 ?
-                `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
-                :
-                `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
-              :
-              `Bookmarks - ${this.state.bookmarks.length}`
-            }
+            {/* { */}
+            {/*   sortedByTag !== '' ? */}
+            {/*     filteredTags.length > 1 ? */}
+            {/*     `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'` */}
+            {/*     : */}
+            {/*     `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'` */}
+            {/*   : */}
+            {/*   `Bookmarks - ${this.state.bookmarks.length}` */}
+            {/* } */}
           </h4>
 
           <main className="bookmarkContainer">
             <ol className="bookmarkList">
               {
+                bookmarks.length > 0 ?
+
                 bookmarks.map((bookmark, i) => {
                   let filter = this.state.sortedByTag;
 
@@ -194,6 +213,8 @@ class App extends Component {
                     )
                   }
                 })
+                :
+                <span className="blankSlateMessage">No bookmarks! Create one.</span>
               }
             </ol>
           </main>
