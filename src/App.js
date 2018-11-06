@@ -42,7 +42,9 @@ class App extends Component {
 
     if (localBookmarks) {
       console.info(LOCAL_FOUND);
-      this.setState({ bookmarks: localBookmarks })
+      this.setState(
+        { bookmarks: JSON.parse(localBookmarks) }
+      )
     } else {
       console.info(LOCAL_NOT_FOUND);
       this.persistBookmarks(INITIAL_BOOKMARKS);
