@@ -67,8 +67,8 @@ class App extends Component {
     };
 
     this.setState({
-      bookmarks: this.state.bookmarks.concat(bookmark)
-      // tags: this.state.tags.concat(bookmark.tag)
+      bookmarks: this.state.bookmarks.concat(bookmark),
+      // tags: this.state.tags.concat(bookmark.tags)
     })
 
     let existing = [];
@@ -76,7 +76,7 @@ class App extends Component {
     existing.push(bookmark);
     localStorage.setItem('localBookmarks', JSON.stringify(existing));
 
-    this.updateTags(bookmark.tag);
+    this.updateTags(bookmark.tags);
   }
 
   updateTags = (tag) => {
@@ -106,10 +106,10 @@ class App extends Component {
       sortedByTag
     } = this.state;
 
-    // let reversedBookmarks = bookmarks.reverse();
-    // let filteredTags = bookmarks.filter(
-    //   (el, i) => el.tags === sortedByTag
-    // );
+    let reversedBookmarks = bookmarks.reverse();
+    let filteredTags = bookmarks.filter(
+      (el, i) => el.tags === sortedByTag
+    );
 
     return (
       <div className="wrapper">
@@ -138,35 +138,35 @@ class App extends Component {
               label='clear tags'
             />
 
-{/*             <ul className="tagList"> */}
-{/*               { */}
-{/*                 sortedByTag === '' ? */}
-{/*  */}
-{/*                 bookmarks.map((bookmark, i) => { */}
-{/*                   return ( */}
-{/*                     <li key={i}> */}
-{/*                       <TagItem */}
-{/*                         name={bookmark.tags} */}
-{/*                         count={null} */}
-{/*                         onClick={this.handleTagSorting} */}
-{/*                       /> */}
-{/*                     </li> */}
-{/*                   ) */}
-{/*                 }) */}
-{/*                 : */}
-{/*                 filteredTags.slice(0, 1).map((bookmark, i) => { */}
-{/*                   return ( */}
-{/*                     <li key={i}> */}
-{/*                       <TagItem */}
-{/*                         name={bookmark.tags} */}
-{/*                         count={filteredTags.length} */}
-{/*                         onClick={this.handleTagSorting} */}
-{/*                       /> */}
-{/*                     </li> */}
-{/*                   ) */}
-{/*                 }) */}
-{/*               } */}
-{/*             </ul> */}
+            <ul className="tagList">
+              {
+                sortedByTag === '' ?
+
+                bookmarks.map((bookmark, i) => {
+                  return (
+                    <li key={i}>
+                      <TagItem
+                        name={bookmark.tags}
+                        count={null}
+                        onClick={this.handleTagSorting}
+                      />
+                    </li>
+                  )
+                })
+                :
+                filteredTags.slice(0, 1).map((bookmark, i) => {
+                  return (
+                    <li key={i}>
+                      <TagItem
+                        name={bookmark.tags}
+                        count={filteredTags.length}
+                        onClick={this.handleTagSorting}
+                      />
+                    </li>
+                  )
+                })
+              }
+            </ul>
           </aside>
         </section>
 
