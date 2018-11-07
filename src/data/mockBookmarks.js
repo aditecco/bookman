@@ -6,7 +6,7 @@
 HOWTO
 =====
 
-- export a list of bookmarks (this example is base on OneTab)
+- export a list of bookmarks (this example is based on OneTab)
 - use this regEx to target each line:
   ^https\:\/\/(.*)\s\|\s(.*)$
 - replace w/ this object:
