@@ -14,7 +14,7 @@ import BaseButton from './components/BaseButton';
 
 
 // assets
-import mockBookmarks from './data/mockBookmarks';
+// import mockBookmarks from './data/mockBookmarks';
 
 
 // styles
@@ -66,16 +66,18 @@ class App extends Component {
         timeStamp: date.toLocaleString()
     };
 
+    // we update the state w/ the new bookmark
     this.setState({
-      bookmarks: this.state.bookmarks.concat(bookmark),
-      // tags: this.state.tags.concat(bookmark.tags)
+      bookmarks: this.state.bookmarks.concat(bookmark)
     })
 
+    // we persist the bookmark to localStorage
     let existing = [];
     existing = JSON.parse(localStorage.getItem('localBookmarks'));
     existing.push(bookmark);
-    localStorage.setItem('localBookmarks', JSON.stringify(existing));
+    this.persistBookmarks(existing);
 
+    // we update tags separately
     this.updateTags(bookmark.tags);
   }
 
@@ -91,8 +93,7 @@ class App extends Component {
     let clickedTag = e.target.innerHTML;
 
     this.setState({ sortedByTag: clickedTag });
-    // console.log(e.target);
-    console.log(clickedTag);
+    // console.log(clickedTag);
   }
 
   resetTagSorting = (e) => {
@@ -113,12 +114,6 @@ class App extends Component {
 
     return (
       <div className="wrapper">
-        {/* { */}
-        {/*   bookmarks.length > 0 ? */}
-        {/*   this.persistBookmarks(bookmarks) */}
-        {/*   : */}
-        {/*   <h4>no bookmarks!</h4> */}
-        {/* } */}
         <section className="inputSection">
           <BookmarkForm
             passToParent={this.addBookmark}
@@ -172,15 +167,15 @@ class App extends Component {
 
         <section className="bookmarkSection">
           <h4 className="bookmarkSectionHeading">
-            {/* { */}
-            {/*   sortedByTag !== '' ? */}
-            {/*     filteredTags.length > 1 ? */}
-            {/*     `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'` */}
-            {/*     : */}
-            {/*     `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'` */}
-            {/*   : */}
-            {/*   `Bookmarks - ${this.state.bookmarks.length}` */}
-            {/* } */}
+            {
+              sortedByTag !== '' ?
+                filteredTags.length > 1 ?
+                `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
+                :
+                `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
+              :
+              `Bookmarks - ${this.state.bookmarks.length}`
+            }
           </h4>
 
           <main className="bookmarkContainer">
