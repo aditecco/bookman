@@ -14,7 +14,7 @@ import BaseButton from './components/BaseButton';
 
 
 // assets
-// import mockBookmarks from './data/mockBookmarks';
+import mockBookmarks from './data/mockBookmarks';
 
 
 // styles
@@ -32,18 +32,24 @@ class App extends Component {
     }
   }
 
+
   componentWillMount() {
     const
-      localBookmarks = localStorage.getItem('localBookmarks'),
+      LOCAL = localStorage.getItem('localBookmarks'),
       LOCAL_FOUND = 'Found local bookmarks. Rendering...',
       LOCAL_NOT_FOUND = 'Local bookmarks not found. Initializing...',
       INITIAL_BOOKMARKS = []
     ;
 
-    if (localBookmarks) {
+    if (LOCAL) {
       console.info(LOCAL_FOUND);
+      const parsedLocalBookmarks = JSON.parse(LOCAL);
+
       this.setState(
-        { bookmarks: JSON.parse(localBookmarks) }
+        {
+          bookmarks: parsedLocalBookmarks,
+          tags: this.extractTags(parsedLocalBookmarks)
+        }
       )
     } else {
       console.info(LOCAL_NOT_FOUND);
@@ -51,10 +57,12 @@ class App extends Component {
     }
   }
 
+
   persistBookmarks = (bookmarks) => {
     let jsonBookmarks = JSON.stringify(bookmarks, true);
     localStorage.setItem('localBookmarks', jsonBookmarks)
   }
+
 
   addBookmark = (input) => {
     const
@@ -81,11 +89,24 @@ class App extends Component {
     this.updateTags(bookmark.tags);
   }
 
+
   updateTags = (tag) => {
     this.setState({
       tags: this.state.tags.concat(tag)
     })
   }
+
+
+  extractTags = (bookmarks) => {
+    let extracted = [];
+
+    bookmarks.map((bookmark) => {
+      extracted.push(bookmark.tags);
+    });
+
+    return extracted;
+  }
+
 
   handleTagSorting = (e) => {
     e.preventDefault();
@@ -96,9 +117,11 @@ class App extends Component {
     // console.log(clickedTag);
   }
 
+
   resetTagSorting = (e) => {
     this.setState({ sortedByTag: '' })
   }
+
 
   render() {
     const {
@@ -106,6 +129,14 @@ class App extends Component {
       tags,
       sortedByTag
     } = this.state;
+
+    // let tags = bookmarks.map((bookmark) => {
+    //   let t = [];
+    //   t.push(bookmark.tags);
+
+    //   return t;
+    // });
+    // console.log(tags);
 
     let reversedBookmarks = bookmarks.reverse();
     let filteredTags = bookmarks.filter(
