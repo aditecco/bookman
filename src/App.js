@@ -221,10 +221,10 @@ class App extends Component {
                     return (
                       <li key={i}>
                         <BookmarkItem
-                          id={null}
+                          id={bookmark.id}
                           url={bookmark.href}
                           tag={bookmark.tags}
-                          timeStamp={null}
+                          timeStamp={bookmark.timeStamp}
                         />
                       </li>
                     )
@@ -232,10 +232,10 @@ class App extends Component {
                     return (
                       <li key={i}>
                         <BookmarkItem
-                          id={null}
+                          id={bookmark.id}
                           url={bookmark.href}
                           tag={bookmark.tags}
-                          timeStamp={null}
+                          timeStamp={bookmark.timeStamp}
                         />
                       </li>
                     )
