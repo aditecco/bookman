@@ -90,6 +90,26 @@ class App extends Component {
   }
 
 
+  deleteBookmark = (id) => {
+    let bookmarks = this.state.bookmarks;
+    let target = bookmarks.findIndex(
+      (el) => el.id === id
+    );
+    console.log(target);
+
+    let c = [...bookmarks];
+    c.splice(target, 1);
+
+    console.log(c);
+
+    this.setState({
+      bookmarks: c
+    })
+
+    console.log(`deleting ${target}...`);
+  }
+
+
   updateTags = (tag) => {
     this.setState({
       tags: this.state.tags.concat(tag)
@@ -225,6 +245,10 @@ class App extends Component {
                           url={bookmark.href}
                           tag={bookmark.tags}
                           timeStamp={bookmark.timeStamp}
+                          onEditClick={null}
+                          onDeleteClick={
+                            this.deleteBookmark
+                          }
                         />
                       </li>
                     )
@@ -236,6 +260,10 @@ class App extends Component {
                           url={bookmark.href}
                           tag={bookmark.tags}
                           timeStamp={bookmark.timeStamp}
+                          onEditClick={null}
+                          onDeleteClick={
+                            this.deleteBookmark
+                          }
                         />
                       </li>
                     )
