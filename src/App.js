@@ -197,7 +197,10 @@ class App extends Component {
               className=''
               onClick={this.resetTagSorting}
               onKeyDown={null}
-              label='clear tags'
+              label={
+                tags.length > 0 ?
+                'clear tags' : null
+              }
             />
 
             <ul className="tagList">
