@@ -5,6 +5,7 @@
 
 // js deps
 import React, { Component } from 'react';
+// import stringify from 'json-stringify-safe';
 
 
 // components
@@ -17,7 +18,6 @@ import BaseButton from './components/BaseButton';
 // assets
 import Actions from './actions';
 import * as Constants from './constants';
-import mockBookmarks from './data/mockBookmarks';
 
 
 // styles
@@ -51,7 +51,8 @@ class App extends Component {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        JSON.stringify(Constants.INITIAL_BOOKMARKS, true)
+        // JSON.stringify(Constants.INITIAL_BOOKMARKS, true)
+        Constants.TEST_BOOKMARKS
       );
     }
   }
@@ -102,7 +103,7 @@ class App extends Component {
   // handles localStorage actions
   localDispatcher = (action, payload) => {
     let bookmarks = this.state.bookmarks;
-    let local = JSON.parse(Constants.LOCAL);
+    let local = JSON.parse(localStorage.getItem('localBookmarks'));
 
     switch (action) {
       case Actions.create:
