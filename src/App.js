@@ -43,8 +43,8 @@ class App extends Component {
 
       this.setState(
         {
-          bookmarks: parsedLocalBookmarks,
-          tags: this.extractTags(parsedLocalBookmarks)
+          bookmarks: parsed,
+          tags: this.extractTags(parsed)
         }
       )
     } else {

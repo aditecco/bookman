@@ -1,5 +1,7 @@
 
-
+/******************
+  Actions
+*******************/
 
 const Actions = {
   create: 'CREATE_BOOKMARK',
