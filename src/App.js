@@ -3,8 +3,9 @@
   App
 *******************/
 
-// js
+// js deps
 import React, { Component } from 'react';
+
 
 // components
 import BookmarkItem from './components/BookmarkItem';
@@ -14,6 +15,7 @@ import BaseButton from './components/BaseButton';
 
 
 // assets
+import Actions from './actions';
 import mockBookmarks from './data/mockBookmarks';
 
 
@@ -61,6 +63,7 @@ class App extends Component {
   }
 
 
+  // adds a bookmark to state, updates localStorage
   addBookmark = (input) => {
     const
       date = new Date(),
@@ -71,7 +74,6 @@ class App extends Component {
         timeStamp: date.toLocaleString()
     };
 
-    // we update the state w/ the new bookmark
     this.setState({
       bookmarks: this.state.bookmarks.concat(bookmark)
     })
@@ -134,6 +136,7 @@ class App extends Component {
   }
 
 
+  // updates tags in state
   updateTags = (tag) => {
     this.setState({
       tags: this.state.tags.concat(tag)
@@ -141,6 +144,7 @@ class App extends Component {
   }
 
 
+  // extracts tags from bookmarks in state
   extractTags = (bookmarks) => {
     let extracted = [];
 
@@ -152,6 +156,7 @@ class App extends Component {
   }
 
 
+  // updates state w/ tag filter
   handleTagSorting = (e) => {
     e.preventDefault();
 
@@ -162,6 +167,7 @@ class App extends Component {
   }
 
 
+  // resets tag filter in state
   resetTagSorting = (e) => {
     this.setState({ sortedByTag: '' })
   }
@@ -174,15 +180,7 @@ class App extends Component {
       sortedByTag
     } = this.state;
 
-    // let tags = bookmarks.map((bookmark) => {
-    //   let t = [];
-    //   t.push(bookmark.tags);
-
-    //   return t;
-    // });
-    // console.log(tags);
-
-    let reversedBookmarks = bookmarks.reverse();
+    // let reversedBookmarks = bookmarks.reverse();
     let filteredTags = bookmarks.filter(
       (el, i) => el.tags === sortedByTag
     );
@@ -271,7 +269,7 @@ class App extends Component {
                           timeStamp={bookmark.timeStamp}
                           onEditClick={null}
                           onDeleteClick={
-                            this.deleteBookmark
+                            this.removeBookmark
                           }
                         />
                       </li>
@@ -286,7 +284,7 @@ class App extends Component {
                           timeStamp={bookmark.timeStamp}
                           onEditClick={null}
                           onDeleteClick={
-                            this.deleteBookmark
+                            this.removeBookmark
                           }
                         />
                       </li>
