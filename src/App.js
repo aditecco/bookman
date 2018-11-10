@@ -16,6 +16,7 @@ import BaseButton from './components/BaseButton';
 
 // assets
 import Actions from './actions';
+import * as Constants from './constants';
 import mockBookmarks from './data/mockBookmarks';
 
 
@@ -36,16 +37,9 @@ class App extends Component {
 
 
   componentWillMount() {
-    const
-      LOCAL = localStorage.getItem('localBookmarks'),
-      LOCAL_FOUND = 'Found local bookmarks. Rendering...',
-      LOCAL_NOT_FOUND = 'Local bookmarks not found. Initializing...',
-      INITIAL_BOOKMARKS = []
-    ;
-
-    if (LOCAL) {
-      console.info(LOCAL_FOUND);
-      const parsedLocalBookmarks = JSON.parse(LOCAL);
+    if (Constants.LOCAL) {
+      console.info(Constants.LOCAL_FOUND);
+      let parsed = JSON.parse(Constants.LOCAL);
 
       this.setState(
         {
@@ -54,10 +48,10 @@ class App extends Component {
         }
       )
     } else {
-      console.info(LOCAL_NOT_FOUND);
+      console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        JSON.stringify(INITIAL_BOOKMARKS, true)
+        JSON.stringify(Constants.INITIAL_BOOKMARKS, true)
       );
     }
   }
@@ -108,7 +102,7 @@ class App extends Component {
   // handles localStorage actions
   localDispatcher = (action, payload) => {
     let bookmarks = this.state.bookmarks;
-    let local = JSON.parse(localStorage.getItem('localBookmarks'));
+    let local = JSON.parse(Constants.LOCAL);
 
     switch (action) {
       case Actions.create:
