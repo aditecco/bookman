@@ -53,14 +53,11 @@ class App extends Component {
       )
     } else {
       console.info(LOCAL_NOT_FOUND);
-      this.persistBookmarks(INITIAL_BOOKMARKS);
+      localStorage.setItem(
+        'localBookmarks',
+        JSON.stringify(INITIAL_BOOKMARKS, true)
+      );
     }
-  }
-
-
-  persistBookmarks = (bookmarks) => {
-    let jsonBookmarks = JSON.stringify(bookmarks, true);
-    localStorage.setItem('localBookmarks', jsonBookmarks)
   }
 
 
@@ -79,34 +76,61 @@ class App extends Component {
       bookmarks: this.state.bookmarks.concat(bookmark)
     })
 
-    // we persist the bookmark to localStorage
-    let existing = [];
-    existing = JSON.parse(localStorage.getItem('localBookmarks'));
-    existing.push(bookmark);
-    this.persistBookmarks(existing);
+    this.localDispatcher(Actions.create, bookmark);
 
     // we update tags separately
     this.updateTags(bookmark.tags);
   }
 
 
-  deleteBookmark = (id) => {
-    let bookmarks = this.state.bookmarks;
-    let target = bookmarks.findIndex(
+  // removes a bookmark from state, updates localStorage
+  removeBookmark = (id) => {
+    let
+      bookmarks = this.state.bookmarks,
+      target = bookmarks.findIndex(
       (el) => el.id === id
     );
-    console.log(target);
+    // console.log(target);
 
-    let c = [...bookmarks];
-    c.splice(target, 1);
+    let clone = [...bookmarks];
+    clone.splice(target, 1);
 
-    console.log(c);
+    this.setState({ bookmarks: clone })
 
-    this.setState({
-      bookmarks: c
-    })
+    this.localDispatcher(Actions.remove, clone)
 
-    console.log(`deleting ${target}...`);
+    // console.log(`${target} deleted.`);
+  }
+
+
+  // handles localStorage actions
+  localDispatcher = (action, payload) => {
+    let bookmarks = this.state.bookmarks;
+    let local = JSON.parse(localStorage.getItem('localBookmarks'));
+
+    switch (action) {
+      case Actions.create:
+        let updated = [...local];
+        updated.push(payload)
+        localStorage.setItem('localBookmarks', JSON.stringify(updated, true));
+        console.info('Created new bookmark.')
+
+        break;
+
+      case Actions.edit:
+        console.warn('action not set.')
+        break;
+
+      case Actions.remove:
+        localStorage.setItem('localBookmarks', JSON.stringify(payload, true));
+        console.info(`Bookmark deleted.`);
+
+        break;
+
+      default:
+        console.warn('no action passed!')
+        break;
+    }
   }
 
 
