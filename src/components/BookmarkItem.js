@@ -3,15 +3,19 @@
   BookmarkItem
 *******************/
 
-// js
+// deps
 import React from 'react';
+
+
+// comps
+import PillButton from './PillButton';
 
 
 function BookmarkItem(props) {
   const {
     id,
     url,
-    tag,
+    tags,
     timeStamp,
     onEditClick,
     onDeleteClick
@@ -36,13 +40,40 @@ function BookmarkItem(props) {
           <h4>{url}</h4>
         </header>
 
-        <div className="bookmark-body">
-          {tag}
-        </div>
+        <section className="bookmark-body">
+          <h6>Tags</h6>
+
+          {
+            typeof tags !== 'object' ?
+
+            <PillButton
+              label={tags}
+              href={null}
+              onClick={null}
+            />
+            :
+            <ul className="tag-container">
+              {tags.map(
+                (tag, i) => {
+                  return (
+                    <li>
+                      <PillButton
+                        label={tag}
+                        href={null}
+                      />
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          }
+        </section>
       </a>
 
-      <div className="bookmark-controls">
-        <ul className="bookmark-controls container">
+      <section className="bookmark-controls">
+        <h6>Controls</h6>
+
+        <ul className="bookmark-controls-container">
           <li className="bookmark-controls-item">
             <a
               href="#"
@@ -62,7 +93,7 @@ function BookmarkItem(props) {
             </a>
           </li>
         </ul>
-      </div>
+      </section>
 
       <footer className="bookmark-footer">
         {timeStamp}

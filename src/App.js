@@ -273,7 +273,7 @@ class App extends Component {
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
-                          tag={bookmark.tags}
+                          tags={bookmark.tags}
                           timeStamp={bookmark.timeStamp}
                           onEditClick={null}
                           onDeleteClick={
