@@ -153,6 +153,10 @@ class App extends Component {
       extracted.push(bookmark.tags);
     });
 
+    // FIX
+    // tags are flattened only on new bookmark creation,
+    // we need to flatten the array here too
+
     return extracted;
   }
 
@@ -182,8 +186,8 @@ class App extends Component {
     } = this.state;
 
     // let reversedBookmarks = bookmarks.reverse();
-    let filteredTags = bookmarks.filter(
-      (el, i) => el.tags === sortedByTag
+    let filteredTags = tags.filter(
+      (tag, i) => tag === sortedByTag
     );
 
     return (
@@ -226,11 +230,11 @@ class App extends Component {
                   )
                 })
                 :
-                filteredTags.slice(0, 1).map((bookmark, i) => {
+                filteredTags.slice(0, 1).map((tag, i) => {
                   return (
                     <li key={i}>
                       <TagItem
-                        name={bookmark.tags}
+                        name={tag}
                         count={filteredTags.length}
                         onClick={this.handleTagSorting}
                       />
