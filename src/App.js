@@ -51,8 +51,8 @@ class App extends Component {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        // JSON.stringify(Constants.INITIAL_BOOKMARKS, true)
-        Constants.TEST_BOOKMARKS
+        Constants.INITIAL_BOOKMARKS
+        // Constants.TEST_BOOKMARKS
       );
     }
   }
@@ -62,10 +62,11 @@ class App extends Component {
   addBookmark = (input) => {
     const
       date = new Date(),
+      splittedTags = input.tags.split(','),
       bookmark = {
         id: Date.now(),
         href: input.url,
-        tags: input.tags,
+        tags: splittedTags,
         timeStamp: date.toLocaleString()
     };
 
@@ -133,9 +134,14 @@ class App extends Component {
 
   // updates tags in state
   updateTags = (tag) => {
-    this.setState({
-      tags: this.state.tags.concat(tag)
-    })
+    let cloned = [...this.state.tags];
+    cloned.push(tag);
+    console.log(cloned);
+
+    let flattened = cloned.concat.apply([], cloned);
+    console.log(flattened);
+
+    this.setState({ tags: flattened });
   }
 
 
@@ -208,11 +214,11 @@ class App extends Component {
               {
                 sortedByTag === '' ?
 
-                bookmarks.map((bookmark, i) => {
+                tags.map((tag, i) => {
                   return (
                     <li key={i}>
                       <TagItem
-                        name={bookmark.tags}
+                        name={tag}
                         count={null}
                         onClick={this.handleTagSorting}
                       />
