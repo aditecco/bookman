@@ -51,8 +51,8 @@ class App extends Component {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        // Constants.INITIAL_BOOKMARKS
-        Constants.TEST_BOOKMARKS
+        Constants.INITIAL_BOOKMARKS
+        // Constants.TEST_BOOKMARKS
       );
     }
   }
@@ -266,6 +266,8 @@ class App extends Component {
                 bookmarks.length > 0 ?
 
                 bookmarks.map((bookmark, i) => {
+                  //
+                  console.log(typeof bookmark.tags)
                   let filter = this.state.sortedByTag;
 
                   if (filter === '') {
@@ -283,7 +285,27 @@ class App extends Component {
                         />
                       </li>
                     )
-                  } else if (filter === bookmark.tags) {
+                  } else if (
+                      typeof bookmark.tags === 'string' &&
+                      filter === bookmark.tags
+                    ) {
+                    return (
+                      <li key={i}>
+                        <BookmarkItem
+                          id={bookmark.id}
+                          url={bookmark.href}
+                          tag={bookmark.tags}
+                          timeStamp={bookmark.timeStamp}
+                          onEditClick={null}
+                          onDeleteClick={
+                            this.removeBookmark
+                          }
+                        />
+                      </li>
+                    )
+                  } else if (
+                      typeof bookmark.tags === 'object'
+                    ) {
                     return (
                       <li key={i}>
                         <BookmarkItem
