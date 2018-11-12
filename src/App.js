@@ -51,8 +51,8 @@ class App extends Component {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        Constants.INITIAL_BOOKMARKS
-        // Constants.TEST_BOOKMARKS
+        // Constants.INITIAL_BOOKMARKS
+        Constants.TEST_BOOKMARKS
       );
     }
   }
@@ -147,17 +147,18 @@ class App extends Component {
 
   // extracts tags from bookmarks in state
   extractTags = (bookmarks) => {
-    let extracted = [];
+    let
+      extracted = [],
+      flattened;
 
     bookmarks.map((bookmark) => {
       extracted.push(bookmark.tags);
     });
 
-    // FIX
-    // tags are flattened only on new bookmark creation,
-    // we need to flatten the array here too
+    flattened = extracted.concat.apply([], extracted);
+    // console.log(flattened);
 
-    return extracted;
+    return flattened;
   }
 
 

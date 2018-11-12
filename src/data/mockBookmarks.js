@@ -34,7 +34,7 @@ const mockBookmarks = [
     time: '',
     shared: '',
     toread: '',
-    tags: 'Déjà'
+    tags: ['Déjà','lorem','ipsum']
   },
   {
     href: 'https://github.com/gnunn1/tilix',
@@ -45,7 +45,7 @@ const mockBookmarks = [
     time: '',
     shared: '',
     toread: '',
-    tags: 'GitHub'
+    tags: ['dolor','sit','amet']
   },
   {
     href: 'https://hyper.is/#installation',
