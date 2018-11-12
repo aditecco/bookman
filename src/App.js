@@ -266,60 +266,39 @@ class App extends Component {
                 bookmarks.length > 0 ?
 
                 bookmarks.map((bookmark, i) => {
-                  //
-                  console.log(typeof bookmark.tags)
-                  let filter = this.state.sortedByTag;
+                  let
+                    filter = this.state.sortedByTag,
+                    tags = bookmark.tags;
+
+                  const bookmarkComp = (
+                    <li key={i}>
+                      <BookmarkItem
+                        id={bookmark.id}
+                        url={bookmark.href}
+                        tags={bookmark.tags}
+                        timeStamp={bookmark.timeStamp}
+                        onEditClick={null}
+                        onDeleteClick={
+                          this.removeBookmark
+                        }
+                      />
+                    </li>
+                  );
+
+                  // console.log(typeof tags)
 
                   if (filter === '') {
-                    return (
-                      <li key={i}>
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.href}
-                          tags={bookmark.tags}
-                          timeStamp={bookmark.timeStamp}
-                          onEditClick={null}
-                          onDeleteClick={
-                            this.removeBookmark
-                          }
-                        />
-                      </li>
-                    )
+                    return bookmarkComp
                   } else if (
-                      typeof bookmark.tags === 'string' &&
-                      filter === bookmark.tags
+                      typeof tags === 'string'
+                      && filter === tags
                     ) {
-                    return (
-                      <li key={i}>
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.href}
-                          tag={bookmark.tags}
-                          timeStamp={bookmark.timeStamp}
-                          onEditClick={null}
-                          onDeleteClick={
-                            this.removeBookmark
-                          }
-                        />
-                      </li>
-                    )
+                    return bookmarkComp
                   } else if (
-                      typeof bookmark.tags === 'object'
+                      typeof tags === 'object'
+                      && tags.includes(filter)
                     ) {
-                    return (
-                      <li key={i}>
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.href}
-                          tag={bookmark.tags}
-                          timeStamp={bookmark.timeStamp}
-                          onEditClick={null}
-                          onDeleteClick={
-                            this.removeBookmark
-                          }
-                        />
-                      </li>
-                    )
+                    return bookmarkComp
                   }
                 })
                 :
