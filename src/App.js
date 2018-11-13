@@ -219,7 +219,7 @@ class App extends Component {
               {
                 sortedByTag === '' ?
 
-                tags.map((tag, i) => {
+                tags.sort().map((tag, i) => {
                   return (
                     <li key={i}>
                       <TagItem
@@ -231,7 +231,9 @@ class App extends Component {
                   )
                 })
                 :
-                filteredTags.slice(0, 1).map((tag, i) => {
+                filteredTags
+                  .slice(0, 1)
+                  .map((tag, i) => {
                   return (
                     <li key={i}>
                       <TagItem
