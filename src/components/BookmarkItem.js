@@ -26,21 +26,24 @@ function BookmarkItem(props) {
     onDeleteClick(id);
   }
 
+  const root = 'BookmarkItem';
+
+
   return (
     <article
-      className='postItem'
+      className={root}
       id={id}
     >
       <a
-        className="linkWrapper"
+        className={root + "-link-wrapper"}
         href={url}
         target='_blank'
       >
-        <header className="bookmark-header">
-          <h4>{url}</h4>
+        <header className={root + "-header"}>
+          <h4 className={root + "-header-heading"}>{url}</h4>
         </header>
 
-        <section className="bookmark-body">
+        <section className={root + "-body"}>
           <h6>Tags</h6>
 
           {
@@ -52,7 +55,7 @@ function BookmarkItem(props) {
               onClick={null}
             />
             :
-            <ul className="tag-container">
+            <ul className={root + "-tag-container"}>
               {tags.map(
                 (tag, i) => {
                   return (
@@ -70,23 +73,21 @@ function BookmarkItem(props) {
         </section>
       </a>
 
-      <section className="bookmark-controls">
-        <h6>Controls</h6>
+      <section className={root + "-controls"}>
+        <h6 className={root + "-controls-heading"}>Controls</h6>
 
-        <ul className="bookmark-controls-container">
-          <li className="bookmark-controls-item">
+        <ul className={root + "-controls-container"}>
+          <li className={`${root}-controls-item ${root}-controls-item__edit`}>
             <a
               href="#"
-              className="bookmark-controls__edit"
               onClick={onEditClick}
             >
               edit
             </a>
           </li>
-          <li className="bookmark-controls-item">
+          <li className={`${root}-controls-item ${root}-controls-item__delete`}>
             <a
               href="#"
-              className="bookmark-controls__delete"
               onClick={handleDelete}
             >
               delete
@@ -95,7 +96,7 @@ function BookmarkItem(props) {
         </ul>
       </section>
 
-      <footer className="bookmark-footer">
+      <footer className={root + "-footer"}>
         {timeStamp}
       </footer>
     </article>
