@@ -21,7 +21,7 @@ import * as Constants from './constants';
 
 
 // styles
-import './styles/main.css';
+import './styles/main.scss';
 
 
 class App extends Component {

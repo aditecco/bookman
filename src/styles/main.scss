@@ -1,4 +1,16 @@
 
+/* ========================
+main.scss
+======================== */
+
+
+/* ---------------------------------
+imports
+--------------------------------- */
+
+@import '_partials/_logic';
+
+
 *,
 *::before,
 *::after {
@@ -30,3 +42,59 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
 .tagSection { width: 20%; }
 
 .bookmarkSection { width: 80%; }
+
+//
+
+.BookmarkItem {
+	width: 320px;
+	height: 400px;
+	background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

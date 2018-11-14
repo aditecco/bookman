@@ -1,12 +1,18 @@
 
 /* ========================
-_dtc-logic.scss
+logic.scss
 ======================== */
+
 
 /* ---------------------------------
 imports
 --------------------------------- */
 
+@import '~normalize.css/normalize.css';
+@import '_animations';
+@import '_colors';
+@import '_typography';
+@import '_vars';
 
 
 /* ---------------------------------
@@ -37,7 +43,7 @@ resets & placeholders
 functions & mixins
 --------------------------------- */
 
-@function calcContWidth($nCol) {
+@function colContainerCalc($nCol) {
 	$pad: 40;
 	$colWidth: 300;
 	$colGut: 20;
@@ -54,19 +60,9 @@ functions & mixins
 	@return ($target / $context) * 1em;
 }
 
-// reset margin and padding
-// should rename this to 'setBox',
-// and include emCalc()
-@mixin resetBox($pad: 0, $mar: 0, $isList: false) {
-	padding: $pad;
-	margin: $mar;
-	@if $isList {
-		list-style: none;
-	}
-}
 
 // should replace prev, watch for broken includes
-@mixin setBox($pad: 0, $mar: 0, $isList: false) {
+@mixin box($pad: 0, $mar: 0, $isList: false) {
 	padding: $pad;
 	margin: $mar;
 	@if $isList {
@@ -74,7 +70,7 @@ functions & mixins
 	}
 }
 
-@mixin setBorder(
+@mixin border(
 	$width,
 	$style,
 	$color,
@@ -90,7 +86,7 @@ functions & mixins
 // set font properties
 // add line-height
 // add default font-size?
-@mixin setFonts(
+@mixin typography(
 	$size,
 	$family: $base-font,
 	$color: $font-color-dark,
@@ -105,7 +101,7 @@ functions & mixins
 }
 
 // set flexbox properties
-@mixin setFlexbox($flow, $justify, $align) {
+@mixin flex($flow, $justify, $align) {
 	display: flex;
 	flex-flow: $flow;
 	justify-content: $justify;
