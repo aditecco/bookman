@@ -1,0 +1,26 @@
+
+/* ========================
+typography.scss
+======================== */
+
+// font definitions (tmp)
+// TODO
+// - convert remote > local
+// - reduce to 2 (max 3) font families
+// - create shorthand font declaration
+
+@import url('https://fonts.googleapis.com/css?family=Archivo|Fira+Sans|Montserrat|Muli|Niramit|Noto+Sans|Nunito|PT+Sans');
+
+$archivo:'Archivo', sans-serif;
+$montserrat:'Montserrat', sans-serif;
+$niramit:'Niramit', sans-serif;
+$ptSans:'PT Sans', sans-serif;
+$notoSans:'Noto Sans', sans-serif;
+$muli:'Muli', sans-serif;
+$nunito:'Nunito', sans-serif;
+$firaSans:'Fira Sans', sans-serif;
+
+
+// typography vars
+$fontPrimary: null;
+$fontSecondary: null;
