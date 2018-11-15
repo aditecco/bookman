@@ -35,18 +35,18 @@ function BookmarkItem(props) {
       id={id}
     >
       <a
-        className={root + "-link-wrapper"}
+        className={root + "LinkWrapper"}
         href={url}
         target='_blank'
       >
-        <header className={root + "-header"}>
-          <h4 className={root + "-header-heading"}>{url}</h4>
+        <header className={root + "Header"}>
+          <h4 className={root + "HeaderHeading"}>{url}</h4>
         </header>
 
       </a>
 
-      <section className={root + "-body"}>
-        <h6 className={root + "-body-heading"}>Tags</h6>
+      <section className={root + "Body"}>
+        <h6 className={root + "BodyHeading"}>Tags</h6>
 
         {
           typeof tags !== 'object' ?
@@ -57,7 +57,7 @@ function BookmarkItem(props) {
             onClick={null}
           />
           :
-          <ul className={root + "-tag-container"}>
+          <ul className={root + "TagContainer"}>
             {tags.map(
               (tag, i) => {
                 return (
@@ -74,11 +74,11 @@ function BookmarkItem(props) {
         }
       </section>
 
-      <section className={root + "-controls"}>
-        <h6 className={root + "-controls-heading"}>Controls</h6>
+      <section className={root + "Controls"}>
+        <h6 className={root + "ControlsHeading"}>Controls</h6>
 
-        <ul className={root + "-controls-container"}>
-          <li className={`${root}-controls-item ${root}-controls-item__edit`}>
+        <ul className={root + "ControlsContainer"}>
+          <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
             <a
               href="#"
               onClick={onEditClick}
@@ -86,7 +86,7 @@ function BookmarkItem(props) {
               edit
             </a>
           </li>
-          <li className={`${root}-controls-item ${root}-controls-item__delete`}>
+          <li className={`${root}ControlsItem ${root}ControlsItem__delete`}>
             <a
               href="#"
               onClick={handleDelete}
@@ -97,7 +97,7 @@ function BookmarkItem(props) {
         </ul>
       </section>
 
-      <footer className={root + "-footer"}>
+      <footer className={root + "Footer"}>
         {timeStamp}
       </footer>
     </article>

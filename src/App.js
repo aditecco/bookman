@@ -136,12 +136,13 @@ class App extends Component {
   updateTags = (tag) => {
     let cloned = [...this.state.tags];
     cloned.push(tag);
-    console.log(cloned);
 
     let flattened = cloned.concat.apply([], cloned);
-    console.log(flattened);
 
     this.setState({ tags: flattened });
+
+    // console.log(cloned);
+    // console.log(flattened);
   }
 
 

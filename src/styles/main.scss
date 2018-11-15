@@ -72,39 +72,39 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
           padding: ($padding / 2) $padding;
           border-bottom: 1px solid $flat-gray-1;
         }
-        &-link-wrapper {
+        &LinkWrapper {
           // @include highlight;
           display: block;
           padding: ($padding * 1.4) $padding;
           text-decoration: none;
-          #{$root}-header {
-            &-heading {
+          #{$root}Header {
+            &Heading {
               margin: 0;
               color: $flat-blue-1;
             }
           }
         }
-        #{$root}-body {
-          &-heading { @include smallHeading }
-          #{$root}-tag-container {
+        #{$root}Body {
+          &Heading { @include smallHeading }
+          #{$root}TagContainer {
             @include box(0, 0, true);
             @include flex(row nowrap, flex-start, center);
             > *:not(:last-child) { margin-right: $margin / 2; }
           }
         }
-        #{$root}-controls {
-          &-heading { @include smallHeading }
-          &-container {
+        #{$root}Controls {
+          &Heading { @include smallHeading }
+          &Container {
             @include box(0, 0, true);
             @include flex(row nowrap, space-evenly, center);
-            #{$root}-controls-item {
+            #{$root}ControlsItem {
               text-decoration: none;
               &__edit {}
               &__delete {}
             }
           }
         }
-        #{$root}-footer {
+        #{$root}Footer {
           font-size: $small;
           color: $flat-gray-2;
           font-weight: bolder;
