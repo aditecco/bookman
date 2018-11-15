@@ -199,116 +199,119 @@ class App extends Component {
           />
         </section>
 
-        <section className="tagSection">
-          <h4 className="tagSectionHeading">
-            {`tags - ${tags.length}`}
-          </h4>
+        <div className="content">
+          <section className="tagSection">
+            <h4 className="tagSectionHeading">
+              {`tags - ${tags.length}`}
+            </h4>
 
-          <aside className="tagListContainer">
-            <BaseButton
-              className=''
-              onClick={this.resetTagSorting}
-              onKeyDown={null}
-              label={
-                tags.length > 0 ?
-                'clear tags' : null
-              }
-            />
+            <aside className="tagListContainer">
+              <BaseButton
+                className=''
+                onClick={this.resetTagSorting}
+                onKeyDown={null}
+                label={
+                  tags.length > 0 ?
+                  'clear tags' : null
+                }
+              />
 
-            <ul className="tagList">
+              <ul className="tagList">
+                {
+                  sortedByTag === '' ?
+
+                  tags.sort().map((tag, i) => {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={tag}
+                          count={null}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  })
+                  :
+                  filteredTags
+                    .slice(0, 1)
+                    .map((tag, i) => {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={tag}
+                          count={filteredTags.length}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </aside>
+          </section>
+
+          <section className="bookmarkSection">
+            <h4 className="bookmarkSectionHeading">
               {
-                sortedByTag === '' ?
-
-                tags.sort().map((tag, i) => {
-                  return (
-                    <li key={i}>
-                      <TagItem
-                        name={tag}
-                        count={null}
-                        onClick={this.handleTagSorting}
-                      />
-                    </li>
-                  )
-                })
+                sortedByTag !== '' ?
+                  filteredTags.length > 1 ?
+                  `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
+                  :
+                  `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
                 :
-                filteredTags
-                  .slice(0, 1)
-                  .map((tag, i) => {
-                  return (
-                    <li key={i}>
-                      <TagItem
-                        name={tag}
-                        count={filteredTags.length}
-                        onClick={this.handleTagSorting}
-                      />
-                    </li>
-                  )
-                })
+                `Bookmarks - ${this.state.bookmarks.length}`
               }
-            </ul>
-          </aside>
-        </section>
+            </h4>
 
-        <section className="bookmarkSection">
-          <h4 className="bookmarkSectionHeading">
-            {
-              sortedByTag !== '' ?
-                filteredTags.length > 1 ?
-                `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
-                :
-                `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
-              :
-              `Bookmarks - ${this.state.bookmarks.length}`
-            }
-          </h4>
+            <main className="bookmarkContainer">
+              <ol className="bookmarkList">
+                {
+                  bookmarks.length > 0 ?
 
-          <main className="bookmarkContainer">
-            <ol className="bookmarkList">
-              {
-                bookmarks.length > 0 ?
+                  bookmarks.map((bookmark, i) => {
+                    let
+                      filter = this.state.sortedByTag,
+                      tags = bookmark.tags;
 
-                bookmarks.map((bookmark, i) => {
-                  let
-                    filter = this.state.sortedByTag,
-                    tags = bookmark.tags;
+                    const bookmarkComp = (
+                      <li key={i}>
+                        <BookmarkItem
+                          id={bookmark.id}
+                          url={bookmark.href}
+                          tags={bookmark.tags}
+                          timeStamp={bookmark.timeStamp}
+                          onEditClick={null}
+                          onDeleteClick={
+                            this.removeBookmark
+                          }
+                        />
+                      </li>
+                    );
 
-                  const bookmarkComp = (
-                    <li key={i}>
-                      <BookmarkItem
-                        id={bookmark.id}
-                        url={bookmark.href}
-                        tags={bookmark.tags}
-                        timeStamp={bookmark.timeStamp}
-                        onEditClick={null}
-                        onDeleteClick={
-                          this.removeBookmark
-                        }
-                      />
-                    </li>
-                  );
+                    // console.log(typeof tags)
 
-                  // console.log(typeof tags)
+                    if (filter === '') {
+                      return bookmarkComp
+                    } else if (
+                        typeof tags === 'string'
+                        && filter === tags
+                      ) {
+                      return bookmarkComp
+                    } else if (
+                        typeof tags === 'object'
+                        && tags.includes(filter)
+                      ) {
+                      return bookmarkComp
+                    }
+                  })
+                  :
+                  <span className="blankSlateMessage">No bookmarks! Create one.</span>
+                }
+              </ol>
+            </main>
+          </section>
+        </div>
 
-                  if (filter === '') {
-                    return bookmarkComp
-                  } else if (
-                      typeof tags === 'string'
-                      && filter === tags
-                    ) {
-                    return bookmarkComp
-                  } else if (
-                      typeof tags === 'object'
-                      && tags.includes(filter)
-                    ) {
-                    return bookmarkComp
-                  }
-                })
-                :
-                <span className="blankSlateMessage">No bookmarks! Create one.</span>
-              }
-            </ol>
-          </main>
-        </section>
       </div>
     );
   }

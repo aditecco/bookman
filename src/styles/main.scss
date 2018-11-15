@@ -11,27 +11,26 @@ imports
 @import '_partials/_logic';
 
 
+// common
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family:
-    'Arial',
-    'Roboto Regular',
-    sans-serif;
-  font-size: 15px;
+  // font-family:
+  //   'Arial',
+  //   'Roboto Regular',
+  //   sans-serif;
+  font-family: $firaSans;
+  font-weight: 400;
+  font-size: 16px;
 }
 
-body { background-color: #444; }
+body { background-color: $flat-gray-1; }
 
 a, a:hover, a:visited { color: rgba(0,0,0,.8); }
 
-.tagSection,
-.bookmarkSection {
-  padding: 0;
-  margin: 0;
-  float: left;
-}
+.wrapper { @include container(960px); }
 
 .inputSection,
 .inputSection .BookmarkForm
@@ -39,22 +38,81 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
 
  .inputSection .BookmarkForm input { width: 45%; }
 
-.tagSection { width: 20%; }
+// .tagSection { width: 20%; }
 
-.bookmarkSection { width: 80%; }
+// .bookmarkSection { width: 80%; }
 
-//
-
-.BookmarkItem {
-	width: 320px;
-	height: 400px;
-	background-color: white;
+.content {
+  display: grid;
+  grid-template-columns: 20% 70%;
+  grid-auto-rows: 20px;
+  grid-gap: $gutter;
+  justify-content: center;
 }
 
-
-
-
-
+//
+.bookmarkSection {
+  .bookmarkSectionHeading {
+    font-family: $titleFont;
+    font-weight: 700;
+    font-size: $small;
+    color: $flat-gray-4;
+    text-transform: uppercase;
+  }
+  .bookmarkContainer {
+    .bookmarkList {
+      @include box(0, 0, true);
+      .BookmarkItem {
+        $root: '.BookmarkItem';
+        border-radius: $radius;
+        box-shadow: $shadow;
+        margin-bottom: $margin;
+        background-color: white;
+        > * {
+          padding: ($padding / 2) $padding;
+          border-bottom: 1px solid $flat-gray-1;
+        }
+        &-link-wrapper {
+          // @include highlight;
+          display: block;
+          padding: ($padding * 1.4) $padding;
+          text-decoration: none;
+          #{$root}-header {
+            &-heading {
+              margin: 0;
+              color: $flat-blue-1;
+            }
+          }
+        }
+        #{$root}-body {
+          &-heading { @include smallHeading }
+          #{$root}-tag-container {
+            @include box(0, 0, true);
+            @include flex(row nowrap, flex-start, center);
+            > *:not(:last-child) { margin-right: $margin / 2; }
+          }
+        }
+        #{$root}-controls {
+          &-heading { @include smallHeading }
+          &-container {
+            @include box(0, 0, true);
+            @include flex(row nowrap, space-evenly, center);
+            #{$root}-controls-item {
+              text-decoration: none;
+              &__edit {}
+              &__delete {}
+            }
+          }
+        }
+        #{$root}-footer {
+          font-size: $small;
+          color: $flat-gray-2;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
 
 
 

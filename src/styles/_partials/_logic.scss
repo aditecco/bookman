@@ -109,6 +109,17 @@ functions & mixins
 }
 
 
+// highlights the element for debugging purposes
+@mixin highlight { outline: 1px solid $flat-purple-2; }
+
+
+@mixin container($w) {
+	display: block;
+	max-width: $w;
+	margin: 0 auto;
+}
+
+
 /* ---------------------------------
 other
 --------------------------------- */
@@ -117,5 +128,5 @@ other
 $debugMode: false;
 
 * {
-	@if $debugMode { outline: 1px solid $purple; }
+	@if $debugMode { outline: 1px solid $flat-purple-2; }
 }

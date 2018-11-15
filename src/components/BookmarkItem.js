@@ -43,35 +43,36 @@ function BookmarkItem(props) {
           <h4 className={root + "-header-heading"}>{url}</h4>
         </header>
 
-        <section className={root + "-body"}>
-          <h6 className={root + "-body-heading"}>Tags</h6>
-
-          {
-            typeof tags !== 'object' ?
-
-            <PillButton
-              label={tags}
-              href={null}
-              onClick={null}
-            />
-            :
-            <ul className={root + "-tag-container"}>
-              {tags.map(
-                (tag, i) => {
-                  return (
-                    <li>
-                      <PillButton
-                        label={tag}
-                        href={null}
-                      />
-                    </li>
-                  )
-                }
-              )}
-            </ul>
-          }
-        </section>
       </a>
+
+      <section className={root + "-body"}>
+        <h6 className={root + "-body-heading"}>Tags</h6>
+
+        {
+          typeof tags !== 'object' ?
+
+          <PillButton
+            label={tags}
+            href={null}
+            onClick={null}
+          />
+          :
+          <ul className={root + "-tag-container"}>
+            {tags.map(
+              (tag, i) => {
+                return (
+                  <li>
+                    <PillButton
+                      label={tag}
+                      href={null}
+                    />
+                  </li>
+                )
+              }
+            )}
+          </ul>
+        }
+      </section>
 
       <section className={root + "-controls"}>
         <h6 className={root + "-controls-heading"}>Controls</h6>
