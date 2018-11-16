@@ -4,7 +4,7 @@
 *******************/
 
 import React from 'react';
-const id = 'PillButton';
+const root = 'PillButton';
 
 
 function PillButton(props) {
@@ -16,7 +16,7 @@ function PillButton(props) {
 
     return (
         <a
-            className={id}
+            className={root}
             href={href}
             onClick={onClick}
         >

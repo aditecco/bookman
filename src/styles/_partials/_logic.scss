@@ -11,6 +11,7 @@ imports
 @import '~normalize.css/normalize.css';
 @import '_animations';
 @import '_colors';
+@import '_fx';
 @import '_typography';
 @import '_vars';
 
@@ -117,6 +118,14 @@ functions & mixins
 	display: block;
 	max-width: $w;
 	margin: 0 auto;
+}
+
+
+@mixin truncate($w) {
+	width: $w;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 

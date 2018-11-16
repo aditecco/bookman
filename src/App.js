@@ -306,7 +306,7 @@ class App extends Component {
                     }
                   })
                   :
-                  <span className="blankSlateMessage">No bookmarks! Create one.</span>
+                  <li className="blankSlateMessage">No bookmarks! Create one.</li>
                 }
               </ol>
             </main>

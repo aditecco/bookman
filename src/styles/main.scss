@@ -11,7 +11,9 @@ imports
 @import '_partials/_logic';
 
 
-// common
+/* ---------------------------------
+common
+--------------------------------- */
 
 *,
 *::before,
@@ -30,17 +32,12 @@ body { background-color: $flat-gray-1; }
 
 a, a:hover, a:visited { color: rgba(0,0,0,.8); }
 
+
+/* ---------------------------------
+layout
+--------------------------------- */
+
 .wrapper { @include container(960px); }
-
-.inputSection,
-.inputSection .BookmarkForm
- { width: 100%; }
-
- .inputSection .BookmarkForm input { width: 45%; }
-
-// .tagSection { width: 20%; }
-
-// .bookmarkSection { width: 80%; }
 
 .content {
   display: grid;
@@ -48,9 +45,40 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
   grid-auto-rows: 20px;
   grid-gap: $gutter;
   justify-content: center;
+  // tmp
+  margin-top: $margin * 2;
 }
 
-//
+
+/* ---------------------------------
+inputSection
+--------------------------------- */
+
+.inputSection,
+.inputSection .BookmarkForm
+ { width: 100%; }
+
+ .inputSection .BookmarkForm input { width: 45%; }
+
+
+/* ---------------------------------
+tagSection
+--------------------------------- */
+
+.tagSection {
+  &Heading { @include smallHeading; }
+  .tagListContainer {
+    .tagList {
+      .TagItem {}
+    }
+  }
+}
+
+
+/* ---------------------------------
+.bookmarkSection
+--------------------------------- */
+
 .bookmarkSection {
   .bookmarkSectionHeading {
     font-family: $titleFont;
@@ -62,6 +90,7 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
   .bookmarkContainer {
     .bookmarkList {
       @include box(0, 0, true);
+      .blankSlateMessage {}
       .BookmarkItem {
         $root: '.BookmarkItem';
         border-radius: $radius;
@@ -74,40 +103,63 @@ a, a:hover, a:visited { color: rgba(0,0,0,.8); }
         }
         &LinkWrapper {
           // @include highlight;
+          @include truncate(100%);
           display: block;
           padding: ($padding * 1.4) $padding;
+          color: $flat-blue-1;
           text-decoration: none;
-          #{$root}Header {
-            &Heading {
-              margin: 0;
-              color: $flat-blue-1;
-            }
-          }
+          // #{$root}Header {
+          //   &Heading {
+          //     margin: 0;
+          //     color: $flat-blue-1;
+          //   }
+          // }
         }
         #{$root}Body {
           &Heading { @include smallHeading }
           #{$root}TagContainer {
-            @include box(0, 0, true);
-            @include flex(row nowrap, flex-start, center);
+            @include box(($padding / 2) 0, 0, true);
+            @include flex(row wrap, flex-start, center);
             > *:not(:last-child) { margin-right: $margin / 2; }
-          }
-        }
-        #{$root}Controls {
-          &Heading { @include smallHeading }
-          &Container {
-            @include box(0, 0, true);
-            @include flex(row nowrap, space-evenly, center);
-            #{$root}ControlsItem {
-              text-decoration: none;
-              &__edit {}
-              &__delete {}
+            .PillButton {
+              display: block;
+              padding: 6px $padding;
+              border: $border;
+              border-radius: $radius * 5;
+              border-color: $flat-blue-1;
+              font-size: $small;
+              color: $flat-blue-1;
+              @media (max-width: 768px) { margin-bottom: $margin / 2; }
             }
           }
         }
         #{$root}Footer {
-          font-size: $small;
-          color: $flat-gray-2;
-          font-weight: bolder;
+          @include flex(row nowrap, space-evenly, center);
+          #{$root}TimeStamp {
+            flex-grow: 1;
+            font-size: $small;
+            color: $flat-gray-2;
+            font-weight: bolder;
+          }
+          #{$root}Controls {
+            &Heading { @include smallHeading }
+            &Container {
+              @include box(0, 0, true);
+              @include flex(row nowrap, space-evenly, center);
+              #{$root}ControlsItem {
+                a {
+                  display: block;
+                  font-family: $titleFont;
+                  font-size: $small;
+                  color: $flat-gray-2;
+                  text-transform: uppercase;
+                  text-decoration: none;
+                }
+                &__edit { margin-right: $margin / 2; }
+                &__delete {}
+              }
+            }
+          }
         }
       }
     }

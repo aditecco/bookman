@@ -39,10 +39,10 @@ function BookmarkItem(props) {
         href={url}
         target='_blank'
       >
-        <header className={root + "Header"}>
-          <h4 className={root + "HeaderHeading"}>{url}</h4>
-        </header>
-
+        {/* <header className={root + "Header"}> */}
+        {/*   <h4 className={root + "HeaderHeading"}>{url}</h4> */}
+        {/* </header> */}
+        {url}
       </a>
 
       <section className={root + "Body"}>
@@ -74,31 +74,33 @@ function BookmarkItem(props) {
         }
       </section>
 
-      <section className={root + "Controls"}>
-        <h6 className={root + "ControlsHeading"}>Controls</h6>
-
-        <ul className={root + "ControlsContainer"}>
-          <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
-            <a
-              href="#"
-              onClick={onEditClick}
-            >
-              edit
-            </a>
-          </li>
-          <li className={`${root}ControlsItem ${root}ControlsItem__delete`}>
-            <a
-              href="#"
-              onClick={handleDelete}
-            >
-              delete
-            </a>
-          </li>
-        </ul>
-      </section>
-
       <footer className={root + "Footer"}>
-        {timeStamp}
+        <div className={root + "TimeStamp"}>
+          <time>{timeStamp}</time>
+        </div>
+
+        <div className={root + "Controls"}>
+          {/* <h6 className={root + "ControlsHeading"}>Controls</h6> */}
+
+          <ul className={root + "ControlsContainer"}>
+            <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
+              <a
+                href="#"
+                onClick={onEditClick}
+              >
+                edit
+              </a>
+            </li>
+            <li className={`${root}ControlsItem ${root}ControlsItem__delete`}>
+              <a
+                href="#"
+                onClick={handleDelete}
+              >
+                delete
+              </a>
+            </li>
+          </ul>
+        </div>
       </footer>
     </article>
   );
