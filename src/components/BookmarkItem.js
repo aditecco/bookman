@@ -39,10 +39,13 @@ function BookmarkItem(props) {
         href={url}
         target='_blank'
       >
-        {/* <header className={root + "Header"}> */}
-        {/*   <h4 className={root + "HeaderHeading"}>{url}</h4> */}
-        {/* </header> */}
-        {url}
+        <header className={root + "Header"}>
+          <h4 className={root + "Heading"}>{url}</h4>
+        </header>
+
+        <span className={root + "Content"}>
+          {url}
+        </span>
       </a>
 
       <section className={root + "Body"}>

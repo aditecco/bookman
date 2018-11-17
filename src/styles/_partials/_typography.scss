@@ -28,6 +28,7 @@ $bodyFont: $firaSans;
 $titleFont: $archivo;
 $body: 16px;
 $small: $body * 0.9;
+$xSmall: $small - 2;
 $title: $body * 1.2;
 
 
@@ -35,7 +36,7 @@ $title: $body * 1.2;
 @mixin smallHeading {
 	font-family: $titleFont;
   font-weight: 700;
-  font-size: $small;
+  font-size: $xSmall;
   color: $flat-gray-4;
   text-transform: uppercase;
   margin: 0 0 $margin / 3;

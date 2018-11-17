@@ -202,11 +202,11 @@ class App extends Component {
 
         <div className="content">
           <section className="tagSection">
-            <h4 className="tagSectionHeading">
-              {`tags - ${tags.length}`}
-            </h4>
-
             <aside className="tagListContainer">
+              <h4 className="tagSectionHeading">
+                {`tags - ${tags.length}`}
+              </h4>
+
               <BaseButton
                 className=''
                 onClick={this.resetTagSorting}
@@ -252,19 +252,19 @@ class App extends Component {
           </section>
 
           <section className="bookmarkSection">
-            <h4 className="bookmarkSectionHeading">
-              {
-                sortedByTag !== '' ?
-                  filteredTags.length > 1 ?
-                  `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
-                  :
-                  `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
-                :
-                `Bookmarks - ${this.state.bookmarks.length}`
-              }
-            </h4>
-
             <main className="bookmarkContainer">
+              <h4 className="bookmarkSectionHeading">
+                {
+                  sortedByTag !== '' ?
+                    filteredTags.length > 1 ?
+                    `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
+                    :
+                    `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
+                  :
+                  `Bookmarks - ${this.state.bookmarks.length}`
+                }
+              </h4>
+
               <ol className="bookmarkList">
                 {
                   bookmarks.length > 0 ?
