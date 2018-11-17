@@ -70,7 +70,7 @@ class BookmarkForm extends React.Component {
   // }
 
   render() {
-    const id = 'BookmarkForm';
+    const root = 'BookmarkForm';
     const {
       urlInput,
       tagInput
@@ -78,30 +78,33 @@ class BookmarkForm extends React.Component {
 
     return (
       <form
-        className={id}
+        className={root}
         // onKeyDown={this.handleKeyDown}
       >
-        <InputField
-            className='urlInput'
-            label='url'
-            onChange={this.handleUrlChange}
-            placeholder='e.g. www.example.com'
-            value={urlInput}
-          />
-
+        <div className="inputGroup">
           <InputField
-            className='tagInput'
-            label='tag(s)'
-            onChange={this.handleTagChange}
-            placeholder='linux, javascript (comma separated)'
-            value={tagInput}
-          />
+              className='urlInput'
+              label='url'
+              onChange={this.handleUrlChange}
+              placeholder='e.g. www.example.com'
+              value={urlInput}
+            />
 
-          <BaseButton
-            className='submitButton'
-            label='save'
-            onClick={this.handleSubmit}
-          />
+            <InputField
+              className='tagInput'
+              label='tag(s)'
+              onChange={this.handleTagChange}
+              placeholder='linux, javascript (comma separated)'
+              value={tagInput}
+            />
+        </div>
+
+
+        <BaseButton
+          className='submitButton'
+          label='save'
+          onClick={this.handleSubmit}
+        />
       </form>
     );
   }

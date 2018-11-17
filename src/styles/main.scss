@@ -53,12 +53,29 @@ layout
 inputSection
 --------------------------------- */
 
-.inputSection,
-.inputSection .BookmarkForm
- { width: 100%; }
-
- .inputSection .BookmarkForm input { width: 45%; }
-
+.inputSection {
+  width: 100%;
+  padding: $padding;
+  .BookmarkForm {
+    @include flex(row nowrap, space-between, center);
+    .inputGroup {
+      flex-grow: 1;
+      .InputField {
+        label { display: none; }
+        .urlInput,
+        .tagInput {
+          width: 100%;
+          padding: 10px;
+          border: none;
+          font-size: $title;
+        }
+      }
+    }
+    .submitButton {
+      padding: $padding $padding * 2;
+    }
+  }
+}
 
 /* ---------------------------------
 tagSection

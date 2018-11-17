@@ -21,8 +21,10 @@ function InputField(props) {
     value
   } = props;
 
+  const root = 'InputField';
+
   return (
-    <>
+    <div className={root}>
       <label htmlFor={className}>
         {label}
       </label>
@@ -34,7 +36,7 @@ function InputField(props) {
         type="text"
         value={value}
       />
-    </>
+    </div>
   );
 }
 
