@@ -38,8 +38,8 @@ layout
 --------------------------------- */
 
 .wrapper {
-  @include container(960px);
-  > * { padding: $padding; }
+  @include container(1268px);
+  > * { padding: $padding ($padding * 2); }
 }
 
 .content {
@@ -47,7 +47,6 @@ layout
   grid-template-columns: 160px 1fr;
   grid-column-gap: $gutter;
   justify-content: center;
-  padding-top: $padding * 2;
 }
 
 
@@ -57,7 +56,6 @@ inputSection
 
 .inputSection {
   width: 100%;
-  padding: $padding;
   .BookmarkForm {
     @include flex(row nowrap, space-between, center);
     .inputGroup {
