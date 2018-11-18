@@ -180,6 +180,15 @@ class App extends Component {
   }
 
 
+  // removes duplicates
+  removeDuplicates = (duplicates) => {
+    let x = new Set(duplicates);
+    let y = [];
+
+    y = [...x];
+    return y;
+  }
+
   render() {
     const {
       bookmarks,
@@ -191,6 +200,8 @@ class App extends Component {
     let filteredTags = tags.filter(
       (tag, i) => tag === sortedByTag
     );
+
+    let uniqueTags = this.removeDuplicates(tags);
 
     return (
       <div className="wrapper">
@@ -221,7 +232,7 @@ class App extends Component {
                 {
                   sortedByTag === '' ?
 
-                  tags.sort().map((tag, i) => {
+                  uniqueTags.sort().map((tag, i) => {
                     return (
                       <li key={i}>
                         <TagItem
