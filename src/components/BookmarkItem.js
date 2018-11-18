@@ -26,7 +26,9 @@ function BookmarkItem(props) {
     onDeleteClick(id);
   }
 
-  const root = 'BookmarkItem';
+  const
+    root = 'BookmarkItem',
+    urlFilter = /https?\:\/\/(?:www\.)?/;
 
 
   return (
@@ -40,11 +42,18 @@ function BookmarkItem(props) {
         target='_blank'
       >
         <header className={root + "Header"}>
-          <h4 className={root + "Heading"}>{url}</h4>
+          <h4 className={root + "Heading"}>
+            {
+              url
+                .replace(urlFilter, '')
+                .split('/')
+                .slice(0, 1)
+            }
+          </h4>
         </header>
 
         <span className={root + "Content"}>
-          {url}
+          {url.replace(urlFilter, '')}
         </span>
       </a>
 
