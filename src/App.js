@@ -182,11 +182,11 @@ class App extends Component {
 
   // removes duplicates
   removeDuplicates = (duplicates) => {
-    let x = new Set(duplicates);
-    let y = [];
+    let dedupDevice = new Set(duplicates);
+    let deduped = [];
 
-    y = [...x];
-    return y;
+    deduped = [...dedupDevice];
+    return deduped;
   }
 
   render() {
