@@ -68,6 +68,11 @@ inputSection
           padding: 10px;
           border: none;
           font-size: $title;
+          /*
+            background-color: transparent;
+            border-bottom: 1px solid #bdbdbd;
+            margin-bottom: 20px;
+          */
         }
       }
     }
@@ -88,9 +93,7 @@ tagSection
       @include smallHeading;
       margin-bottom: $margin;
     }
-    .tagList {
-      .TagItem {}
-    }
+    .tagList {}
   }
 }
 
@@ -115,82 +118,77 @@ tagSection
     .bookmarkList {
       @include box(0, 0, true);
       .blankSlateMessage {}
-      .BookmarkItem {
-        $root: '.BookmarkItem';
-        width: 300px;
-        border-radius: $radius;
-        box-shadow: $shadow;
-        margin-bottom: $margin;
-        background-color: white;
-        > * {
-          padding: ($padding / 2) $padding;
-          border-bottom: 1px solid $flat-gray-1;
-        }
-        &LinkWrapper {
-          // @include highlight;
-          @include truncate(100%);
-          display: block;
-          padding: $padding * 2 $padding;
-          text-decoration: none;
-          #{$root}Header {
-            #{$root}Heading {
-              @include smallHeading;
-            }
+    }
+  }
+}
+
+
+/* ---------------------------------
+.BookmarkItem
+--------------------------------- */
+
+.BookmarkItem {
+  $root: '.BookmarkItem';
+  width: 300px;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  margin-bottom: $margin;
+  background-color: white;
+  > * {
+    padding: ($padding / 2) $padding;
+    border-bottom: 1px solid $flat-gray-1;
+  }
+  &LinkWrapper {
+    // @include highlight;
+    @include truncate(100%);
+    display: block;
+    padding: $padding * 2 $padding;
+    text-decoration: none;
+    #{$root}Header {
+      #{$root}Heading {
+        @include smallHeading;
+      }
+    }
+    #{$root}Content {
+      color: $flat-blue-1;
+      font-size: $title;
+    }
+  }
+  #{$root}Body {
+    &Heading { @include smallHeading }
+    #{$root}TagContainer {
+      @include box(($padding / 2) 0, 0, true);
+      @include flex(row wrap, flex-start, center);
+      > *:not(:last-child) { margin-right: $margin / 2; }
+    }
+  }
+  #{$root}Footer {
+    @include flex(row nowrap, space-evenly, center);
+    padding: 0;
+    > * { padding: ($padding / 2) $padding; }
+    #{$root}TimeStamp {
+      flex-grow: 1;
+      time {
+        font-size: $xSmall;
+        color: $flat-gray-2;
+      }
+    }
+    #{$root}Controls {
+      &Heading { @include smallHeading }
+      &Container {
+        @include box(0, 0, true);
+        @include flex(row nowrap, space-evenly, center);
+        #{$root}ControlsItem {
+          a {
+            display: block;
+            font-family: $titleFont;
+            font-size: $small - 2;
+            color: $flat-gray-2;
+            text-transform: uppercase;
+            text-decoration: none;
           }
-          #{$root}Content {
-            color: $flat-blue-1;
-            font-size: $title;
-          }
-        }
-        #{$root}Body {
-          &Heading { @include smallHeading }
-          #{$root}TagContainer {
-            @include box(($padding / 2) 0, 0, true);
-            @include flex(row wrap, flex-start, center);
-            > *:not(:last-child) { margin-right: $margin / 2; }
-            .PillButton {
-              display: block;
-              padding: 6px $padding;
-              border: $border;
-              border-radius: $radius * 5;
-              border-color: $flat-blue-1;
-              margin-bottom: $margin / 2;
-              font-size: $small;
-              color: $flat-blue-1;
-              // @media (max-width: 768px) { margin-bottom: $margin / 2; }
-            }
-          }
-        }
-        #{$root}Footer {
-          @include flex(row nowrap, space-evenly, center);
-          padding: 0;
-          > * { padding: ($padding / 2) $padding; }
-          #{$root}TimeStamp {
-            flex-grow: 1;
-            time {
-              font-size: $xSmall;
-              color: $flat-gray-2;
-            }
-          }
-          #{$root}Controls {
-            &Heading { @include smallHeading }
-            &Container {
-              @include box(0, 0, true);
-              @include flex(row nowrap, space-evenly, center);
-              #{$root}ControlsItem {
-                a {
-                  display: block;
-                  font-family: $titleFont;
-                  font-size: $small;
-                  color: $flat-gray-2;
-                  text-transform: uppercase;
-                  text-decoration: none;
-                }
-                &__edit { margin-right: $margin / 2; }
-                &__delete {}
-              }
-            }
-          }
+          &__edit { margin-right: $margin / 2; }
+          &__delete {}
         }
       }
     }
@@ -198,9 +196,28 @@ tagSection
 }
 
 
+/* ---------------------------------
+.PillButton
+--------------------------------- */
+
+.PillButton {
+  display: inline-block;
+  padding: 6px $padding;
+  border: $border;
+  border-radius: $radius * 5;
+  border-color: $flat-blue-1;
+  margin-bottom: $margin / 2;
+  font-size: $small;
+  color: $flat-blue-1;
+  // @media (max-width: 768px) { margin-bottom: $margin / 2; }
+}
 
 
+/* ---------------------------------
+.TagItem
+--------------------------------- */
 
+.TagItem {}
 
 
 
