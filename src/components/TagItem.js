@@ -14,26 +14,26 @@ function TagItem(props) {
     onClick
   } = props;
 
+  const root = 'TagItem';
+
   return (
     <a
       href="#"
-      className="tagItem"
+      className={root}
       onClick={onClick}
     >
-      <div className="tagItemContainer">
-        <span className="tagItemName">
-          {name}
-        </span>
+      <span className={root + "Name"}>
+        {name}
+      </span>
 
-        <span className="tagItemCount">
-          {
-            count !== null || undefined ?
-            ` (${count})`
-            :
-            null
-          }
-        </span>
-      </div>
+      <span className={root + "Count"}>
+        {
+          count !== null || undefined ?
+          ` (${count})`
+          :
+          null
+        }
+      </span>
     </a>
   );
 }

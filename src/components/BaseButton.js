@@ -21,9 +21,11 @@ function BaseButton(props) {
     label
   } = props;
 
+  const root = 'BaseButton';
+
   return (
     <a
-      className={className}
+      className={`${root} ${className}`}
       href='#'
       onClick={onClick}
       onKeyDown={onKeyDown}

@@ -219,7 +219,7 @@ class App extends Component {
               </h4>
 
               <BaseButton
-                className=''
+                className='clearTagsButton'
                 onClick={this.resetTagSorting}
                 onKeyDown={null}
                 label={

@@ -30,7 +30,7 @@ common
 
 body { background-color: $flat-gray-1; }
 
-a, a:hover, a:visited { color: rgba(0,0,0,.8); }
+// a, a:hover, a:visited { color: rgba(0,0,0,.8); }
 
 
 /* ---------------------------------
@@ -60,6 +60,7 @@ inputSection
     @include flex(row nowrap, space-between, center);
     .inputGroup {
       flex-grow: 1;
+      margin-right: $margin;
       .InputField {
         label { display: none; }
         .urlInput,
@@ -68,17 +69,15 @@ inputSection
           padding: 10px;
           border: none;
           font-size: $title;
-          /*
-            background-color: transparent;
-            border-bottom: 1px solid #bdbdbd;
-            margin-bottom: 20px;
-          */
+
+          background-color: transparent;
+          border-bottom: 1px solid rgba($flat-gray-4, .6);
+          margin-bottom: 20px;
+
         }
       }
     }
-    .submitButton {
-      padding: $padding $padding * 2;
-    }
+    .submitButton {}
   }
 }
 
@@ -93,7 +92,7 @@ tagSection
       @include smallHeading;
       margin-bottom: $margin;
     }
-    .tagList {}
+    .tagList { @include box(0, $margin 0 0, true); }
   }
 }
 
@@ -220,10 +219,51 @@ tagSection
 .TagItem
 --------------------------------- */
 
-.TagItem {}
+.TagItem {
+  display: inline-block;
+  padding: ($padding / 4) 0;
+  border-radius: $radius;
+  // margin-bottom: $margin / 4;
+  text-decoration: none;
+  > * {
+    font-size: $small;
+    text-transform: uppercase;
+  }
+  &:visited { color: inherit; }
+  &:hover {
+    padding: {
+      left: 5px;
+      right: 5px;
+    }
+    box-shadow: $shadow;
+    background-color: rgba(white, .4);
+    transform: translateX(10px);
+    transition: all, 250ms ease-out;
+  }
+  .TagItemName {}
+  .TagItemCount {}
+}
 
 
-
+.BaseButton {
+  display: inline-block;
+  min-width: 100px;
+  padding: $padding / 2;
+  border-radius: $radius;
+  text-decoration: none;
+  // TODO
+  // replace other instances
+  // of flat-blue-1 w/ accent var
+  background-color: $accent;
+  font-size: $small;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  &:hover {
+    background-color: mix($accent, black);
+    transition: all 500ms ease;
+  }
+}
 
 
 
