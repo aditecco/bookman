@@ -58,7 +58,7 @@ function BookmarkItem(props) {
       </a>
 
       <section className={root + "Body"}>
-        <h6 className={root + "BodyHeading"}>Tags</h6>
+        {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
         {
           typeof tags !== 'object' ?

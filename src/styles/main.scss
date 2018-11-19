@@ -68,7 +68,7 @@ inputSection
           width: 100%;
           padding: 10px;
           border: none;
-          font-size: $title;
+          font-size: $title - 1;
 
           background-color: transparent;
           border-bottom: 1px solid rgba($flat-gray-4, .6);
@@ -144,11 +144,14 @@ tagSection
     // @include highlight;
     @include truncate(100%);
     display: block;
-    padding: $padding * 2 $padding;
+    // padding: $padding * 2 $padding;
+    // padding: 30px $padding $padding / 2;
+    padding: 30px $padding 30px;
     text-decoration: none;
     #{$root}Header {
       #{$root}Heading {
         @include smallHeading;
+        margin-bottom: $margin / 2;
       }
     }
     #{$root}Content {
@@ -166,7 +169,8 @@ tagSection
   }
   #{$root}Footer {
     @include flex(row nowrap, space-evenly, center);
-    padding: 0;
+    // padding: 0;
+    padding: $padding / 2 0;
     > * { padding: ($padding / 2) $padding; }
     #{$root}TimeStamp {
       flex-grow: 1;
