@@ -86,7 +86,7 @@ class BookmarkForm extends React.Component {
               className='urlInput'
               label='url'
               onChange={this.handleUrlChange}
-              placeholder='e.g. www.example.com'
+              placeholder='www.example.com'
               value={urlInput}
             />
 
@@ -94,7 +94,7 @@ class BookmarkForm extends React.Component {
               className='tagInput'
               label='tag(s)'
               onChange={this.handleTagChange}
-              placeholder='linux, javascript (comma separated)'
+              placeholder='Linux, JavaScript (comma separated)'
               value={tagInput}
             />
         </div>
