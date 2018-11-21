@@ -1,1 +1,99 @@
-BookMan.org
+
+
+* Bookman
+
+** Notes
+
+BookMan is a local bookmark manager: it provides a friendly UI
+to save & organize bookmarks, and can persist the data via the browser's localStorage.
+
+
+** Tasks
+*** DONE Setup GL remote & push
+    GL Push to publish:
+    'git push --set-upstream git@gitlab.example.com:namespace/nonexistent-project.git master'
+*** DONE Setup initial check for local BMs on componentDidMount
+*** DONE Map localStorage > state
+*** DONE Handle existing/non-existing BM localStorage items on launch
+*** TODO Implement redux
+*** TODO Create styles
+**** DONE Early draft of BookmarkItem
+**** DONE BookmarkItem fine-tuning, incl. PillButton
+**** DONE App Layout
+**** DONE Sidebar & TagItem 1st draft
+*** TODO Refine BM tag sorting
+*** DONE Enable Sass
+*** DONE Install normalize
+*** DONE Install flat UI colors
+*** DONE Setup Sass boilerplate
+*** TODO Find alternative to Date.now() for BM ID (?)
+*** TODO Find alternative to Array.includes() for BM sorting
+*** TODO Create Header, Nav, Footer comps
+*** DONE Fine-tune BM deletion
+*** DONE Unify local BM operations w/ localDispatcher
+*** DONE Move frequently used global constants to ./constants/
+*** DONE Enable mockBookmarks in localStorage as test BM collection
+
+
+*** Issues/Fixes
+
+**** DONE When rendering pre-existing bookmarks, the tag array is not updated :fix:
+**** DONE When deleting a BM, the array in localStorage is not updated :fix:
+**** DONE 'Clear tags'btn label won't render if tags are not present :fix:
+**** DONE If local bookmarks are imported manually, tags are not updated in state :fix:
+**** TODO When deleting a BM, tags in state are not updated             :fix:
+     We can't just remove the tags associated w/ the deleted BM; those tags could be in use by other BMs.
+     We have to check if the tags are not used by other BMs: if true, we can remove them.
+**** DONE When importing from localStorage, tag array is not flattened  :fix:
+**** DONE Tag sorting for BMs w/ multiple tags is broken
+**** TODO Bookmark delete control doesn't work in tag sort view         :fix:
+**** DONE Deduplicate tags in the tag sidebar                           :fix:
+**** DONE When BM has single tag, PillButton styles are broken          :fix:
+
+
+
+*** Requirements
+
+It should:
+
+**** DONE receive input from at least 2 input fields and return a DOM element populated w/ the input
+**** TODO list bookmarks most recent to least recent
+**** DONE reset the input field(s) after a submission
+**** DONE enable submit via return button
+     Created logic, but behavior is already enabled by default
+**** DONE display bookmark tags in an area of the page separate from the main layout (i.e. <aside>)
+**** DONE make tags clickable
+**** DONE display a tag count for each filtered tag
+**** DONE display filtered tags only once
+**** DONE display tags in alphabetical order
+**** DONE diplay tag count in tag header
+**** DONE sort bookmarks by tag
+**** TODO edit bookmarks
+**** DONE delete bookmarks
+**** TODO import bookmarks from a Pinboard export/other source
+**** DONE persist bookmarks to localStorage (wip)
+     Data should be saved as JSON
+**** DONE persist bookmarks to localStorage as JSON
+**** TODO (save data to the cloud)
+**** TODO use Pinboard's bookmark design (to facilitate Pinboard import) (?)
+**** DONE prevent empty URL input
+**** DONE allow multiple tags separated by comma
+     'tags' prop should be an array
+**** DONE store each BM's tags in an array
+**** DONE render each tag in the tag array as an individual tag 
+**** DONE import sample static bookmarks
+**** DONE allow coexistence of imported BM and created BM
+**** TODO offer pagination or infinite scrolling
+**** TODO offer bookmark search
+**** TODO offer BM export functionality
+**** TODO provide form validation for tags
+**** DONE visualize BMs w/o protocol syntax (http://, etc)
+**** TODO alert before deleting a BM
+
+
+** Time tracking
+
+| Day    | Start   | End     | Tot     | Task    | Notes   |
+| ------ | ------- | ------- | ------- | ------- | ------- |
+
+
