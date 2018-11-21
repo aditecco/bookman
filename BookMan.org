@@ -35,6 +35,8 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** DONE Enable mockBookmarks in localStorage as test BM collection
 
 
+
+
 *** Issues/Fixes
 
 **** DONE When rendering pre-existing bookmarks, the tag array is not updated :fix:
@@ -49,7 +51,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 **** TODO Bookmark delete control doesn't work in tag sort view         :fix:
 **** DONE Deduplicate tags in the tag sidebar                           :fix:
 **** DONE When BM has single tag, PillButton styles are broken          :fix:
-
+**** TODO When in blank slate mode, tag count and sort btn is visible   :fix:
 
 
 *** Requirements
