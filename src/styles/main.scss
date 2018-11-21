@@ -169,11 +169,12 @@ tagSection
   }
   #{$root}Footer {
     @include flex(row nowrap, space-evenly, center);
-    // padding: 0;
-    padding: $padding / 2 0;
-    > * { padding: ($padding / 2) $padding; }
+    padding: ($padding / 2) $padding;
+    // padding: $padding / 2 0;
+    // > * { padding: ($padding / 2) $padding; }
     #{$root}TimeStamp {
       flex-grow: 1;
+      padding-right: 0;
       time {
         font-size: $xSmall;
         color: $flat-gray-2;
@@ -187,11 +188,14 @@ tagSection
         #{$root}ControlsItem {
           a {
             display: block;
+            padding: $padding / 4;
+            border-radius: $radius / 2;
             font-family: $titleFont;
             font-size: $small - 2;
             color: $flat-gray-2;
             text-transform: uppercase;
             text-decoration: none;
+            &:hover { background-color: $flat-gray-1; }
           }
           &__edit { margin-right: $margin / 2; }
           &__delete {}
