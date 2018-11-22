@@ -29,6 +29,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** TODO Find alternative to Date.now() for BM ID (?)
 *** TODO Find alternative to Array.includes() for BM sorting
 *** TODO Create Header, Nav, Footer comps
+*** DONE Create Header 1st draft
 *** DONE Fine-tune BM deletion
 *** DONE Unify local BM operations w/ localDispatcher
 *** DONE Move frequently used global constants to ./constants/
@@ -51,7 +52,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 **** TODO Bookmark delete control doesn't work in tag sort view         :fix:
 **** DONE Deduplicate tags in the tag sidebar                           :fix:
 **** DONE When BM has single tag, PillButton styles are broken          :fix:
-**** TODO When in blank slate mode, tag count and sort btn is visible   :fix:
+**** DONE When in blank slate mode, tag count and sort btn is visible   :fix:
 
 
 *** Requirements
@@ -91,6 +92,7 @@ It should:
 **** TODO provide form validation for tags
 **** DONE visualize BMs w/o protocol syntax (http://, etc)
 **** TODO alert before deleting a BM
+**** TODO Save BMs via keyboard shortcut (cmd + enter), no 'save' btn required
 
 
 ** Time tracking
