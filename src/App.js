@@ -218,15 +218,15 @@ class App extends Component {
                 {`tags - ${tags.length}`}
               </h4>
 
-              <BaseButton
-                className='clearTagsButton'
-                onClick={this.resetTagSorting}
-                onKeyDown={null}
-                label={
-                  tags.length > 0 ?
-                  'clear tags' : null
-                }
-              />
+              {
+                (tags.length > 0) &&
+                (<BaseButton
+                  className='clearTagsButton'
+                  onClick={this.resetTagSorting}
+                  onKeyDown={null}
+                  label='clear tags'
+                />)
+              }
 
               <ul className="tagList">
                 {
