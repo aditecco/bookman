@@ -3,8 +3,16 @@
 vars.scss
 ======================== */
 
-
+// layout
 $padding: 20px;
 $margin: 20px;
 $spacer: 20px;
 $gutter: $spacer;
+
+
+// breakpoints
+$_xSmall: 320px;
+$_small: null;
+$_mid: null;
+$_large: null;
+$_xLarge: 1268px;

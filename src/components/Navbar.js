@@ -7,17 +7,21 @@ import React from 'react';
 
 
 function Navbar(props) {
-	return (
-		<header className="header">
-			<div
-				className="logoContainer"
-				onClick={props.onLogoClick}
-			>
-				<h1 className="logotype">BookMan</h1>
-			</div>
+	const root = 'Header';
 
-			<nav className="mainNav">
-			</nav>
+	return (
+		<header className={root}>
+			<div className={`wrapper ${root}Wrapper`}>
+				<div
+					className={root + "LogoContainer"}
+					onClick={props.onLogoClick}
+				>
+					<h1 className={root + 'Logo'}>BookMan</h1>
+				</div>
+
+				<nav className={root + "MainNav"}>
+				</nav>
+			</div>
 		</header>
 	);
 }
