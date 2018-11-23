@@ -224,7 +224,7 @@ class App extends Component {
                 </h4>
 
                 {
-                  (tags.length > 0) &&
+                  (sortedByTag !== '') &&
                   (<BaseButton
                     className='clearTagsButton'
                     onClick={this.resetTagSorting}
