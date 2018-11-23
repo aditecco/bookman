@@ -29,6 +29,10 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** TODO Find alternative to Date.now() for BM ID (?)
 *** TODO Find alternative to Array.includes() for BM sorting
 *** TODO Create Header, Nav, Footer comps
+*** TODO Create responsive styles
+*** DONE Test new fonts
+*** TODO Fine-tune font choices
+*** TODO Remove unneeded fonts
 *** DONE Create Header 1st draft
 *** DONE Fine-tune BM deletion
 *** DONE Unify local BM operations w/ localDispatcher
@@ -53,6 +57,8 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 **** DONE Deduplicate tags in the tag sidebar                           :fix:
 **** DONE When BM has single tag, PillButton styles are broken          :fix:
 **** DONE When in blank slate mode, tag count and sort btn is visible   :fix:
+**** DONE 'Clear tags' btn shouldn't be visible when tag filter is not active :fix:
+**** DONE Tag header shouldn't be visible when tag filter is active     :fix:
 
 
 *** Requirements
