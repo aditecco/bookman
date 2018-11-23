@@ -206,7 +206,9 @@ class App extends Component {
 
     return (
       <>
-        <Navbar></Navbar>
+        <Navbar
+          onLogoClick={() => console.log('logo click!')}
+        />
         <div className="wrapper">
           <section className="inputSection">
             <BookmarkForm
