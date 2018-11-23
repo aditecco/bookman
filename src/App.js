@@ -219,12 +219,14 @@ class App extends Component {
           <div className="content">
             <section className="tagSection">
               <aside className="tagListContainer">
-                <h4 className="tagSectionHeading">
-                  {`tags - ${tags.length}`}
-                </h4>
-
                 {
-                  (sortedByTag !== '') &&
+                  (sortedByTag === '') ?
+                  (
+                    <h4 className="tagSectionHeading">
+                      {`tags - ${tags.length}`}
+                    </h4>
+                  )
+                  :
                   (<BaseButton
                     className='clearTagsButton'
                     onClick={this.resetTagSorting}
