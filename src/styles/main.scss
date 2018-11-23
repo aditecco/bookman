@@ -258,7 +258,8 @@ tagSection
 
 .TagItem {
   display: inline-block;
-  padding: ($padding / 4) 0;
+  // padding: ($padding / 4) 0;
+  padding: $padding / 4;
   border-radius: $radius;
   // margin-bottom: $margin / 4;
   text-decoration: none;
@@ -268,10 +269,10 @@ tagSection
   }
   &:visited { color: inherit; }
   &:hover {
-    padding: {
-      left: 5px;
-      right: 5px;
-    }
+    // padding: {
+    //   left: 5px;
+    //   right: 5px;
+    // }
     box-shadow: $shadow;
     background-color: rgba(white, .4);
     transform: translateX(10px);
