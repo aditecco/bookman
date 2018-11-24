@@ -62,6 +62,7 @@ Header
 
 .Header {
   $root: '.Header';
+  margin-bottom: 0;
   box-shadow: 0 2px 30px rgba($flat-gray-2, .4);
   &Wrapper {
     @include flex(row nowrap, space-between, center);
@@ -95,8 +96,15 @@ inputSection
 
 .inputSection {
   width: 100%;
+  padding: ($padding * 2) 0;
+  // TODO
+  // find a way to avoid
+  // using React's root ID
+  margin-top: -40px;
+  // box-shadow: $innerShadow;
+  background-color: rgba($flat-gray-2, .2);
   .BookmarkForm {
-    @include flex(row nowrap, space-between, center);
+    @include flex(row nowrap, space-between, flex-start);
     .inputGroup {
       flex-grow: 1;
       margin-right: $margin;
@@ -105,20 +113,22 @@ inputSection
         .urlInput,
         .tagInput {
           width: 100%;
-          padding: 10px;
+          padding: 12px ($padding / 2);
           border: none;
-          font-size: $title - 1;
-
+          font-size: $body + 1;
           background-color: transparent;
-          border-bottom: 1px solid rgba($flat-gray-4, .6);
-          margin-bottom: 20px;
-
+          border: {
+            top: 1px solid rgba($flat-gray-4, .2);
+            bottom: 1px solid rgba($flat-gray-4, .2);
+          }
         }
+        .tagInput { border-top: 0; }
       }
     }
     .submitButton {}
   }
 }
+
 
 /* ---------------------------------
 tagSection
