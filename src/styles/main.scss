@@ -108,6 +108,8 @@ inputSection
     .inputGroup {
       flex-grow: 1;
       margin-right: $margin;
+      border: 1px solid rgba($flat-gray-4, .2);
+      border-radius: $radius;
       .InputField {
         label { display: none; }
         .urlInput,
@@ -117,12 +119,8 @@ inputSection
           border: none;
           font-size: $body + 1;
           background-color: transparent;
-          border: {
-            top: 1px solid rgba($flat-gray-4, .2);
-            bottom: 1px solid rgba($flat-gray-4, .2);
-          }
         }
-        .tagInput { border-top: 0; }
+        .urlInput { border-bottom: 1px solid rgba($flat-gray-4, .2); }
       }
     }
     .submitButton {}
