@@ -14,6 +14,7 @@ import TagItem from './components/TagItem';
 import BookmarkForm from './components/BookmarkForm';
 import BaseButton from './components/BaseButton';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 // assets
@@ -332,6 +333,10 @@ class App extends Component {
             </div>
           </section>
         </main>
+
+        <Footer
+          footerInfo='BookMan v0.9 | build xyz'
+        />
       </>
     );
   }
