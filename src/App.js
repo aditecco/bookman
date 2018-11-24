@@ -209,128 +209,129 @@ class App extends Component {
         <Navbar
           onLogoClick={() => console.log('logo click!')}
         />
-        <div className="wrapper">
-          <section className="inputSection">
+
+        <section className="inputSection">
+          <div className="wrapper">
             <BookmarkForm
               passToParent={this.addBookmark}
             />
+          </div>
+        </section>
+
+        <main className="wrapper mainContentWrapper">
+          <section className="tagSection">
+            <aside className="tagListContainer">
+              {
+                (sortedByTag === '') ?
+                (
+                  <h4 className="tagSectionHeading">
+                    {`tags - ${tags.length}`}
+                  </h4>
+                )
+                :
+                (<BaseButton
+                  className='clearTagsButton'
+                  onClick={this.resetTagSorting}
+                  onKeyDown={null}
+                  label='clear tags'
+                />)
+              }
+
+              <ul className="tagList">
+                {
+                  sortedByTag === '' ?
+
+                  uniqueTags.sort().map((tag, i) => {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={tag}
+                          count={null}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  })
+                  :
+                  filteredTags
+                    .slice(0, 1)
+                    .map((tag, i) => {
+                    return (
+                      <li key={i}>
+                        <TagItem
+                          name={tag}
+                          count={filteredTags.length}
+                          onClick={this.handleTagSorting}
+                        />
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </aside>
           </section>
 
-          <div className="content">
-            <section className="tagSection">
-              <aside className="tagListContainer">
+          <section className="bookmarkSection">
+            <div className="bookmarkContainer">
+              <h4 className="bookmarkSectionHeading">
                 {
-                  (sortedByTag === '') ?
-                  (
-                    <h4 className="tagSectionHeading">
-                      {`tags - ${tags.length}`}
-                    </h4>
-                  )
+                  sortedByTag !== '' ?
+                    filteredTags.length > 1 ?
+                    `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
+                    :
+                    `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
                   :
-                  (<BaseButton
-                    className='clearTagsButton'
-                    onClick={this.resetTagSorting}
-                    onKeyDown={null}
-                    label='clear tags'
-                  />)
+                  `Bookmarks - ${this.state.bookmarks.length}`
                 }
+              </h4>
 
-                <ul className="tagList">
-                  {
-                    sortedByTag === '' ?
+              <ol className="bookmarkList">
+                {
+                  bookmarks.length > 0 ?
 
-                    uniqueTags.sort().map((tag, i) => {
-                      return (
-                        <li key={i}>
-                          <TagItem
-                            name={tag}
-                            count={null}
-                            onClick={this.handleTagSorting}
-                          />
-                        </li>
-                      )
-                    })
-                    :
-                    filteredTags
-                      .slice(0, 1)
-                      .map((tag, i) => {
-                      return (
-                        <li key={i}>
-                          <TagItem
-                            name={tag}
-                            count={filteredTags.length}
-                            onClick={this.handleTagSorting}
-                          />
-                        </li>
-                      )
-                    })
-                  }
-                </ul>
-              </aside>
-            </section>
+                  bookmarks.map((bookmark, i) => {
+                    let
+                      filter = this.state.sortedByTag,
+                      tags = bookmark.tags;
 
-            <section className="bookmarkSection">
-              <main className="bookmarkContainer">
-                <h4 className="bookmarkSectionHeading">
-                  {
-                    sortedByTag !== '' ?
-                      filteredTags.length > 1 ?
-                      `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
-                      :
-                      `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
-                    :
-                    `Bookmarks - ${this.state.bookmarks.length}`
-                  }
-                </h4>
+                    const bookmarkComp = (
+                      <li key={i}>
+                        <BookmarkItem
+                          id={bookmark.id}
+                          url={bookmark.href}
+                          tags={bookmark.tags}
+                          timeStamp={bookmark.timeStamp}
+                          onEditClick={null}
+                          onDeleteClick={
+                            this.removeBookmark
+                          }
+                        />
+                      </li>
+                    );
 
-                <ol className="bookmarkList">
-                  {
-                    bookmarks.length > 0 ?
+                    // console.log(typeof tags)
 
-                    bookmarks.map((bookmark, i) => {
-                      let
-                        filter = this.state.sortedByTag,
-                        tags = bookmark.tags;
-
-                      const bookmarkComp = (
-                        <li key={i}>
-                          <BookmarkItem
-                            id={bookmark.id}
-                            url={bookmark.href}
-                            tags={bookmark.tags}
-                            timeStamp={bookmark.timeStamp}
-                            onEditClick={null}
-                            onDeleteClick={
-                              this.removeBookmark
-                            }
-                          />
-                        </li>
-                      );
-
-                      // console.log(typeof tags)
-
-                      if (filter === '') {
-                        return bookmarkComp
-                      } else if (
-                          typeof tags === 'string'
-                          && filter === tags
-                        ) {
-                        return bookmarkComp
-                      } else if (
-                          typeof tags === 'object'
-                          && tags.includes(filter)
-                        ) {
-                        return bookmarkComp
-                      }
-                    })
-                    :
-                    <li className="blankSlateMessage">No bookmarks! Create one.</li>
-                  }
-                </ol>
-              </main>
-            </section>
-          </div>
-        </div>
+                    if (filter === '') {
+                      return bookmarkComp
+                    } else if (
+                        typeof tags === 'string'
+                        && filter === tags
+                      ) {
+                      return bookmarkComp
+                    } else if (
+                        typeof tags === 'object'
+                        && tags.includes(filter)
+                      ) {
+                      return bookmarkComp
+                    }
+                  })
+                  :
+                  <li className="blankSlateMessage">No bookmarks! Create one.</li>
+                }
+              </ol>
+            </div>
+          </section>
+        </main>
       </>
     );
   }
