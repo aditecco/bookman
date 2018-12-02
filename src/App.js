@@ -127,7 +127,7 @@ class App extends Component {
 
       case Actions.remove:
         localStorage.setItem('localBookmarks', JSON.stringify(payload));
-        console.info(`Deleted bookmark with ID of ${meta.id}.`);
+        console.info(`Deleted bookmark with ID ${meta.id}.`);
 
         break;
 
@@ -194,6 +194,15 @@ class App extends Component {
     deduped = [...dedupDevice];
     return deduped;
   }
+
+
+  // gets confirmation for destructive actions
+  confirmDestructiveAction = (context) => {
+    let confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
+
+    return confirmDialog ? this.removeBookmark(context) : console.log('Canceled deletion.');
+  }
+
 
   render() {
     const {
@@ -307,9 +316,7 @@ class App extends Component {
                           tags={bookmark.tags}
                           timeStamp={bookmark.timeStamp}
                           onEditClick={null}
-                          onDeleteClick={
-                            this.removeBookmark
-                          }
+                          onDeleteClick={this.confirmDestructiveAction}
                         />
                       </li>
                     );

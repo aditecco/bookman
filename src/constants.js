@@ -12,3 +12,4 @@ export const LOCAL_FOUND = 'Found local bookmarks. Rendering...';
 export const LOCAL_NOT_FOUND = 'Local bookmarks not found. Initializing...';
 export const INITIAL_BOOKMARKS = stringify([]);
 export const TEST_BOOKMARKS = stringify(mockBookmarks);
+export const MESSAGE__CONFIRM_DELETION = 'Do you really want to delete this bookmark?';
