@@ -97,14 +97,14 @@ class App extends Component {
 
     this.setState({ bookmarks: clone })
 
-    this.localDispatcher(Actions.remove, clone)
+    this.localDispatcher(Actions.remove, clone, { id })
 
     // console.log(`${target} deleted.`);
   }
 
 
   // handles localStorage actions
-  localDispatcher = (action, payload) => {
+  localDispatcher = (action, payload, meta: {}) => {
     let bookmarks = this.state.bookmarks;
     let local = JSON.parse(localStorage.getItem('localBookmarks'));
 
@@ -123,7 +123,7 @@ class App extends Component {
 
       case Actions.remove:
         localStorage.setItem('localBookmarks', JSON.stringify(payload, true));
-        console.info(`Bookmark deleted.`);
+        console.info(`Deleted bookmark with ID of ${meta.id}.`);
 
         break;
 
