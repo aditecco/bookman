@@ -65,21 +65,25 @@ class App extends Component {
     const
       date = new Date(),
       splittedTags = input.tags.split(','),
-      bookmark = {
+      bookmarks = this.state.bookmarks,
+      newBookmark = {
         id: Date.now(),
         href: input.url,
         tags: splittedTags,
         timeStamp: date.toLocaleString()
     };
 
+    let clone = [...bookmarks];
+    clone.unshift(newBookmark);
     this.setState({
-      bookmarks: this.state.bookmarks.concat(bookmark)
+      // bookmarks: this.state.bookmarks.concat(bookmark)
+      bookmarks: clone
     })
 
-    this.localDispatcher(Actions.create, bookmark);
+    this.localDispatcher(Actions.create, newBookmark);
 
     // we update tags separately
-    this.updateTags(bookmark.tags);
+    this.updateTags(newBookmark.tags);
   }
 
 
@@ -111,8 +115,8 @@ class App extends Component {
     switch (action) {
       case Actions.create:
         let updated = [...local];
-        updated.push(payload)
-        localStorage.setItem('localBookmarks', JSON.stringify(updated, true));
+        updated.unshift(payload)
+        localStorage.setItem('localBookmarks', JSON.stringify(updated));
         console.info('Created new bookmark.')
 
         break;
@@ -122,7 +126,7 @@ class App extends Component {
         break;
 
       case Actions.remove:
-        localStorage.setItem('localBookmarks', JSON.stringify(payload, true));
+        localStorage.setItem('localBookmarks', JSON.stringify(payload));
         console.info(`Deleted bookmark with ID of ${meta.id}.`);
 
         break;
