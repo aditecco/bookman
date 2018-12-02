@@ -60,6 +60,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 **** DONE When in blank slate mode, tag count and sort btn is visible   :fix:
 **** DONE 'Clear tags' btn shouldn't be visible when tag filter is not active :fix:
 **** DONE Tag header shouldn't be visible when tag filter is active     :fix:
+**** TODO Tags w/ different case are counted as distinct tags: normalize tag case :fix:
 
 
 *** Requirements
@@ -67,7 +68,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 It should:
 
 **** DONE receive input from at least 2 input fields and return a DOM element populated w/ the input
-**** TODO list bookmarks most recent to least recent
+**** DONE list bookmarks most recent to least recent
 **** DONE reset the input field(s) after a submission
 **** DONE enable submit via return button
      Created logic, but behavior is already enabled by default
@@ -98,13 +99,13 @@ It should:
 **** TODO offer BM export functionality
 **** TODO provide form validation for tags
 **** DONE visualize BMs w/o protocol syntax (http://, etc)
-**** TODO alert before deleting a BM
+**** DONE alert before deleting a BM
 **** TODO Save BMs via keyboard shortcut (cmd + enter), no 'save' btn required
-**** let the user hide the input section
-**** let the user edit a tag
-**** auto-complete tags
-**** offer sorting by multiple tags
-**** offer 'tag collections'
+**** TODO let the user hide the input section
+**** TODO let the user edit a tag
+**** TODO auto-complete tags
+**** TODO offer sorting by multiple tags
+**** TODO offer 'tag collections'
 
 
 ** Time tracking
