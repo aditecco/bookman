@@ -69,20 +69,24 @@ function BookmarkItem(props) {
             onClick={null}
           />
           :
-          <ul className={root + "TagContainer"}>
-            {tags.map(
-              (tag, i) => {
-                return (
-                  <li>
-                    <PillButton
-                      label={tag}
-                      href={null}
-                    />
-                  </li>
-                )
-              }
-            )}
-          </ul>
+          <>
+            <div className={root + "TagContainerCurtain"} />
+            <div className={root + "TagContainerCurtain"} />
+            <ul className={root + "TagContainer"}>
+              {tags.map(
+                (tag, i) => {
+                  return (
+                    <li>
+                      <PillButton
+                        label={tag}
+                        href={null}
+                      />
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          </>
         }
       </section>
 

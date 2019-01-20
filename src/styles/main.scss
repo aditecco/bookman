@@ -207,10 +207,43 @@ tagSection
     }
   }
   #{$root}Body {
+    position: relative;
+    padding-right: 0;
     &Heading { @include smallHeading }
+    #{$root}TagContainerCurtain {
+      position: absolute;
+      height: 100%;
+      width: 80px;
+      top: 0;
+      right: 0;
+      background:
+        linear-gradient(
+          to right,
+          $transparent 10%,
+          rgba(white, .8) 90%
+        )
+      ;
+      &:nth-child(1) {
+        // tmp
+        display: none;
+        right: auto;
+        left: 0;
+        background:
+          linear-gradient(
+            to left,
+            $transparent 10%,
+            rgba(white, .8) 90%
+          )
+        ;
+      }
+    }
     #{$root}TagContainer {
       @include box(($padding / 2) 0, 0, true);
-      @include flex(row wrap, flex-start, center);
+      @include flex(row nowrap, flex-start, center);
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
       > *:not(:last-child) { margin-right: $margin / 2; }
     }
   }
@@ -245,7 +278,12 @@ tagSection
             &:hover { background-color: $flat-gray-1; }
           }
           &__edit { margin-right: $margin / 2; }
-          &__delete {}
+          &__delete {
+            a:hover {
+              background-color: rgba($flat-red-1, .8);
+              color: white;
+            }
+          }
         }
       }
     }
@@ -259,12 +297,14 @@ tagSection
 
 .PillButton {
   display: inline-block;
-  padding: 6px $padding;
+  min-width: 99px;
+  padding: 4px 8px;
   border: $border;
-  border-radius: $radius * 5;
+  border-radius: $radius;
   border-color: $flat-blue-1;
   margin-bottom: $margin / 2;
   font-size: $small;
+  text-align: center;
   color: $flat-blue-1;
   // @media (max-width: 768px) { margin-bottom: $margin / 2; }
 }
