@@ -245,10 +245,15 @@ tagSection
       @include box(($padding / 2) 0, 0, true);
       @include flex(row nowrap, flex-start, center);
       overflow-x: scroll;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      &::-webkit-scrollbar {}
+      &::-webkit-scrollbar-button {}
+      &::-webkit-scrollbar-track {}
+      &::-webkit-scrollbar-track-piece {}
+      &::-webkit-scrollbar-thumb {}
+      &::-webkit-scrollbar-corner {}
+      &::-webkit-resizer {}
       > *:not(:last-child) { margin-right: $margin / 2; }
+      .PillButton { margin-bottom: 0; }
     }
   }
   #{$root}Footer {
