@@ -62,7 +62,11 @@ Header
 
 .Header {
   $root: '.Header';
+  position: fixed;
+  z-index: 1;
+  width: 100%;
   margin-bottom: 0;
+  background-color: rgba($flat-gray-1, .9);
   box-shadow: 0 2px 30px rgba($flat-gray-2, .4);
   &Wrapper {
     @include flex(row nowrap, space-between, center);
@@ -97,10 +101,10 @@ inputSection
 .inputSection {
   width: 100%;
   padding: ($padding * 2) 0;
+  margin-top: 56px;
   // TODO
   // find a way to avoid
   // using React's root ID
-  margin-top: -40px;
   // box-shadow: $innerShadow;
   background-color: rgba($flat-gray-2, .2);
   .BookmarkForm {
