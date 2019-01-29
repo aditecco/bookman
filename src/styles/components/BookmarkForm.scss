@@ -1,0 +1,27 @@
+
+/* ========================
+.BookmarkForm
+======================== */
+
+.BookmarkForm {
+  @include flex(row nowrap, space-between, flex-start);
+  .inputGroup {
+    flex-grow: 1;
+    margin-right: $margin;
+    border: 1px solid rgba($flat-gray-4, .2);
+    border-radius: $radius;
+    .InputField {
+      label { display: none; }
+      .urlInput,
+      .tagInput {
+        width: 100%;
+        padding: 12px ($padding / 2);
+        border: none;
+        font-size: $body + 1;
+        background-color: transparent;
+      }
+      .urlInput { border-bottom: 1px solid rgba($flat-gray-4, .2); }
+    }
+  }
+  .submitButton {}
+}

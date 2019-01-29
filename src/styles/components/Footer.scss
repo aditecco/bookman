@@ -1,0 +1,14 @@
+
+/* ---------------------------------
+.Footer
+--------------------------------- */
+
+.Footer {
+  padding: $padding 0;
+  &Wrapper {}
+  .FooterInfo {
+    display: block;
+    text-align: center;
+    color: $fontLight;
+  }
+}
