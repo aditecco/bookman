@@ -8,7 +8,13 @@ main.scss
 imports
 --------------------------------- */
 
-@import '_partials/_logic';
+@import './_partials/_logic';
+@import './_partials/_vars';
+@import '~normalize.css/normalize.css';
+@import './_partials/_colors';
+@import './_partials/_typography';
+@import './_partials/_anims';
+@import './_partials/_fx';
 
 
 /* ---------------------------------
@@ -41,10 +47,12 @@ containers
   height: 100vh;
 }
 
+
 .wrapper {
   @include container($_xLarge);
   padding: 0 $padding;
 }
+
 
 .mainContentWrapper {
   width: 100%;
