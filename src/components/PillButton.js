@@ -9,16 +9,16 @@ const root = 'PillButton';
 
 function PillButton(props) {
     const {
-        label,
-        href,
-        onClick
+      label,
+      href,
+      onClick
     } = props;
 
     return (
         <a
-            className={root}
-            href={href}
-            onClick={onClick}
+          className={root}
+          href={href}
+          onClick={onClick}
         >
           {label}
         </a>
