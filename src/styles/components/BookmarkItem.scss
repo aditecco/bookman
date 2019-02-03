@@ -102,6 +102,7 @@
             display: block;
             padding: $padding / 4;
             border-radius: $radius / 2;
+            border: 2px solid $transparent;
             font-family: $titleFont;
             font-size: $small - 2;
             color: $flat-gray-2;
@@ -112,8 +113,9 @@
           &__edit { margin-right: $margin / 2; }
           &__delete {
             a:hover {
-              background-color: rgba($flat-red-1, .8);
-              color: white;
+              border: 2px solid $error;
+              color: $error;
+              background-color: $transparent;
             }
           }
         }
