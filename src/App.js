@@ -84,6 +84,19 @@ class App extends Component {
 
     // we update tags separately
     this.updateTags(newBookmark.tags);
+
+    // we add a class that will toggle an animated reveal for the BM item
+    const bookmarkContainer = document.querySelector('.bookmarkList');
+    const bookmarkContainerLength = bookmarkContainer.children.length;
+
+    if (bookmarkContainerLength >= 1) {
+      setTimeout(() => {
+        bookmarkContainer.lastChild.classList.add('visible');
+        // console.log(bookmarkContainer.lastElementChild);
+      }, 200);
+    } else {
+      console.error('Failed to create a new bookmark.');
+    }
   }
 
 
@@ -108,7 +121,7 @@ class App extends Component {
 
 
   // handles localStorage actions
-  localDispatcher = (action, payload, meta: {}) => {
+  localDispatcher = (action, payload, meta = {}) => {
     let bookmarks = this.state.bookmarks;
     let local = JSON.parse(localStorage.getItem('localBookmarks'));
 
@@ -309,7 +322,10 @@ class App extends Component {
                       tags = bookmark.tags;
 
                     const bookmarkComp = (
-                      <li key={i}>
+                      <li
+                        className='BookmarkItemContainer'
+                        key={i}
+                      >
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
