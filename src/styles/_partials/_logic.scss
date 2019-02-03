@@ -25,6 +25,7 @@ resets & placeholders
 
 %resetAnchors {
 	text-decoration: none;
+	color: inherit;
 }
 
 
@@ -114,6 +115,12 @@ functions & mixins
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+@mixin round($w) {
+	display: inline-block;
+	width: $w;
+	border-radius: 100%;
 }
 
 
