@@ -9,7 +9,7 @@ import PillButton from './PillButton';
 
 function Navbar(props) {
 	const root = 'Header';
-	const debug = true;
+	const debug = false;
 
 	return (
 		<header className={root}>

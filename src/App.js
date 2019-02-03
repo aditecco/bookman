@@ -85,18 +85,18 @@ class App extends Component {
     // we update tags separately
     this.updateTags(newBookmark.tags);
 
-    // we add a class that will toggle an animated reveal for the BM item
-    const bookmarkContainer = document.querySelector('.bookmarkList');
-    const bookmarkContainerLength = bookmarkContainer.children.length;
+    // // we add a class that will toggle an animated reveal for the BM item
+    // const bookmarkContainer = document.querySelector('.bookmarkList');
+    // const bookmarkContainerLength = bookmarkContainer.children.length;
 
-    if (bookmarkContainerLength >= 1) {
-      setTimeout(() => {
-        bookmarkContainer.lastChild.classList.add('visible');
-        // console.log(bookmarkContainer.lastElementChild);
-      }, 200);
-    } else {
-      console.error('Failed to create a new bookmark.');
-    }
+    // if (bookmarkContainerLength >= 1) {
+    //   setTimeout(() => {
+    //     bookmarkContainer.lastChild.classList.add('visible');
+    //     // console.log(bookmarkContainer.lastElementChild);
+    //   }, 200);
+    // } else {
+    //   console.error('Failed to create a new bookmark.');
+    // }
   }
 
 
