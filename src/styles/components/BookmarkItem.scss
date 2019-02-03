@@ -67,7 +67,7 @@
     #{$root}TagContainer {
       @include box(($padding / 2) 0, 0, true);
       @include flex(row nowrap, flex-start, center);
-      overflow-x: scroll;
+      overflow-x: auto;
       &::-webkit-scrollbar {}
       &::-webkit-scrollbar-button {}
       &::-webkit-scrollbar-track {}
