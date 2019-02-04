@@ -10,21 +10,26 @@
   border-radius: $radius;
   // margin-bottom: $margin / 4;
   text-decoration: none;
+  transition: all .3s ease;
+
   > * {
     font-size: $small;
     text-transform: uppercase;
   }
+
   &:visited { color: inherit; }
+
   &:hover {
-    // padding: {
-    //   left: 5px;
-    //   right: 5px;
-    // }
+    margin-top: 8px;
+    margin-bottom: 8px;
     box-shadow: $shadow;
     background-color: rgba(white, .4);
-    transform: translateX(10px);
-    transition: all 250ms ease-out;
+    transform:
+      scale(1.05)
+      translateX(4px)
+    ;
   }
+
   .TagItemName {}
   .TagItemCount {}
 }
