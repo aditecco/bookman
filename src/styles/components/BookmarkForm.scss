@@ -19,6 +19,7 @@
         border: none;
         font-size: $body + 1;
         background-color: transparent;
+        &:focus { outline: 2px solid rgba($accent, .8); }
       }
       .urlInput { border-bottom: 1px solid rgba($flat-gray-4, .2); }
     }
