@@ -186,10 +186,9 @@ class App extends Component {
   handleTagSorting = (e) => {
     e.preventDefault();
 
-    let clickedTag = e.target.innerHTML;
+    let clickedTag = e.currentTarget.innerText;
 
-    this.setState({ sortedByTag: clickedTag });
-    // console.log(clickedTag);
+    this.setState({ sortedByTag: clickedTag.toLowerCase() });
   }
 
 
