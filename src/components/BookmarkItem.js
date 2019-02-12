@@ -70,8 +70,13 @@ function BookmarkItem(props) {
           />
           :
           <>
-            <div className={root + "TagContainerCurtain"} />
-            <div className={root + "TagContainerCurtain"} />
+            {
+              (tags.length > 1) && < div className = {
+                `${root}TagContainerCurtain ${root}TagContainerCurtain--left`
+              }
+            /> }
+            < div className = { root + "TagContainerCurtain" }
+            />
             <ul className={root + "TagContainer"}>
               {tags.map(
                 (tag, i) => {
