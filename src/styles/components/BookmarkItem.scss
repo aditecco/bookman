@@ -50,9 +50,7 @@
           rgba(white, .8) 90%
         )
       ;
-      .BookmarkItemTagContainerCurtain.BookmarkItemTagContainerCurtain--left {
-        // tmp
-        // display: none;
+      &.BookmarkItemTagContainerCurtain--left {
         right: auto;
         left: 0;
         background:

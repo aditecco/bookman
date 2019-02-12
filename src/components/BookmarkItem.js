@@ -71,7 +71,7 @@ function BookmarkItem(props) {
           :
           <>
             {
-              (tags.length > 1) && < div className = {
+              (tags.length > 2) && < div className = {
                 `${root}TagContainerCurtain ${root}TagContainerCurtain--left`
               }
             /> }
