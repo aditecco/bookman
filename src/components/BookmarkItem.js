@@ -11,7 +11,7 @@ import React from 'react';
 import PillButton from './PillButton';
 
 
-function BookmarkItem(props) {
+const BookmarkItem = props => {
   const {
     id,
     url,
@@ -24,6 +24,28 @@ function BookmarkItem(props) {
   const handleDelete = (e) => {
     // console.log(id);
     onDeleteClick(id);
+  }
+
+  // tmp!
+  var current = 0;
+
+  const moreTags = (e) => {
+    const t = [...e.target.closest('div').nextElementSibling.querySelectorAll('li')];
+    const increment = 60;
+
+    current += increment;
+
+    for (const el of t) {
+      el.style.transition = `transform .3s ease`;
+      el.style.transform = `translateX(-${current.toString()}px)`;
+    }
+
+    console.log(e.target);
+    console.log(current);
+  }
+
+  const lessTags = (e) => {
+    // the opposite
   }
 
   const
@@ -71,12 +93,22 @@ function BookmarkItem(props) {
           :
           <>
             {
-              (tags.length > 2) && < div className = {
-                `${root}TagContainerCurtain ${root}TagContainerCurtain--left`
-              }
-            /> }
-            < div className = { root + "TagContainerCurtain" }
-            />
+              (tags.length > 2) &&
+              <>
+                <div className = {`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}>
+                  <a href="#" onClick={lessTags}>
+                    Less
+                  </a>
+                </div>
+                <div className={root + "TagContainerCurtain"}>
+                  <a href="#" onClick={moreTags}>
+                    More
+                  </a>
+                </div>
+              </>
+            }
+
+
             <ul className={root + "TagContainer"}>
               {tags.map(
                 (tag, i) => {
