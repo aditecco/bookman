@@ -26,26 +26,41 @@ const BookmarkItem = props => {
     onDeleteClick(id);
   }
 
-  // tmp!
-  var current = 0;
+  /* ---------------------------------
+  temporary, quick & dirty solution
+  --------------------------------- */
+
+  let translateRight = 0;
+  // let translateLeft = 0;
+  const increment = 60;
 
   const moreTags = (e) => {
     const t = [...e.target.closest('div').nextElementSibling.querySelectorAll('li')];
-    const increment = 60;
 
-    current += increment;
+    translateRight += increment;
 
     for (const el of t) {
       el.style.transition = `transform .3s ease`;
-      el.style.transform = `translateX(-${current.toString()}px)`;
+      el.style.transform = `translateX(0)`;
+      el.style.transform = `translateX(-${translateRight.toString()}px)`;
     }
 
-    console.log(e.target);
-    console.log(current);
+    // console.log(e.target);
+    // console.log(translateRight);
   }
 
   const lessTags = (e) => {
-    // the opposite
+    const t = [...e.target.closest('div').nextElementSibling.nextElementSibling.querySelectorAll('li')];
+
+    for (const el of t) {
+      el.style.transition = `transform .3s ease`;
+      el.style.transform = `translateX(0)`;
+    }
+
+    translateRight = 0;
+
+    // console.log(e.target);
+    // console.log(translateLeft);
   }
 
   const
