@@ -35,6 +35,8 @@ const BookmarkItem = props => {
   const increment = 60;
 
   const moreTags = (e) => {
+    e.preventDefault();
+
     const t = [...e.target.closest('div').nextElementSibling.querySelectorAll('li')];
 
     translateRight += increment;
@@ -50,6 +52,8 @@ const BookmarkItem = props => {
   }
 
   const lessTags = (e) => {
+    e.preventDefault();
+
     const t = [...e.target.closest('div').nextElementSibling.nextElementSibling.querySelectorAll('li')];
 
     for (const el of t) {
