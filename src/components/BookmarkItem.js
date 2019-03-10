@@ -97,12 +97,12 @@ const BookmarkItem = props => {
               <>
                 <div className = {`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}>
                   <a href="#" onClick={lessTags}>
-                    Less
+                    <i className="material-icons">chevron_left</i>
                   </a>
                 </div>
                 <div className={root + "TagContainerCurtain"}>
                   <a href="#" onClick={moreTags}>
-                    More
+                    <i className="material-icons">chevron_right</i>
                   </a>
                 </div>
               </>
