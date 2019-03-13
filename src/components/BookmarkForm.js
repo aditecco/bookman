@@ -39,13 +39,10 @@ class BookmarkForm extends React.Component {
   handleSubmit = (e) => {
     // only urlInput is required
     if (this.state.urlInput !== '') {
-      let bundledInput = {};
-      bundledInput.url = this.state.urlInput;
-      bundledInput.tags = this.state.tagInput;
 
-      // this.props.passToParent(bundledInput);
-      this.props.addBookmark(bundledInput);
-      // console.log(bundledInput);
+      const { urlInput, tagInput } = this.state;
+
+      this.props.addBookmark(urlInput, tagInput);
 
       this.setState({
         urlInput: '',

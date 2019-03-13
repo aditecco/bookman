@@ -244,7 +244,6 @@ class App extends Component {
         <section className="inputSection">
           <div className="wrapper">
             <BookmarkForm
-              // passToParent={this.addBookmark}
               addBookmark={this.props.addBookmark}
             />
           </div>
@@ -313,15 +312,15 @@ class App extends Component {
                     :
                     `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
                   :
-                  `Bookmarks - ${this.state.bookmarks.length}`
+                  `Bookmarks - ${this.props.bookmarks.length}`
                 }
               </h4>
 
               <ol className="bookmarkList">
                 {
-                  bookmarks.length > 0 ?
+                  this.props.bookmarks.length > 0 ?
 
-                  bookmarks.map((bookmark, i) => {
+                  this.props.bookmarks.map((bookmark, i) => {
                     let
                       filter = this.state.sortedByTag,
                       tags = bookmark.tags;
