@@ -54,7 +54,12 @@ const BookmarkItem = props => {
   const lessTags = (e) => {
     e.preventDefault();
 
-    const t = [...e.target.closest('div').nextElementSibling.nextElementSibling.querySelectorAll('li')];
+    const t = [
+      ...e.target.closest('div')
+      .nextElementSibling
+      .nextElementSibling
+      .querySelectorAll('li')
+    ];
 
     for (const el of t) {
       el.style.transition = `transform .3s ease`;
@@ -132,7 +137,7 @@ const BookmarkItem = props => {
               {tags.map(
                 (tag, i) => {
                   return (
-                    <li>
+                    <li key={i} i={i}>
                       <PillButton
                         label={tag}
                         href={null}
