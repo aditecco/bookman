@@ -52,8 +52,8 @@ class App extends Component {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
-        // Constants.INITIAL_BOOKMARKS
-        Constants.TEST_BOOKMARKS
+        Constants.INITIAL_BOOKMARKS
+        // Constants.TEST_BOOKMARKS
       );
     }
   }
