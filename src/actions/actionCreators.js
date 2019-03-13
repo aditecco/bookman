@@ -3,13 +3,13 @@
 actionCreators
 --------------------------------- */
 
-export function addBookmark(content, id, tags, timestamp) {
+export function addBookmark(url) {
   return {
     type: 'ADD_BOOKMARK',
-    content,
-    id,
-    tags,
-    timestamp
+    url,
+    // id,
+    // tags,
+    // timestamp
   }
 }
 
@@ -21,10 +21,9 @@ export function editBookmark(index, content) {
   }
 }
 
-export function deleteBookmark(index, content) {
+export function deleteBookmark(index) {
   return {
     type: 'DELETE_BOOKMARK',
     index,
-    content,
   }
 }

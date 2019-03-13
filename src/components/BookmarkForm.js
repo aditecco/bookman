@@ -43,7 +43,8 @@ class BookmarkForm extends React.Component {
       bundledInput.url = this.state.urlInput;
       bundledInput.tags = this.state.tagInput;
 
-      this.props.passToParent(bundledInput);
+      // this.props.passToParent(bundledInput);
+      this.props.addBookmark(bundledInput);
       // console.log(bundledInput);
 
       this.setState({

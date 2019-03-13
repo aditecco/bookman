@@ -5,7 +5,10 @@
 
 // js deps
 import React, { Component } from 'react';
-// import stringify from 'json-stringify-safe';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from './actions/actionCreators';
+import stringify from 'json-stringify-safe';
 
 
 // components
@@ -18,7 +21,7 @@ import Footer from './components/Footer';
 
 
 // assets
-import Actions from './actions';
+import Actions from './actions/actionIDs';
 import * as Constants from './constants';
 
 
@@ -53,9 +56,12 @@ class App extends Component {
       localStorage.setItem(
         'localBookmarks',
         // Constants.INITIAL_BOOKMARKS
-        Constants.TEST_BOOKMARKS
+        // Constants.TEST_BOOKMARKS
+        stringify(this.props.bookmarks)
       );
     }
+
+    console.info(this.props);
   }
 
 
@@ -238,7 +244,8 @@ class App extends Component {
         <section className="inputSection">
           <div className="wrapper">
             <BookmarkForm
-              passToParent={this.addBookmark}
+              // passToParent={this.addBookmark}
+              addBookmark={this.props.addBookmark}
             />
           </div>
         </section>
@@ -360,11 +367,24 @@ class App extends Component {
         </main>
 
         <Footer
-          footerInfo='BookMan v0.9 | build xyz'
+          footerInfo='BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman'
         />
       </>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    bookmarks: state.bookmarks,
+    tags: state.tags,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+const WithRedux = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default WithRedux;
