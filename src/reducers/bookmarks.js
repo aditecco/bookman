@@ -16,14 +16,14 @@ function bookmarks(state = [], action) {
     ;
 
     return [
-        ...state,
-        {
-          href: url,
-          id: Date.now(),
-          tags: splitTags,
-          timestamp: date.toLocaleString(),
-        }
-      ]
+      {
+        href: url,
+        id: Date.now(),
+        tags: splitTags,
+        timestamp: date.toLocaleString(),
+      },
+      ...state,
+    ]
       break;
 
     case 'EDIT_BOOKMARK':
