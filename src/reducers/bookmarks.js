@@ -3,36 +3,39 @@
 bookmarks reducer
 --------------------------------- */
 
-import actionIDs from '../actions/';
+// import actionIDs from '../actions/';
 
-export function bookmarks(state = [], action) {
+function bookmarks(state = [], action) {
   switch (action.type) {
-    case actionIDs.bookmarks.create:
+    case 'ADD_BOOKMARK':
 
     const
-      { content, id, tags, timestamp } = action,
-      date = new Date(),
-      splitTags = tags.split(',');
+      // { url, tags } = action,
+      { url } = action,
+      date = new Date()
+      // splitTags = tags.split(',');
+      ;
 
     return [
         ...state,
         {
-          href: content,
+          href: url,
           id: Date.now(),
-          tags: splitTags,
+          // tags: null,
           timestamp: date.toLocaleString(),
         }
       ]
       break;
 
-    case actionIDs.bookmarks.edit:
+    case 'EDIT_BOOKMARK':
       break;
 
-    case actionIDs.bookmarks.delete:
+    case 'DELETE_BOOKMARK':
       break;
 
     default:
       return state;
   }
-
 }
+
+export default bookmarks;
