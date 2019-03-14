@@ -16,7 +16,7 @@ const BookmarkItem = props => {
     id,
     url,
     tags,
-    timeStamp,
+    timestamp,
     onEditClick,
     onDeleteClick
   } = props;
@@ -153,7 +153,7 @@ const BookmarkItem = props => {
 
       <footer className={root + "Footer"}>
         <div className={root + "TimeStamp"}>
-          <time>{timeStamp}</time>
+          <time>{timestamp}</time>
         </div>
 
         <div className={root + "Controls"}>

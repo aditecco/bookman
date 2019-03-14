@@ -334,10 +334,9 @@ class App extends Component {
                           id={bookmark.id}
                           url={bookmark.href}
                           tags={bookmark.tags}
-                          timeStamp={bookmark.timeStamp}
-                          onEditClick={null}
+                          timestamp={bookmark.timestamp}
                           onDeleteClick={this.confirmDestructiveAction}
-                          {...this.props}
+                          // {...this.props}
                         />
                       </li>
                     );
