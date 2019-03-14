@@ -23,14 +23,23 @@ function bookmarks(state = [], action) {
         timestamp: date.toLocaleString(),
       },
       ...state,
-    ]
-      break;
+    ];
 
     case 'EDIT_BOOKMARK':
       break;
 
     case 'DELETE_BOOKMARK':
-      break;
+      const
+        { id } = action,
+        clone = [...state],
+        index = state.findIndex(
+          (bookmark) => bookmark.id === id)
+      ;
+
+      return [
+        ...clone.slice(0, index),
+        ...clone.slice(index + 1, clone.length)
+      ];
 
     default:
       return state;

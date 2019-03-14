@@ -11,17 +11,17 @@ export function addBookmark(url, tags) {
   }
 }
 
-export function editBookmark(index, content) {
+export function editBookmark(id, content) {
   return {
     type: 'EDIT_BOOKMARK',
-    index,
+    id,
     content,
   }
 }
 
-export function deleteBookmark(index) {
+export function deleteBookmark(id) {
   return {
     type: 'DELETE_BOOKMARK',
-    index,
+    id,
   }
 }
