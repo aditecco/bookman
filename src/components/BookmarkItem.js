@@ -26,6 +26,13 @@ const BookmarkItem = props => {
     onDeleteClick(id);
   }
 
+  const handleEdit = (e) => {
+    const prompt = window.prompt('edit!');
+    console.log(prompt);
+
+    return onEditClick(id, prompt);
+  }
+
   /* ---------------------------------
   temporary, quick & dirty solution
   --------------------------------- */
@@ -163,7 +170,7 @@ const BookmarkItem = props => {
             <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
               <a
                 href="#"
-                onClick={onEditClick}
+                onClick={handleEdit}
               >
                 edit
               </a>

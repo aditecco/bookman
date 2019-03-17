@@ -215,10 +215,12 @@ class App extends Component {
 
   // gets confirmation for destructive actions
   confirmDestructiveAction = (id) => {
-    let confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
+    const confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
 
     return confirmDialog ? this.props.deleteBookmark(id) : console.log('Canceled deletion.');
   }
+
+
 
 
   render() {
@@ -335,6 +337,7 @@ class App extends Component {
                           url={bookmark.href}
                           tags={bookmark.tags}
                           timestamp={bookmark.timestamp}
+                          onEditClick={this.props.editBookmark}
                           onDeleteClick={this.confirmDestructiveAction}
                           // {...this.props}
                         />
