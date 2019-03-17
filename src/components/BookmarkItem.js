@@ -27,10 +27,12 @@ const BookmarkItem = props => {
   }
 
   const handleEdit = (e) => {
-    const prompt = window.prompt('edit!');
+    const prompt = window.prompt(`Edit ${url} with…`);
     console.log(prompt);
 
-    return onEditClick(id, prompt);
+    if (prompt !== null) {
+      return onEditClick(id, prompt);
+    } return;
   }
 
   /* ---------------------------------
