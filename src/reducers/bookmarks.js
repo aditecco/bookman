@@ -30,14 +30,15 @@ function bookmarks(state = [], action) {
         // { id, content } = action,
         // _clone = [...state],
         i = state.findIndex(
-          (bookmark) => bookmark.id === action.id)
+          (bookmark) => bookmark.id === action.id),
+          c = [...state]
       ;
 
-      const edited = state[i]['href'] = action.content;
+      const edited = c[i]['href'] = action.content;
 
       console.info(`Edited bookmark with ID ${action.id}.`);
 
-      return state;
+      return [...c];
 
     case 'DELETE_BOOKMARK':
       const
