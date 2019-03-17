@@ -25,34 +25,28 @@ function bookmarks(state = [], action) {
       ];
 
     case 'EDIT_BOOKMARK':
-      // TODO rename consts or use let
-      const
-        // { id, content } = action,
-        // _clone = [...state],
-        i = state.findIndex(
-          (bookmark) => bookmark.id === action.id),
-          c = [...state]
+      const edited = state.findIndex(
+        (bookmark) => bookmark.id === action.id)
       ;
-
-      const edited = c[i]['href'] = action.content;
 
       console.info(`Edited bookmark with ID ${action.id}.`);
 
-      return [...c];
+      return [
+        ...state.slice(0, edited),
+        { ...state[edited], href: action.content },
+        ...state.slice(edited + 1)
+      ];
 
     case 'DELETE_BOOKMARK':
-      const
-        { id } = action,
-        clone = [...state],
-        index = state.findIndex(
-          (bookmark) => bookmark.id === id)
+      const deleted = state.findIndex(
+        (bookmark) => bookmark.id === action.id)
       ;
 
-      console.info(`Deleted bookmark with ID ${id}.`);
+      console.info(`Deleted bookmark with ID ${action.id}.`);
 
       return [
-        ...clone.slice(0, index),
-        ...clone.slice(index + 1, clone.length)
+        ...state.slice(0, deleted),
+        ...state.slice(deleted + 1)
       ];
 
     default:
