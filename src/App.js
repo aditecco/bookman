@@ -33,7 +33,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarks: [],
       tags: [],
       sortedByTag: ''
     }
@@ -64,64 +63,7 @@ class App extends Component {
     console.info(this.props);
   }
 
-
-  // adds a bookmark to state, updates localStorage
-  addBookmark = (input) => {
-    const
-      date = new Date(),
-      splittedTags = input.tags.split(','),
-      bookmarks = this.state.bookmarks,
-      newBookmark = {
-        id: Date.now(),
-        href: input.url,
-        tags: splittedTags,
-        timeStamp: date.toLocaleString()
-    };
-
-    let clone = [...bookmarks];
-    clone.unshift(newBookmark);
-    this.setState({
-      // bookmarks: this.state.bookmarks.concat(bookmark)
-      bookmarks: clone
-    })
-
-    this.localDispatcher(Actions.create, newBookmark);
-
-    // we update tags separately
-    this.updateTags(newBookmark.tags);
-
-    // // we add a class that will toggle an animated reveal for the BM item
-    // const bookmarkContainer = document.querySelector('.bookmarkList');
-    // const bookmarkContainerLength = bookmarkContainer.children.length;
-
-    // if (bookmarkContainerLength >= 1) {
-    //   setTimeout(() => {
-    //     bookmarkContainer.lastChild.classList.add('visible');
-    //     // console.log(bookmarkContainer.lastElementChild);
-    //   }, 200);
-    // } else {
-    //   console.error('Failed to create a new bookmark.');
-    // }
-  }
-
-
-  // removes a bookmark from state, updates localStorage
-  removeBookmark = (id) => {
-    let
-      bookmarks = this.state.bookmarks,
-      target = bookmarks.findIndex(
-      (el) => el.id === id
-    );
-    // console.log(target);
-
-    let clone = [...bookmarks];
-    clone.splice(target, 1);
-
-    this.setState({ bookmarks: clone })
-
-    this.localDispatcher(Actions.remove, clone, { id })
-
-    // console.log(`${target} deleted.`);
+    }
   }
 
 
@@ -219,8 +161,6 @@ class App extends Component {
 
     return confirmDialog ? this.props.deleteBookmark(id) : console.log('Canceled deletion.');
   }
-
-
 
 
   render() {
