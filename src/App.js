@@ -43,57 +43,27 @@ class App extends Component {
     if (Constants.LOCAL) {
       console.info(Constants.LOCAL_FOUND);
       let parsed = JSON.parse(Constants.LOCAL);
-
-      this.setState(
-        {
-          bookmarks: parsed,
-          tags: this.extractTags(parsed)
-        }
-      )
+      this.props.importLocalBookmarks(parsed);
     } else {
       console.info(Constants.LOCAL_NOT_FOUND);
       localStorage.setItem(
         'localBookmarks',
         // Constants.INITIAL_BOOKMARKS
-        // Constants.TEST_BOOKMARKS
-        stringify(this.props.bookmarks)
+        Constants.TEST_BOOKMARKS
       );
     }
-
-    console.info(this.props);
-  }
-
-    }
+    // console.info(this.props);
   }
 
 
-  // handles localStorage actions
-  localDispatcher = (action, payload, meta = {}) => {
-    let bookmarks = this.state.bookmarks;
-    let local = JSON.parse(localStorage.getItem('localBookmarks'));
+  componentDidUpdate(prevProps) {
+    const { bookmarks } = this.props;
+    const local = JSON.parse(Constants.LOCAL);
+    const updated = [...bookmarks];
 
-    switch (action) {
-      case Actions.create:
-        let updated = [...local];
-        updated.unshift(payload)
-        localStorage.setItem('localBookmarks', JSON.stringify(updated));
-        console.info('Created new bookmark.')
-
-        break;
-
-      case Actions.edit:
-        console.warn('action not set.')
-        break;
-
-      case Actions.remove:
-        localStorage.setItem('localBookmarks', JSON.stringify(payload));
-        console.info(`Deleted bookmark with ID ${meta.id}.`);
-
-        break;
-
-      default:
-        console.warn('no action passed!')
-        break;
+    if (bookmarks !== prevProps.bookmarks) {
+      localStorage.setItem('localBookmarks', JSON.stringify(updated));
+      console.info('Updated localStorage.')
     }
   }
 
@@ -165,12 +135,10 @@ class App extends Component {
 
   render() {
     const {
-      bookmarks,
       tags,
       sortedByTag
     } = this.state;
 
-    // let reversedBookmarks = bookmarks.reverse();
     let filteredTags = tags.filter(
       (tag, i) => tag === sortedByTag
     );
