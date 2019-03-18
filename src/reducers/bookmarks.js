@@ -49,6 +49,11 @@ function bookmarks(state = [], action) {
         ...state.slice(deleted + 1)
       ];
 
+      case 'IMPORT_LOCAL_BOOKMARKS':
+        return [
+          ...action.data
+        ];
+
     default:
       return state;
   }

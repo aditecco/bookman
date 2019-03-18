@@ -25,3 +25,10 @@ export function deleteBookmark(id) {
     id,
   }
 }
+
+export function importLocalBookmarks(data) {
+  return {
+    type: 'IMPORT_LOCAL_BOOKMARKS',
+    data,
+  }
+}
