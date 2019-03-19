@@ -4,6 +4,7 @@ bookmarks reducer
 --------------------------------- */
 
 // import actionIDs from '../actions/';
+import uuidv3 from 'uuid';
 
 function bookmarks(state = [], action) {
   switch (action.type) {
@@ -17,7 +18,7 @@ function bookmarks(state = [], action) {
       return [
         {
           href: url,
-          id: Date.now(),
+          id: uuidv3(url, uuidv3.URL),
           tags: splitTags,
           timestamp: date.toLocaleString(),
         },
@@ -49,10 +50,10 @@ function bookmarks(state = [], action) {
         ...state.slice(deleted + 1)
       ];
 
-      case 'IMPORT_LOCAL_BOOKMARKS':
-        return [
-          ...action.data
-        ];
+    case 'IMPORT_LOCAL_BOOKMARKS':
+      return [
+        ...action.data
+      ];
 
     default:
       return state;
