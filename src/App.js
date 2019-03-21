@@ -153,9 +153,7 @@ class App extends Component {
 
         <section className="inputSection">
           <div className="wrapper">
-            <BookmarkForm
-              addBookmark={this.props.addBookmark}
-            />
+            <BookmarkForm {...this.props} />
           </div>
         </section>
 
