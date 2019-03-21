@@ -3,8 +3,9 @@
   BookmarkForm
 *******************/
 
-// js
+// deps
 import React, { Component } from 'react';
+import uuidv1 from 'uuid';
 
 // components
 import InputField from './InputField';
@@ -37,12 +38,16 @@ class BookmarkForm extends React.Component {
   }
 
   handleSubmit = (e) => {
+    const id = uuidv1();
+
     // only urlInput is required
     if (this.state.urlInput !== '') {
 
       const { urlInput, tagInput } = this.state;
 
-      this.props.addBookmark(urlInput, tagInput);
+      // this.props.addBookmark(urlInput, tagInput);
+      this.props.addBookmark(urlInput, id);
+      this.props.addTags(tagInput, id);
 
       this.setState({
         urlInput: '',
