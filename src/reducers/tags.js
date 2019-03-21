@@ -3,27 +3,28 @@
 tags reducer
 --------------------------------- */
 
-// import actionIDs from '../actions/';
+
+// import uuidv3 from 'uuid';
+// import uuidv1 from 'uuid';
 
 function tags(state = [], action) {
   switch (action.type) {
-    // case 'ADD_BOOKMARK':
+    case 'ADD_TAGS':
 
-    // const
-    //   { content, id, tags, timestamp } = action,
-    //   date = new Date(),
-    //   splitTags = tags.split(',');
+    const
+      { tags, id } = action,
+      date = new Date(),
+      splitTags = tags.split(',');
 
-    // return [
-    //     ...state,
-    //     {
-    //       href: content,
-    //       id: Date.now(),
-    //       tags: splitTags,
-    //       timestamp: date.toLocaleString(),
-    //     }
-    //   ]
-    //   break;
+    return [
+        {
+          tags: splitTags,
+          id,
+          timestamp: date.toLocaleString(),
+        },
+        ...state,
+      ]
+      break;
 
     // case 'EDIT_BOOKMARK':
     //   break;
