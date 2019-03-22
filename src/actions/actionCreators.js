@@ -3,7 +3,7 @@
 actionCreators
 --------------------------------- */
 
-export function addBookmark(url, tags, id) {
+export function addBookmark(url, id) {
   return {
     type: 'ADD_BOOKMARK',
     url,
