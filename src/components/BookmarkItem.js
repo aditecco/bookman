@@ -31,7 +31,8 @@ const BookmarkItem = props => {
     console.log(prompt);
 
     if (prompt !== null) {
-      return onEditClick(id, prompt);
+      // return onEditClick(id, prompt);
+      return props.editBookmark(id, prompt);
     } return;
   }
 
@@ -116,14 +117,14 @@ const BookmarkItem = props => {
         {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
         {
-          typeof tags !== 'object' ?
+          // typeof tags !== 'object' ?
 
-          <PillButton
-            label={tags}
-            href={null}
-            onClick={null}
-          />
-          :
+          // <PillButton
+          //   label={tags}
+          //   href={null}
+          //   onClick={null}
+          // />
+          // :
           <>
             {
               (tags.length > 2) &&
@@ -141,9 +142,29 @@ const BookmarkItem = props => {
               </>
             }
 
-
             <ul className={root + "TagContainer"}>
-              {tags.map(
+
+              {
+                // this.props.tags !== 'undefined' &&
+
+                tags.map((tag, i) => {
+
+                  if (tag[1] === props.id)
+
+                  return tag[0].map((t, i) => (
+                      <li key={i} i={i}>
+                        <PillButton
+                          label={t}
+                          href={null}
+                        />
+                      </li>
+                    )
+                  )
+
+                })
+              }
+
+              {/* {tags.map(
                 (tag, i) => {
                   return (
                     <li key={i} i={i}>
@@ -154,7 +175,7 @@ const BookmarkItem = props => {
                     </li>
                   )
                 }
-              )}
+              )} */}
             </ul>
           </>
         }

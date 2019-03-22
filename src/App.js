@@ -139,7 +139,7 @@ class App extends Component {
       sortedByTag
     } = this.state;
 
-    let filteredTags = tags.filter(
+    const filteredTags = tags.filter(
       (tag, i) => tag === sortedByTag
     );
 
@@ -178,6 +178,28 @@ class App extends Component {
 
               <ul className="tagList">
                 {
+                  // this.props.tags !== 'undefined' &&
+
+                  this.props.tags.map((tag, i) => {
+
+                    return tag[0].map((t, i) => {
+                      return (
+                        <li key={i}>
+                          <TagItem
+                            name={t}
+                            count={null}
+                            onClick={this.handleTagSorting}
+                          />
+                        </li>
+                      )
+                    })
+
+                  })
+                }
+              </ul>
+
+              {/* <ul className="tagList">
+                {
                   sortedByTag === '' ?
 
                   uniqueTags.sort().map((tag, i) => {
@@ -206,7 +228,7 @@ class App extends Component {
                     )
                   })
                 }
-              </ul>
+              </ul> */}
             </aside>
           </section>
 
@@ -241,30 +263,30 @@ class App extends Component {
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
-                          tags={bookmark.tags}
+                          // tags={[]}
                           timestamp={bookmark.timestamp}
-                          onEditClick={this.props.editBookmark}
+                          // onEditClick={this.props.editBookmark}
                           onDeleteClick={this.confirmDestructiveAction}
-                          // {...this.props}
+                          {...this.props}
                         />
                       </li>
                     );
 
-                    // console.log(typeof tags)
+                    return bookmarkComp;
 
-                    if (filter === '') {
-                      return bookmarkComp
-                    } else if (
-                        typeof tags === 'string'
-                        && filter === tags
-                      ) {
-                      return bookmarkComp
-                    } else if (
-                        typeof tags === 'object'
-                        && tags.includes(filter)
-                      ) {
-                      return bookmarkComp
-                    }
+                    // if (filter === '') {
+                    //   return bookmarkComp
+                    // } else if (
+                    //     typeof tags === 'string'
+                    //     && filter === tags
+                    //   ) {
+                    //   return bookmarkComp
+                    // } else if (
+                    //     typeof tags === 'object'
+                    //     && tags.includes(filter)
+                    //   ) {
+                    //   return bookmarkComp
+                    // }
                   })
                   :
                   <li className="blankSlateMessage">No bookmarks! Create one.</li>
