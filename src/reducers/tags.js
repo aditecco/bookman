@@ -17,13 +17,13 @@ function tags(state = [], action) {
       splitTags = tags.split(',');
 
     return [
-        [
-          splitTags,
-          id,
-          date.toLocaleString(),
-        ],
-        ...state,
-      ]
+      {
+        id,
+        tags: splitTags,
+        timestamp: date.toLocaleString(),
+      },
+      ...state,
+    ]
       break;
 
     // case 'EDIT_BOOKMARK':
