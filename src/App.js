@@ -263,11 +263,12 @@ class App extends Component {
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
-                          // tags={[]}
+                          // tags={this.props.tags}
+                          tags={this.props.tags.filter((t) => t[1] === bookmark.id)}
                           timestamp={bookmark.timestamp}
-                          // onEditClick={this.props.editBookmark}
+                          onEditClick={this.props.editBookmark}
                           onDeleteClick={this.confirmDestructiveAction}
-                          {...this.props}
+                          // {...this.props.tags}
                         />
                       </li>
                     );
