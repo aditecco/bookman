@@ -181,8 +181,7 @@ class App extends Component {
                   // this.props.tags !== 'undefined' &&
 
                   this.props.tags.map((tag, i) => {
-
-                    return tag[0].map((t, i) => {
+                    return tag.tags.map((t, i) => {
                       return (
                         <li key={i}>
                           <TagItem
@@ -193,7 +192,6 @@ class App extends Component {
                         </li>
                       )
                     })
-
                   })
                 }
               </ul>
@@ -251,9 +249,9 @@ class App extends Component {
                   this.props.bookmarks.length > 0 ?
 
                   this.props.bookmarks.map((bookmark, i) => {
-                    let
-                      filter = this.state.sortedByTag,
-                      tags = bookmark.tags;
+                    // let
+                    //   filter = this.state.sortedByTag,
+                    //   tags = bookmark.tags;
 
                     const bookmarkComp = (
                       <li
@@ -263,12 +261,10 @@ class App extends Component {
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
-                          // tags={this.props.tags}
-                          tags={this.props.tags.filter((t) => t[1] === bookmark.id)}
+                          tags={this.props.tags.filter((tag) => tag.id === bookmark.id)}
                           timestamp={bookmark.timestamp}
                           onEditClick={this.props.editBookmark}
                           onDeleteClick={this.confirmDestructiveAction}
-                          // {...this.props.tags}
                         />
                       </li>
                     );

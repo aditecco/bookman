@@ -31,8 +31,8 @@ const BookmarkItem = props => {
     console.log(prompt);
 
     if (prompt !== null) {
-      // return onEditClick(id, prompt);
-      return props.editBookmark(id, prompt);
+      return onEditClick(id, prompt);
+      // return props.editBookmark(id, prompt);
     } return;
   }
 
@@ -127,7 +127,7 @@ const BookmarkItem = props => {
           // :
           <>
             {
-              (tags.length > 2) &&
+              (tags !== undefined && tags.length > 2) &&
               <>
                 <div className = {`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}>
                   <a href="#" onClick={lessTags}>
@@ -145,13 +145,13 @@ const BookmarkItem = props => {
             <ul className={root + "TagContainer"}>
 
               {
-                // this.props.tags !== 'undefined' &&
+                tags !== undefined &&
 
                 tags.map((tag, i) => {
 
-                  if (tag[1] === props.id)
+                  if (tag.id === props.id)
 
-                  return tag[0].map((t, i) => (
+                  return tag.tags.map((t, i) => (
                       <li key={i} i={i}>
                         <PillButton
                           label={t}
