@@ -33,7 +33,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tags: [],
       sortedByTag: ''
     }
   }
@@ -76,6 +75,7 @@ class App extends Component {
       tags: [...tags],
     }
 
+    // if (bookmarks !== prevProps.bookmarks)
     if ({ bookmarks, tags } !== prevProps) {
       localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
       localStorage.setItem('localTags', JSON.stringify(updated.tags));
@@ -152,9 +152,10 @@ class App extends Component {
 
   render() {
     const {
-      tags,
       sortedByTag
     } = this.state;
+
+    const { bookmarks, tags } = this.props;
 
     const filteredTags = tags.filter(
       (tag, i) => tag === sortedByTag
@@ -197,7 +198,7 @@ class App extends Component {
                 {
                   // this.props.tags !== 'undefined' &&
 
-                  this.props.tags.map((tag, i) => {
+                  tags.map((tag, i) => {
                     return tag.tags.map((t, i) => {
                       return (
                         <li key={i}>
@@ -257,15 +258,15 @@ class App extends Component {
                     :
                     `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
                   :
-                  `Bookmarks - ${this.props.bookmarks.length}`
+                  `Bookmarks - ${bookmarks.length}`
                 }
               </h4>
 
               <ol className="bookmarkList">
                 {
-                  this.props.bookmarks.length > 0 ?
+                  bookmarks.length > 0 ?
 
-                  this.props.bookmarks.map((bookmark, i) => {
+                  bookmarks.map((bookmark, i) => {
                     // let
                     //   filter = this.state.sortedByTag,
                     //   tags = bookmark.tags;
@@ -278,7 +279,7 @@ class App extends Component {
                         <BookmarkItem
                           id={bookmark.id}
                           url={bookmark.href}
-                          tags={this.props.tags.filter((tag) => tag.id === bookmark.id)}
+                          tags={tags.filter((tag) => tag.id === bookmark.id)}
                           timestamp={bookmark.timestamp}
                           onEditClick={this.props.editBookmark}
                           onDeleteClick={this.confirmDestructiveAction}
