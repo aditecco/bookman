@@ -149,6 +149,14 @@ class App extends Component {
     return confirmDialog ? this.props.deleteBookmark(id) : console.log('Canceled deletion.');
   }
 
+  findRelationships = (source = [], key) => {
+    const match = source.filter((el) => el.tags.includes(key));
+    const ids = match.map((el, i) => el.id);
+    console.log(ids);
+
+    return ids;
+  }
+
 
   render() {
     const {
@@ -267,10 +275,7 @@ class App extends Component {
                   bookmarks.length > 0 ?
 
                   bookmarks.map((bookmark, i) => {
-                    // let
-                    //   filter = this.state.sortedByTag,
-                    //   tags = bookmark.tags;
-
+                    const filter = sortedByTag;
                     const bookmarkComp = (
                       <li
                         className='BookmarkItemContainer'
@@ -287,23 +292,18 @@ class App extends Component {
                       </li>
                     );
 
-                    return bookmarkComp;
-
-                    // if (filter === '') {
-                    //   return bookmarkComp
-                    // } else if (
-                    //     typeof tags === 'string'
-                    //     && filter === tags
-                    //   ) {
-                    //   return bookmarkComp
-                    // } else if (
-                    //     typeof tags === 'object'
-                    //     && tags.includes(filter)
-                    //   ) {
-                    //   return bookmarkComp
-                    // }
+                    if (filter === '') {
+                      return bookmarkComp;
+                    } else {
+                      const matches = this.findRelationships(tags, filter);
+                      // return `${matches}`
+                      console.log(matches);
+                      return bookmarks.filter((b) => b.id === matches[0]).map((el, i) => bookmarkComp)
+                    }
                   })
+
                   :
+
                   <li className="blankSlateMessage">No bookmarks! Create one.</li>
                 }
               </ol>
