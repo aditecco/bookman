@@ -40,29 +40,46 @@ class App extends Component {
 
 
   componentWillMount() {
-    if (Constants.LOCAL) {
+    if (Constants.LOCAL_BOOKMARKS && Constants.LOCAL_TAGS) {
       console.info(Constants.LOCAL_FOUND);
-      let parsed = JSON.parse(Constants.LOCAL);
-      this.props.importLocalBookmarks(parsed);
+
+      const parsed = {
+        bookmarks: [...JSON.parse(Constants.LOCAL_BOOKMARKS)],
+        tags: [...JSON.parse(Constants.LOCAL_TAGS)],
+      }
+
+      this.props.importLocalBookmarks(parsed.bookmarks);
+      this.props.importLocalTags(parsed.tags);
+
     } else {
       console.info(Constants.LOCAL_NOT_FOUND);
+
       localStorage.setItem(
         'localBookmarks',
-        // Constants.INITIAL_BOOKMARKS
-        Constants.TEST_BOOKMARKS
+        Constants.INITIAL
+        // Constants.TEST_BOOKMARKS
+      );
+      localStorage.setItem(
+        'localTags',
+        Constants.INITIAL
       );
     }
-    // console.info(this.props);
   }
 
 
   componentDidUpdate(prevProps) {
-    const { bookmarks } = this.props;
-    const local = JSON.parse(Constants.LOCAL);
-    const updated = [...bookmarks];
+    const { bookmarks, tags } = this.props;
+    const localBookmarks = JSON.parse(Constants.LOCAL_BOOKMARKS);
+    const localTags = JSON.parse(Constants.LOCAL_TAGS);
+    const updated = {
+      bookmarks: [...bookmarks],
+      tags: [...tags],
+    }
 
-    if (bookmarks !== prevProps.bookmarks) {
-      localStorage.setItem('localBookmarks', JSON.stringify(updated));
+    if ({ bookmarks, tags } !== prevProps) {
+      localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
+      localStorage.setItem('localTags', JSON.stringify(updated.tags));
+
       console.info('Updated localStorage.')
     }
   }

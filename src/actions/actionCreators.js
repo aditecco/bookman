@@ -40,3 +40,10 @@ export function importLocalBookmarks(data) {
     data,
   }
 }
+
+export function importLocalTags(data) {
+  return {
+    type: 'IMPORT_LOCAL_TAGS',
+    data,
+  }
+}

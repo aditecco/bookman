@@ -32,6 +32,11 @@ function tags(state = [], action) {
     // case 'DELETE_BOOKMARK':
     //   break;
 
+    case 'IMPORT_LOCAL_TAGS':
+      return [
+        ...action.data
+      ];
+
     default:
       return state;
   }
