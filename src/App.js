@@ -85,37 +85,6 @@ class App extends Component {
   }
 
 
-  // updates tags in state
-  updateTags = (tag) => {
-    let cloned = [...this.state.tags];
-    cloned.push(tag);
-
-    let flattened = cloned.concat.apply([], cloned);
-
-    this.setState({ tags: flattened });
-
-    // console.log(cloned);
-    // console.log(flattened);
-  }
-
-
-  // extracts tags from bookmarks in state
-  extractTags = (bookmarks) => {
-    let
-      extracted = [],
-      flattened;
-
-    bookmarks.map((bookmark) => {
-      extracted.push(bookmark.tags);
-    });
-
-    flattened = extracted.concat.apply([], extracted);
-    // console.log(flattened);
-
-    return flattened;
-  }
-
-
   // updates state w/ tag filter
   handleTagSorting = (e) => {
     e.preventDefault();
@@ -129,16 +98,6 @@ class App extends Component {
   // resets tag filter in state
   resetTagSorting = (e) => {
     this.setState({ sortedByTag: '' })
-  }
-
-
-  // removes duplicates
-  removeDuplicates = (duplicates) => {
-    let dedupDevice = new Set(duplicates);
-    let deduped = [];
-
-    deduped = [...dedupDevice];
-    return deduped;
   }
 
 
