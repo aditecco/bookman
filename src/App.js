@@ -157,6 +157,26 @@ class App extends Component {
     return ids;
   }
 
+  filterBookmarks = () => {
+    const
+      { bookmarks, tags } = this.props,
+      filter = this.state.sortedByTag,
+      matches = this.findRelationships(tags, filter)
+    ;
+
+    let found = [];
+
+    for (const id of matches) {
+      found.push(bookmarks.find((bookmark) => bookmark.id === id));
+    }
+
+    console.log('>> matches', matches);
+    console.log('>> filter', filter)
+    console.log('>> found', found);
+
+    return found;
+  }
+
 
   render() {
     const {
@@ -169,22 +189,7 @@ class App extends Component {
       (tag, i) => tag === sortedByTag
     );
 
-    const filterBookmarks = () => {
-      const filter = sortedByTag;
-      const matches = this.findRelationships(tags, filter);
-
-      let found = [];
-
-      for (const id of matches) {
-        found.push(bookmarks.find((bookmark) => bookmark.id === id));
-      }
-
-      console.log(matches);
-      console.log(filter)
-      console.log(found);
-
-      return found;
-    }
+    const filteredBookmarks = this.filterBookmarks();
 
     const uniqueTags = this.removeDuplicates(tags);
 
@@ -316,7 +321,7 @@ class App extends Component {
                     :
 
                     (
-                      filterBookmarks().map((bookmark, i) => {
+                      filteredBookmarks.map((bookmark, i) => {
                         return (
                           <li
                             className='BookmarkItemContainer'
