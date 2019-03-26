@@ -149,10 +149,10 @@ class App extends Component {
     return confirmDialog ? this.props.deleteBookmark(id) : console.log('Canceled deletion.');
   }
 
+
   findRelationships = (source = [], key) => {
     const match = source.filter((el) => el.tags.includes(key));
     const ids = match.map((el, i) => el.id);
-    console.log(ids);
 
     return ids;
   }
@@ -169,7 +169,25 @@ class App extends Component {
       (tag, i) => tag === sortedByTag
     );
 
-    let uniqueTags = this.removeDuplicates(tags);
+    const filterBookmarks = () => {
+      const filter = sortedByTag;
+      const matches = this.findRelationships(tags, filter);
+
+      let found = [];
+
+      for (const id of matches) {
+        found.push(bookmarks.find((bookmark) => bookmark.id === id));
+      }
+
+      console.log(matches);
+      console.log(filter)
+      console.log(found);
+
+      return found;
+    }
+
+    const uniqueTags = this.removeDuplicates(tags);
+
 
     return (
       <>
@@ -274,33 +292,48 @@ class App extends Component {
                 {
                   bookmarks.length > 0 ?
 
-                  bookmarks.map((bookmark, i) => {
-                    const filter = sortedByTag;
-                    const bookmarkComp = (
-                      <li
-                        className='BookmarkItemContainer'
-                        key={i}
-                      >
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.href}
-                          tags={tags.filter((tag) => tag.id === bookmark.id)}
-                          timestamp={bookmark.timestamp}
-                          onEditClick={this.props.editBookmark}
-                          onDeleteClick={this.confirmDestructiveAction}
-                        />
-                      </li>
-                    );
+                    sortedByTag === '' ?
+                    (
+                      bookmarks.map((bookmark, i) => {
+                        return (
+                          <li
+                            className='BookmarkItemContainer'
+                            key={i}
+                          >
+                            <BookmarkItem
+                              id={bookmark.id}
+                              url={bookmark.href}
+                              tags={tags.filter((tag) => tag.id === bookmark.id)}
+                              timestamp={bookmark.timestamp}
+                              onEditClick={this.props.editBookmark}
+                              onDeleteClick={this.confirmDestructiveAction}
+                            />
+                          </li>
+                        );
+                      })
+                    )
 
-                    if (filter === '') {
-                      return bookmarkComp;
-                    } else {
-                      const matches = this.findRelationships(tags, filter);
-                      // return `${matches}`
-                      console.log(matches);
-                      return bookmarks.filter((b) => b.id === matches[0]).map((el, i) => bookmarkComp)
-                    }
-                  })
+                    :
+
+                    (
+                      filterBookmarks().map((bookmark, i) => {
+                        return (
+                          <li
+                            className='BookmarkItemContainer'
+                            key={i}
+                          >
+                            <BookmarkItem
+                              id={bookmark.id}
+                              url={bookmark.href}
+                              tags={tags.filter((tag) => tag.id === bookmark.id)}
+                              timestamp={bookmark.timestamp}
+                              onEditClick={this.props.editBookmark}
+                              onDeleteClick={this.confirmDestructiveAction}
+                            />
+                          </li>
+                        );
+                      })
+                    )
 
                   :
 
