@@ -33,7 +33,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortedByTag: ''
+      sortedByTag: '',
+      uniqueTags: [],
     }
   }
 
@@ -63,6 +64,33 @@ class App extends Component {
         Constants.INITIAL
       );
     }
+  }
+
+  componentDidMount() {
+    const fetchTags = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.props.tags);
+      }, 999);
+    });
+
+    fetchTags.then((data) => {
+      const extracted = data.map(
+        (tagObject, i) => tagObject.tags.map(
+          (tag, i) => tag
+        )
+      )
+
+      const flattened = extracted.concat.apply([], extracted);
+
+      const unique = this.removeDuplicates(flattened);
+      this.setState({ uniqueTags: unique })
+
+      console.info('fetchTags: resolved!');
+      console.log('>> Promise', data);
+      console.log('>> extracted', extracted);
+      console.log('>> flattened', flattened);
+      console.log('>> uniqueTags', this.state.uniqueTags);
+    })
   }
 
 
@@ -116,41 +144,52 @@ class App extends Component {
     return ids;
   }
 
+
   filterBookmarks = () => {
     const
       { bookmarks, tags } = this.props,
       filter = this.state.sortedByTag,
-      matches = this.findRelationships(tags, filter)
+      matches = this.findRelationships(tags, filter),
+      found = []
     ;
-
-    let found = [];
 
     for (const id of matches) {
       found.push(bookmarks.find((bookmark) => bookmark.id === id));
     }
 
-    console.log('>> matches', matches);
-    console.log('>> filter', filter)
-    console.log('>> found', found);
+    // console.log('>> matches', matches);
+    // console.log('>> filter', filter)
+    // console.log('>> found', found);
 
     return found;
   }
 
 
+  // removes duplicates
+  removeDuplicates = (duplicates) => {
+    let deduplicator = new Set(duplicates);
+    let deduplicated = [];
+
+    deduplicated = [...deduplicator];
+    return deduplicated;
+  }
+
+
+  /* ---------------------------------
+    Render
+  --------------------------------- */
+
   render() {
-    const {
-      sortedByTag
-    } = this.state;
+    const
+      { sortedByTag } = this.state,
+      { bookmarks, tags } = this.props,
+      filteredBookmarks = this.filterBookmarks(),
+      { uniqueTags } = this.state
+    ;
 
-    const { bookmarks, tags } = this.props;
-
-    const filteredTags = tags.filter(
+    const filteredTags = uniqueTags.filter(
       (tag, i) => tag === sortedByTag
     );
-
-    const filteredBookmarks = this.filterBookmarks();
-
-    const uniqueTags = this.removeDuplicates(tags);
 
 
     return (
@@ -172,7 +211,7 @@ class App extends Component {
                 (sortedByTag === '') ?
                 (
                   <h4 className="tagSectionHeading">
-                    {`tags - ${tags.length}`}
+                    {`tags - ${tags.length + 1}`}
                   </h4>
                 )
                 :
@@ -186,29 +225,9 @@ class App extends Component {
 
               <ul className="tagList">
                 {
-                  // this.props.tags !== 'undefined' &&
-
-                  tags.map((tag, i) => {
-                    return tag.tags.map((t, i) => {
-                      return (
-                        <li key={i}>
-                          <TagItem
-                            name={t}
-                            count={null}
-                            onClick={this.handleTagSorting}
-                          />
-                        </li>
-                      )
-                    })
-                  })
-                }
-              </ul>
-
-              {/* <ul className="tagList">
-                {
                   sortedByTag === '' ?
 
-                  uniqueTags.sort().map((tag, i) => {
+                  uniqueTags.map((tag, i) => {
                     return (
                       <li key={i}>
                         <TagItem
@@ -219,22 +238,22 @@ class App extends Component {
                       </li>
                     )
                   })
+
                   :
-                  filteredTags
-                    .slice(0, 1)
-                    .map((tag, i) => {
-                    return (
-                      <li key={i}>
-                        <TagItem
-                          name={tag}
-                          count={filteredTags.length}
-                          onClick={this.handleTagSorting}
-                        />
-                      </li>
-                    )
+
+                  filteredTags.map((tag, i) => {
+                      return (
+                        <li key={i}>
+                          <TagItem
+                            name={tag}
+                            count={null}
+                            onClick={this.handleTagSorting}
+                          />
+                        </li>
+                      )
                   })
                 }
-              </ul> */}
+              </ul>
             </aside>
           </section>
 
@@ -243,10 +262,10 @@ class App extends Component {
               <h4 className="bookmarkSectionHeading">
                 {
                   sortedByTag !== '' ?
-                    filteredTags.length > 1 ?
-                    `Showing ${filteredTags.length} bookmarks with tag '${sortedByTag}'`
+                    filteredBookmarks.length > 1 ?
+                    `Showing ${filteredBookmarks.length} bookmarks with tag '${sortedByTag}'`
                     :
-                    `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
+                    `Showing ${filteredBookmarks.length} bookmark with tag '${sortedByTag}'`
                   :
                   `Bookmarks - ${bookmarks.length}`
                 }
