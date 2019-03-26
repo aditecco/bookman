@@ -5,7 +5,10 @@
 
 // js deps
 import React, { Component } from 'react';
-// import stringify from 'json-stringify-safe';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from './actions/actionCreators';
+import stringify from 'json-stringify-safe';
 
 
 // components
@@ -18,7 +21,7 @@ import Footer from './components/Footer';
 
 
 // assets
-import Actions from './actions';
+import Actions from './actions/actionIDs';
 import * as Constants from './constants';
 
 
@@ -30,122 +33,54 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarks: [],
-      tags: [],
       sortedByTag: ''
     }
   }
 
 
   componentWillMount() {
-    if (Constants.LOCAL) {
+    if (Constants.LOCAL_BOOKMARKS && Constants.LOCAL_TAGS) {
       console.info(Constants.LOCAL_FOUND);
-      let parsed = JSON.parse(Constants.LOCAL);
 
-      this.setState(
-        {
-          bookmarks: parsed,
-          tags: this.extractTags(parsed)
-        }
-      )
+      const parsed = {
+        bookmarks: [...JSON.parse(Constants.LOCAL_BOOKMARKS)],
+        tags: [...JSON.parse(Constants.LOCAL_TAGS)],
+      }
+
+      this.props.importLocalBookmarks(parsed.bookmarks);
+      this.props.importLocalTags(parsed.tags);
+
     } else {
       console.info(Constants.LOCAL_NOT_FOUND);
+
       localStorage.setItem(
         'localBookmarks',
-        Constants.INITIAL_BOOKMARKS
+        Constants.INITIAL
         // Constants.TEST_BOOKMARKS
+      );
+      localStorage.setItem(
+        'localTags',
+        Constants.INITIAL
       );
     }
   }
 
 
-  // adds a bookmark to state, updates localStorage
-  addBookmark = (input) => {
-    const
-      date = new Date(),
-      splittedTags = input.tags.split(','),
-      bookmarks = this.state.bookmarks,
-      newBookmark = {
-        id: Date.now(),
-        href: input.url,
-        tags: splittedTags,
-        timeStamp: date.toLocaleString()
-    };
+  componentDidUpdate(prevProps) {
+    const { bookmarks, tags } = this.props;
+    const localBookmarks = JSON.parse(Constants.LOCAL_BOOKMARKS);
+    const localTags = JSON.parse(Constants.LOCAL_TAGS);
+    const updated = {
+      bookmarks: [...bookmarks],
+      tags: [...tags],
+    }
 
-    let clone = [...bookmarks];
-    clone.unshift(newBookmark);
-    this.setState({
-      // bookmarks: this.state.bookmarks.concat(bookmark)
-      bookmarks: clone
-    })
+    // if (bookmarks !== prevProps.bookmarks)
+    if ({ bookmarks, tags } !== prevProps) {
+      localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
+      localStorage.setItem('localTags', JSON.stringify(updated.tags));
 
-    this.localDispatcher(Actions.create, newBookmark);
-
-    // we update tags separately
-    this.updateTags(newBookmark.tags);
-
-    // // we add a class that will toggle an animated reveal for the BM item
-    // const bookmarkContainer = document.querySelector('.bookmarkList');
-    // const bookmarkContainerLength = bookmarkContainer.children.length;
-
-    // if (bookmarkContainerLength >= 1) {
-    //   setTimeout(() => {
-    //     bookmarkContainer.lastChild.classList.add('visible');
-    //     // console.log(bookmarkContainer.lastElementChild);
-    //   }, 200);
-    // } else {
-    //   console.error('Failed to create a new bookmark.');
-    // }
-  }
-
-
-  // removes a bookmark from state, updates localStorage
-  removeBookmark = (id) => {
-    let
-      bookmarks = this.state.bookmarks,
-      target = bookmarks.findIndex(
-      (el) => el.id === id
-    );
-    // console.log(target);
-
-    let clone = [...bookmarks];
-    clone.splice(target, 1);
-
-    this.setState({ bookmarks: clone })
-
-    this.localDispatcher(Actions.remove, clone, { id })
-
-    // console.log(`${target} deleted.`);
-  }
-
-
-  // handles localStorage actions
-  localDispatcher = (action, payload, meta = {}) => {
-    let bookmarks = this.state.bookmarks;
-    let local = JSON.parse(localStorage.getItem('localBookmarks'));
-
-    switch (action) {
-      case Actions.create:
-        let updated = [...local];
-        updated.unshift(payload)
-        localStorage.setItem('localBookmarks', JSON.stringify(updated));
-        console.info('Created new bookmark.')
-
-        break;
-
-      case Actions.edit:
-        console.warn('action not set.')
-        break;
-
-      case Actions.remove:
-        localStorage.setItem('localBookmarks', JSON.stringify(payload));
-        console.info(`Deleted bookmark with ID ${meta.id}.`);
-
-        break;
-
-      default:
-        console.warn('no action passed!')
-        break;
+      console.info('Updated localStorage.')
     }
   }
 
@@ -208,26 +143,51 @@ class App extends Component {
 
 
   // gets confirmation for destructive actions
-  confirmDestructiveAction = (context) => {
-    let confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
+  confirmDestructiveAction = (id) => {
+    const confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
 
-    return confirmDialog ? this.removeBookmark(context) : console.log('Canceled deletion.');
+    return confirmDialog ? this.props.deleteBookmark(id) : console.log('Canceled deletion.');
+  }
+
+
+  findRelationships = (source = [], key) => {
+    const match = source.filter((el) => el.tags.includes(key));
+    const ids = match.map((el, i) => el.id);
+
+    return ids;
   }
 
 
   render() {
     const {
-      bookmarks,
-      tags,
       sortedByTag
     } = this.state;
 
-    // let reversedBookmarks = bookmarks.reverse();
-    let filteredTags = tags.filter(
+    const { bookmarks, tags } = this.props;
+
+    const filteredTags = tags.filter(
       (tag, i) => tag === sortedByTag
     );
 
-    let uniqueTags = this.removeDuplicates(tags);
+    const filterBookmarks = () => {
+      const filter = sortedByTag;
+      const matches = this.findRelationships(tags, filter);
+
+      let found = [];
+
+      for (const id of matches) {
+        found.push(bookmarks.find((bookmark) => bookmark.id === id));
+      }
+
+      console.log(matches);
+      console.log(filter)
+      console.log(found);
+
+      return found;
+    }
+
+    const uniqueTags = this.removeDuplicates(tags);
+
 
     return (
       <>
@@ -237,9 +197,7 @@ class App extends Component {
 
         <section className="inputSection">
           <div className="wrapper">
-            <BookmarkForm
-              passToParent={this.addBookmark}
-            />
+            <BookmarkForm {...this.props} />
           </div>
         </section>
 
@@ -263,6 +221,26 @@ class App extends Component {
               }
 
               <ul className="tagList">
+                {
+                  // this.props.tags !== 'undefined' &&
+
+                  tags.map((tag, i) => {
+                    return tag.tags.map((t, i) => {
+                      return (
+                        <li key={i}>
+                          <TagItem
+                            name={t}
+                            count={null}
+                            onClick={this.handleTagSorting}
+                          />
+                        </li>
+                      )
+                    })
+                  })
+                }
+              </ul>
+
+              {/* <ul className="tagList">
                 {
                   sortedByTag === '' ?
 
@@ -292,7 +270,7 @@ class App extends Component {
                     )
                   })
                 }
-              </ul>
+              </ul> */}
             </aside>
           </section>
 
@@ -306,7 +284,7 @@ class App extends Component {
                     :
                     `Showing ${filteredTags.length} bookmark with tag '${sortedByTag}'`
                   :
-                  `Bookmarks - ${this.state.bookmarks.length}`
+                  `Bookmarks - ${bookmarks.length}`
                 }
               </h4>
 
@@ -314,44 +292,51 @@ class App extends Component {
                 {
                   bookmarks.length > 0 ?
 
-                  bookmarks.map((bookmark, i) => {
-                    let
-                      filter = this.state.sortedByTag,
-                      tags = bookmark.tags;
+                    sortedByTag === '' ?
+                    (
+                      bookmarks.map((bookmark, i) => {
+                        return (
+                          <li
+                            className='BookmarkItemContainer'
+                            key={i}
+                          >
+                            <BookmarkItem
+                              id={bookmark.id}
+                              url={bookmark.href}
+                              tags={tags.filter((tag) => tag.id === bookmark.id)}
+                              timestamp={bookmark.timestamp}
+                              onEditClick={this.props.editBookmark}
+                              onDeleteClick={this.confirmDestructiveAction}
+                            />
+                          </li>
+                        );
+                      })
+                    )
 
-                    const bookmarkComp = (
-                      <li
-                        className='BookmarkItemContainer'
-                        key={i}
-                      >
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.href}
-                          tags={bookmark.tags}
-                          timeStamp={bookmark.timeStamp}
-                          onEditClick={null}
-                          onDeleteClick={this.confirmDestructiveAction}
-                        />
-                      </li>
-                    );
+                    :
 
-                    // console.log(typeof tags)
+                    (
+                      filterBookmarks().map((bookmark, i) => {
+                        return (
+                          <li
+                            className='BookmarkItemContainer'
+                            key={i}
+                          >
+                            <BookmarkItem
+                              id={bookmark.id}
+                              url={bookmark.href}
+                              tags={tags.filter((tag) => tag.id === bookmark.id)}
+                              timestamp={bookmark.timestamp}
+                              onEditClick={this.props.editBookmark}
+                              onDeleteClick={this.confirmDestructiveAction}
+                            />
+                          </li>
+                        );
+                      })
+                    )
 
-                    if (filter === '') {
-                      return bookmarkComp
-                    } else if (
-                        typeof tags === 'string'
-                        && filter === tags
-                      ) {
-                      return bookmarkComp
-                    } else if (
-                        typeof tags === 'object'
-                        && tags.includes(filter)
-                      ) {
-                      return bookmarkComp
-                    }
-                  })
                   :
+
                   <li className="blankSlateMessage">No bookmarks! Create one.</li>
                 }
               </ol>
@@ -360,11 +345,24 @@ class App extends Component {
         </main>
 
         <Footer
-          footerInfo='BookMan v0.9 | build xyz'
+          footerInfo='BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman'
         />
       </>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    bookmarks: state.bookmarks,
+    tags: state.tags,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+const WithRedux = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default WithRedux;

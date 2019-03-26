@@ -16,7 +16,7 @@ const BookmarkItem = props => {
     id,
     url,
     tags,
-    timeStamp,
+    timestamp,
     onEditClick,
     onDeleteClick
   } = props;
@@ -24,6 +24,15 @@ const BookmarkItem = props => {
   const handleDelete = (e) => {
     // console.log(id);
     onDeleteClick(id);
+  }
+
+  const handleEdit = (e) => {
+    const prompt = window.prompt(`Edit ${url} with…`);
+    console.log(prompt);
+
+    if (prompt !== null) {
+      return onEditClick(id, prompt);
+    } return;
   }
 
   /* ---------------------------------
@@ -54,7 +63,12 @@ const BookmarkItem = props => {
   const lessTags = (e) => {
     e.preventDefault();
 
-    const t = [...e.target.closest('div').nextElementSibling.nextElementSibling.querySelectorAll('li')];
+    const t = [
+      ...e.target.closest('div')
+      .nextElementSibling
+      .nextElementSibling
+      .querySelectorAll('li')
+    ];
 
     for (const el of t) {
       el.style.transition = `transform .3s ease`;
@@ -101,18 +115,10 @@ const BookmarkItem = props => {
       <section className={root + "Body"}>
         {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
-        {
-          typeof tags !== 'object' ?
-
-          <PillButton
-            label={tags}
-            href={null}
-            onClick={null}
-          />
-          :
+        {tags !== undefined &&
           <>
             {
-              (tags.length > 2) &&
+              // (x > 2) &&
               <>
                 <div className = {`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}>
                   <a href="#" onClick={lessTags}>
@@ -127,20 +133,20 @@ const BookmarkItem = props => {
               </>
             }
 
-
             <ul className={root + "TagContainer"}>
-              {tags.map(
-                (tag, i) => {
-                  return (
-                    <li>
-                      <PillButton
-                        label={tag}
-                        href={null}
-                      />
-                    </li>
+              {
+                tags.map((tag, i) => {
+                  return tag.tags.map((t, i) => (
+                      <li key={i} i={i}>
+                        <PillButton
+                          label={t}
+                          href={null}
+                        />
+                      </li>
+                    )
                   )
-                }
-              )}
+                })
+              }
             </ul>
           </>
         }
@@ -148,7 +154,7 @@ const BookmarkItem = props => {
 
       <footer className={root + "Footer"}>
         <div className={root + "TimeStamp"}>
-          <time>{timeStamp}</time>
+          <time>{timestamp}</time>
         </div>
 
         <div className={root + "Controls"}>
@@ -158,7 +164,7 @@ const BookmarkItem = props => {
             <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
               <a
                 href="#"
-                onClick={onEditClick}
+                onClick={handleEdit}
               >
                 edit
               </a>
