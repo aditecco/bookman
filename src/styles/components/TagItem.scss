@@ -4,6 +4,7 @@
 --------------------------------- */
 
 .TagItem {
+  @extend %resetAnchors;
   display: inline-block;
   // padding: ($padding / 4) 0;
   padding: $padding / 4;
@@ -20,13 +21,11 @@
   &:visited { color: inherit; }
 
   &:hover {
-    margin-top: 8px;
-    margin-bottom: 8px;
     box-shadow: $shadow;
     background-color: rgba(white, .4);
     transform:
       scale(1.05)
-      translateX(4px)
+      translateX(10px)
     ;
   }
 
