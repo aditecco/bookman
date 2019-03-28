@@ -118,7 +118,8 @@ const BookmarkItem = props => {
         {tags !== undefined &&
           <>
             {
-              // (x > 2) &&
+              // TODO …
+              tags[0]['tags'].length > 2 &&
               <>
                 <div className = {`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}>
                   <a href="#" onClick={lessTags}>
