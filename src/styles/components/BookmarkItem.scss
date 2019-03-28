@@ -6,33 +6,39 @@
 .BookmarkItem {
   $root: '.BookmarkItem';
   width: 300px;
-  border-radius: $radius;
+  border-radius: $radius * 2;
   box-shadow: $shadow;
   margin-bottom: $margin;
   background-color: white;
   > * {
     padding: ($padding / 2) $padding;
-    border-bottom: 1px solid $flat-gray-1;
+    // border-bottom: 1px solid $flat-gray-1;
   }
+
   &LinkWrapper {
-    // @include highlight;
     @include truncate(100%);
     display: block;
-    // padding: $padding * 2 $padding;
-    // padding: 30px $padding $padding / 2;
     padding: 30px $padding 30px;
     text-decoration: none;
+    background: rgba($flat-gray-1, .4);
+    border: {
+      top-left-radius: $radius * 2;
+      top-right-radius: $radius * 2;
+    }
+
     #{$root}Header {
       #{$root}Heading {
         @include smallHeading;
         margin-bottom: $margin / 2;
       }
     }
+
     #{$root}Content {
       color: $flat-blue-1;
       font-size: $title;
     }
   }
+
   #{$root}Body {
     position: relative;
     padding-right: 0;
