@@ -181,10 +181,9 @@ class App extends Component {
 
   render() {
     const
-      { sortedByTag } = this.state,
+      { sortedByTag, uniqueTags } = this.state,
       { bookmarks, tags } = this.props,
-      filteredBookmarks = this.filterBookmarks(),
-      { uniqueTags } = this.state
+      filteredBookmarks = this.filterBookmarks()
     ;
 
     const filteredTags = uniqueTags.filter(
