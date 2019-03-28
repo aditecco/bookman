@@ -1,0 +1,111 @@
+
+Bookman TODO
+============
+
+BookMan is a local bookmark manager: it provides a friendly UI
+to save & organize bookmarks, and can persist the data via the browser's localStorage.
+
+
+High-level tasks:
+  - Implement router
+  - Implement CSS modules or other JS-centric styling solution
+  - Implement transition group
+  - Create responsive styles
+  - Fine-tune font choices
+  - Remove unneeded fonts
+  - Connect repo to Netlify/create git hook/auto-deploy
+  - Rethink/redesign UI
+
+
+Fixes:
+  - Tags in sidebar don't immediately update when creating a bookmark (they do update behind the scenes though)
+  - Tags w/ different case are counted as distinct tags: normalize tag case :fix:
+  - Deleting a bookmark in tag sort view works, but returns type error and crashes the app right after
+  ✔ CSS Tweaks to TagItem, removed anchor default color @done(19-03-28 23:49)
+  ✔ Fix z-index for navbar/tag nav arrows @done(19-03-28 23:36)
+
+
+Requirements:
+  It should
+  - offer bookmark search
+  - offer BM export functionality
+  - offer pagination or infinite scrolling
+  - provide form validation for tags
+  - (save data to the cloud)
+  - use Pinboard's bookmark design (to facilitate Pinboard import) (?)
+  - import bookmarks from a Pinboard export/other source
+  - Save BMs via keyboard shortcut (cmd + enter), no 'save' btn required
+  - let the user hide the input section
+  - let the user edit a tag
+  - auto-complete tags
+  - offer sorting by multiple tags
+  - offer 'tag collections'
+
+
+Archive:
+  ✔ receive input from at least 2 input fields and return a DOM element populated w/ the input @done(19-03-28 23:25)
+  ✔ list bookmarks most recent to least recent @done(19-03-28 23:25)
+  ✔ reset the input field(s) after a submission @done(19-03-28 23:25)
+  ✔ enable submit via return button @done(19-03-28 23:25)
+  ✔ Created logic, but behavior is already enabled by default @done(19-03-28 23:25)
+  ✔ display bookmark tags in an area of the page separate from the main layout (i.e. <aside>) @done(19-03-28 23:25)
+  ✔ make tags clickable @done(19-03-28 23:25)
+  ✔ display a tag count for each filtered tag @done(19-03-28 23:25)
+  ✔ display filtered tags only once @done(19-03-28 23:25)
+  ✔ display tags in alphabetical order @done(19-03-28 23:25)
+  ✔ diplay tag count in tag header @done(19-03-28 23:25)
+  ✔ sort bookmarks by tag @done(19-03-28 23:25)
+  ✔ edit bookmarks @done(19-03-28 23:25)
+  ✔ delete bookmarks @done(19-03-28 23:25)
+  ✔ persist bookmarks to localStorage (wip) @done(19-03-28 23:25)
+  ✔ Data should be saved as JSON @done(19-03-28 23:25)
+  ✔ persist bookmarks to localStorage as JSON @done(19-03-28 23:25)
+  ✔ prevent empty URL input @done(19-03-28 23:25)
+  ✔ allow multiple tags separated by comma @done(19-03-28 23:25)
+  ✔ 'tags' prop should be an array @done(19-03-28 23:25)
+  ✔ store each BM's tags in an array @done(19-03-28 23:25)
+  ✔ render each tag in the tag array as an individual tag @done(19-03-28 23:25)
+  ✔ import sample static bookmarks @done(19-03-28 23:25)
+  ✔ allow coexistence of imported BM and created BM @done(19-03-28 23:25)
+  ✔ visualize BMs w/o protocol syntax (http://, etc) @done(19-03-28 23:25)
+  ✔ alert before deleting a BM @done(19-03-28 23:25)
+  ✔ When deleting a BM, the array in localStorage is not updated :fix: @done(19-03-28 23:22)
+  ✔ 'Clear tags'btn label won't render if tags are not present :fix: @done(19-03-28 23:22)
+  ✔ If local bookmarks are imported manually, tags are not updated in state :fix: @done(19-03-28 23:22)
+  ✔ When deleting a BM, tags in state are not updated             :fix: @done(19-03-28 23:22)
+  ✔ We can't just remove the tags associated w/ the deleted BM; those tags could be in use by other BMs. @done(19-03-28 23:22)
+  ✔ We have to check if the tags are not used by other BMs: if true, we can remove them. @done(19-03-28 23:22)
+  ✔ When importing from localStorage, tag array is not flattened  :fix: @done(19-03-28 23:22)
+  ✔ Tag sorting for BMs w/ multiple tags is broken @done(19-03-28 23:22)
+  ✔ Bookmark delete control doesn't work in tag sort view         :fix: @done(19-03-28 23:22)
+  ✔ Deduplicate tags in the tag sidebar                           :fix: @done(19-03-28 23:22)
+  ✔ When BM has single tag, PillButton styles are broken          :fix: @done(19-03-28 23:22)
+  ✔ When in blank slate mode, tag count and sort btn is visible   :fix: @done(19-03-28 23:22)
+  ✔ 'Clear tags' btn shouldn't be visible when tag filter is not active :fix: @done(19-03-28 23:22)
+  ✔ Tag header shouldn't be visible when tag filter is active     :fix: @done(19-03-28 23:22)
+  ✔ Setup GL remote & push @done(19-03-28 23:21)
+  ✔ GL Push to publish: @done(19-03-28 23:21)
+  ✔ 'git push --set-upstream git@gitlab.example.com:namespace/nonexistent-project.git master' @done(19-03-28 23:21)
+  ✔ Setup initial check for local BMs on componentDidMount @done(19-03-28 23:21)
+  ✔ Map localStorage > state @done(19-03-28 23:21)
+  ✔ Handle existing/non-existing BM localStorage items on launch @done(19-03-28 23:21)
+  ✔ Implement redux @done(19-03-28 23:21)
+  ✔ Create styles Early draft of BookmarkItem @done(19-03-28 23:21)
+  ✔ Create styles BookmarkItem fine-tuning, incl. PillButton @done(19-03-28 23:21)
+  ✔ Create styles App Layout @done(19-03-28 23:21)
+  ✔ Create styles Sidebar & TagItem 1st draft @done(19-03-28 23:21)
+  ✔ Create styles Restyle input section @done(19-03-28 23:21)
+  ✔ Enable Sass @done(19-03-28 23:21)
+  ✔ Install normalize @done(19-03-28 23:21)
+  ✔ Install flat UI colors @done(19-03-28 23:21)
+  ✔ Setup Sass boilerplate @done(19-03-28 23:21)
+  ✔ Find alternative to Date.now() for BM ID (?) @done(19-03-28 23:21)
+  ✔ Find alternative to Array.includes() for BM sorting @done(19-03-28 23:21)
+  ✔ Create Header, Nav, Footer comps @done(19-03-28 23:21)
+  ✔ Test new fonts @done(19-03-28 23:21)
+  ✔ Create Header 1st draft @done(19-03-28 23:21)
+  ✔ Fine-tune BM deletion @done(19-03-28 23:21)
+  ✔ Unify local BM operations w/ localDispatcher @done(19-03-28 23:21)
+  ✔ Move frequently used global constants to ./constants/ @done(19-03-28 23:21)
+  ✔ Enable mockBookmarks in localStorage as test BM collection @done(19-03-28 23:21)
+  ✔ When rendering pre-existing bookmarks, the tag array is not updated :fix: @done(19-03-28 23:22)

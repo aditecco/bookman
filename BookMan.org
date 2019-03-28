@@ -15,7 +15,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** DONE Setup initial check for local BMs on componentDidMount
 *** DONE Map localStorage > state
 *** DONE Handle existing/non-existing BM localStorage items on launch
-*** TODO Implement redux
+*** DONE Implement redux
 *** TODO Create styles
 **** DONE Early draft of BookmarkItem
 **** DONE BookmarkItem fine-tuning, incl. PillButton
@@ -27,8 +27,8 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** DONE Install normalize
 *** DONE Install flat UI colors
 *** DONE Setup Sass boilerplate
-*** TODO Find alternative to Date.now() for BM ID (?)
-*** TODO Find alternative to Array.includes() for BM sorting
+*** DONE Find alternative to Date.now() for BM ID (?)
+*** DONE Find alternative to Array.includes() for BM sorting
 *** DONE Create Header, Nav, Footer comps
 *** TODO Create responsive styles
 *** DONE Test new fonts
@@ -39,6 +39,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 *** DONE Unify local BM operations w/ localDispatcher
 *** DONE Move frequently used global constants to ./constants/
 *** DONE Enable mockBookmarks in localStorage as test BM collection
+*** TODO Install router
 
 
 
@@ -49,18 +50,19 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 **** DONE When deleting a BM, the array in localStorage is not updated :fix:
 **** DONE 'Clear tags'btn label won't render if tags are not present :fix:
 **** DONE If local bookmarks are imported manually, tags are not updated in state :fix:
-**** TODO When deleting a BM, tags in state are not updated             :fix:
+**** DONE When deleting a BM, tags in state are not updated             :fix:
      We can't just remove the tags associated w/ the deleted BM; those tags could be in use by other BMs.
      We have to check if the tags are not used by other BMs: if true, we can remove them.
 **** DONE When importing from localStorage, tag array is not flattened  :fix:
 **** DONE Tag sorting for BMs w/ multiple tags is broken
-**** TODO Bookmark delete control doesn't work in tag sort view         :fix:
+**** DONE Bookmark delete control doesn't work in tag sort view         :fix:
 **** DONE Deduplicate tags in the tag sidebar                           :fix:
 **** DONE When BM has single tag, PillButton styles are broken          :fix:
 **** DONE When in blank slate mode, tag count and sort btn is visible   :fix:
 **** DONE 'Clear tags' btn shouldn't be visible when tag filter is not active :fix:
 **** DONE Tag header shouldn't be visible when tag filter is active     :fix:
 **** TODO Tags w/ different case are counted as distinct tags: normalize tag case :fix:
+**** TODO Deleting a bookmark in tag sort view works, but returns type error
 
 
 *** Requirements
@@ -79,7 +81,7 @@ It should:
 **** DONE display tags in alphabetical order
 **** DONE diplay tag count in tag header
 **** DONE sort bookmarks by tag
-**** TODO edit bookmarks
+**** DONE edit bookmarks
 **** DONE delete bookmarks
 **** TODO import bookmarks from a Pinboard export/other source
 **** DONE persist bookmarks to localStorage (wip)
@@ -91,7 +93,7 @@ It should:
 **** DONE allow multiple tags separated by comma
      'tags' prop should be an array
 **** DONE store each BM's tags in an array
-**** DONE render each tag in the tag array as an individual tag 
+**** DONE render each tag in the tag array as an individual tag
 **** DONE import sample static bookmarks
 **** DONE allow coexistence of imported BM and created BM
 **** TODO offer pagination or infinite scrolling
@@ -112,5 +114,3 @@ It should:
 
 | Day    | Start   | End     | Tot     | Task    | Notes   |
 | ------ | ------- | ------- | ------- | ------- | ------- |
-
-
