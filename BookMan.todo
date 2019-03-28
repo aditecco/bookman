@@ -6,15 +6,17 @@ BookMan is a local bookmark manager: it provides a friendly UI
 to save & organize bookmarks, and can persist the data via the browser's localStorage.
 
 
-High-level tasks:
+Inbox/High-level tasks:
   - Implement router
   - Implement CSS modules or other JS-centric styling solution
   - Implement transition group
   - Create responsive styles
-  - Fine-tune font choices
-  - Remove unneeded fonts
   - Connect repo to Netlify/create git hook/auto-deploy
   - Rethink/redesign UI
+  - Display left tag nav arrow only after right arrow has been clicked
+  ✔ Fine-tune font choices @done(19-03-29 00:13)
+  ✔ Remove unneeded fonts @done(19-03-29 00:12)
+  ✔ Restyle BookmarkItem's UI @done(19-03-29 00:20)
 
 
 Fixes:
