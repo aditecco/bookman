@@ -16,8 +16,10 @@ import BookmarkItem from './components/BookmarkItem';
 import TagItem from './components/TagItem';
 import BookmarkForm from './components/BookmarkForm';
 import BaseButton from './components/BaseButton';
+import PillButton from './components/PillButton';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { Link } from "react-router-dom";
 
 
 // assets
@@ -193,9 +195,12 @@ class App extends Component {
 
     return (
       <>
-        <Navbar
-          onLogoClick={() => console.log('logo click!')}
-        />
+        <Navbar onLogoClick={() => console.log('logo click!')}>
+          <Link to='/test/'>
+            <PillButton label='test'/>
+          </Link>
+        </Navbar>
+
 
         <section className="inputSection">
           <div className="wrapper">
