@@ -6,7 +6,7 @@
 .BookmarkItem {
   $root: '.BookmarkItem';
   width: 300px;
-  border-radius: $radius * 2;
+  border-radius: 6px;
   box-shadow: $shadow;
   margin-bottom: $margin;
   background-color: white;
@@ -22,8 +22,8 @@
     text-decoration: none;
     background: rgba($flat-gray-1, .4);
     border: {
-      top-left-radius: $radius * 2;
-      top-right-radius: $radius * 2;
+      top-left-radius: 6px;
+      top-right-radius: 6px;
     }
 
     #{$root}Header {
