@@ -7,9 +7,9 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 
 
 Inbox/High-level tasks:
-  - Implement router
+  ✔ Implement router @done(19-04-01 00:11)
   - Implement CSS modules or other JS-centric styling solution
-  - Implement transition group
+  - Implement transition group or React motion
   - Create responsive styles
   - Connect repo to Netlify/create git hook/auto-deploy
   - Rethink/redesign UI
