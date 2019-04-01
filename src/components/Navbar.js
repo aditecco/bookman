@@ -9,7 +9,7 @@ import PillButton from './PillButton';
 
 function Navbar(props) {
 	const root = 'Header';
-	const debug = { props };
+	const { debug } = props;
 
 	return (
 		<header className={root}>
@@ -22,8 +22,7 @@ function Navbar(props) {
 				</div>
 
 				<nav className={root + "MainNav"}>
-					{
-						debug ?
+					{debug &&
 						<PillButton
 							href='#'
 							label='Reset'
@@ -36,8 +35,6 @@ function Navbar(props) {
 								}
 							}
 						/>
-						:
-						''
 					}
 
 					{props.children}
