@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from './actions/actionCreators';
+import * as Constants from './constants';
 import stringify from 'json-stringify-safe';
 
 
@@ -16,13 +17,14 @@ import BookmarkItem from './components/BookmarkItem';
 import TagItem from './components/TagItem';
 import BookmarkForm from './components/BookmarkForm';
 import BaseButton from './components/BaseButton';
+import PillButton from './components/PillButton';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { Link } from "react-router-dom";
 
 
 // assets
-import Actions from './actions/actionIDs';
-import * as Constants from './constants';
+
 
 
 // styles
@@ -193,9 +195,12 @@ class App extends Component {
 
     return (
       <>
-        <Navbar
-          onLogoClick={() => console.log('logo click!')}
-        />
+        <Navbar onLogoClick={() => console.log('logo click!')} debug={false}>
+          {/* <Link to='/test/'>
+            <PillButton label='test'/>
+          </Link> */}
+        </Navbar>
+
 
         <section className="inputSection">
           <div className="wrapper">
@@ -210,7 +215,7 @@ class App extends Component {
                 (sortedByTag === '') ?
                 (
                   <h4 className="tagSectionHeading">
-                    {`tags - ${tags.length + 1}`}
+                    {`tags - ${tags.length}`}
                   </h4>
                 )
                 :
