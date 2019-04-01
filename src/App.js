@@ -195,10 +195,10 @@ class App extends Component {
 
     return (
       <>
-        <Navbar onLogoClick={() => console.log('logo click!')}>
-          <Link to='/test/'>
+        <Navbar onLogoClick={() => console.log('logo click!')} debug={false}>
+          {/* <Link to='/test/'>
             <PillButton label='test'/>
-          </Link>
+          </Link> */}
         </Navbar>
 
 
