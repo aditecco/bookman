@@ -11,18 +11,14 @@ function bookmarks(state = [], action) {
   switch (action.type) {
     case 'ADD_BOOKMARK':
       const
-        // { url, tags } = action,
         { url, id } = action,
         date = new Date()
-        // splitTags = tags.split(',')
       ;
 
       return [
         {
           href: url,
-          // id: uuidv3(url, uuidv3.URL),
           id,
-          // tags: splitTags,
           timestamp: date.toLocaleString(),
         },
         ...state,

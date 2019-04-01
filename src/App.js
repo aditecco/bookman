@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from './actions/actionCreators';
+import * as Constants from './constants';
 import stringify from 'json-stringify-safe';
 
 
@@ -23,8 +24,7 @@ import { Link } from "react-router-dom";
 
 
 // assets
-import Actions from './actions/actionIDs';
-import * as Constants from './constants';
+
 
 
 // styles
