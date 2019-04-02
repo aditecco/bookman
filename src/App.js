@@ -215,7 +215,7 @@ class App extends Component {
                 (sortedByTag === '') ?
                 (
                   <h4 className="tagSectionHeading">
-                    {`tags - ${tags.length}`}
+                    {`tags - ${uniqueTags.length}`}
                   </h4>
                 )
                 :
