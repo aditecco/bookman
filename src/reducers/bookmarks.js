@@ -15,10 +15,12 @@ function bookmarks(state = [], action) {
         date = new Date()
       ;
 
+      console.table(JSON.parse(localStorage.localBookmarks));
+
       return [
         {
-          href: url,
           id,
+          href: url,
           timestamp: date.toLocaleString(),
         },
         ...state,

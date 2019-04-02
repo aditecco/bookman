@@ -14,7 +14,10 @@ function tags(state = [], action) {
     const
       { tags, id } = action,
       date = new Date(),
-      splitTags = tags.split(',');
+      splitTags = tags.split(',')
+    ;
+
+    console.table(JSON.parse(localStorage.localTags));
 
     return [
       {
