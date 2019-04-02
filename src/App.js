@@ -72,7 +72,7 @@ class App extends Component {
     const fetchTags = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(this.props.tags);
-      }, 999);
+      }, 499);
     });
 
     fetchTags.then((data) => {
@@ -98,19 +98,34 @@ class App extends Component {
 
   componentDidUpdate(prevProps) {
     const { bookmarks, tags } = this.props;
-    const localBookmarks = JSON.parse(Constants.LOCAL_BOOKMARKS);
-    const localTags = JSON.parse(Constants.LOCAL_TAGS);
+    // const updated = {
+    //   bookmarks: [...bookmarks],
+    //   tags: [...tags],
+    // }
     const updated = {
-      bookmarks: [...bookmarks],
-      tags: [...tags],
+      bookmarks,
+      tags,
     }
 
-    // if (bookmarks !== prevProps.bookmarks)
-    if ({ bookmarks, tags } !== prevProps) {
-      localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
-      localStorage.setItem('localTags', JSON.stringify(updated.tags));
+    const extracted = tags.map(
+      (tagObject, i) => tagObject.tags.map(
+        (tag, i) => tag
+      )
+    )
 
-      console.info('Updated localStorage.')
+    const flattened = extracted.concat.apply([], extracted);
+
+    const unique = this.removeDuplicates(flattened);
+
+    if (tags !== prevProps.tags) {
+      this.setState({ uniqueTags: unique });
+      localStorage.setItem('localTags', JSON.stringify(updated.tags));
+      console.info('Updated localTags.');
+    }
+
+    if (bookmarks !== prevProps.bookmarks) {
+      localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
+      console.info('Updated localBookmarks.');
     }
   }
 
