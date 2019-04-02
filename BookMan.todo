@@ -7,22 +7,22 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 
 
 Inbox/High-level tasks:
-  ✔ Implement router @done(19-04-01 00:11)
   - Implement CSS modules or other JS-centric styling solution
   - Implement transition group or React motion
   - Create responsive styles
   - Connect repo to Netlify/create git hook/auto-deploy
   - Rethink/redesign UI
   - Display left tag nav arrow only after right arrow has been clicked
+  ✔ Implement router @done(19-04-01 00:11)
   ✔ Fine-tune font choices @done(19-03-29 00:13)
   ✔ Remove unneeded fonts @done(19-03-29 00:12)
   ✔ Restyle BookmarkItem's UI @done(19-03-29 00:20)
 
 
 Fixes:
-  - Tags in sidebar don't immediately update when creating a bookmark (they do update behind the scenes though)
-  - Tags w/ different case are counted as distinct tags: normalize tag case :fix:
   - Deleting a bookmark in tag sort view works, but returns type error and crashes the app right after
+  ✔ Tags in sidebar don't immediately update when creating a bookmark (they do update behind the scenes though) @done(19-04-03 01:09)
+  ✔ Tags w/ different case are counted as distinct tags: normalize tag case :fix: @done(19-04-03 01:17)
   ✔ CSS Tweaks to TagItem, removed anchor default color @done(19-03-28 23:49)
   ✔ Fix z-index for navbar/tag nav arrows @done(19-03-28 23:36)
 
