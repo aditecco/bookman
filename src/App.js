@@ -68,6 +68,7 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
     const fetchTags = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -76,56 +77,35 @@ class App extends Component {
     });
 
     fetchTags.then((data) => {
-      const extracted = data.map(
-        (tagObject, i) => tagObject.tags.map(
-          (tag, i) => tag
-        )
-      )
+      const unique = this.normalizeTags(data);
 
-      const flattened = extracted.concat.apply([], extracted);
-
-      const unique = this.removeDuplicates(flattened);
       this.setState({ uniqueTags: unique })
 
-      console.info('fetchTags: resolved!');
-      console.log('>> Promise', data);
-      console.log('>> extracted', extracted);
-      console.log('>> flattened', flattened);
-      console.log('>> uniqueTags', this.state.uniqueTags);
+      console.info('didMount', 'fetchTags: resolved!');
+      console.log('didMount', '>> Promise', data);
+      console.log('didMount', '>> uniqueTags', this.state.uniqueTags);
     })
   }
 
 
   componentDidUpdate(prevProps) {
     const { bookmarks, tags } = this.props;
-    // const updated = {
-    //   bookmarks: [...bookmarks],
-    //   tags: [...tags],
-    // }
     const updated = {
       bookmarks,
       tags,
     }
-
-    const extracted = tags.map(
-      (tagObject, i) => tagObject.tags.map(
-        (tag, i) => tag
-      )
-    )
-
-    const flattened = extracted.concat.apply([], extracted);
-
-    const unique = this.removeDuplicates(flattened);
+    const unique = this.normalizeTags(tags);
 
     if (tags !== prevProps.tags) {
       this.setState({ uniqueTags: unique });
       localStorage.setItem('localTags', JSON.stringify(updated.tags));
-      console.info('Updated localTags.');
+      console.info('didUpdate', 'Updated uniqueTags, localTags.');
+      console.log('didUpdate', '>> uniqueTags', this.state.uniqueTags);
     }
 
     if (bookmarks !== prevProps.bookmarks) {
       localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
-      console.info('Updated localBookmarks.');
+      console.info('didUpdate', 'Updated localBookmarks.');
     }
   }
 
@@ -189,6 +169,23 @@ class App extends Component {
 
     deduplicated = [...deduplicator];
     return deduplicated;
+  }
+
+
+  normalizeTags = (tags) => {
+    const extracted = tags.map(
+      (tagObject, i) => tagObject.tags.map(
+        (tag, i) => tag
+      )
+    )
+
+    const flattened = extracted.concat.apply([], extracted);
+    const unique = this.removeDuplicates(flattened);
+
+    console.log('normalizeTags >> extracted', extracted);
+    console.log('normalizeTags >> flattened', flattened);
+
+    return unique;
   }
 
 
