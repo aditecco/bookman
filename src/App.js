@@ -99,12 +99,14 @@ class App extends Component {
     if (tags !== prevProps.tags) {
       this.setState({ uniqueTags: unique });
       localStorage.setItem('localTags', JSON.stringify(updated.tags));
+
       console.info('didUpdate', 'Updated uniqueTags, localTags.');
       console.log('didUpdate', '>> uniqueTags', this.state.uniqueTags);
     }
 
     if (bookmarks !== prevProps.bookmarks) {
       localStorage.setItem('localBookmarks', JSON.stringify(updated.bookmarks));
+
       console.info('didUpdate', 'Updated localBookmarks.');
     }
   }
@@ -180,10 +182,12 @@ class App extends Component {
     )
 
     const flattened = extracted.concat.apply([], extracted);
-    const unique = this.removeDuplicates(flattened);
+    const lowercase = flattened.map(t => t.toLowerCase());
+    const unique = this.removeDuplicates(lowercase);
 
     console.log('normalizeTags >> extracted', extracted);
     console.log('normalizeTags >> flattened', flattened);
+    console.log('normalizeTags >> lowercase', lowercase);
 
     return unique;
   }
