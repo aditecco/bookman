@@ -6,13 +6,32 @@ BookMan is a local bookmark manager: it provides a friendly UI
 to save & organize bookmarks, and can persist the data via the browser's localStorage.
 
 
+Requirements:
+
+It should
+- offer bookmark search
+- let the user edit a tag
+- offer BM export functionality
+- offer pagination or infinite scrolling
+- provide form validation for tags
+- (save data to the cloud)
+- use Pinboard's bookmark design (to facilitate Pinboard import) (?)
+- import bookmarks from a Pinboard export/other source
+- Save BMs via keyboard shortcut (cmd + enter), no 'save' btn required
+- let the user hide the input section
+- auto-complete tags
+- offer sorting by multiple tags
+- offer 'tag collections'
+
+
 Inbox/High-level tasks:
+  - Edit bookmarks in a new screen
+  - Implement anims via transition group or React motion
   - Implement CSS modules or other JS-centric styling solution
-  - Implement transition group or React motion
-  - Create responsive styles
   - Connect repo to Netlify/create git hook/auto-deploy
   - Rethink/redesign UI
   - Display left tag nav arrow only after right arrow has been clicked
+  ✔ Create responsive styles @done(19-04-04 01:10)
   ✔ Implement router @done(19-04-01 00:11)
   ✔ Fine-tune font choices @done(19-03-29 00:13)
   ✔ Remove unneeded fonts @done(19-03-29 00:12)
@@ -25,23 +44,6 @@ Fixes:
   ✔ Tags w/ different case are counted as distinct tags: normalize tag case :fix: @done(19-04-03 01:17)
   ✔ CSS Tweaks to TagItem, removed anchor default color @done(19-03-28 23:49)
   ✔ Fix z-index for navbar/tag nav arrows @done(19-03-28 23:36)
-
-
-Requirements:
-  It should
-  - offer bookmark search
-  - offer BM export functionality
-  - offer pagination or infinite scrolling
-  - provide form validation for tags
-  - (save data to the cloud)
-  - use Pinboard's bookmark design (to facilitate Pinboard import) (?)
-  - import bookmarks from a Pinboard export/other source
-  - Save BMs via keyboard shortcut (cmd + enter), no 'save' btn required
-  - let the user hide the input section
-  - let the user edit a tag
-  - auto-complete tags
-  - offer sorting by multiple tags
-  - offer 'tag collections'
 
 
 Archive:

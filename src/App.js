@@ -81,8 +81,8 @@ class App extends Component {
 
       this.setState({ uniqueTags: unique })
 
-      console.info('didMount', 'fetchTags: resolved!');
-      console.log('didMount', '>> Promise', data);
+      // console.info('didMount', 'fetchTags: resolved!');
+      // console.log('didMount', '>> Promise', data);
       console.log('didMount', '>> uniqueTags', this.state.uniqueTags);
     })
   }
@@ -174,6 +174,8 @@ class App extends Component {
   }
 
 
+  // collects tags in an array, flattens the array,
+  // lowercases all items & removes dupes
   normalizeTags = (tags) => {
     const extracted = tags.map(
       (tagObject, i) => tagObject.tags.map(
@@ -185,9 +187,10 @@ class App extends Component {
     const lowercase = flattened.map(t => t.toLowerCase());
     const unique = this.removeDuplicates(lowercase);
 
-    console.log('normalizeTags >> extracted', extracted);
-    console.log('normalizeTags >> flattened', flattened);
-    console.log('normalizeTags >> lowercase', lowercase);
+    // console.log('normalizeTags >> extracted', extracted);
+    // console.log('normalizeTags >> flattened', flattened);
+    // console.log('normalizeTags >> lowercase', lowercase);
+    console.log('normalizeTags >> unique', unique);
 
     return unique;
   }
