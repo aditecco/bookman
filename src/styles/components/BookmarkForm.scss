@@ -5,13 +5,16 @@
 
 .BookmarkForm {
   @include flex(row nowrap, space-between, flex-start);
+
   .inputGroup {
     flex-grow: 1;
     margin-right: $margin;
     border: 1px solid rgba($flat-gray-4, .2);
     border-radius: $radius;
+
     .InputField {
       label { display: none; }
+
       .urlInput,
       .tagInput {
         width: 100%;
@@ -21,8 +24,32 @@
         background-color: transparent;
         &:focus { outline: 2px solid rgba($accent, .8); }
       }
+
       .urlInput { border-bottom: 1px solid rgba($flat-gray-4, .2); }
     }
   }
+
   .submitButton {}
+
+
+  /*
+    media
+  */
+  @media screen and (max-width: $SM) {
+    @include flex(column nowrap, space-between, center);
+
+    .inputGroup,
+    .submitButton {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+
+    .inputGroup {
+      flex-grow: initial;
+      margin-bottom: $margin;
+    }
+
+    .submitButton {}
+  }
 }
