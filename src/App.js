@@ -38,7 +38,7 @@ class App extends Component {
     this.state = {
       sortedByTag: '',
       uniqueTags: [],
-      searchKey: ''
+      found: null
     }
   }
 
@@ -204,7 +204,10 @@ class App extends Component {
 
     const r = bookmarks.filter(b => b.href === key);
 
-    if (r.length > 0) { console.log('Found! >>> ', r); }
+    if (r.length > 0) {
+      console.log('Found! >>> ', r);
+      this.setState({ found: r });
+    }
   }
 
 
@@ -311,30 +314,54 @@ class App extends Component {
                 }
               </h4>
 
-              <ol className="bookmarkList">
-                {
-                  bookmarks.length > 0 ?
+              {
+                bookmarks.length > 0 ?
+                (<ol className="bookmarkList">
+                  {sortedByTag === '' ?
 
-                    sortedByTag === '' ?
-                    (
-                      bookmarks.map((bookmark, i) => {
-                        return (
-                          <li
-                            className='BookmarkItemContainer'
-                            key={i}
-                          >
-                            <BookmarkItem
-                              id={bookmark.id}
-                              url={bookmark.href}
-                              tags={tags.filter((tag) => tag.id === bookmark.id)}
-                              timestamp={bookmark.timestamp}
-                              onEditClick={this.props.editBookmark}
-                              onDeleteClick={this.confirmDestructiveAction}
-                            />
-                          </li>
-                        );
-                      })
-                    )
+                    this.state.found === null ?
+
+                      (
+                        bookmarks.map((bookmark, i) => {
+                          return (
+                            <li
+                              className='BookmarkItemContainer'
+                              key={i}
+                            >
+                              <BookmarkItem
+                                id={bookmark.id}
+                                url={bookmark.href}
+                                tags={tags.filter((tag) => tag.id === bookmark.id)}
+                                timestamp={bookmark.timestamp}
+                                onEditClick={this.props.editBookmark}
+                                onDeleteClick={this.confirmDestructiveAction}
+                              />
+                            </li>
+                          );
+                        })
+                      )
+
+                      :
+
+                      (
+                        this.state.found.map((bookmark, i) => {
+                          return (
+                            <li
+                              className='BookmarkItemContainer'
+                              key={i}
+                            >
+                              <BookmarkItem
+                                id={bookmark.id}
+                                url={bookmark.href}
+                                tags={tags.filter((tag) => tag.id === bookmark.id)}
+                                timestamp={bookmark.timestamp}
+                                onEditClick={this.props.editBookmark}
+                                onDeleteClick={this.confirmDestructiveAction}
+                              />
+                            </li>
+                          );
+                        })
+                      )
 
                     :
 
@@ -357,12 +384,8 @@ class App extends Component {
                         );
                       })
                     )
-
-                  :
-
-                  <li className="blankSlateMessage">No bookmarks! Create one.</li>
-                }
-              </ol>
+                  }
+                </ol>) : (<p className="blankSlateMessage">No bookmarks! Create one.</p>)}
             </div>
           </section>
         </main>
