@@ -20,6 +20,7 @@ import BaseButton from './components/BaseButton';
 import PillButton from './components/PillButton';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import InputField from './components/InputField';
 import { Link } from "react-router-dom";
 
 
@@ -37,6 +38,7 @@ class App extends Component {
     this.state = {
       sortedByTag: '',
       uniqueTags: [],
+      searchKey: ''
     }
   }
 
@@ -195,6 +197,16 @@ class App extends Component {
     return unique;
   }
 
+  handleSearch = (e) => {
+    const { bookmarks } = this.props;
+    const key = e.target.value;
+    // this.setState({ searchKey: e.target.value });
+
+    const r = bookmarks.filter(b => b.href === key);
+
+    if (r.length > 0) { console.log('Found! >>> ', r); }
+  }
+
 
   /* ---------------------------------
     Render
@@ -218,6 +230,11 @@ class App extends Component {
           {/* <Link to='/test/'>
             <PillButton label='test'/>
           </Link> */}
+          <InputField
+            // label='search'
+            placeholder='search…'
+            onChange={this.handleSearch}
+          />
         </Navbar>
 
 
