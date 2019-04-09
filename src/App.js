@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from './actions/actionCreators';
 import * as Constants from './constants';
+import { log } from './utils/utils';
 import stringify from 'json-stringify-safe';
 
 
@@ -35,10 +36,11 @@ import './styles/main.scss';
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       sortedByTag: '',
       uniqueTags: [],
-      found: null
+      found: null,
     }
   }
 
@@ -200,14 +202,17 @@ class App extends Component {
   handleSearch = (e) => {
     const { bookmarks } = this.props;
     const key = e.target.value;
-    // this.setState({ searchKey: e.target.value });
 
-    const r = bookmarks.filter(b => b.href === key);
+    const r = bookmarks.filter(b => b.href.includes(key));
 
     if (r.length > 0) {
-      console.log('Found! >>> ', r);
+      // console.log('Found! >>> ', r);
       this.setState({ found: r });
     }
+  }
+
+  resetSearch = (e) => {
+    this.setState({ found: null })
   }
 
 
@@ -233,11 +238,20 @@ class App extends Component {
           {/* <Link to='/test/'>
             <PillButton label='test'/>
           </Link> */}
+
           <InputField
-            // label='search'
+            ref={this.searchField}
+            className='searchField'
             placeholder='search…'
             onChange={this.handleSearch}
-          />
+          >
+
+            <BaseButton
+              className='searchFieldClearButton'
+              onClick={this.resetSearch}
+              label='clear search'
+            />
+          </InputField>
         </Navbar>
 
 

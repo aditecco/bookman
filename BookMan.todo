@@ -9,7 +9,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 Requirements:
 
 It should
-- offer bookmark search
+✔ offer bookmark search @done(19-04-10 00:45)
 - let the user edit a tag
 - offer BM export functionality
 - offer pagination or infinite scrolling
