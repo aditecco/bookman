@@ -11,15 +11,18 @@ Header
   margin-bottom: 0;
   background-color: rgba($flat-gray-1, .9);
   box-shadow: 0 2px 30px rgba($flat-gray-2, .4);
+
   &Wrapper {
     @include flex(row nowrap, space-between, center);
     padding: ($padding / 1.3) $padding;
+
     #{$root}LogoContainer {
       &:hover {
         transform: scale(1.1);
         transition: transform 250ms ease;
         cursor: pointer;
       }
+
       #{$root}Logo {
         font-family: $workSans;
         font-weight: 500;
@@ -32,6 +35,40 @@ Header
         margin: 0;
       }
     }
-    #{$root}MainNav { flex-basis: 70%; }
+
+    #{$root}MainNav {
+      @include flex(row nowrap, space-between, center);
+      flex-basis: 70%;
+      @media screen and (max-width: $SM) {
+        flex: 1;
+      }
+
+      .InputField {
+        .searchInput {
+          width: 100px;
+          padding: 2px;
+          border: none;
+          background-color: $transparent;
+          transition: all .3s;
+
+          &:active {
+
+          }
+
+          &:focus {
+            width: 200px;
+            outline: none;
+            border-bottom: 2px solid $accent;
+          }
+        }
+
+        .searchInputClearButton {
+          // overrides
+          padding: 4px;
+          min-width: auto;
+          vertical-align: middle;
+        }
+      }
+    }
   }
 }

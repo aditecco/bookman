@@ -239,18 +239,31 @@ class App extends Component {
             <PillButton label='test'/>
           </Link> */}
 
+          <BaseButton
+            style={{ 'visibility': 'hidden' }}
+            // className='searchFieldClearButton'
+            // onClick={this.resetSearch}
+            // label='clear search'
+          />
+
           <InputField
-            ref={this.searchField}
-            className='searchField'
+            className='searchInput'
             placeholder='search…'
             onChange={this.handleSearch}
           >
 
             <BaseButton
-              className='searchFieldClearButton'
+              className='searchInputClearButton button--naked'
               onClick={this.resetSearch}
-              label='clear search'
-            />
+              // style={{
+              //   'padding': `4px`,
+              //   'min-width': `auto`,
+              //   'vertical-align': 'middle',
+              // }}
+            >
+              <i className="material-icons">close</i>
+            </BaseButton>
+
           </InputField>
         </Navbar>
 

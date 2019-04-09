@@ -25,7 +25,7 @@ function InputField(props) {
   const root = 'InputField';
 
   return (
-    <form className={root}>
+    <form className={`${root}`}>
       <label htmlFor={className}>
         {label}
       </label>
