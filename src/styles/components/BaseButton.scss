@@ -17,8 +17,10 @@
   text-align: center;
   text-transform: uppercase;
   color: white;
+  cursor: pointer;
+  transition: all 500ms ease;
   &:hover {
-    background-color: mix($accent, black);
-    transition: all 500ms ease;
+    background-color: mix($accent, black, 70%);
+    // box-shadow: 0 2px 20px rgba(black, .25);
   }
 }

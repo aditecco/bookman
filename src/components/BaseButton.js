@@ -18,7 +18,8 @@ function BaseButton(props) {
     className,
     onClick,
     onKeyDown,
-    label
+    label,
+    href,
   } = props;
 
   const root = 'BaseButton';
@@ -26,7 +27,7 @@ function BaseButton(props) {
   return (
     <a
       className={`${root} ${className}`}
-      href='#'
+      href={href}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >
