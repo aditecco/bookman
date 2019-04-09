@@ -20,6 +20,8 @@ function BaseButton(props) {
     onKeyDown,
     label,
     href,
+    style,
+    children,
   } = props;
 
   const root = 'BaseButton';
@@ -30,8 +32,10 @@ function BaseButton(props) {
       href={href}
       onClick={onClick}
       onKeyDown={onKeyDown}
+      style={style}
     >
       {label}
+      {children}
     </a>
   );
 }

@@ -19,8 +19,21 @@
   color: white;
   cursor: pointer;
   transition: all 500ms ease;
+
   &:hover {
     background-color: mix($accent, black, 70%);
     // box-shadow: 0 2px 20px rgba(black, .25);
+  }
+
+  &.button--naked {
+    background-color: $transparent;
+    color: $accent;
+    // …hover
+  }
+
+  &.button--outline {
+    @extend .button--naked;
+    border: 2px solid $accent;
+    // …hover
   }
 }
