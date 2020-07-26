@@ -6,10 +6,7 @@ BookMan is a local bookmark manager: it provides a friendly UI
 to save & organize bookmarks, and can persist the data via the browser's localStorage.
 
 
-Requirements:
-
 It should
-✔ offer bookmark search @done(19-04-10 00:45)
 - let the user edit a tag
 - offer BM export functionality
 - offer pagination or infinite scrolling
@@ -23,30 +20,33 @@ It should
 - offer sorting by multiple tags
 - offer 'tag collections'
 
-
 Inbox/High-level tasks:
+  ✔ Upgrade CRA @focus @done(20-07-26 16:07)
+  ✔ Install new deps @focus @done(20-07-26 16:07)
+  - Upgrade project structure
+  - Refactor to React hooks @focus
+    ✔ Home @done(20-07-26 16:24)
   - Edit bookmarks in a new screen
   - Implement anims via transition group or React motion
   - Implement CSS modules or other JS-centric styling solution
   - Connect repo to Netlify/create git hook/auto-deploy
   - Rethink/redesign UI
   - Display left tag nav arrow only after right arrow has been clicked
-  ✔ Create responsive styles @done(19-04-04 01:10)
-  ✔ Implement router @done(19-04-01 00:11)
-  ✔ Fine-tune font choices @done(19-03-29 00:13)
-  ✔ Remove unneeded fonts @done(19-03-29 00:12)
-  ✔ Restyle BookmarkItem's UI @done(19-03-29 00:20)
-
 
 Fixes:
   - Deleting a bookmark in tag sort view works, but returns type error and crashes the app right after
-  ✔ Tags in sidebar don't immediately update when creating a bookmark (they do update behind the scenes though) @done(19-04-03 01:09)
-  ✔ Tags w/ different case are counted as distinct tags: normalize tag case :fix: @done(19-04-03 01:17)
-  ✔ CSS Tweaks to TagItem, removed anchor default color @done(19-03-28 23:49)
-  ✔ Fix z-index for navbar/tag nav arrows @done(19-03-28 23:36)
-
 
 Archive:
+  ✔ offer bookmark search @done(19-04-10 00:45)
+  ✔ Create responsive styles @done(19-04-04 01:10) @project(Inbox/High-level tasks)
+  ✔ Tags in sidebar don't immediately update when creating a bookmark (they do update behind the scenes though) @done(19-04-03 01:09) @project(Fixes)
+  ✔ Tags w/ different case are counted as distinct tags: normalize tag case :fix: @done(19-04-03 01:17) @project(Fixes)
+  ✔ Implement router @done(19-04-01 00:11) @project(Inbox/High-level tasks)
+  ✔ Fine-tune font choices @done(19-03-29 00:13) @project(Inbox/High-level tasks)
+  ✔ Remove unneeded fonts @done(19-03-29 00:12) @project(Inbox/High-level tasks)
+  ✔ Restyle BookmarkItem's UI @done(19-03-29 00:20) @project(Inbox/High-level tasks)
+  ✔ CSS Tweaks to TagItem, removed anchor default color @done(19-03-28 23:49) @project(Fixes)
+  ✔ Fix z-index for navbar/tag nav arrows @done(19-03-28 23:36) @project(Fixes)
   ✔ receive input from at least 2 input fields and return a DOM element populated w/ the input @done(19-03-28 23:25)
   ✔ list bookmarks most recent to least recent @done(19-03-28 23:25)
   ✔ reset the input field(s) after a submission @done(19-03-28 23:25)
