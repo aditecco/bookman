@@ -10,7 +10,6 @@ import store from "./store";
 
 // comps
 import App from "./App";
-import Template from "./pages/Template";
 
 ReactDOM.render(
   <Provider store={store}>

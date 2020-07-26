@@ -143,10 +143,6 @@ function Home(props) {
       found.push(bookmarks.find((bookmark) => bookmark.id === id));
     }
 
-    // console.log('>> matches', matches);
-    // console.log('>> filter', filter)
-    // console.log('>> found', found);
-
     return found;
   }
 
@@ -170,9 +166,6 @@ function Home(props) {
     const lowercase = flattened.map((t) => t.toLowerCase());
     const unique = removeDuplicates(lowercase);
 
-    // console.log('normalizeTags >> extracted', extracted);
-    // console.log('normalizeTags >> flattened', flattened);
-    // console.log('normalizeTags >> lowercase', lowercase);
     console.log("normalizeTags >> unique", unique);
 
     return unique;
@@ -185,7 +178,6 @@ function Home(props) {
     const r = bookmarks.filter((b) => b.href.includes(key));
 
     if (r.length > 0) {
-      // console.log('Found! >>> ', r);
       setState({ found: r });
     }
   }
@@ -339,10 +331,10 @@ function Home(props) {
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ bookmarks, tags }) {
   return {
-    bookmarks: state.bookmarks,
-    tags: state.tags,
+    bookmarks,
+    tags,
   };
 }
 
