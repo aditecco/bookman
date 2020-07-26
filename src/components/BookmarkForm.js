@@ -1,60 +1,52 @@
-
 /******************
   BookmarkForm
 *******************/
 
 // deps
-import React, { Component } from 'react';
-import uuidv1 from 'uuid';
+import React, { useState } from "react";
+import uuidv1 from "uuid";
 
 // components
-import InputField from './InputField';
-import BaseButton from './BaseButton';
+import InputField from "./InputField";
+import BaseButton from "./BaseButton";
 
+export default function BookmarkForm({ addBookmark, addTags }) {
+  const [state, setState] = useState({
+    urlInput: "",
+    tagInput: "",
+  });
 
-class BookmarkForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      urlInput: '',
-      tagInput: ''
-    };
+  const { urlInput, tagInput } = state;
+  const root = "BookmarkForm";
+
+  function handleUrlChange(e) {
+    let { value: urlInput } = e.target;
+    setState(prevState => ({ ...prevState, urlInput }));
   }
 
-  handleUrlChange = (e) => {
-    let currentInput = e.target.value;
-    this.setState({ urlInput: currentInput });
-    // console.log(currentInput);
+  function handleTagChange(e) {
+    let { value: tagInput } = e.target;
+    setState(prevState => ({ ...prevState, tagInput }));
   }
 
-  handleTagChange = (e) => {
-    let currentInput = e.target.value;
-    this.setState({ tagInput: currentInput });
-    // console.log(currentInput);
+  function handleEmptyInput() {
+    alert("URL is required!");
   }
 
-  handleEmptyInput = (e) => {
-    alert('URL is required!')
-  }
-
-  handleSubmit = (e) => {
+  function handleSubmit() {
     const id = uuidv1();
 
     // only urlInput is required
-    if (this.state.urlInput !== '') {
+    if (urlInput) {
+      addBookmark(urlInput, id);
+      addTags(tagInput, id);
 
-      const { urlInput, tagInput } = this.state;
-
-      // this.props.addBookmark(urlInput, tagInput);
-      this.props.addBookmark(urlInput, id);
-      this.props.addTags(tagInput, id);
-
-      this.setState({
-        urlInput: '',
-        tagInput: ''
+      setState({
+        urlInput: "",
+        tagInput: "",
       });
     } else {
-      return this.handleEmptyInput();
+      return handleEmptyInput();
     }
   }
 
@@ -72,45 +64,34 @@ class BookmarkForm extends React.Component {
   //   }
   // }
 
-  render() {
-    const root = 'BookmarkForm';
-    const {
-      urlInput,
-      tagInput
-    } = this.state;
-
-    return (
-      <form
-        className={root}
-        // onKeyDown={this.handleKeyDown}
-      >
-        <div className="inputGroup">
-          <InputField
-              className='urlInput'
-              label='url'
-              onChange={this.handleUrlChange}
-              placeholder='www.example.com'
-              value={urlInput}
-            />
-
-            <InputField
-              className='tagInput'
-              label='tag(s)'
-              onChange={this.handleTagChange}
-              placeholder='Linux, JavaScript (comma separated)'
-              value={tagInput}
-            />
-        </div>
-
-
-        <BaseButton
-          className='submitButton'
-          label='save'
-          onClick={this.handleSubmit}
+  return (
+    <form
+      className={root}
+      // onKeyDown={this.handleKeyDown}
+    >
+      <div className="inputGroup">
+        <InputField
+          className="urlInput"
+          label="url"
+          onChange={handleUrlChange}
+          placeholder="www.example.com"
+          value={urlInput}
         />
-      </form>
-    );
-  }
-}
 
-export default BookmarkForm;
+        <InputField
+          className="tagInput"
+          label="tag(s)"
+          onChange={handleTagChange}
+          placeholder="Linux, JavaScript (comma separated)"
+          value={tagInput}
+        />
+      </div>
+
+      <BaseButton
+        className="submitButton"
+        label="save"
+        onClick={handleSubmit}
+      />
+    </form>
+  );
+}
