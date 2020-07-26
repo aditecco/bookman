@@ -22,11 +22,6 @@ import Footer from "../components/Footer";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 
-// assets
-
-// styles
-import "../styles/index.scss";
-
 function Home(props) {
   //
   const [state, setState] = useReducer(
@@ -128,7 +123,7 @@ function Home(props) {
   }
 
   function findRelationships(source = [], key) {
-    const match = source.filter((el) => el.tags.includes(key));
+    const match = source.filter(el => el.tags.includes(key));
     const ids = match.map((el, i) => el.id);
 
     return ids;
@@ -140,7 +135,7 @@ function Home(props) {
       matches = findRelationships(tags, filter),
       found = [];
     for (const id of matches) {
-      found.push(bookmarks.find((bookmark) => bookmark.id === id));
+      found.push(bookmarks.find(bookmark => bookmark.id === id));
     }
 
     return found;
@@ -163,7 +158,7 @@ function Home(props) {
     );
 
     const flattened = extracted.concat.apply([], extracted);
-    const lowercase = flattened.map((t) => t.toLowerCase());
+    const lowercase = flattened.map(t => t.toLowerCase());
     const unique = removeDuplicates(lowercase);
 
     console.log("normalizeTags >> unique", unique);
@@ -175,7 +170,7 @@ function Home(props) {
     const { bookmarks } = props;
     const key = e.target.value;
 
-    const r = bookmarks.filter((b) => b.href.includes(key));
+    const r = bookmarks.filter(b => b.href.includes(key));
 
     if (r.length > 0) {
       setState({ found: r });
@@ -278,9 +273,7 @@ function Home(props) {
                             <BookmarkItem
                               id={bookmark.id}
                               url={bookmark.href}
-                              tags={tags.filter(
-                                (tag) => tag.id === bookmark.id
-                              )}
+                              tags={tags.filter(tag => tag.id === bookmark.id)}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
                               onDeleteClick={confirmDestructiveAction}
@@ -294,9 +287,7 @@ function Home(props) {
                             <BookmarkItem
                               id={bookmark.id}
                               url={bookmark.href}
-                              tags={tags.filter(
-                                (tag) => tag.id === bookmark.id
-                              )}
+                              tags={tags.filter(tag => tag.id === bookmark.id)}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
                               onDeleteClick={confirmDestructiveAction}
@@ -310,7 +301,7 @@ function Home(props) {
                           <BookmarkItem
                             id={bookmark.id}
                             url={bookmark.href}
-                            tags={tags.filter((tag) => tag.id === bookmark.id)}
+                            tags={tags.filter(tag => tag.id === bookmark.id)}
                             timestamp={bookmark.timestamp}
                             onEditClick={editBookmark}
                             onDeleteClick={confirmDestructiveAction}
