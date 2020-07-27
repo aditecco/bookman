@@ -6,10 +6,15 @@ Home
 import React, { useReducer, useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as actionCreators from "../actions/actionCreators";
 import * as Constants from "../constants";
-import { log } from "../utils/utils";
+import { log } from "../utils";
 import stringify from "json-stringify-safe";
+import {
+  addBookmark,
+  addTags,
+  deleteBookmark,
+  editBookmark,
+} from "../redux/actions";
 
 // components
 import BookmarkItem from "../components/BookmarkItem";
@@ -36,7 +41,7 @@ function Home(props) {
     }
   );
 
-  const { bookmarks = [], tags = [], editBookmark, deleteBookmark } = props;
+  const { bookmarks, tags, editBookmark, deleteBookmark } = props;
   const { sortedByTag, uniqueTags, found } = state;
   const filteredBookmarks = filterBookmarks();
   const filteredTags = uniqueTags.filter((tag, i) => tag === sortedByTag);
@@ -272,7 +277,7 @@ function Home(props) {
                           <li className="BookmarkItemContainer" key={i}>
                             <BookmarkItem
                               id={bookmark.id}
-                              url={bookmark.href}
+                              url={bookmark.url}
                               tags={tags.filter(tag => tag.id === bookmark.id)}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
@@ -286,7 +291,7 @@ function Home(props) {
                           <li className="BookmarkItemContainer" key={i}>
                             <BookmarkItem
                               id={bookmark.id}
-                              url={bookmark.href}
+                              url={bookmark.url}
                               tags={tags.filter(tag => tag.id === bookmark.id)}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
@@ -300,7 +305,7 @@ function Home(props) {
                         <li className="BookmarkItemContainer" key={i}>
                           <BookmarkItem
                             id={bookmark.id}
-                            url={bookmark.href}
+                            url={bookmark.url}
                             tags={tags.filter(tag => tag.id === bookmark.id)}
                             timestamp={bookmark.timestamp}
                             onEditClick={editBookmark}
@@ -330,7 +335,12 @@ function mapStateToProps({ bookmarks, tags }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+  return {
+    addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
+    addTags: (tags, id) => dispatch(addTags({ tags, id })),
+    deleteBookmark: id => dispatch(deleteBookmark({ id })),
+    editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
+  };
 }
 
 const WithRedux = connect(mapStateToProps, mapDispatchToProps)(Home);
