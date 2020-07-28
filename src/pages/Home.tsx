@@ -10,6 +10,7 @@ import * as Constants from "../constants";
 import { log } from "../utils";
 import stringify from "json-stringify-safe";
 import {
+  createUser,
   addBookmark,
   addTags,
   deleteBookmark,
@@ -27,7 +28,15 @@ import Footer from "../components/Footer";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 
-function Home(props) {
+function Home({
+  bookmarks,
+  tags,
+  createUser,
+  addBookmark,
+  addTags,
+  deleteBookmark,
+  editBookmark,
+}) {
   //
   const [state, setState] = useReducer(
     (state, newState) => ({
@@ -38,10 +47,10 @@ function Home(props) {
       sortedByTag: "",
       uniqueTags: [],
       found: null,
+      tmpLoginInfo: "",
     }
   );
 
-  const { bookmarks, tags, editBookmark, deleteBookmark } = props;
   const { sortedByTag, uniqueTags, found } = state;
   const filteredBookmarks = filterBookmarks();
   const filteredTags = uniqueTags.filter((tag, i) => tag === sortedByTag);
@@ -135,8 +144,7 @@ function Home(props) {
   }
 
   function filterBookmarks() {
-    const { bookmarks, tags } = props,
-      filter = state.sortedByTag,
+    const filter = state.sortedByTag,
       matches = findRelationships(tags, filter),
       found = [];
     for (const id of matches) {
@@ -172,7 +180,6 @@ function Home(props) {
   }
 
   function handleSearch(e) {
-    const { bookmarks } = props;
     const key = e.target.value;
 
     const r = bookmarks.filter(b => b.href.includes(key));
@@ -209,7 +216,17 @@ function Home(props) {
       {/* inputSection */}
       <section className="inputSection">
         <div className="wrapper">
-          <BookmarkForm {...props} />
+          <BookmarkForm
+            {...{
+              bookmarks,
+              tags,
+              createUser,
+              addBookmark,
+              addTags,
+              deleteBookmark,
+              editBookmark,
+            }}
+          />
         </div>
       </section>
 
@@ -323,6 +340,31 @@ function Home(props) {
       </main>
 
       <Footer footerInfo="BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman" />
+
+      <form action="#">
+        <input
+          style={{ width: "100%" }}
+          type="text"
+          placeholder="login info"
+          onChange={e => {
+            const {
+              target: { value },
+            } = e;
+
+            setState({ tmpLoginInfo: value });
+          }}
+        />
+      </form>
+
+      <BaseButton
+        className="clearTagsButton"
+        onClick={_ => {
+          const [email, password] = state.tmpLoginInfo.split(",");
+          createUser(email, password);
+        }}
+        onKeyDown={null}
+        label="TEST SIGN-UP"
+      />
     </>
   );
 }
@@ -336,6 +378,8 @@ function mapStateToProps({ bookmarks, tags }) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    createUser: (username, password) =>
+      dispatch(createUser({ username, password })),
     addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),

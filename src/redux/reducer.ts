@@ -22,6 +22,7 @@ import {
   editBookmark,
   importLocalBookmarks,
   importLocalTags,
+  createUserSuccess,
 } from "./actions";
 
 const userDataTemplate = {
@@ -33,6 +34,47 @@ const userDataTemplate = {
 };
 
 const reducer = createReducer(initialState, {
+  // @ts-ignore
+  [createUserSuccess](state, action) {
+    const {
+      payload: {
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+      },
+    } = action;
+
+    return {
+      ...state,
+      userData: {
+        uid,
+        displayName,
+        photoURL,
+        email,
+        lastLoginAt,
+        createdAt,
+      },
+    };
+  },
+
+  ["y"](state, action) {
+    return state;
+  },
+
+  ["z"](state, action) {
+    return state;
+  },
+
+  ["xx"](state, action) {
+    return state;
+  },
+
+  ["yy"](state, action) {
+    return state;
+  },
+
+  ["zz"](state, action) {
+    return state;
+  },
+
   // @ts-ignore
   [setAuthState](state, action) {
     const {

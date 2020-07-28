@@ -13,11 +13,7 @@ export default {
     authenticated: false,
     user: null,
   },
-  userData: {
-    id: "",
-    email: "",
-    userName: "",
-  },
+  userData: null,
   bookmarks: [],
   tags: [],
   notificationMessage: {

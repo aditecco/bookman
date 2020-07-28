@@ -14,6 +14,13 @@ export const addTags = createAction<Action>("ADD_TAGS");
 export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS");
 export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
 
+
+// createUser
+export const createUser = createAction<Action>("CREATE_USER");
+export const createUserPending = createAction<Action>("CREATE_USER_PENDING");
+export const createUserSuccess = createAction<Action>("CREATE_USER_SUCCESS");
+export const createUserError = createAction<Action>("CREATE_USER_ERROR");
+
 // convertContent
 export const convertContent = createAction<Action>("CONVERT_CONTENT");
 export const convertContentError = createAction<Action>("CONVERT_CONTENT_ERROR");
