@@ -11,6 +11,7 @@ import { log } from "../utils";
 import stringify from "json-stringify-safe";
 import {
   createUser,
+  signInUser,
   addBookmark,
   addTags,
   deleteBookmark,
@@ -32,6 +33,7 @@ function Home({
   bookmarks,
   tags,
   createUser,
+  signInUser,
   addBookmark,
   addTags,
   deleteBookmark,
@@ -365,6 +367,16 @@ function Home({
         onKeyDown={null}
         label="TEST SIGN-UP"
       />
+
+      <BaseButton
+        className="clearTagsButton"
+        onClick={_ => {
+          const [email, password] = state.tmpLoginInfo.split(",");
+          signInUser(email, password);
+        }}
+        onKeyDown={null}
+        label="TEST SIGN-IN"
+      />
     </>
   );
 }
@@ -378,8 +390,8 @@ function mapStateToProps({ bookmarks, tags }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUser: (username, password) =>
-      dispatch(createUser({ username, password })),
+    createUser: (email, password) => dispatch(createUser({ email, password })),
+    signInUser: (email, password) => dispatch(signInUser({ email, password })),
     addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),

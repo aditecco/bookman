@@ -55,12 +55,22 @@ const reducer = createReducer(initialState, {
     };
   },
 
-  ["y"](state, action) {
-    return state;
-  },
+  // @ts-ignore
+  [signInUserSuccess](state, action) {
+    const {
+      payload: {
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+      },
+    } = action;
 
-  ["z"](state, action) {
-    return state;
+    return {
+      ...state,
+      authentication: {
+        ...state.authentication,
+        authenticated: true,
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+      },
+    };
   },
 
   ["xx"](state, action) {

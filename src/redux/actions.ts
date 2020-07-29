@@ -21,6 +21,12 @@ export const createUserPending = createAction<Action>("CREATE_USER_PENDING");
 export const createUserSuccess = createAction<Action>("CREATE_USER_SUCCESS");
 export const createUserError = createAction<Action>("CREATE_USER_ERROR");
 
+// signInUser
+export const signInUser = createAction<Action>("SIGN_IN_USER");
+export const signInUserPending = createAction<Action>("SIGN_IN_USER_PENDING");
+export const signInUserSuccess = createAction<Action>("SIGN_IN_USER_SUCCESS");
+export const signInUserError = createAction<Action>("SIGN_IN_USER_ERROR");
+
 // convertContent
 export const convertContent = createAction<Action>("CONVERT_CONTENT");
 export const convertContentError = createAction<Action>("CONVERT_CONTENT_ERROR");
