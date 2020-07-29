@@ -15,11 +15,11 @@ export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS
 export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
 
 
-// createUser
-export const createUser = createAction<Action>("CREATE_USER");
-export const createUserPending = createAction<Action>("CREATE_USER_PENDING");
-export const createUserSuccess = createAction<Action>("CREATE_USER_SUCCESS");
-export const createUserError = createAction<Action>("CREATE_USER_ERROR");
+// signUpUser
+export const signUpUser = createAction<Action>("SIGN_UP_USER");
+export const signUpUserPending = createAction<Action>("SIGN_UP_USER_PENDING");
+export const signUpUserSuccess = createAction<Action>("SIGN_UP_USER_SUCCESS");
+export const signUpUserError = createAction<Action>("SIGN_UP_USER_ERROR");
 
 // signInUser
 export const signInUser = createAction<Action>("SIGN_IN_USER");

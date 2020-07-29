@@ -10,7 +10,7 @@ import * as Constants from "../constants";
 import { log } from "../utils";
 import stringify from "json-stringify-safe";
 import {
-  createUser,
+  signUpUser,
   signInUser,
   addBookmark,
   addTags,
@@ -32,7 +32,7 @@ import { Link } from "react-router-dom";
 function Home({
   bookmarks,
   tags,
-  createUser,
+  signUpUser,
   signInUser,
   addBookmark,
   addTags,
@@ -222,7 +222,6 @@ function Home({
             {...{
               bookmarks,
               tags,
-              createUser,
               addBookmark,
               addTags,
               deleteBookmark,
@@ -362,7 +361,7 @@ function Home({
         className="clearTagsButton"
         onClick={_ => {
           const [email, password] = state.tmpLoginInfo.split(",");
-          createUser(email, password);
+          signUpUser(email, password);
         }}
         onKeyDown={null}
         label="TEST SIGN-UP"
@@ -390,7 +389,7 @@ function mapStateToProps({ bookmarks, tags }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUser: (email, password) => dispatch(createUser({ email, password })),
+    signUpUser: (email, password) => dispatch(signUpUser({ email, password })),
     signInUser: (email, password) => dispatch(signInUser({ email, password })),
     addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
     addTags: (tags, id) => dispatch(addTags({ tags, id })),

@@ -28,4 +28,5 @@ export default {
     content: null,
     forceOpen: false,
   },
+  error: null,
 };

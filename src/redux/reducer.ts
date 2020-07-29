@@ -22,20 +22,15 @@ import {
   editBookmark,
   importLocalBookmarks,
   importLocalTags,
-  createUserSuccess,
+  signUpUserSuccess,
+  signUpUserError,
+  signUpUserPending,
+  signInUserSuccess,
 } from "./actions";
-
-const userDataTemplate = {
-  watched: [],
-  toWatch: [],
-  settings: {
-    apiKey: "",
-  },
-};
 
 const reducer = createReducer(initialState, {
   // @ts-ignore
-  [createUserSuccess](state, action) {
+  [signUpUserSuccess](state, action) {
     const {
       payload: {
         user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
@@ -44,7 +39,7 @@ const reducer = createReducer(initialState, {
 
     return {
       ...state,
-      userData: {
+      authentication: {
         uid,
         displayName,
         photoURL,
@@ -109,7 +104,7 @@ const reducer = createReducer(initialState, {
       ...state,
       userData: {
         [uid]: {
-          ...userDataTemplate,
+          ...{},
         },
       },
     };
@@ -286,6 +281,14 @@ const reducer = createReducer(initialState, {
     } = action;
 
     return state;
+  },
+
+  // @ts-ignore
+  [signUpUserError](state, action) {
+    return {
+      ...state,
+      error: action.error,
+    };
   },
   // end
 });

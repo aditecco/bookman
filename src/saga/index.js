@@ -3,14 +3,9 @@ rootSaga
 --------------------------------- */
 
 import { all } from "redux-saga/effects";
-import createUser from "./createUser";
 import signInUser from "./signInUser";
+import signUpUser from "./signUpUser";
 
 export default function* rootSaga() {
-  yield all([
-    //
-    createUser(),
-    signInUser(),
-    //
-  ]);
+  yield all([signInUser(), signUpUser()]);
 }
