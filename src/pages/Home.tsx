@@ -38,6 +38,7 @@ function Home({
   addTags,
   deleteBookmark,
   editBookmark,
+  authentication,
 }) {
   //
   const [state, setState] = useReducer(
@@ -49,7 +50,6 @@ function Home({
       sortedByTag: "",
       uniqueTags: [],
       found: null,
-      tmpLoginInfo: "",
     }
   );
 
@@ -340,50 +340,20 @@ function Home({
         </section>
       </main>
 
+      <span>
+        {authentication.user && "Welcome," + authentication.user.email}
+      </span>
+
       <Footer footerInfo="BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman" />
-
-      <form action="#">
-        <input
-          style={{ width: "100%" }}
-          type="text"
-          placeholder="login info"
-          onChange={e => {
-            const {
-              target: { value },
-            } = e;
-
-            setState({ tmpLoginInfo: value });
-          }}
-        />
-      </form>
-
-      <BaseButton
-        className="clearTagsButton"
-        onClick={_ => {
-          const [email, password] = state.tmpLoginInfo.split(",");
-          signUpUser(email, password);
-        }}
-        onKeyDown={null}
-        label="TEST SIGN-UP"
-      />
-
-      <BaseButton
-        className="clearTagsButton"
-        onClick={_ => {
-          const [email, password] = state.tmpLoginInfo.split(",");
-          signInUser(email, password);
-        }}
-        onKeyDown={null}
-        label="TEST SIGN-IN"
-      />
     </>
   );
 }
 
-function mapStateToProps({ bookmarks, tags }) {
+function mapStateToProps({ bookmarks, tags, authentication }) {
   return {
     bookmarks,
     tags,
+    authentication,
   };
 }
 
