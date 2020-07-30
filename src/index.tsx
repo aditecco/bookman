@@ -29,6 +29,7 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
 ReactDOM.render(
+  // TODO errorhandler
   <Provider store={store}>
     <App />
   </Provider>,

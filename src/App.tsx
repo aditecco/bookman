@@ -8,10 +8,10 @@ import Authentication from "./components/Authentication";
 
 const AuthenticatedRoutes = React.lazy(() => import("./AuthenticatedRoutes"));
 
-function App({ authentication, loading }) {
+function App({ authentication: { authenticated }, loading }) {
   return loading ? (
     "loading…" // TODO
-  ) : authentication.authenticated ? (
+  ) : authenticated ? (
     <Suspense fallback="loading...">
       <AuthenticatedRoutes />
     </Suspense>
