@@ -31,3 +31,41 @@ export default {
   },
   error: null,
 };
+
+export interface IAppMeta {
+  app: string;
+  version: string;
+  build: string;
+  source: string;
+}
+
+export interface IAuthState {
+  authenticated: boolean;
+  user: null | {}; //TODO
+}
+
+export interface INotificationMessageState {
+  isVisible: boolean;
+  message: string;
+  icon: string;
+  timeOut: number;
+  theme: string;
+}
+
+export interface IModalState {
+  open: boolean;
+  content: null | {}; // TODO
+  forceOpen: boolean;
+}
+
+export interface IInitialState {
+  meta: IAppMeta;
+  loading: boolean;
+  authentication: IAuthState;
+  userData: null | {}; //TODO
+  bookmarks: Array<{}>; //TODO
+  tags: Array<{}>; //TODO
+  notificationMessage: INotificationMessageState;
+  modal: IModalState;
+  error: null | {}; // TODO
+}
