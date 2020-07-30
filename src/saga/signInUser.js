@@ -2,7 +2,7 @@
 signInUser
 --------------------------------- */
 
-import { put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
   signInUser,
@@ -24,11 +24,24 @@ function* signInUserSaga(action) {
   yield put(signInUserPending());
 
   try {
-    yield firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    const context = firebase.auth();
 
-    const user = yield firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
+    yield call(
+      {
+        context,
+        fn: context.setPersistence,
+      },
+      firebase.auth.Auth.Persistence.LOCAL
+    );
+
+    const user = yield call(
+      {
+        context,
+        fn: context.signInWithEmailAndPassword,
+      },
+      email,
+      password
+    );
 
     yield put(signInUserSuccess(user));
 

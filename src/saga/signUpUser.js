@@ -2,7 +2,7 @@
 createUser
 --------------------------------- */
 
-import { put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
   signUpUser,
@@ -24,9 +24,14 @@ function* signUpUserSaga(action) {
   yield put(signUpUserPending());
 
   try {
-    const user = yield firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
+    const user = yield call(
+      {
+        context: firebase.auth(),
+        fn: firebase.auth().createUserWithEmailAndPassword,
+      },
+      email,
+      password
+    );
 
     yield put(signUpUserSuccess(user));
 
