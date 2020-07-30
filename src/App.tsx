@@ -2,19 +2,19 @@
 App
 --------------------------------- */
 
-import React from "react";
+import React, { Suspense } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
 import Authentication from "./components/Authentication";
+
+const AuthenticatedRoutes = React.lazy(() => import("./AuthenticatedRoutes"));
 
 function App({ authentication, loading }) {
   return loading ? (
     "loading…" // TODO
   ) : authentication.authenticated ? (
-    <Router>
-      <Route path={"/"} exact component={Home} />
-    </Router>
+    <Suspense fallback="loading...">
+      <AuthenticatedRoutes />
+    </Suspense>
   ) : (
     <Authentication />
   );

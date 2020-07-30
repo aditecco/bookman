@@ -7,7 +7,7 @@ import BaseButton from "./BaseButton";
 import { signUpUser, signInUser } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
-export default function Authentication(props) {
+export default function Authentication() {
   const dispatch = useDispatch();
 
   const [authInfo, setAuthInfo] = useState("");
