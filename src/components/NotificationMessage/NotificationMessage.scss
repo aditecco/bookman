@@ -1,0 +1,48 @@
+/* ---------------------------------
+NotificationMessage
+--------------------------------- */
+
+.NotificationMessage {
+  position: fixed;
+  right: 20px;
+  top: -999px;
+  // @include flex(row nowrap, space-around);
+  padding: 16px;
+  background-color: rgba(black, 0.8);
+  border-radius: 4px;
+  box-shadow: 0 2px 20px 20px rgba(black, 0.1);
+  transition: top 0.3s ease-in-out;
+  color: whitesmoke;
+  z-index: 5;
+
+  > * {
+    display: inline-block;
+  }
+
+  &.isVisible {
+    top: 20px;
+  }
+
+  &.light {
+    background-color: whitesmoke;
+    color: $fontAlt;
+    border-top: 4px solid $accent;
+    border-radius: $radius;
+  }
+
+  &Visual {
+    vertical-align: middle;
+
+    i.material-icons {
+      color: $success;
+      font-size: 1.3rem;
+    }
+
+    + .NotificationMessageContent {
+      margin-left: 10px;
+    }
+  }
+
+  &Content {
+  }
+}

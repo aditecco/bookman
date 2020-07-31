@@ -1,0 +1,12 @@
+/* ---------------------------------
+Layout
+--------------------------------- */
+
+.Layout {
+  // need to 'escape' the var!
+  height: calc(100vh - #{$headerHeight});
+
+  // > main {
+  //   height: 100%;
+  // }
+}
