@@ -1,11 +1,25 @@
-
 /* ========================
 fx.scss
 ======================== */
 
-// $border: 1px solid $flat-gray-1;
+// $border: 1px solid rgba($flat-gray-2, 0.5);
 $border: 2px solid $flat-gray-1;
+$borderDark: 1px solid rgba($flat-gray-2, 0.8);
 $outline: null;
 $radius: 4px;
-$shadow: 0 2px 20px rgba(black, .1);
-$innerShadow: inset 0 -2px 10px rgba(black, .1);
+$shadow: 0 2px 20px 6px rgba(black, 0.1);
+// $shadow: 0 2px 20px rgba(black, .1);
+$lightShadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+$innerShadow: inset 0 -2px 10px rgba(black, 0.1);
+$textShadow: 0 2px 20px black;
+$ligthTextShadow: 0 1px 1px rgba(black, 0.2);
+
+// mixins
+@mixin zoomOnHover($scale: 1.05) {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale($scale);
+  }
+}

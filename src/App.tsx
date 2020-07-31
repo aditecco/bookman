@@ -5,12 +5,13 @@ App
 import React, { Suspense } from "react";
 import { connect } from "react-redux";
 import Authentication from "./components/Authentication";
+import Spinner from "./components/Spinner/Spinner";
 
 const AuthenticatedRoutes = React.lazy(() => import("./AuthenticatedRoutes"));
 
 function App({ authentication: { authenticated }, loading }) {
   return loading ? (
-    "loading…" // TODO
+    <Spinner />
   ) : authenticated ? (
     <Suspense fallback="loading...">
       <AuthenticatedRoutes />
@@ -20,9 +21,9 @@ function App({ authentication: { authenticated }, loading }) {
   );
 }
 
-const mapStateToProps = state => ({
-  authentication: state.authentication,
-  loading: state.loading,
+const mapStateToProps = ({ authentication, loading }) => ({
+  authentication,
+  loading,
 });
 
 const mapDispatchToProps = dispatch => ({});

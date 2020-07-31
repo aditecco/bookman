@@ -1,0 +1,35 @@
+/* ---------------------------------
+Spinner
+--------------------------------- */
+
+.SpinnerContainer {
+  @include flex(column nowrap);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.Spinner {
+  @include round(60px);
+  border: 7px solid rgba($flat-gray-2, 0.6);
+  border-top-color: $accent;
+  box-shadow: 0 2px 40px #00000017;
+  background-color: $transparent;
+
+  /*
+  longhand:
+
+  animation-duration
+  animation-timing-function
+  animation-delay
+  animation-iteration-count
+  animation-direction
+  animation-fill-mode
+  animation-play-state
+  animation-name
+  */
+
+  animation: 900ms infinite spin;
+}

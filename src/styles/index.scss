@@ -1,21 +1,18 @@
-
 /* ========================
 main.scss
 ======================== */
-
 
 /* ---------------------------------
 imports
 --------------------------------- */
 
-@import './_partials/_logic';
-@import './_partials/_vars';
-@import '~normalize.css/normalize.css';
-@import './_partials/_colors';
-@import './_partials/_typography';
-@import './_partials/_anims';
-@import './_partials/_fx';
-
+@import "~normalize.css/normalize.css";
+@import "./_partials/_logic";
+@import "./_partials/_vars";
+@import "./_partials/_colors";
+@import "./_partials/_typography";
+@import "./_partials/_animations";
+@import "./_partials/_fx";
 
 /* ---------------------------------
 common
@@ -31,22 +28,24 @@ common
   font-size: 16px;
 }
 
-body { background-color: $flat-gray-1; }
+body {
+  background-color: $flat-gray-1;
+}
 
 // a, a:hover, a:visited { color: rgba(0,0,0,.8); }
-
 
 /* ---------------------------------
 containers
 --------------------------------- */
 
 #root {
-  > *:not(:last-child) { margin-bottom: $margin * 2; }
+  > *:not(:last-child) {
+    margin-bottom: $margin * 2;
+  }
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-
 
 .wrapper {
   @include container($XL);
@@ -56,7 +55,6 @@ containers
     padding: 0 10px;
   }
 }
-
 
 .mainContentWrapper {
   width: 100%;
@@ -73,7 +71,6 @@ containers
   }
 }
 
-
 .inputSection {
   width: 100%;
   padding: ($padding * 2) 0;
@@ -82,9 +79,8 @@ containers
   // find a way to avoid
   // using React's root ID
   // box-shadow: $innerShadow;
-  background-color: rgba($flat-gray-2, .2);
+  background-color: rgba($flat-gray-2, 0.2);
 }
-
 
 .tagSection {
   .tagListContainer {
@@ -93,7 +89,9 @@ containers
       margin-bottom: $margin;
     }
 
-    .tagList { @include box(0, $margin 0 0, true); }
+    .tagList {
+      @include box(0, $margin 0 0, true);
+    }
   }
 
   @media screen and (max-width: $SM) {
@@ -105,7 +103,6 @@ containers
     }
   }
 }
-
 
 .bookmarkSection {
   // display: grid;
@@ -147,30 +144,29 @@ containers
       //   }
       // }
 
-      .blankSlateMessage {}
+      .blankSlateMessage {
+      }
 
       .BookmarkItemContainer {
-        transition: transform .3s ease;
+        transition: transform 0.3s ease;
         &:hover {
-          transform:
-            scale(1.01) translateY(-10px);
-          ;
+          transform: scale(1.01) translateY(-10px);
         }
       }
     }
   }
 }
 
-
 /* ---------------------------------
 components
 --------------------------------- */
 
-@import './components/Navbar';
-@import './components/InputField';
-@import './components/BookmarkForm';
-@import './components/BaseButton';
-@import './components/PillButton';
-@import './components/BookmarkItem';
-@import './components/TagItem';
-@import './components/Footer';
+@import "./components/Navbar";
+@import "./components/InputField";
+@import "./components/BookmarkForm";
+@import "./components/BaseButton";
+@import "./components/PillButton";
+@import "./components/BookmarkItem";
+@import "./components/TagItem";
+@import "./components/Footer";
+@import "../components/Spinner/Spinner.scss";
