@@ -10,6 +10,7 @@ export default {
     source: `${process.env.REACT_APP_APP_SOURCE}`,
   },
   loading: false,
+  error: null,
   authentication: {
     authenticated: false,
     user: null,
@@ -29,7 +30,6 @@ export default {
     content: null,
     forceOpen: false,
   },
-  error: null,
 };
 
 export interface IAppMeta {
@@ -61,11 +61,11 @@ export interface IModalState {
 export interface IInitialState {
   meta: IAppMeta;
   loading: boolean;
+  error: null | {}; // TODO
   authentication: IAuthState;
   userData: null | {}; //TODO
   bookmarks: Array<{}>; //TODO
   tags: Array<{}>; //TODO
   notificationMessage: INotificationMessageState;
   modal: IModalState;
-  error: null | {}; // TODO
 }

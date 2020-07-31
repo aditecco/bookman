@@ -4,7 +4,7 @@ reducer
 
 import { createReducer } from "@reduxjs/toolkit";
 import { log, clipText } from "../utils";
-import initialState from "./initialState";
+import initialState, { IInitialState } from "./initialState";
 import {
   addBookmark,
   createNoteError,
@@ -26,9 +26,19 @@ import {
   signUpUserError,
   signUpUserPending,
   signInUserSuccess,
+  signInUserPending,
+  signInUserError,
 } from "./actions";
 
-const reducer = createReducer(initialState, {
+const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
+  // @ts-ignore
+  [signUpUserPending](state) {
+    return {
+      ...state,
+      loading: true,
+    };
+  },
+
   // @ts-ignore
   [signUpUserSuccess](state, action) {
     const {
@@ -39,6 +49,7 @@ const reducer = createReducer(initialState, {
 
     return {
       ...state,
+      loading: false,
       authentication: {
         uid,
         displayName,
@@ -47,6 +58,27 @@ const reducer = createReducer(initialState, {
         lastLoginAt,
         createdAt,
       },
+    };
+  },
+
+  // @ts-ignore
+  [signUpUserError](state, action) {
+    const {
+      payload: { error },
+    } = action;
+
+    return {
+      ...state,
+      loading: false,
+      error,
+    };
+  },
+
+  // @ts-ignore
+  [signInUserPending](state) {
+    return {
+      ...state,
+      loading: true,
     };
   },
 
@@ -60,11 +92,25 @@ const reducer = createReducer(initialState, {
 
     return {
       ...state,
+      loading: false,
       authentication: {
         ...state.authentication,
         authenticated: true,
         user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
       },
+    };
+  },
+
+  // @ts-ignore
+  [signInUserError](state, action) {
+    const {
+      payload: { error },
+    } = action;
+
+    return {
+      ...state,
+      loading: false,
+      error,
     };
   },
 
