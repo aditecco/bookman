@@ -13,7 +13,7 @@ function App({ authentication: { authenticated }, loading }) {
   return loading ? (
     <Spinner />
   ) : authenticated ? (
-    <Suspense fallback="loading...">
+    <Suspense fallback={Spinner}>
       <AuthenticatedRoutes />
     </Suspense>
   ) : (
