@@ -224,21 +224,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   },
 
   // @ts-ignore
-  [createNotePending](state, action) {
-    return state;
-  },
-
-  // @ts-ignore
-  [createNoteSuccess](state, action) {
-    return state;
-  },
-
-  // @ts-ignore
-  [createNoteError](state, action) {
-    return state;
-  },
-
-  // @ts-ignore
   [addBookmark](state, action) {
     const {
       payload: { url, id },
@@ -329,13 +314,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
     return state;
   },
 
-  // @ts-ignore
-  [signUpUserError](state, action) {
-    return {
-      ...state,
-      error: action.error,
-    };
-  },
   // end
 });
 
