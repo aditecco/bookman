@@ -11,6 +11,7 @@ import "firebase/database";
 import "firebase/auth";
 import "./styles/index.scss";
 import App from "./App";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 // firebase initializers
 const firebaseConfig = {
@@ -29,10 +30,11 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
 ReactDOM.render(
-  // TODO errorhandler
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ErrorBoundary>,
 
   document.getElementById("root")
 );
