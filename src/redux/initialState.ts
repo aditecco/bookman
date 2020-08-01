@@ -41,7 +41,7 @@ export interface IAppMeta {
 
 export interface IAuthState {
   authenticated: boolean;
-  user: null | {}; //TODO
+  user: null | IUserState;
 }
 
 export interface INotificationMessageState {
@@ -58,14 +58,28 @@ export interface IModalState {
   forceOpen: boolean;
 }
 
+// TODO
+export interface IErrorState {}
+export interface IBookmark {}
+export interface ITag {}
+
+export interface IUserState {
+  uid: string | undefined;
+  displayName: string | undefined;
+  photoURL: string | undefined;
+  email: string | undefined;
+  lastLoginAt: string | undefined;
+  createdAt: string | undefined;
+}
+
 export interface IInitialState {
   meta: IAppMeta;
   loading: boolean;
-  error: null | {}; // TODO
+  error: null | IErrorState;
   authentication: IAuthState;
-  userData: null | {}; //TODO
-  bookmarks: Array<{}>; //TODO
-  tags: Array<{}>; //TODO
+  userData: null | IUserState;
+  bookmarks: Array<IBookmark>;
+  tags: Array<ITag>;
   notificationMessage: INotificationMessageState;
   modal: IModalState;
 }
