@@ -4,29 +4,30 @@
 
 // deps
 import React, { useState } from "react";
-import uuidv1 from "uuid";
+import uuidv4 from "uuid";
 
 // components
 import InputField from "./InputField";
 import BaseButton from "./BaseButton";
+import { IContentMeta, IBookmark, ITag } from "../types/bookman";
 
-export default function BookmarkForm({ addBookmark, addTags }) {
+export default function BookmarkForm({ createBookmark, addTags }) {
   const [state, setState] = useState({
-    urlInput: "",
-    tagInput: "",
+    url: "",
+    tag: "",
   });
 
-  const { urlInput, tagInput } = state;
+  const { url, tag } = state;
   const root = "BookmarkForm";
 
   function handleUrlChange(e) {
-    let { value: urlInput } = e.target;
-    setState(prevState => ({ ...prevState, urlInput }));
+    let { value: url } = e.target;
+    setState(prevState => ({ ...prevState, url }));
   }
 
   function handleTagChange(e) {
-    let { value: tagInput } = e.target;
-    setState(prevState => ({ ...prevState, tagInput }));
+    let { value: tag } = e.target;
+    setState(prevState => ({ ...prevState, tag }));
   }
 
   function handleEmptyInput() {
@@ -34,16 +35,26 @@ export default function BookmarkForm({ addBookmark, addTags }) {
   }
 
   function handleSubmit() {
-    const id = uuidv1();
+    const newItem: IContentMeta = {
+      id: uuidv4(),
+      timestamp: Date.now(),
+    };
 
     // only urlInput is required
-    if (urlInput) {
-      addBookmark(urlInput, id);
-      addTags(tagInput, id);
+    if (url) {
+      createBookmark({
+        ...newItem,
+        url,
+      } as IBookmark);
+
+      // addTags({
+      //   ...newItem,
+      //   value: tag,
+      // } as ITag);
 
       setState({
-        urlInput: "",
-        tagInput: "",
+        url: "",
+        tag: "",
       });
     } else {
       return handleEmptyInput();
@@ -75,7 +86,7 @@ export default function BookmarkForm({ addBookmark, addTags }) {
           label="url"
           onChange={handleUrlChange}
           placeholder="www.example.com"
-          value={urlInput}
+          value={url}
         />
 
         <InputField
@@ -83,7 +94,7 @@ export default function BookmarkForm({ addBookmark, addTags }) {
           label="tag(s)"
           onChange={handleTagChange}
           placeholder="Linux, JavaScript (comma separated)"
-          value={tagInput}
+          value={tag}
         />
       </div>
 
