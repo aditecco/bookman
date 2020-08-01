@@ -21,11 +21,20 @@ export const signUpUserPending = createAction<Action>("SIGN_UP_USER_PENDING");
 export const signUpUserSuccess = createAction<Action>("SIGN_UP_USER_SUCCESS");
 export const signUpUserError = createAction<Action>("SIGN_UP_USER_ERROR");
 
+
 // signInUser
 export const signInUser = createAction<Action>("SIGN_IN_USER");
 export const signInUserPending = createAction<Action>("SIGN_IN_USER_PENDING");
 export const signInUserSuccess = createAction<Action>("SIGN_IN_USER_SUCCESS");
 export const signInUserError = createAction<Action>("SIGN_IN_USER_ERROR");
+
+
+// signOutUser
+export const signOutUser = createAction<Action>("SIGN_OUT_USER");
+export const signOutUserPending = createAction<Action>("SIGN_OUT_USER_PENDING");
+export const signOutUserSuccess = createAction<Action>("SIGN_OUT_USER_SUCCESS");
+export const signOutUserError = createAction<Action>("SIGN_OUT_USER_ERROR");
+
 
 // convertContent
 export const convertContent = createAction<Action>("CONVERT_CONTENT");

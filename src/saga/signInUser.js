@@ -26,6 +26,7 @@ function* signInUserSaga(action) {
   try {
     const context = firebase.auth();
 
+    // setPersistence
     yield call(
       {
         context,
@@ -34,6 +35,7 @@ function* signInUserSaga(action) {
       firebase.auth.Auth.Persistence.LOCAL
     );
 
+    // signInWithEmailAndPassword
     const user = yield call(
       {
         context,

@@ -24,6 +24,10 @@ import {
   signInUserError,
   signInUserPending,
   signInUserSuccess,
+  signOutUser,
+  signOutUserPending,
+  signOutUserError,
+  signOutUserSuccess,
   signUpUserError,
   signUpUserPending,
   signUpUserSuccess,
@@ -33,6 +37,7 @@ import {
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
+  // https://github.com/reduxjs/redux-toolkit/issues/478
   [signUpUserPending](state) {
     return {
       ...state,
@@ -113,6 +118,37 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   },
 
   // @ts-ignore
+  [signOutUserPending](state) {
+    return {
+      ...state,
+      loading: true,
+    };
+  },
+
+  // @ts-ignore
+  [signOutUserError](state, action) {
+    const {
+      payload: { error },
+    } = action;
+
+    return {
+      ...state,
+      loading: false,
+      error,
+    };
+  },
+
+  // @ts-ignore
+  [signOutUserSuccess](state) {
+    return {
+      ...state,
+      loading: false,
+      authentication: { authenticated: false, user: null },
+      // userData: null,
+    };
+  },
+
+  // @ts-ignore
   [setAuthState](state, action) {
     const {
       payload: {
@@ -160,15 +196,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
           ...{},
         },
       },
-    };
-  },
-
-  // @ts-ignore
-  [destroyUser](state) {
-    return {
-      ...state,
-      authentication: { authenticated: false, user: null },
-      userData: {},
     };
   },
 

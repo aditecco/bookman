@@ -16,6 +16,7 @@ import {
   addTags,
   deleteBookmark,
   editBookmark,
+  signOutUser,
 } from "../redux/actions";
 
 // components
@@ -30,15 +31,16 @@ import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 
 function Home({
-  bookmarks,
-  tags,
-  signUpUser,
-  signInUser,
   addBookmark,
   addTags,
+  authentication,
+  bookmarks,
   deleteBookmark,
   editBookmark,
-  authentication,
+  signInUser,
+  signOutUser,
+  signUpUser,
+  tags,
 }) {
   //
   const [state, setState] = useReducer(
@@ -340,9 +342,15 @@ function Home({
         </section>
       </main>
 
-      <span>
+      <div>
         {authentication.user && "Welcome," + authentication.user.email}
-      </span>
+
+        <div>
+          <a href="#" onClick={() => signOutUser()}>
+            Logout
+          </a>
+        </div>
+      </div>
 
       <Footer footerInfo="BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman" />
     </>
@@ -361,6 +369,7 @@ function mapDispatchToProps(dispatch) {
   return {
     signUpUser: (email, password) => dispatch(signUpUser({ email, password })),
     signInUser: (email, password) => dispatch(signInUser({ email, password })),
+    signOutUser: () => dispatch(signOutUser()),
     addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),
