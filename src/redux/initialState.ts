@@ -2,6 +2,8 @@
 initialState
 --------------------------------- */
 
+import { IUser } from "../types/bookman";
+
 export default {
   meta: {
     app: "BookMan",
@@ -41,7 +43,7 @@ export interface IAppMeta {
 
 export interface IAuthState {
   authenticated: boolean;
-  user: null | IUserState;
+  user: null | IUser;
 }
 
 export interface INotificationMessageState {
@@ -63,21 +65,12 @@ export interface IErrorState {}
 export interface IBookmark {}
 export interface ITag {}
 
-export interface IUserState {
-  uid: string | undefined;
-  displayName: string | undefined;
-  photoURL: string | undefined;
-  email: string | undefined;
-  lastLoginAt: string | undefined;
-  createdAt: string | undefined;
-}
-
 export interface IInitialState {
   meta: IAppMeta;
   loading: boolean;
   error: null | IErrorState;
   authentication: IAuthState;
-  userData: null | IUserState;
+  userData: null | IUser;
   bookmarks: Array<IBookmark>;
   tags: Array<ITag>;
   notificationMessage: INotificationMessageState;
