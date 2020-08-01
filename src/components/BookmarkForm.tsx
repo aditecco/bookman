@@ -12,7 +12,7 @@ import BaseButton from "./BaseButton";
 import { IContentMeta, IBookmark, ITag } from "../types/bookman";
 import { log } from "../utils";
 
-export default function BookmarkForm({ createBookmark, addTags }) {
+export default function BookmarkForm({ createBookmark, createTag }) {
   const initialState = {
     url: "",
     tags: "",
@@ -32,13 +32,20 @@ export default function BookmarkForm({ createBookmark, addTags }) {
     setState(prevState => ({ ...prevState, tags }));
   }
 
+  // TODO
+  function processUrl(url) {
+    return url;
+  }
+
   function processTags(tags) {
     if (!tags) return true;
 
     if (!tags.includes(",")) return false;
 
     // TODO also check that there's exactly 1 comma per word, -1
-    // TODO maybe use an input mask
+    // - maybe use an input mask
+    // - if there's a comma at the end, strip it
+    // - if there's a ,, remove the unneeded comma
 
     return tags
       .trim()
@@ -53,10 +60,12 @@ export default function BookmarkForm({ createBookmark, addTags }) {
   }
 
   function handleSubmit() {
-    const newItem: IContentMeta = {
-      id: uuidv4(),
-      timestamp: Date.now(),
-    };
+    function newItem(): IContentMeta {
+      return {
+        id: uuidv4(),
+        timestamp: Date.now(),
+      };
+    }
 
     /**
      * TO SUBMIT
@@ -70,16 +79,14 @@ export default function BookmarkForm({ createBookmark, addTags }) {
     }
 
     createBookmark({
-      ...newItem,
+      ...newItem(),
       url,
     } as IBookmark);
 
     if (tags) {
-      log(processTags(tags));
-      // createTags({
-      //   ...newItem,
-      //   value: tags,
-      // } as ITag);
+      createTag(
+        processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
+      );
     }
 
     setState(initialState);
