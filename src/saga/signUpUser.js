@@ -35,14 +35,14 @@ function* signUpUserSaga(action) {
 
     yield put(signUpUserSuccess(user));
 
-    // yield put(
-    //   showNotif({
-    //     message: `Rated ${User} stars for ${title}`,
-    //     icon: "star",
-    //     timeOut: 2000,
-    //     theme: "light",
-    //   })
-    // );
+    yield put(
+      showNotif({
+        message: `Welcome, ${email}!`,
+        icon: "star",
+        timeOut: 2000,
+        theme: "light",
+      })
+    );
 
     //
   } catch (error) {
