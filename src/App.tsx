@@ -45,6 +45,7 @@ function App({ authentication: { authenticated }, loading }) {
 
         dispatch(stopLoading());
       },
+
       err => {
         console.error("@onAuthStateChanged", err);
 

@@ -9,7 +9,7 @@ export default {
     build: `${process.env.BUILD_ID}`, // will be resolved by Netlify
     source: `${process.env.REACT_APP_APP_SOURCE}`,
   },
-  loading: false,
+  loading: true,
   error: null,
   authentication: {
     authenticated: false,
