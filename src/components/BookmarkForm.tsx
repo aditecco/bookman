@@ -10,14 +10,16 @@ import uuidv4 from "uuid";
 import InputField from "./InputField";
 import BaseButton from "./BaseButton";
 import { IContentMeta, IBookmark, ITag } from "../types/bookman";
+import { log } from "../utils";
 
 export default function BookmarkForm({ createBookmark, addTags }) {
-  const [state, setState] = useState({
+  const initialState = {
     url: "",
-    tag: "",
-  });
+    tags: "",
+  };
+  const [state, setState] = useState(initialState);
 
-  const { url, tag } = state;
+  const { url, tags } = state;
   const root = "BookmarkForm";
 
   function handleUrlChange(e) {
@@ -26,12 +28,28 @@ export default function BookmarkForm({ createBookmark, addTags }) {
   }
 
   function handleTagChange(e) {
-    let { value: tag } = e.target;
-    setState(prevState => ({ ...prevState, tag }));
+    let { value: tags } = e.target;
+    setState(prevState => ({ ...prevState, tags }));
   }
 
-  function handleEmptyInput() {
-    alert("URL is required!");
+  function processTags(tags) {
+    if (!tags) return true;
+
+    if (!tags.includes(",")) return false;
+
+    // TODO also check that there's exactly 1 comma per word, -1
+    // TODO maybe use an input mask
+
+    return tags
+      .trim()
+      .split(",")
+      .map(tag => tag.trim());
+  }
+
+  function handleInvalidInput() {
+    alert(
+      "URL is required! -- Or, there's a problem with how tags are formatted."
+    );
   }
 
   function handleSubmit() {
@@ -40,25 +58,31 @@ export default function BookmarkForm({ createBookmark, addTags }) {
       timestamp: Date.now(),
     };
 
-    // only urlInput is required
-    if (url) {
-      createBookmark({
-        ...newItem,
-        url,
-      } as IBookmark);
+    /**
+     * TO SUBMIT
+     *
+     * - Valid URL
+     * - valid tags if present, or no tags
+     */
 
-      // addTags({
-      //   ...newItem,
-      //   value: tag,
-      // } as ITag);
-
-      setState({
-        url: "",
-        tag: "",
-      });
-    } else {
-      return handleEmptyInput();
+    if (!url || !processTags(tags)) {
+      return handleInvalidInput();
     }
+
+    createBookmark({
+      ...newItem,
+      url,
+    } as IBookmark);
+
+    if (tags) {
+      log(processTags(tags));
+      // createTags({
+      //   ...newItem,
+      //   value: tags,
+      // } as ITag);
+    }
+
+    setState(initialState);
   }
 
   // handleKeyDown = (e) => {
@@ -94,7 +118,7 @@ export default function BookmarkForm({ createBookmark, addTags }) {
           label="tag(s)"
           onChange={handleTagChange}
           placeholder="Linux, JavaScript (comma separated)"
-          value={tag}
+          value={tags}
         />
       </div>
 
