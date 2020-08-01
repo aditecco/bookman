@@ -19,25 +19,6 @@ Modal
     display: flex;
     justify-content: center;
     align-items: center;
-
-    // targets
-    > .CardContainer {
-      width: $cardMinWidth;
-
-      .Card {
-        box-shadow: 0 4px 14px 14px rgba(black, 0.25);
-      }
-
-      @media screen and (min-width: 360px) {
-        width: $cardInModalWidth;
-        height: $cardInModalHeight;
-
-        .CardMedia,
-        .Card.back {
-          height: $cardInModalHeight;
-        }
-      }
-    }
   }
 
   .ModalControls {
