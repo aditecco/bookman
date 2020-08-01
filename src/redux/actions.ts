@@ -59,6 +59,13 @@ export const createBookmarkSuccess = createAction<Action>("CREATE_BOOKMARK_SUCCE
 export const createBookmarkError = createAction<Action>("CREATE_BOOKMARK_ERROR");
 
 
+// createTag
+export const createTag = createAction<Action>("CREATE_TAG");
+export const createTagPending = createAction<Action>("CREATE_TAG_PENDING");
+export const createTagSuccess = createAction<Action>("CREATE_TAG_SUCCESS");
+export const createTagError = createAction<Action>("CREATE_TAG_ERROR");
+
+
 // createRemoteContent
 export const createRemoteContent = createAction<Action>("CREATE_REMOTE_CONTENT");
 export const createRemoteContentError = createAction<Action>("CREATE_REMOTE_CONTENT_ERROR");

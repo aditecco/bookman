@@ -41,3 +41,5 @@ export interface ITag extends IContentMeta {
 export interface ISetting {
   //
 }
+
+export type TTagBundle = ITag[];
