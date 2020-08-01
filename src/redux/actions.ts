@@ -98,5 +98,6 @@ export const setApiKey = createAction<Action>("SET_API_KEY");
 export const setAuthState = createAction<Action>("SET_AUTH_STATE");
 export const setInitialData = createAction<Action>("SET_INITIAL_DATA");
 export const showNotif = createAction<Action>("SHOW_NOTIF");
+export const stopLoading = createAction<Action>("STOP_LOADING");
 export const toggleModal = createAction<Action>("TOGGLE_MODAL");
 export const updateLocalContent = createAction<Action>("UPDATE_LOCAL_CONTENT");

@@ -7,27 +7,28 @@ import { log, clipText } from "../utils";
 import initialState, { IInitialState } from "./initialState";
 import {
   addBookmark,
+  addTags,
   createNoteError,
   createNotePending,
   createNoteSuccess,
+  deleteBookmark,
   destroyUser,
+  editBookmark,
   hideNotif,
+  importLocalBookmarks,
+  importLocalTags,
   initUser,
   setAuthState,
   setInitialData,
   showNotif,
-  toggleModal,
-  addTags,
-  deleteBookmark,
-  editBookmark,
-  importLocalBookmarks,
-  importLocalTags,
-  signUpUserSuccess,
+  signInUserError,
+  signInUserPending,
+  signInUserSuccess,
   signUpUserError,
   signUpUserPending,
-  signInUserSuccess,
-  signInUserPending,
-  signInUserError,
+  signUpUserSuccess,
+  stopLoading,
+  toggleModal,
 } from "./actions";
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
@@ -51,12 +52,9 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       ...state,
       loading: false,
       authentication: {
-        uid,
-        displayName,
-        photoURL,
-        email,
-        lastLoginAt,
-        createdAt,
+        ...state.authentication,
+        authenticated: true,
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
       },
     };
   },
@@ -114,6 +112,31 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
     };
   },
 
+  // @ts-ignore
+  [setAuthState](state, action) {
+    const {
+      payload: {
+        authenticated,
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+      },
+    } = action;
+
+    return {
+      ...state,
+      loading: false,
+      authentication: {
+        ...state.authentication,
+        authenticated,
+        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+      },
+    };
+  },
+
+  // @ts-ignore
+  [stopLoading](state) {
+    return { ...state, loading: false };
+  },
+
   ["xx"](state, action) {
     return state;
   },
@@ -124,22 +147,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
 
   ["zz"](state, action) {
     return state;
-  },
-
-  // @ts-ignore
-  [setAuthState](state, action) {
-    const {
-      payload: { authenticated, user },
-    } = action;
-
-    return {
-      ...state,
-      authentication: {
-        ...state.authentication,
-        authenticated,
-        user,
-      },
-    };
   },
 
   // @ts-ignore
