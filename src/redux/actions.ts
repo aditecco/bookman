@@ -6,6 +6,8 @@ import { createAction } from "@reduxjs/toolkit";
 
 type Action = object;
 
+// TODO Create generic error action
+
 // 
 export const addBookmark = createAction<Action>("ADD_BOOKMARK");
 export const editBookmark = createAction<Action>("EDIT_BOOKMARK");
@@ -50,11 +52,11 @@ export const createNoteSuccess = createAction<Action>("CREATE_NOTE_SUCCESS");
 export const createNoteError = createAction<Action>("CREATE_NOTE_ERROR");
 
 
-// createRating
-export const createRating = createAction<Action>("CREATE_RATING");
-export const createRatingPending = createAction<Action>("CREATE_RATING_PENDING");
-export const createRatingSuccess = createAction<Action>("CREATE_RATING_SUCCESS");
-export const createRatingError = createAction<Action>("CREATE_RATING_ERROR");
+// createBookmark
+export const createBookmark = createAction<Action>("CREATE_BOOKMARK");
+export const createBookmarkPending = createAction<Action>("CREATE_BOOKMARK_PENDING");
+export const createBookmarkSuccess = createAction<Action>("CREATE_BOOKMARK_SUCCESS");
+export const createBookmarkError = createAction<Action>("CREATE_BOOKMARK_ERROR");
 
 
 // createRemoteContent

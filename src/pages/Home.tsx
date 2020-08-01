@@ -10,13 +10,14 @@ import * as Constants from "../constants";
 import { log } from "../utils";
 import stringify from "json-stringify-safe";
 import {
-  signUpUser,
-  signInUser,
   addBookmark,
   addTags,
+  createBookmark,
   deleteBookmark,
   editBookmark,
+  signInUser,
   signOutUser,
+  signUpUser,
 } from "../redux/actions";
 
 // components
@@ -35,6 +36,7 @@ function Home({
   addTags,
   authentication,
   bookmarks,
+  createBookmark,
   deleteBookmark,
   editBookmark,
   signInUser,
@@ -224,7 +226,7 @@ function Home({
             {...{
               bookmarks,
               tags,
-              addBookmark,
+              createBookmark,
               addTags,
               deleteBookmark,
               editBookmark,
@@ -370,7 +372,7 @@ function mapDispatchToProps(dispatch) {
     signUpUser: (email, password) => dispatch(signUpUser({ email, password })),
     signInUser: (email, password) => dispatch(signInUser({ email, password })),
     signOutUser: () => dispatch(signOutUser()),
-    addBookmark: (url, id) => dispatch(addBookmark({ url, id })),
+    createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),
     editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),

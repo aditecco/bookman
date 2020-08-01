@@ -8,6 +8,9 @@ import initialState, { IInitialState } from "./initialState";
 import {
   addBookmark,
   addTags,
+  createBookmarkPending,
+  createBookmarkSuccess,
+  createBookmarkError,
   createNoteError,
   createNotePending,
   createNoteSuccess,
