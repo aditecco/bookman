@@ -19,6 +19,8 @@ function App({ authentication: { authenticated }, loading }) {
    * Auth observer
    */
 
+  // TODO prevent setAuthState firing
+  // at the same time with signInUserSuccess
   useEffect(() => {
     const observer = firebase.auth().onAuthStateChanged(
       user => {
