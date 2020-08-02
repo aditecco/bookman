@@ -40,6 +40,7 @@ export default function BookmarkForm({ createBookmark, createTag }) {
   function processTags(tags) {
     if (!tags) return true;
 
+    // TODO What if it's just one tag?
     if (!tags.includes(",")) return false;
 
     // TODO also check that there's exactly 1 comma per word, -1
@@ -81,13 +82,16 @@ export default function BookmarkForm({ createBookmark, createTag }) {
     createBookmark({
       ...newItem(),
       url,
+      tags: tags
+        ? processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
+        : [],
     } as IBookmark);
 
-    if (tags) {
-      createTag(
-        processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
-      );
-    }
+    // if (tags) {
+    //   createTag(
+    //     processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
+    //   );
+    // }
 
     setState(initialState);
   }
