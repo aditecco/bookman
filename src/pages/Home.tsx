@@ -146,7 +146,11 @@ function Home({
   }
 
   useEffect(() => {
-    const bookmarksRef = db.ref(`/bookmarks`);
+    const bookmarksRef = db
+      .ref(`/bookmarks`)
+      .orderByChild("createdBy")
+      .equalTo(authentication.user.uid);
+    // .limitToLast(100)
     const tagsRef = db.ref(`/tags`);
     const userBookmarksRef = db.ref(
       `/users/${authentication.user.uid}/bookmarks`
