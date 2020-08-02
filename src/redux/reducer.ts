@@ -8,12 +8,15 @@ import initialState, { IInitialState } from "./initialState";
 import {
   addBookmark,
   addTags,
+  createBookmarkError,
   createBookmarkPending,
   createBookmarkSuccess,
-  createBookmarkError,
   createNoteError,
   createNotePending,
   createNoteSuccess,
+  createTagError,
+  createTagPending,
+  createTagSuccess,
   deleteBookmark,
   destroyUser,
   editBookmark,
@@ -28,8 +31,8 @@ import {
   signInUserPending,
   signInUserSuccess,
   signOutUser,
-  signOutUserPending,
   signOutUserError,
+  signOutUserPending,
   signOutUserSuccess,
   signUpUserError,
   signUpUserPending,
@@ -204,19 +207,23 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
 
   // @ts-ignore
   [setInitialData](state, action) {
-    const {
-      payload: { uid, mappedData },
-    } = action;
+    // const {
+    //   payload: { uid, mappedData },
+    // } = action;
+
+    log(action.payload);
 
     return {
       ...state,
-      userData: {
-        [uid]: {
-          ...state.userData[uid],
-          watched: [...mappedData.watched].reverse(),
-          toWatch: [...mappedData.toWatch].reverse(),
-        },
-      },
+      bookmarks: [action.payload, ...state.bookmarks],
+      // userData: action.payload,
+      // userData: {
+      //   [uid]: {
+      //     ...state.userData[uid],
+      //     watched: [...mappedData.watched].reverse(),
+      //     toWatch: [...mappedData.toWatch].reverse(),
+      //   },
+      // },
     };
   },
 

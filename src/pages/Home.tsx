@@ -19,6 +19,7 @@ import {
   signInUser,
   signOutUser,
   signUpUser,
+  setInitialData,
 } from "../redux/actions";
 
 // components
@@ -31,6 +32,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
+import { db } from "../index";
 
 function Home({
   addBookmark,
@@ -41,6 +43,7 @@ function Home({
   createTag,
   deleteBookmark,
   editBookmark,
+  setInitialData,
   signInUser,
   signOutUser,
   signUpUser,
@@ -62,64 +65,6 @@ function Home({
   const { sortedByTag, uniqueTags, found } = state;
   const filteredBookmarks = filterBookmarks();
   const filteredTags = uniqueTags.filter((tag, i) => tag === sortedByTag);
-
-  // componentWillMount() {
-  //   if (Constants.LOCAL_BOOKMARKS && Constants.LOCAL_TAGS) {
-  //     console.info(Constants.LOCAL_FOUND);
-
-  //     const parsed = {
-  //       bookmarks: [...JSON.parse(Constants.LOCAL_BOOKMARKS)],
-  //       tags: [...JSON.parse(Constants.LOCAL_TAGS)],
-  //     }
-
-  //     importLocalBookmarks(parsed.bookmarks);
-  //     importLocalTags(parsed.tags);
-
-  //   } else {
-  //     console.info(Constants.LOCAL_NOT_FOUND);
-
-  //     localStorage.setItem(
-  //       'localBookmarks',
-  //       Constants.INITIAL
-  //       // Constants.TEST_BOOKMARKS
-  //     );
-  //     localStorage.setItem(
-  //       'localTags',
-  //       Constants.INITIAL
-  //     );
-  //   }
-  // }
-
-  useEffect(() => {
-    // const fetchTags = new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve(tags);
-    //   }, 499);
-    // });
-    // fetchTags.then((data) => {
-    //   const unique = normalizeTags(data);
-    //   setState({ uniqueTags: unique });
-    //   console.log("didMount", ">> uniqueTags", state.uniqueTags);
-    // });
-  }, []);
-
-  useEffect(() => {
-    // const updated = {
-    //   bookmarks,
-    //   tags,
-    // };
-    // const unique = normalizeTags(tags);
-    // if (tags) {
-    //   setState({ uniqueTags: unique });
-    //   localStorage.setItem("localTags", JSON.stringify(updated.tags));
-    //   console.info("didUpdate", "Updated uniqueTags, localTags.");
-    //   console.log("didUpdate", ">> uniqueTags", state.uniqueTags);
-    // }
-    // if (bookmarks) {
-    //   localStorage.setItem("localBookmarks", JSON.stringify(updated.bookmarks));
-    //   console.info("didUpdate", "Updated localBookmarks.");
-    // }
-  }, [bookmarks, tags]);
 
   // updates state w/ tag filter
   function handleTagSorting(e) {
@@ -200,6 +145,33 @@ function Home({
   function resetSearch(e) {
     setState({ found: null });
   }
+
+  useEffect(() => {
+    /**
+       * var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
+  starCountRef.on('value', function(snapshot) {
+    updateStarCount(postElement, snapshot.val());
+  });
+     */
+
+    (async function observeData() {
+      const userBookmarksRef = db.ref(
+        `/users/${authentication.user.uid}/bookmarks`
+      );
+      const bookmarksRef = db.ref(`/bookmarks`);
+
+      userBookmarksRef.on("child_added", snap => {
+        bookmarksRef.once("value").then(bookmarks => {
+          setInitialData(bookmarks.val()[snap.key]);
+        });
+      });
+
+      return userBookmarksRef;
+    })();
+
+    // TODO turn off observer
+    // return () => observeData().off();
+  }, []);
 
   return (
     <>
@@ -380,6 +352,7 @@ function mapDispatchToProps(dispatch) {
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),
     editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
+    setInitialData: data => dispatch(setInitialData(data)),
   };
 }
 
