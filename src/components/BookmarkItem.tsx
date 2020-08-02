@@ -91,11 +91,11 @@ const BookmarkItem = props => {
       <section className={root + "Body"}>
         {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
-        {tags !== undefined && (
+        {tags && (
           <>
             {
               // TODO …
-              tags[0]["tags"].length > 2 && (
+              tags[0] && tags[0]["tags"].length > 2 && (
                 <>
                   <div
                     className={`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}

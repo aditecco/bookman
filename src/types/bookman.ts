@@ -32,6 +32,7 @@ export interface IUser {
 
 export interface IBookmark extends IContentMeta {
   url: string;
+  tags?: TTagBundle;
 }
 
 export interface ITag extends IContentMeta {
@@ -43,3 +44,7 @@ export interface ISetting {
 }
 
 export type TTagBundle = ITag[];
+
+export type TFetchUserBookmarksResponse = "";
+
+export type TFetchUserTagsResponse = "";
