@@ -4,11 +4,9 @@ Home
 
 // deps
 import React, { useReducer, useEffect } from "react";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as Constants from "../constants";
 import { log } from "../utils";
-import stringify from "json-stringify-safe";
 import {
   addBookmark,
   addTags,
@@ -33,6 +31,7 @@ import Footer from "../components/Footer";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 import { db } from "../index";
+import { IFirebaseRelationship } from "../types/database";
 
 function Home({
   addBookmark,
@@ -148,16 +147,36 @@ function Home({
 
   useEffect(() => {
     const bookmarksRef = db.ref(`/bookmarks`);
-    const userBookmarksRef = db
-      .ref(`/users/${authentication.user.uid}/bookmarks`)
-      .limitToLast(10);
+    const tagsRef = db.ref(`/tags`);
+    const userBookmarksRef = db.ref(
+      `/users/${authentication.user.uid}/bookmarks`
+    );
+    // .limitToLast(10);
 
-    // "Your callback will be triggered for the initial data and again whenever the data changes."
+    // "Your callback will be triggered for the initial data
+    // and again whenever the data changes."
     // https://firebase.google.com/docs/database/web/read-and-write
 
     userBookmarksRef.on("child_added", snap => {
-      bookmarksRef.once("value", bookmarks => {
-        setInitialData(bookmarks.val()[snap.key]);
+      bookmarksRef.once("value", async bookmarks => {
+        const bookmarkValue = bookmarks.val()[snap.key];
+        const _tags = [];
+
+        // Firebase will ignore empty arrays,
+        // so we'll get only tags with a length
+        if (bookmarkValue.tags) {
+          // we get the Firebase keys for the tags
+          const tagKeys = Object.keys(bookmarkValue.tags);
+          const tags = await tagsRef.once("value");
+          const tagValues = tags.val();
+
+          tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k].value));
+        }
+
+        setInitialData({
+          ...bookmarkValue,
+          ...(_tags.length ? { tags: _tags } : {}),
+        });
       });
     });
 
@@ -267,7 +286,7 @@ function Home({
                             <BookmarkItem
                               id={bookmark.id}
                               url={bookmark.url}
-                              tags={tags.filter(tag => tag.id === bookmark.id)}
+                              tags={bookmark.tags}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
                               onDeleteClick={confirmDestructiveAction}
@@ -281,7 +300,7 @@ function Home({
                             <BookmarkItem
                               id={bookmark.id}
                               url={bookmark.url}
-                              tags={tags.filter(tag => tag.id === bookmark.id)}
+                              tags={bookmark.tags}
                               timestamp={bookmark.timestamp}
                               onEditClick={editBookmark}
                               onDeleteClick={confirmDestructiveAction}
@@ -295,7 +314,7 @@ function Home({
                           <BookmarkItem
                             id={bookmark.id}
                             url={bookmark.url}
-                            tags={tags.filter(tag => tag.id === bookmark.id)}
+                            tags={bookmark.tags}
                             timestamp={bookmark.timestamp}
                             onEditClick={editBookmark}
                             onDeleteClick={confirmDestructiveAction}
