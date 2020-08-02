@@ -95,7 +95,8 @@ const BookmarkItem = props => {
           <>
             {
               // TODO …
-              tags[0] && tags[0]["tags"].length > 2 && (
+              tags.length > 2 && (
+                // tags[0] && tags[0]["tags"].length > 2 && (
                 <>
                   <div
                     className={`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}
@@ -114,13 +115,11 @@ const BookmarkItem = props => {
             }
 
             <ul className={root + "TagContainer"}>
-              {tags.map((tag, i) => {
-                return tag.tags.map((t, i) => (
-                  <li key={i}>
-                    <PillButton label={t} href={null} />
-                  </li>
-                ));
-              })}
+              {tags.map((tag, i) => (
+                <li key={i}>
+                  <PillButton label={tag} href={null} />
+                </li>
+              ))}
             </ul>
           </>
         )}
