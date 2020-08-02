@@ -2,19 +2,6 @@
 BookMan types
 --------------------------------- */
 
-/**
- - User
-  <-> Bookmark
-  <-> Tag
-  -> Setting
-- Bookmark
-  <-> Tag
-- Tag
-  <-> Bookmark
-- Setting
-  <- User
- */
-
 export interface IContentMeta {
   key?: string;
   id: string;
