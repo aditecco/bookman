@@ -147,30 +147,22 @@ function Home({
   }
 
   useEffect(() => {
-    /**
-       * var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
-  starCountRef.on('value', function(snapshot) {
-    updateStarCount(postElement, snapshot.val());
-  });
-     */
+    const bookmarksRef = db.ref(`/bookmarks`);
+    const userBookmarksRef = db
+      .ref(`/users/${authentication.user.uid}/bookmarks`)
+      .limitToLast(10);
 
-    (async function observeData() {
-      const userBookmarksRef = db.ref(
-        `/users/${authentication.user.uid}/bookmarks`
-      );
-      const bookmarksRef = db.ref(`/bookmarks`);
+    // "Your callback will be triggered for the initial data and again whenever the data changes."
+    // https://firebase.google.com/docs/database/web/read-and-write
 
-      userBookmarksRef.on("child_added", snap => {
-        bookmarksRef.once("value").then(bookmarks => {
-          setInitialData(bookmarks.val()[snap.key]);
-        });
+    userBookmarksRef.on("child_added", snap => {
+      bookmarksRef.once("value", bookmarks => {
+        setInitialData(bookmarks.val()[snap.key]);
       });
+    });
 
-      return userBookmarksRef;
-    })();
-
-    // TODO turn off observer
-    // return () => observeData().off();
+    // we turn off the observer
+    return () => userBookmarksRef.off();
   }, []);
 
   return (
