@@ -58,6 +58,8 @@ function* createBookmarkSaga(action) {
       [`/users/${uid}/bookmarks/${newBookmarkRef}`]: true,
       [`/bookmarks/${newBookmarkRef}`]: {
         ...bookmark,
+        // we mark the author by uid
+        createdBy: uid,
         // we override tags
         tags: tagRefs.length
           ? tagRefs.reduce((acc, ref) => {

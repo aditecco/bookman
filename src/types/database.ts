@@ -22,6 +22,7 @@ export interface IBookmarkInDB {
   timestamp: number;
   url: string;
   tags: IFirebaseRelationship | null;
+  createdBy: IFirebaseRelationship | null;
 }
 
 export interface ITagInDB {
