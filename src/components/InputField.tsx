@@ -1,10 +1,9 @@
-
 /******************
   InputField
 *******************/
 
 // js
-import React from 'react';
+import React from "react";
 
 // components
 
@@ -13,22 +12,13 @@ import React from 'react';
 // styles
 
 function InputField(props) {
-  const {
-    className,
-    label,
-    onChange,
-    placeholder,
-    value,
-    children,
-  } = props;
+  const { className, label, onChange, placeholder, value, children } = props;
 
-  const root = 'InputField';
+  const root = "InputField";
 
   return (
-    <form className={`${root}`}>
-      <label htmlFor={className}>
-        {label}
-      </label>
+    <div className={`${root}`}>
+      <label htmlFor={className}>{label}</label>
 
       <input
         className={className}
@@ -39,7 +29,7 @@ function InputField(props) {
       />
 
       {children}
-    </form>
+    </div>
   );
 }
 
