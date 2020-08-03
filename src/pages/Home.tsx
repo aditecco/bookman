@@ -145,47 +145,60 @@ function Home({
     setState({ found: null });
   }
 
+  /**
+   * Firebase sync
+   */
   useEffect(() => {
     const bookmarksRef = db
       .ref(`/bookmarks`)
       .orderByChild("createdBy")
       .equalTo(authentication.user.uid);
     // .limitToLast(100)
-    const tagsRef = db.ref(`/tags`);
-    const userBookmarksRef = db.ref(
-      `/users/${authentication.user.uid}/bookmarks`
-    );
-    // .limitToLast(10);
+
+    // const userBookmarksRef = db.ref(
+    //   `/users/${authentication.user.uid}/bookmarks`
+    // );
+    // .orderByChild('timestamp').limitToLast(50);
+
+    const tagsRef = db
+      .ref(`/tags`)
+      .orderByChild("createdBy")
+      .equalTo(authentication.user.uid);
+
+    // const userTagsRef = db.ref(`/users/${authentication.user.uid}/tags`);
 
     // "Your callback will be triggered for the initial data
     // and again whenever the data changes."
     // https://firebase.google.com/docs/database/web/read-and-write
 
-    userBookmarksRef.on("child_added", snap => {
-      bookmarksRef.once("value", async bookmarks => {
-        const bookmarkValue = bookmarks.val()[snap.key];
-        const _tags = [];
+    bookmarksRef.on("child_added", async snap => {
+      const bookmark = snap.val();
+      const _tags = [];
 
-        // Firebase will ignore empty arrays,
-        // so we'll get only tags with a length
-        if (bookmarkValue.tags) {
-          // we get the Firebase keys for the tags
-          const tagKeys = Object.keys(bookmarkValue.tags);
-          const tags = await tagsRef.once("value");
-          const tagValues = tags.val();
+      // Firebase will ignore empty arrays,
+      // so we'll get only tags with a length
+      if (bookmark.tags) {
+        // we get the Firebase keys for the tags
+        const tagKeys = Object.keys(bookmark.tags);
+        const tags = await tagsRef.once("value");
+        const tagValues = tags.val();
 
-          tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k].value));
-        }
+        tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k].value));
+      }
 
-        setInitialData({
-          ...bookmarkValue,
-          ...(_tags.length ? { tags: _tags } : {}),
-        });
+      syncBookmarks({
+        ...bookmark,
+        ...(_tags.length ? { tags: _tags } : {}),
       });
     });
 
+    tagsRef.on("child_added", snap => syncTags(snap.val().value));
+
     // we turn off the observer
-    return () => userBookmarksRef.off();
+    return () => {
+      bookmarksRef.off();
+      tagsRef.off();
+    };
   }, []);
 
   return (
