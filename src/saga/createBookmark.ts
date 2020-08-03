@@ -14,6 +14,7 @@ import { db } from "../index";
 import { IInitialState } from "../redux/initialState";
 import { access } from "fs";
 import { TTagBundle } from "../types/bookman";
+import { BookmarkInDB, TagInDB } from "../types/database";
 
 function* createBookmarkSaga(action) {
   const { payload: bookmark } = action;
@@ -50,7 +51,7 @@ function* createBookmarkSaga(action) {
         ...tag,
         bookmarks: { [newBookmarkRef]: true },
         createdBy: uid,
-      };
+      } as TagInDB;
 
       return acc;
     }, {});
@@ -69,7 +70,7 @@ function* createBookmarkSaga(action) {
               return acc;
             }, {})
           : [],
-      },
+      } as BookmarkInDB,
     };
 
     // we create the bookmark remotely

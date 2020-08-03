@@ -15,24 +15,24 @@ database types
   <- User
  */
 
-// TODO DRY
-
-export interface IBookmarkInDB {
+export type BookmarkInDB = {
+  [k in EntityKey]: FirebaseRelationship | null;
+} & {
   id: string;
   timestamp: number;
   url: string;
-  tags: IFirebaseRelationship | null;
-  createdBy: IFirebaseRelationship | null;
-}
+  createdBy: string;
+};
 
-export interface ITagInDB {
+export type TagInDB = {
+  [k in EntityKey]: FirebaseRelationship | null;
+} & {
   id: string;
   timestamp: number;
   value: string;
-  bookmarks: IFirebaseRelationship | null;
-  createdBy: IFirebaseRelationship | null;
-}
+  createdBy: string;
+};
 
-export type TFirebaseKey = string;
+export type EntityKey = "bookmarks" | "tags" | "users";
 
-export type IFirebaseRelationship = Record<TFirebaseKey, boolean>;
+export type FirebaseRelationship = { [k: string]: boolean };
