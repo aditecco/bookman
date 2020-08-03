@@ -38,16 +38,18 @@ function* createBookmarkSaga(action) {
     // we build the update payload for the tags part…
     const tagUpdates = (bookmark.tags as TTagBundle).reduce((acc, tag) => {
       const newTagRef = db.ref("/tags").push().key;
-      tagRefs.push(newTagRef);
 
       if (!newTagRef) {
         throw new Error("Missing FireBase key!");
       }
 
+      tagRefs.push(newTagRef);
+
       acc[`/users/${uid}/tags/${newTagRef}`] = true;
       acc[`/tags/${newTagRef}`] = {
         ...tag,
         bookmarks: { [newBookmarkRef]: true },
+        createdBy: uid,
       };
 
       return acc;
@@ -58,7 +60,6 @@ function* createBookmarkSaga(action) {
       [`/users/${uid}/bookmarks/${newBookmarkRef}`]: true,
       [`/bookmarks/${newBookmarkRef}`]: {
         ...bookmark,
-        // we mark the author by uid
         createdBy: uid,
         // we override tags
         tags: tagRefs.length
