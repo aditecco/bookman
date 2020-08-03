@@ -42,33 +42,6 @@ Header
       @media screen and (max-width: $SM) {
         flex: 1;
       }
-
-      .InputField {
-        .searchInput {
-          width: 100px;
-          padding: 2px;
-          border: none;
-          background-color: $transparent;
-          transition: all .3s;
-
-          &:active {
-
-          }
-
-          &:focus {
-            width: 200px;
-            outline: none;
-            border-bottom: 2px solid $accent;
-          }
-        }
-
-        .searchInputClearButton {
-          // overrides
-          padding: 4px;
-          min-width: auto;
-          vertical-align: middle;
-        }
-      }
     }
   }
 }

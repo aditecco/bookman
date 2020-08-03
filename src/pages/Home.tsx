@@ -31,7 +31,7 @@ import Footer from "../components/Footer";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 import { db } from "../index";
-import { IFirebaseRelationship } from "../types/database";
+import SearchWidget from "../components/SearchWidget/SearchWidget";
 
 function Home({
   addBookmark,
@@ -194,18 +194,13 @@ function Home({
       <Navbar onLogoClick={() => console.log("logo click!")} debug={false}>
         <BaseButton style={{ visibility: "hidden" }} />
 
-        <InputField
+        <SearchWidget
           className="searchInput"
           placeholder="search…"
           onChange={handleSearch}
-        >
-          <BaseButton
-            className="searchInputClearButton button--naked"
-            onClick={resetSearch}
-          >
-            <i className="material-icons">close</i>
-          </BaseButton>
-        </InputField>
+          onSearchReset={resetSearch}
+          closeIcon="close"
+        />
       </Navbar>
 
       {/* inputSection */}
