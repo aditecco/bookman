@@ -1,16 +1,15 @@
-
 /* ---------------------------------
 Header
 --------------------------------- */
 
 .Header {
-  $root: '.Header';
+  $root: ".Header";
   position: fixed;
   z-index: 2;
   width: 100%;
   margin-bottom: 0;
-  background-color: rgba($flat-gray-1, .9);
-  box-shadow: 0 2px 30px rgba($flat-gray-2, .4);
+  background-color: rgba($flat-gray-1, 0.9);
+  box-shadow: 0 2px 30px rgba($flat-gray-2, 0.4);
 
   &Wrapper {
     @include flex(row nowrap, space-between, center);

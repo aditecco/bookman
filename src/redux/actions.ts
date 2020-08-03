@@ -8,8 +8,10 @@ type Action = object;
 
 // TODO Create generic error action
 
-// fetchData
-export const fetchData = createAction<Action>("FETCH_DATA");
+// syncData
+export const syncData = createAction<Action>("SYNC_DATA");
+export const syncBookmarks = createAction<Action>("SYNC_BOOKMARKS");
+export const syncTags = createAction<Action>("SYNC_TAGS");
 
 
 // 

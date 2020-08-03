@@ -39,6 +39,8 @@ import {
   signUpUserSuccess,
   stopLoading,
   toggleModal,
+  syncTags,
+  syncBookmarks,
 } from "./actions";
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
@@ -206,21 +208,22 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   },
 
   // @ts-ignore
-  [setInitialData](state, action) {
-    // const {
-    //   payload: { uid, mappedData },
-    // } = action;
-
+  [syncBookmarks](state, action) {
     const { payload: bookmark } = action;
-
-    log(action.payload);
 
     return {
       ...state,
       bookmarks: [bookmark, ...state.bookmarks],
-      tags: state.bookmarks
-        .filter(bookmark => bookmark.tags)
-        .flatMap(bookmark => bookmark.tags),
+    };
+  },
+
+  // @ts-ignore
+  [syncTags](state, action) {
+    const { payload: tag } = action;
+
+    return {
+      ...state,
+      tags: [tag, ...state.tags],
     };
   },
 

@@ -17,7 +17,8 @@ import {
   signInUser,
   signOutUser,
   signUpUser,
-  setInitialData,
+  syncBookmarks,
+  syncTags,
 } from "../redux/actions";
 
 // components
@@ -42,7 +43,8 @@ function Home({
   createTag,
   deleteBookmark,
   editBookmark,
-  setInitialData,
+  syncBookmarks,
+  syncTags,
   signInUser,
   signOutUser,
   signUpUser,
@@ -62,8 +64,8 @@ function Home({
   );
 
   const { sortedByTag, uniqueTags, found } = state;
-  const filteredBookmarks = filterBookmarks();
-  const filteredTags = uniqueTags.filter((tag, i) => tag === sortedByTag);
+  // const filteredBookmarks = filterBookmarks();
+  const filteredTags = uniqueTags.filter(tag => tag === sortedByTag);
 
   // updates state w/ tag filter
   function handleTagSorting(e) {
@@ -88,23 +90,23 @@ function Home({
       : console.log("Canceled deletion.");
   }
 
-  function findRelationships(source = [], key) {
-    const match = source.filter(el => el.tags.includes(key));
-    const ids = match.map((el, i) => el.id);
+  // function findRelationships(source = [], key) {
+  //   const match = source.filter(el => el.tags.includes(key));
+  //   const ids = match.map((el, i) => el.id);
 
-    return ids;
-  }
+  //   return ids;
+  // }
 
-  function filterBookmarks() {
-    const filter = state.sortedByTag,
-      matches = findRelationships(tags, filter),
-      found = [];
-    for (const id of matches) {
-      found.push(bookmarks.find(bookmark => bookmark.id === id));
-    }
+  // function filterBookmarks() {
+  //   const filter = state.sortedByTag,
+  //     matches = findRelationships(tags, filter),
+  //     found = [];
+  //   for (const id of matches) {
+  //     found.push(bookmarks.find(bookmark => bookmark.id === id));
+  //   }
 
-    return found;
-  }
+  //   return found;
+  // }
 
   // removes duplicates
   function removeDuplicates(duplicates) {
@@ -134,7 +136,7 @@ function Home({
   function handleSearch(e) {
     const key = e.target.value;
 
-    const r = bookmarks.filter(b => b.href.includes(key));
+    const r = bookmarks.filter(b => b.url.includes(key));
 
     if (r.length > 0) {
       setState({ found: r });
@@ -201,6 +203,12 @@ function Home({
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (bookmarks.length) {
+  //     setState({ uniqueTags: bookmarks.map(({ tags }) => tags).flat() });
+  //   }
+  // }, bookmarks);
+
   return (
     <>
       {/* Navbar */}
@@ -252,7 +260,7 @@ function Home({
 
             <ul className="tagList">
               {sortedByTag === ""
-                ? uniqueTags.map((tag, i) => {
+                ? tags.map((tag, i) => {
                     return (
                       <li key={i}>
                         <TagItem
@@ -280,47 +288,48 @@ function Home({
 
         <section className="bookmarkSection">
           <div className="bookmarkContainer">
-            <h4 className="bookmarkSectionHeading">
+            {/* <h4 className="bookmarkSectionHeading">
               {sortedByTag !== ""
                 ? filteredBookmarks.length > 1
                   ? `Showing ${filteredBookmarks.length} bookmarks with tag '${sortedByTag}'`
                   : `Showing ${filteredBookmarks.length} bookmark with tag '${sortedByTag}'`
                 : `Bookmarks - ${bookmarks.length}`}
-            </h4>
+            </h4> */}
 
             {bookmarks.length > 0 ? (
               <ol className="bookmarkList">
-                {sortedByTag === ""
-                  ? state.found === null
-                    ? bookmarks.map((bookmark, i) => {
-                        return (
-                          <li className="BookmarkItemContainer" key={i}>
-                            <BookmarkItem
-                              id={bookmark.id}
-                              url={bookmark.url}
-                              tags={bookmark.tags}
-                              timestamp={bookmark.timestamp}
-                              onEditClick={editBookmark}
-                              onDeleteClick={confirmDestructiveAction}
-                            />
-                          </li>
-                        );
-                      })
-                    : state.found.map((bookmark, i) => {
-                        return (
-                          <li className="BookmarkItemContainer" key={i}>
-                            <BookmarkItem
-                              id={bookmark.id}
-                              url={bookmark.url}
-                              tags={bookmark.tags}
-                              timestamp={bookmark.timestamp}
-                              onEditClick={editBookmark}
-                              onDeleteClick={confirmDestructiveAction}
-                            />
-                          </li>
-                        );
-                      })
-                  : filteredBookmarks.map((bookmark, i) => {
+                {
+                  sortedByTag === ""
+                    ? state.found === null
+                      ? bookmarks.map((bookmark, i) => {
+                          return (
+                            <li className="BookmarkItemContainer" key={i}>
+                              <BookmarkItem
+                                id={bookmark.id}
+                                url={bookmark.url}
+                                tags={bookmark.tags}
+                                timestamp={bookmark.timestamp}
+                                onEditClick={editBookmark}
+                                onDeleteClick={confirmDestructiveAction}
+                              />
+                            </li>
+                          );
+                        })
+                      : state.found.map((bookmark, i) => {
+                          return (
+                            <li className="BookmarkItemContainer" key={i}>
+                              <BookmarkItem
+                                id={bookmark.id}
+                                url={bookmark.url}
+                                tags={bookmark.tags}
+                                timestamp={bookmark.timestamp}
+                                onEditClick={editBookmark}
+                                onDeleteClick={confirmDestructiveAction}
+                              />
+                            </li>
+                          );
+                        })
+                    : null /*filteredBookmarks.map((bookmark, i) => {
                       return (
                         <li className="BookmarkItemContainer" key={i}>
                           <BookmarkItem
@@ -333,7 +342,8 @@ function Home({
                           />
                         </li>
                       );
-                    })}
+                    })}*/
+                }
               </ol>
             ) : (
               <p className="blankSlateMessage">No bookmarks! Create one.</p>
@@ -342,17 +352,17 @@ function Home({
         </section>
       </main>
 
-      <div>
-        {authentication.user && "Welcome," + authentication.user.email}
-
+      <Footer footerInfo="BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman">
         <div>
-          <a href="#" onClick={() => signOutUser()}>
-            Logout
-          </a>
-        </div>
-      </div>
+          {authentication.user && "Welcome," + authentication.user.email}
 
-      <Footer footerInfo="BookMan v0.9 | build xyz | source: https://gitlab.com/aditecco/bookman" />
+          <div>
+            <a href="#" onClick={() => signOutUser()}>
+              Logout
+            </a>
+          </div>
+        </div>
+      </Footer>
     </>
   );
 }
@@ -375,7 +385,8 @@ function mapDispatchToProps(dispatch) {
     addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),
     editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
-    setInitialData: data => dispatch(setInitialData(data)),
+    syncBookmarks: data => dispatch(syncBookmarks(data)),
+    syncTags: data => dispatch(syncTags(data)),
   };
 }
 
