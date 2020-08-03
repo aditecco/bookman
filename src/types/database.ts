@@ -30,6 +30,7 @@ export interface ITagInDB {
   timestamp: number;
   value: string;
   bookmarks: IFirebaseRelationship | null;
+  createdBy: IFirebaseRelationship | null;
 }
 
 export type TFirebaseKey = string;
