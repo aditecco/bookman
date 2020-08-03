@@ -211,19 +211,16 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
     //   payload: { uid, mappedData },
     // } = action;
 
+    const { payload: bookmark } = action;
+
     log(action.payload);
 
     return {
       ...state,
-      bookmarks: [action.payload, ...state.bookmarks],
-      // userData: action.payload,
-      // userData: {
-      //   [uid]: {
-      //     ...state.userData[uid],
-      //     watched: [...mappedData.watched].reverse(),
-      //     toWatch: [...mappedData.toWatch].reverse(),
-      //   },
-      // },
+      bookmarks: [bookmark, ...state.bookmarks],
+      tags: state.bookmarks
+        .filter(bookmark => bookmark.tags)
+        .flatMap(bookmark => bookmark.tags),
     };
   },
 
