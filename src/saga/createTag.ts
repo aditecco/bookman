@@ -35,7 +35,10 @@ function* createTagSaga(action) {
         throw new Error("Missing FireBase key!");
       }
 
-      acc[`/tags/${newTagRef}`] = tag;
+      acc[`/tags/${newTagRef}`] = {
+        ...tag,
+        createdBy: uid,
+      };
       acc[`/users/${uid}/tags/${newTagRef}`] = true;
 
       return acc;
