@@ -55,29 +55,23 @@ function Home({
     }),
     {
       sortedByTag: "",
-      uniqueTags: [],
       found: null,
     }
   );
 
-  const { sortedByTag, uniqueTags, found } = state;
+  const { sortedByTag, found } = state;
+  const filteredTags = removeDuplicates(tags).filter(
+    tag => tag === sortedByTag
+  );
   const filteredBookmarks = bookmarks.filter(bookmark =>
     bookmark.tags.includes(sortedByTag)
   );
-  const filteredTags = uniqueTags.filter(tag => tag === sortedByTag);
 
   // updates state w/ tag filter
   function handleTagSorting(e) {
     e.preventDefault();
 
-    let clickedTag = e.currentTarget.innerText;
-
-    setState({ sortedByTag: clickedTag.toLowerCase() });
-  }
-
-  // resets tag filter in state
-  function resetTagSorting(e) {
-    setState({ sortedByTag: "" });
+    setState({ sortedByTag: e.currentTarget.innerText.toLowerCase() });
   }
 
   // gets confirmation for destructive actions
@@ -89,17 +83,15 @@ function Home({
       : console.log("Canceled deletion.");
   }
 
-  function handleSearch(e) {
-    const key = e.target.value;
+  function handleSearch(key) {
+    const result = bookmarks.filter(b => b.url.includes(key));
 
-    const r = bookmarks.filter(b => b.url.includes(key));
-
-    if (r.length > 0) {
-      setState({ found: r });
+    if (result.length) {
+      setState({ found: result });
     }
   }
 
-  function handleSearchReset(e) {
+  function handleSearchReset() {
     setState({ found: null });
   }
 
@@ -159,19 +151,6 @@ function Home({
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (bookmarks.length) {
-  //     setState({ uniqueTags: bookmarks.map(({ tags }) => tags).flat() });
-  //   }
-  // }, bookmarks);
-
-  useEffect(() => {
-    if (tags.length) {
-      setState({ uniqueTags: removeDuplicates(tags) });
-      // removeDuplicates( tags.map(tag => tag.toLowerCase()))
-    }
-  }, tags);
-
   return (
     <div className="page Home">
       {/* Navbar */}
@@ -201,12 +180,12 @@ function Home({
           <aside className="tagListContainer">
             {!sortedByTag ? (
               <h4 className="tagSectionHeading">
-                {`tags - ${uniqueTags.length}`}
+                {`tags - ${removeDuplicates(tags).length}`}
               </h4>
             ) : (
               <BaseButton
                 className="clearTagsButton"
-                onClick={resetTagSorting}
+                onClick={() => setState({ sortedByTag: "" })}
                 onKeyDown={null}
                 label="clear tags"
               />
@@ -228,11 +207,7 @@ function Home({
                 : filteredTags.map((tag, i) => {
                     return (
                       <li key={i}>
-                        <TagItem
-                          name={tag}
-                          count={null}
-                          onClick={handleTagSorting}
-                        />
+                        <TagItem name={tag} count={null} onClick={null} />
                       </li>
                     );
                   })}
