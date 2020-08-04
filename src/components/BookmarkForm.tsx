@@ -12,7 +12,7 @@ import BaseButton from "./BaseButton";
 import { IContentMeta, IBookmark, ITag } from "../types/bookman";
 import { log } from "../utils";
 
-export default function BookmarkForm({ createBookmark, createTag }) {
+export default function BookmarkForm({ onCreateBookmark }) {
   const initialState = {
     url: "",
     tags: "",
@@ -31,6 +31,20 @@ export default function BookmarkForm({ createBookmark, createTag }) {
     let { value: tags } = e.target;
     setState(prevState => ({ ...prevState, tags }));
   }
+
+  // handleKeyDown = (e) => {
+  //   // e.preventDefault();
+  //   console.log(e.key);
+  //   console.log(e.target);
+
+  //   const
+  //     key = e.key,
+  //     target = e.target.classList;
+
+  //   if (key === 'Enter' && target.contains('submitButton')) {
+  //     console.log('yo');
+  //   }
+  // }
 
   // TODO
   function processUrl(url) {
@@ -79,7 +93,7 @@ export default function BookmarkForm({ createBookmark, createTag }) {
       return handleInvalidInput();
     }
 
-    createBookmark({
+    onCreateBookmark({
       ...newItem(),
       url,
       tags: tags
@@ -87,28 +101,8 @@ export default function BookmarkForm({ createBookmark, createTag }) {
         : [],
     } as IBookmark);
 
-    // if (tags) {
-    //   createTag(
-    //     processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
-    //   );
-    // }
-
     setState(initialState);
   }
-
-  // handleKeyDown = (e) => {
-  //   // e.preventDefault();
-  //   console.log(e.key);
-  //   console.log(e.target);
-
-  //   const
-  //     key = e.key,
-  //     target = e.target.classList;
-
-  //   if (key === 'Enter' && target.contains('submitButton')) {
-  //     console.log('yo');
-  //   }
-  // }
 
   return (
     <form

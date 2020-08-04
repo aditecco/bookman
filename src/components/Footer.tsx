@@ -4,16 +4,16 @@
 
 import React from "react";
 
-function Footer(props) {
+function Footer({ footerInfo, children }) {
   const root = "Footer";
 
   return (
     <footer className={root}>
       <div className={`wrapper ${root}Wrapper`}>
-        <small className={root + "Info"}>{props.footerInfo}</small>
+        <small className={root + "Info"}>{footerInfo}</small>
       </div>
 
-      {props.children}
+      {children}
     </footer>
   );
 }

@@ -4,7 +4,7 @@ AuthenticatedRoutes
 
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Modal from "./components/Modal/Modal";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 

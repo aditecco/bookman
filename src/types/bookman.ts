@@ -19,7 +19,7 @@ export interface IUser {
 
 export interface IBookmark extends IContentMeta {
   url: string;
-  tags?: TTagBundle;
+  tags?: string[];
 }
 
 export interface ITag extends IContentMeta {
