@@ -6,20 +6,10 @@ import React from "react";
 import InputField from "../InputField";
 import BaseButton from "../BaseButton";
 
-export default function SearchWidget({
-  className,
-  closeIcon,
-  onChange,
-  onSearchReset,
-  placeholder,
-}) {
+export default function SearchWidget({ closeIcon, onSearchReset, ...props }) {
   return (
     <div className="SearchWidget">
-      <InputField
-        className={className}
-        placeholder={placeholder}
-        onChange={onChange}
-      >
+      <InputField {...props}>
         <BaseButton
           className="searchInputClearButton button--naked"
           onClick={onSearchReset}

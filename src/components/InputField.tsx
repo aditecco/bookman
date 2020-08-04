@@ -3,7 +3,7 @@
 *******************/
 
 // js
-import React from "react";
+import React, { ReactNode, useState } from "react";
 
 // components
 
@@ -11,10 +11,34 @@ import React from "react";
 
 // styles
 
-function InputField(props) {
-  const { className, label, onChange, placeholder, value, children } = props;
+interface IOwnProps {
+  className?: string;
+  label?: string;
+  onChange?: (key: string) => void;
+  placeholder?: string;
+  children?: ReactNode;
+}
 
+function InputField({
+  className,
+  label,
+  onChange,
+  placeholder,
+  children,
+}: IOwnProps) {
   const root = "InputField";
+
+  const [value, setValue] = useState("");
+
+  function handleChange(e) {
+    const { value } = e.currentTarget;
+
+    if (onChange) {
+      onChange(value);
+    }
+
+    setValue(value);
+  }
 
   return (
     <div className={`${root}`}>
@@ -22,7 +46,7 @@ function InputField(props) {
 
       <input
         className={className}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         type="text"
         value={value}

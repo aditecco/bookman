@@ -75,5 +75,6 @@ const mapStateToProps = ({ authentication, loading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({});
+
 // @ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(App);
