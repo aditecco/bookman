@@ -12,7 +12,6 @@ import {
 } from "../redux/actions";
 import { db } from "../index";
 import { IInitialState } from "../redux/initialState";
-import { access } from "fs";
 import { TTagBundle } from "../types/bookman";
 import { BookmarkInDB, TagInDB } from "../types/database";
 
@@ -49,6 +48,7 @@ function* createBookmarkSaga(action) {
       acc[`/users/${uid}/tags/${newTagRef}`] = true;
       acc[`/tags/${newTagRef}`] = {
         ...tag,
+        key: newTagRef,
         bookmarks: { [newBookmarkRef]: true },
         createdBy: uid,
       } as TagInDB;
@@ -61,6 +61,7 @@ function* createBookmarkSaga(action) {
       [`/users/${uid}/bookmarks/${newBookmarkRef}`]: true,
       [`/bookmarks/${newBookmarkRef}`]: {
         ...bookmark,
+        key: newBookmarkRef,
         createdBy: uid,
         // we override tags
         tags: tagRefs.length
@@ -70,6 +71,8 @@ function* createBookmarkSaga(action) {
               return acc;
             }, {})
           : [],
+        // optional loose tagRefs just in case
+        ...(tagRefs.length ? { tagKeys: tagRefs } : {}),
       } as BookmarkInDB,
     };
 
