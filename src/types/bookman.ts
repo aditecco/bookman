@@ -6,6 +6,7 @@ export interface IContentMeta {
   key?: string;
   id: string;
   timestamp: number;
+  createdBy: string;
 }
 
 export interface IUser {
@@ -20,6 +21,7 @@ export interface IUser {
 export interface IBookmark extends IContentMeta {
   url: string;
   tags?: string[];
+  tagKeys?: string[];
 }
 
 export interface ITag extends IContentMeta {
