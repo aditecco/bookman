@@ -22,11 +22,15 @@ export default function BookmarkForm({ onCreateBookmark }) {
   const { url, tags } = state;
   const root = "BookmarkForm";
 
-  function handleUrlChange(url) {
+  function handleUrlChange(e) {
+    const { value: url } = e.currentTarget;
+
     setState(prevState => ({ ...prevState, url }));
   }
 
-  function handleTagChange(tags) {
+  function handleTagChange(e) {
+    const { value: tags } = e.currentTarget;
+
     setState(prevState => ({ ...prevState, tags }));
   }
 
@@ -111,15 +115,17 @@ export default function BookmarkForm({ onCreateBookmark }) {
         <InputField
           className="urlInput"
           label="url"
-          onChange={handleUrlChange}
           placeholder="www.example.com"
+          value={url}
+          onChange={handleUrlChange}
         />
 
         <InputField
           className="tagInput"
           label="tag(s)"
-          onChange={handleTagChange}
           placeholder="Linux, JavaScript (comma separated)"
+          value={tags}
+          onChange={handleTagChange}
         />
       </div>
 

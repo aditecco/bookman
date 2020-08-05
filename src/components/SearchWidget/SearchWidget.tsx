@@ -9,7 +9,8 @@ import BaseButton from "../BaseButton";
 export default function SearchWidget({ closeIcon, onSearchReset, ...props }) {
   return (
     <div className="SearchWidget">
-      <InputField {...props}>
+      {/* TODO */}
+      <InputField {...(props as { value: string })}>
         <BaseButton
           className="searchInputClearButton button--naked"
           onClick={onSearchReset}

@@ -54,12 +54,13 @@ function Home({
       ...newState,
     }),
     {
+      searchQuery: "",
       sortedByTag: "",
       found: null,
     }
   );
 
-  const { sortedByTag, found } = state;
+  const { sortedByTag, found, searchQuery } = state;
   const filteredTags = removeDuplicates(tags).filter(
     tag => tag === sortedByTag
   );
@@ -83,16 +84,19 @@ function Home({
       : console.log("Canceled deletion.");
   }
 
-  function handleSearch(key) {
+  function handleSearch(e) {
+    const { value: key } = e.currentTarget;
     const result = bookmarks.filter(b => b.url.includes(key));
 
     if (result.length) {
       setState({ found: result });
     }
+
+    setState({ searchQuery: key });
   }
 
   function handleSearchReset() {
-    setState({ found: null });
+    setState({ searchQuery: "", found: null });
   }
 
   /**
@@ -160,9 +164,10 @@ function Home({
         <SearchWidget
           className="searchInput"
           placeholder="search…"
+          closeIcon="close"
+          value={searchQuery}
           onChange={handleSearch}
           onSearchReset={handleSearchReset}
-          closeIcon="close"
         />
       </Navbar>
 
