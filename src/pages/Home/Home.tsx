@@ -74,7 +74,7 @@ function Home({
   function handleTagSorting(e) {
     e.preventDefault();
 
-    setState({ sortedByTag: e.currentTarget.innerText.toLowerCase() });
+    setState({ sortedByTag: e.target.innerHTML });
   }
 
   // gets confirmation for destructive actions
