@@ -30,6 +30,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
+import { IBookmark } from "../../types/bookman";
 
 function Home({
   addBookmark,
@@ -64,8 +65,9 @@ function Home({
   const filteredTags = removeDuplicates(tags).filter(
     tag => tag === sortedByTag
   );
-  const filteredBookmarks = bookmarks.filter(bookmark =>
-    bookmark.tags.includes(sortedByTag)
+  const filteredBookmarks = bookmarks.filter(
+    (bookmark: IBookmark) =>
+      bookmark.tags && bookmark.tags.includes(sortedByTag)
   );
 
   // updates state w/ tag filter
