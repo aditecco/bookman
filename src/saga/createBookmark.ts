@@ -11,7 +11,7 @@ import {
   createBookmarkSuccess,
 } from "../redux/actions";
 import { db } from "../index";
-import { IInitialState } from "../redux/initialState";
+import { IInitialState } from "../types/initial-state";
 import { TTagBundle } from "../types/bookman";
 import { BookmarkInDB, TagInDB } from "../types/database";
 

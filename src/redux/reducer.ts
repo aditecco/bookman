@@ -4,7 +4,8 @@ reducer
 
 import { createReducer } from "@reduxjs/toolkit";
 import { log, clipText } from "../utils";
-import initialState, { IInitialState } from "./initialState";
+import initialState from "./initialState";
+import { IInitialState } from "../types/initial-state";
 import {
   addBookmark,
   addTags,

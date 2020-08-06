@@ -11,7 +11,7 @@ import {
   createTagSuccess,
 } from "../redux/actions";
 import { db } from "../index";
-import { IInitialState } from "../redux/initialState";
+import { IInitialState } from "../types/initial-state";
 import { log } from "../utils";
 import { TTagBundle } from "../types/bookman";
 
