@@ -2,52 +2,24 @@
 Authentication
 --------------------------------- */
 
-import React, { useState } from "react";
-import BaseButton from "./BaseButton";
-import { signUpUser, signInUser } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { signInUser, signUpUser } from "../redux/actions";
+import AuthForm from "./AuthForm/AuthForm";
+import TabSwitcher from "./TabSwitcher/TabSwitcher";
 
 export default function Authentication() {
-  const dispatch = useDispatch();
-
-  const [authInfo, setAuthInfo] = useState("");
-
   return (
-    <form action="#">
-      <input
-        style={{ width: "100%" }}
-        type="text"
-        placeholder="login info"
-        onChange={e => {
-          const {
-            target: { value },
-          } = e;
-
-          setAuthInfo(value);
-        }}
-      />
-
-      <BaseButton
-        className="clearTagsButton"
-        onClick={_ => {
-          const [email, password] = authInfo.split(",");
-          // @ts-ignore
-          dispatch(signUpUser({ email, password }));
-        }}
-        onKeyDown={null}
-        label="TEST SIGN-UP"
-      />
-
-      <BaseButton
-        className="clearTagsButton"
-        onClick={_ => {
-          const [email, password] = authInfo.split(",");
-          // @ts-ignore
-          dispatch(signInUser({ email, password }));
-        }}
-        onKeyDown={null}
-        label="TEST SIGN-IN"
-      />
-    </form>
+    <TabSwitcher
+      tabs={[
+        {
+          name: "Login",
+          content: <AuthForm intent="login" actionHandler={signInUser} />,
+        },
+        {
+          name: "Signup",
+          content: <AuthForm intent="signup" actionHandler={signUpUser} />,
+        },
+      ]}
+    />
   );
 }

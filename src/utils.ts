@@ -115,3 +115,35 @@ export function clipText(t: string, maxLength: number = 15) {
 
   return t.substring(0, maxLength) + "…";
 }
+
+/**
+ * handleError
+ */
+
+// TODO make reusable
+
+// function handleError(error) {
+//   const { code, message } = error;
+
+//   switch (code) {
+//     case "400": {
+//       /**
+//        * EMAIL_NOT_FOUND
+//        * INVALID_PASSWORD
+//        */
+//       break;
+//     }
+
+//     default: {
+//       dispatch(
+//         showNotif({
+//           message: `${code}: ${message}`,
+//           timeOut: 4000,
+//         })
+//       );
+
+//       log("@Auth", error);
+//       break;
+//     }
+//   }
+// }
