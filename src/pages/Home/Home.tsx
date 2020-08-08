@@ -94,11 +94,11 @@ function Home({
   }
 
   // gets confirmation for destructive actions
-  function confirmDestructiveAction(key) {
+  function confirmDestructiveAction(...args) {
     const confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
 
     return confirmDialog
-      ? deleteBookmark(key)
+      ? deleteBookmark(...args)
       : console.log("Canceled deletion.");
   }
 
@@ -255,7 +255,7 @@ function mapDispatchToProps(dispatch) {
     signOutUser: () => dispatch(signOutUser()),
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     createTag: tags => dispatch(createTag(tags)),
-    deleteBookmark: id => dispatch(deleteBookmark({ id })),
+    deleteBookmark: (key, tags) => dispatch(deleteBookmark({ key, tags })),
     editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
     syncBookmarks: data => dispatch(syncBookmarks(data)),
     syncTags: data => dispatch(syncTags(data)),

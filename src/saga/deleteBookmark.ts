@@ -21,7 +21,7 @@ import { IInitialState } from "../types/initial-state";
 
 function* deleteBookmarkSaga(action) {
   const {
-    payload: { fkey: key, tagKeys },
+    payload: { key, tags: tagKeys },
   } = action;
 
   const authSelector = (state: IInitialState) => state.authentication;
