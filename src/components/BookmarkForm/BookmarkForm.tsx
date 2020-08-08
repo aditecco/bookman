@@ -13,15 +13,19 @@ import { IContentMeta, IBookmark, ITag } from "../../types/bookman";
 import { log } from "../../utils";
 
 interface IOwnProps {
-  onCreateBookmark;
+  onCreateBookmark?;
+  onUpdateBookmark?;
+  valuesToUpdate?: { url: string; tags: string };
 }
 
 export default function BookmarkForm({
   onCreateBookmark,
+  onUpdateBookmark,
+  valuesToUpdate,
 }: IOwnProps): ReactElement {
   const initialState = {
-    url: "",
-    tags: "",
+    url: valuesToUpdate?.url || "",
+    tags: valuesToUpdate?.tags || "",
   };
   const [state, setState] = useState(initialState);
 
@@ -82,14 +86,14 @@ export default function BookmarkForm({
     );
   }
 
-  function handleSubmit() {
-    function newItem(): IContentMeta {
-      return {
-        id: uuidv4(),
-        timestamp: Date.now(),
-      };
-    }
+  function generateNewItem(): IContentMeta {
+    return {
+      id: uuidv4(),
+      timestamp: Date.now(),
+    };
+  }
 
+  function handleSubmit() {
     /**
      * TO SUBMIT
      *
@@ -101,18 +105,30 @@ export default function BookmarkForm({
      * - one tag + comma creates empty tag
      */
 
+    //  submit rules
     if (!url || !processTags(tags)) {
       return handleInvalidInput();
     }
 
-    onCreateBookmark({
-      ...newItem(),
-      url,
-      tags: tags
-        ? processTags(tags).map(tag => ({ value: tag, ...newItem() } as ITag))
-        : [],
-    } as IBookmark);
+    // if we are on a create scenario
+    if (onCreateBookmark) {
+      onCreateBookmark({
+        ...generateNewItem(),
+        url,
+        tags: tags
+          ? processTags(tags).map(
+              tag => ({ value: tag, ...generateNewItem() } as ITag)
+            )
+          : [],
+      } as IBookmark);
+    }
 
+    // if we are in an update scenario
+    if (onUpdateBookmark) {
+      onUpdateBookmark(url, tags);
+    }
+
+    // we reset nonetheless
     setState(initialState);
   }
 

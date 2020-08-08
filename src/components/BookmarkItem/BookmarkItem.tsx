@@ -10,6 +10,9 @@ import PillButton from "../PillButton/PillButton";
 import { IBookmark } from "../../types/bookman";
 import BookmarkForm from "../BookmarkForm/BookmarkForm";
 import InputField from "../InputField/InputField";
+import { log } from "../../utils";
+import { useDispatch } from "react-redux";
+import { updateBookmark } from "../../redux/actions";
 
 interface IOwnProps extends IBookmark {
   fKey: string;
@@ -78,6 +81,8 @@ const BookmarkItem = ({
   const root = "BookmarkItem";
   const urlFilter = /https?\:\/\/(?:www\.)?/;
 
+  const dispatch = useDispatch();
+
   return (
     <article className={root} id={id}>
       <a className={root + "LinkWrapper"} href={url} target="_blank">
@@ -141,7 +146,12 @@ const BookmarkItem = ({
                 onClick={() =>
                   onEditClick({
                     content: (
-                      <InputField onChange={null} placeholder={url} value="" />
+                      <BookmarkForm
+                        valuesToUpdate={{ url, tags: tags.toString() }}
+                        onUpdateBookmark={(url, tags) =>
+                          dispatch(updateBookmark({ url, tags }))
+                        }
+                      />
                     ),
                   })
                 }
