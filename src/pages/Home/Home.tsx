@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import * as Constants from "../../constants";
 import { log, removeDuplicates } from "../../utils";
 import {
-  addTags,
   createBookmark,
   createTag,
   deleteBookmark,
