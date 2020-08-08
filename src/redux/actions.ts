@@ -36,6 +36,13 @@ export const createBookmarkPending = createAction<Action>("CREATE_BOOKMARK_PENDI
 export const createBookmarkSuccess = createAction<Action>("CREATE_BOOKMARK_SUCCESS");
 export const createBookmarkError = createAction<Action>("CREATE_BOOKMARK_ERROR");
 
+// updateBookmark
+export const updateBookmark = createAction<Action>("UPDATE_BOOKMARK");
+export const updateBookmarkPending = createAction<Action>("UPDATE_BOOKMARK_PENDING");
+export const updateBookmarkSuccess = createAction<Action>("UPDATE_BOOKMARK_SUCCESS");
+export const updateBookmarkError = createAction<Action>("UPDATE_BOOKMARK_ERROR");
+
+
 // deleteBookmark
 export const deleteBookmark = createAction<Action>("DELETE_BOOKMARK");
 export const deleteBookmarkPending = createAction<Action>("DELETE_BOOKMARK_PENDING");
@@ -57,7 +64,6 @@ export const syncTags = createAction<Action>("SYNC_TAGS");
 // -------------------------------------------------------
 
 // 
-export const editBookmark = createAction<Action>("EDIT_BOOKMARK");
 export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS");
 export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
 

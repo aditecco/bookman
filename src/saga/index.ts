@@ -9,6 +9,7 @@ import signOutUser from "./signOutUser";
 import createBookmark from "./createBookmark";
 import createTag from "./createTag";
 import deleteBookmark from "./deleteBookmark";
+import updateBookmark from "./updateBookmark";
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
     createBookmark(),
     createTag(),
     deleteBookmark(),
+    updateBookmark(),
   ]);
 }

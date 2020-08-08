@@ -18,7 +18,6 @@ import {
   deleteBookmarkPending,
   deleteBookmarkSuccess,
   destroyUser,
-  editBookmark,
   hideNotif,
   importLocalBookmarks,
   importLocalTags,
@@ -38,7 +37,11 @@ import {
   syncBookmarks,
   syncTags,
   toggleModal,
+  updateBookmarkPending,
+  updateBookmarkSuccess,
+  updateBookmarkError,
 } from "./actions";
+import updateBookmark from "../saga/updateBookmark";
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
@@ -243,6 +246,21 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
 
   // @ts-ignore
   [deleteBookmarkError](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [updateBookmarkPending](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [updateBookmarkSuccess](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [updateBookmarkError](state, action) {
     return state;
   },
 
