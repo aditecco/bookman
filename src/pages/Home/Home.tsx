@@ -182,60 +182,28 @@ function Home({
 
       {/* content */}
       <main className="wrapper mainContentWrapper">
-        {/* TAGS */}
-        <section className="tagSection">
-          <aside className="tagListContainer">
-            {!sortedByTag ? (
-              <h4 className="tagSectionHeading">
-                {`tags - ${removeDuplicates(tags).length}`}
-              </h4>
-            ) : (
-              <BaseButton
-                className="clearTagsButton"
-                onClick={() => setState({ sortedByTag: "" })}
-                onKeyDown={null}
-                label="clear tags"
-              />
-            )}
-
-            <ul className="tagList">
-              {!sortedByTag
-                ? tags.map((tag, i) => {
-                    return (
-                      <li key={i}>
-                        <TagItem
-                          name={tag}
-                          count={null}
-                          onClick={handleTagSorting}
-                        />
-                      </li>
-                    );
-                  })
-                : filteredTags.map((tag, i) => {
-                    return (
-                      <li key={i}>
-                        <TagItem name={tag} count={null} onClick={null} />
-                      </li>
-                    );
-                  })}
-            </ul>
-          </aside>
-        </section>
+        <Sidebar
+          filteredTags={filteredTags}
+          filterHandler={handleTagSorting}
+          filterResetHandler={() => setState({ filterKey: "" })}
+          filterKey={filterKey}
+          tags={tags}
+        />
 
         {/* BOOKMARKS */}
         <section className="bookmarkSection">
           <div className="bookmarkContainer">
             <h4 className="bookmarkSectionHeading">
-              {sortedByTag
+              {filterKey
                 ? filteredBookmarks.length > 1
-                  ? `Showing ${filteredBookmarks.length} bookmarks with tag '${sortedByTag}'`
-                  : `Showing ${filteredBookmarks.length} bookmark with tag '${sortedByTag}'`
+                  ? `Showing ${filteredBookmarks.length} bookmarks with tag '${filterKey}'`
+                  : `Showing ${filteredBookmarks.length} bookmark with tag '${filterKey}'`
                 : `Bookmarks - ${bookmarks.length}`}
             </h4>
 
             {bookmarks.length ? (
               <ol className="bookmarkList">
-                {!sortedByTag
+                {!filterKey
                   ? !state.found
                     ? bookmarks.map((bookmark, i) => {
                         return (
