@@ -103,7 +103,7 @@ export function addClasses(classes: string) {
 /**
  * Removes dupes from a dataset
  */
-export function removeDuplicates(data) {
+export function removeDuplicates(data: string[]): string[] {
   return [...new Set(data)];
 }
 

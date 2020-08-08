@@ -38,8 +38,8 @@ export interface IInitialState {
   loading: boolean;
   error: null | IErrorState;
   authentication: IAuthState;
-  bookmarks: Array<IBookmark>;
-  tags: Array<ITag>;
+  bookmarks: IBookmark[];
+  tags: string[];
   notificationMessage: INotificationMessageState;
   modal: IModalState;
 }

@@ -31,6 +31,32 @@ import Footer from "../../components/Footer";
 import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
 import { IBookmark } from "../../types/bookman";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { IAuthState } from "../../types/initial-state";
+
+interface IGlobalStateProps {
+  bookmarks: IBookmark[];
+  tags: string[];
+  authentication: IAuthState;
+}
+
+interface IOwnProps {}
+
+interface IDispatchProps {
+  addBookmark;
+  addTags;
+  createBookmark;
+  createTag;
+  deleteBookmark;
+  editBookmark;
+  signInUser;
+  signOutUser;
+  signUpUser;
+  syncBookmarks;
+  syncTags;
+}
+
+type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
 
 function Home({
   addBookmark,
@@ -47,7 +73,7 @@ function Home({
   signOutUser,
   signUpUser,
   tags,
-}) {
+}: TProps) {
   //
   const [state, setState] = useReducer(
     (state, newState) => ({
@@ -56,25 +82,22 @@ function Home({
     }),
     {
       searchQuery: "",
-      sortedByTag: "",
+      filterKey: "",
       found: null,
     }
   );
 
-  const { sortedByTag, found, searchQuery } = state;
-  const filteredTags = removeDuplicates(tags).filter(
-    tag => tag === sortedByTag
-  );
+  const { filterKey, found, searchQuery } = state;
+  const filteredTags = removeDuplicates(tags).filter(tag => tag === filterKey);
   const filteredBookmarks = bookmarks.filter(
-    (bookmark: IBookmark) =>
-      bookmark.tags && bookmark.tags.includes(sortedByTag)
+    (bookmark: IBookmark) => bookmark.tags && bookmark.tags.includes(filterKey)
   );
 
   // updates state w/ tag filter
   function handleTagSorting(e) {
     e.preventDefault();
 
-    setState({ sortedByTag: e.target.innerHTML });
+    setState({ filterKey: e.target.innerHTML });
   }
 
   // gets confirmation for destructive actions
@@ -275,7 +298,11 @@ function Home({
   );
 }
 
-function mapStateToProps({ bookmarks, tags, authentication }) {
+function mapStateToProps({
+  bookmarks,
+  tags,
+  authentication,
+}: IGlobalStateProps) {
   return {
     bookmarks,
     tags,
