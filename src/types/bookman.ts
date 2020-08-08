@@ -12,19 +12,22 @@ export interface IUser {
 }
 
 export interface IContentMeta {
-  key?: string;
   id: string;
   timestamp: number;
-  createdBy?: string;
 }
 
-export interface IBookmark extends IContentMeta {
+export interface IEnrichedContentMeta extends IContentMeta {
+  key: string;
+  createdBy: string;
+}
+
+export interface IBookmark extends IEnrichedContentMeta {
   url: string;
   tags?: string[];
   tagKeys?: string[];
 }
 
-export interface ITag extends IContentMeta {
+export interface ITag extends IEnrichedContentMeta {
   value: string;
 }
 

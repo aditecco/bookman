@@ -89,6 +89,10 @@ export default function BookmarkForm({ onCreateBookmark }) {
      *
      * - Valid URL
      * - valid tags if present, or no tags
+     *
+     * TODO
+     * - can't submit only one tag
+     * - one tag + comma creates empty tag
      */
 
     if (!url || !processTags(tags)) {

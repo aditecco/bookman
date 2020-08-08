@@ -7,29 +7,25 @@ import React, { ReactElement } from "react";
 
 // comps
 import PillButton from "./PillButton";
+import { IBookmark } from "../types/bookman";
 
-interface IOwnProps {
-  id: string;
-  url: string;
-  tags: string[];
-  timestamp: number;
+interface IOwnProps extends IBookmark {
+  fKey: string;
   onEditClick;
   onDeleteClick;
 }
 
 const BookmarkItem = ({
   id,
+  timestamp,
+  fKey,
+  createdBy,
   url,
   tags,
-  timestamp,
+  tagKeys,
   onEditClick,
   onDeleteClick,
 }: IOwnProps): ReactElement => {
-  const handleDelete = e => {
-    // console.log(id);
-    onDeleteClick(id);
-  };
-
   const handleEdit = e => {
     const prompt = window.prompt(`Edit ${url} with…`);
     console.log(prompt);
@@ -153,7 +149,15 @@ const BookmarkItem = ({
               </a>
             </li>
             <li className={`${root}ControlsItem ${root}ControlsItem__delete`}>
-              <a href="#" onClick={handleDelete}>
+              {/* TODO should be a button */}
+              <a
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+
+                  onDeleteClick(fKey, tagKeys);
+                }}
+              >
                 delete
               </a>
             </li>

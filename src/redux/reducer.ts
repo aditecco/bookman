@@ -10,26 +10,24 @@ import {
   createBookmarkError,
   createBookmarkPending,
   createBookmarkSuccess,
-  createNoteError,
-  createNotePending,
-  createNoteSuccess,
   createTagError,
   createTagPending,
   createTagSuccess,
   deleteBookmark,
+  deleteBookmarkError,
+  deleteBookmarkPending,
+  deleteBookmarkSuccess,
   destroyUser,
   editBookmark,
   hideNotif,
   importLocalBookmarks,
   importLocalTags,
-  initUser,
   setAuthState,
   setInitialData,
   showNotif,
   signInUserError,
   signInUserPending,
   signInUserSuccess,
-  signOutUser,
   signOutUserError,
   signOutUserPending,
   signOutUserSuccess,
@@ -37,9 +35,9 @@ import {
   signUpUserPending,
   signUpUserSuccess,
   stopLoading,
-  toggleModal,
-  syncTags,
   syncBookmarks,
+  syncTags,
+  toggleModal,
 } from "./actions";
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
@@ -180,32 +178,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
     return { ...state, loading: false };
   },
 
-  ["xx"](state, action) {
-    return state;
-  },
-
-  ["yy"](state, action) {
-    return state;
-  },
-
-  ["zz"](state, action) {
-    return state;
-  },
-
-  // @ts-ignore
-  [initUser](state, action) {
-    const { uid } = action.payload;
-
-    return {
-      ...state,
-      userData: {
-        [uid]: {
-          ...{},
-        },
-      },
-    };
-  },
-
   // @ts-ignore
   [syncBookmarks](state, action) {
     const { payload: bookmark } = action;
@@ -267,39 +239,54 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   },
 
   // @ts-ignore
-  [editBookmark](state, action) {
-    const {
-      payload: { id, editedUrl },
-    } = action;
-
-    const toEdit = state.bookmarks.findIndex(bookmark => bookmark.id === id);
-
-    return {
-      ...state,
-      bookmarks: [
-        ...state.bookmarks.slice(0, toEdit),
-        { ...state.bookmarks[toEdit], url: editedUrl },
-        ...state.bookmarks.slice(toEdit + 1),
-      ],
-    };
+  [deleteBookmarkPending](state, action) {
+    return state;
   },
 
   // @ts-ignore
-  [deleteBookmark](state, action) {
-    const {
-      payload: { id },
-    } = action;
-
-    const toDelete = state.bookmarks.findIndex(bookmark => bookmark.id === id);
-
-    return {
-      ...state,
-      bookmarks: [
-        ...state.bookmarks.slice(0, toDelete),
-        ...state.bookmarks.slice(toDelete + 1),
-      ],
-    };
+  [deleteBookmarkSuccess](state, action) {
+    return state;
   },
+
+  // @ts-ignore
+  [deleteBookmarkError](state, action) {
+    return state;
+  },
+
+  // // @ts-ignore
+  // [editBookmark](state, action) {
+  //   const {
+  //     payload: { id, editedUrl },
+  //   } = action;
+
+  //   const toEdit = state.bookmarks.findIndex(bookmark => bookmark.id === id);
+
+  //   return {
+  //     ...state,
+  //     bookmarks: [
+  //       ...state.bookmarks.slice(0, toEdit),
+  //       { ...state.bookmarks[toEdit], url: editedUrl },
+  //       ...state.bookmarks.slice(toEdit + 1),
+  //     ],
+  //   };
+  // },
+
+  // // @ts-ignore
+  // [deleteBookmark](state, action) {
+  //   const {
+  //     payload: { id },
+  //   } = action;
+
+  //   const toDelete = state.bookmarks.findIndex(bookmark => bookmark.id === id);
+
+  //   return {
+  //     ...state,
+  //     bookmarks: [
+  //       ...state.bookmarks.slice(0, toDelete),
+  //       ...state.bookmarks.slice(toDelete + 1),
+  //     ],
+  //   };
+  // },
 
   // @ts-ignore
   [importLocalBookmarks](state, action) {
@@ -316,6 +303,10 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       payload: { data },
     } = action;
 
+    return state;
+  },
+
+  ["xx"](state, action) {
     return state;
   },
 

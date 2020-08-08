@@ -13,7 +13,7 @@ import {
 import { db } from "../index";
 import { IInitialState } from "../types/initial-state";
 import { TTagBundle } from "../types/bookman";
-import { BookmarkInDB, TagInDB } from "../types/database";
+import { TBookmarkInDB, TTagInDB } from "../types/database";
 
 function* createBookmarkSaga(action) {
   const { payload: bookmark } = action;
@@ -51,7 +51,7 @@ function* createBookmarkSaga(action) {
         key: newTagRef,
         bookmarks: { [newBookmarkRef]: true },
         createdBy: uid,
-      } as TagInDB;
+      } as TTagInDB;
 
       return acc;
     }, {});
@@ -73,7 +73,7 @@ function* createBookmarkSaga(action) {
           : [],
         // optional loose tagRefs just in case
         ...(tagRefs.length ? { tagKeys: tagRefs } : {}),
-      } as BookmarkInDB,
+      } as TBookmarkInDB,
     };
 
     // we create the bookmark remotely

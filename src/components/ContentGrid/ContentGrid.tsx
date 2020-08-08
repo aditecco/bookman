@@ -23,6 +23,22 @@ export default function ContentGrid({
   filterKey,
   searchResults,
 }: IOwnProps): ReactElement {
+  function bookmarkItemRenderer(bookmark: IBookmark, i: number) {
+    return (
+      <li className="BookmarkItemContainer" key={i}>
+        <BookmarkItem
+          {...{
+            ...bookmark,
+            fKey: bookmark.key,
+            onEditClick: editBookmarkHandler,
+            onDeleteClick: destructiveActionHandler,
+          }}
+          key={bookmark.id.substring(bookmark.id.length - 6)}
+        />
+      </li>
+    );
+  }
+
   return (
     <section className="bookmarkSection">
       <div className="bookmarkContainer">
@@ -38,48 +54,9 @@ export default function ContentGrid({
           <ol className="bookmarkList">
             {!filterKey
               ? !searchResults
-                ? bookmarks.map((bookmark, i) => {
-                    return (
-                      <li className="BookmarkItemContainer" key={i}>
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.url}
-                          tags={bookmark.tags}
-                          timestamp={bookmark.timestamp}
-                          onEditClick={editBookmarkHandler}
-                          onDeleteClick={destructiveActionHandler}
-                        />
-                      </li>
-                    );
-                  })
-                : searchResults.map((bookmark, i) => {
-                    return (
-                      <li className="BookmarkItemContainer" key={i}>
-                        <BookmarkItem
-                          id={bookmark.id}
-                          url={bookmark.url}
-                          tags={bookmark.tags}
-                          timestamp={bookmark.timestamp}
-                          onEditClick={editBookmarkHandler}
-                          onDeleteClick={destructiveActionHandler}
-                        />
-                      </li>
-                    );
-                  })
-              : filteredBookmarks.map((bookmark, i) => {
-                  return (
-                    <li className="BookmarkItemContainer" key={i}>
-                      <BookmarkItem
-                        id={bookmark.id}
-                        url={bookmark.url}
-                        tags={bookmark.tags}
-                        timestamp={bookmark.timestamp}
-                        onEditClick={editBookmarkHandler}
-                        onDeleteClick={destructiveActionHandler}
-                      />
-                    </li>
-                  );
-                })}
+                ? bookmarks.map(bookmarkItemRenderer)
+                : searchResults.map(bookmarkItemRenderer)
+              : filteredBookmarks.map(bookmarkItemRenderer)}
           </ol>
         ) : (
           <p className="blankSlateMessage">No bookmarks! Create one.</p>

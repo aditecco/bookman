@@ -126,7 +126,6 @@ export const fetchAdditionalData = createAction<Action>("FETCH_ADDITIONAL_DATA")
 export const filterWatched = createAction<Action>("FILTER_WATCHED");
 export const getUser = createAction<Action>("GET_USER");
 export const hideNotif = createAction<Action>("HIDE_NOTIF");
-export const initUser = createAction<Action>("INIT_USER");
 export const resetQueryData = createAction<Action>("RESET_QUERY_DATA");
 export const setApiKey = createAction<Action>("SET_API_KEY");
 export const setAuthState = createAction<Action>("SET_AUTH_STATE");

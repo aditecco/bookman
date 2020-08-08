@@ -94,11 +94,11 @@ function Home({
   }
 
   // gets confirmation for destructive actions
-  function confirmDestructiveAction(id) {
+  function confirmDestructiveAction(key) {
     const confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
 
     return confirmDialog
-      ? deleteBookmark(id)
+      ? deleteBookmark(key)
       : console.log("Canceled deletion.");
   }
 

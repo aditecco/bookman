@@ -15,8 +15,8 @@ database types
   <- User
  */
 
-export type BookmarkInDB = {
-  [k in EntityKey]: FirebaseRelationship | null;
+export type TBookmarkInDB = {
+  [k in TEntityKey]: TFirebaseRelationship | null;
 } & {
   key: string;
   id: string;
@@ -26,8 +26,8 @@ export type BookmarkInDB = {
   tagKeys?: string[];
 };
 
-export type TagInDB = {
-  [k in EntityKey]: FirebaseRelationship | null;
+export type TTagInDB = {
+  [k in TEntityKey]: TFirebaseRelationship | null;
 } & {
   key: string;
   id: string;
@@ -36,6 +36,12 @@ export type TagInDB = {
   createdBy: string;
 };
 
-export type EntityKey = "bookmarks" | "tags" | "users";
+export type TEntityKey = "bookmarks" | "tags" | "users";
 
-export type FirebaseRelationship = { [k: string]: boolean };
+export type TFirebaseRelationship = { [k: string]: boolean };
+
+export type TFirebaseKey = string;
+
+export type TFirebaseUID = string;
+
+export interface IUserInDB {}
