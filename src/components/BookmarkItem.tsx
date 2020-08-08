@@ -26,16 +26,6 @@ const BookmarkItem = ({
   onEditClick,
   onDeleteClick,
 }: IOwnProps): ReactElement => {
-  const handleEdit = e => {
-    const prompt = window.prompt(`Edit ${url} with…`);
-    console.log(prompt);
-
-    if (prompt !== null) {
-      return onEditClick(id, prompt);
-    }
-    return;
-  };
-
   /* ---------------------------------
   temporary, quick & dirty solution
   --------------------------------- */
@@ -144,7 +134,7 @@ const BookmarkItem = ({
 
           <ul className={root + "ControlsContainer"}>
             <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
-              <a href="#" onClick={handleEdit}>
+              <a href="#" onClick={() => onEditClick({ content: "HEY!" })}>
                 edit
               </a>
             </li>

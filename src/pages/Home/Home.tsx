@@ -11,12 +11,12 @@ import {
   createBookmark,
   createTag,
   deleteBookmark,
-  editBookmark,
   signInUser,
   signOutUser,
   signUpUser,
   syncBookmarks,
   syncTags,
+  toggleModal,
 } from "../../redux/actions";
 
 // components
@@ -49,6 +49,7 @@ interface IDispatchProps {
   signUpUser;
   syncBookmarks;
   syncTags;
+  toggleModal;
 }
 
 type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
@@ -66,6 +67,7 @@ function Home({
   signOutUser,
   signUpUser,
   tags,
+  toggleModal,
 }: TProps) {
   //
   const [state, setState] = useReducer(
@@ -166,6 +168,10 @@ function Home({
 
     tagsRef.on("child_added", snap => syncTags(snap.val().value));
 
+    bookmarksRef.on("child_removed", async snap => {
+      log("removed!");
+    });
+
     // we turn off the observer
     return () => {
       bookmarksRef.off();
@@ -209,7 +215,8 @@ function Home({
         <ContentGrid
           bookmarks={bookmarks}
           destructiveActionHandler={confirmDestructiveAction}
-          editBookmarkHandler={editBookmark}
+          // editBookmarkHandler={editBookmark}
+          editBookmarkHandler={toggleModal}
           filteredBookmarks={filteredBookmarks}
           filterKey={filterKey}
           searchResults={found}
@@ -256,9 +263,9 @@ function mapDispatchToProps(dispatch) {
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     createTag: tags => dispatch(createTag(tags)),
     deleteBookmark: (key, tags) => dispatch(deleteBookmark({ key, tags })),
-    editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
     syncBookmarks: data => dispatch(syncBookmarks(data)),
     syncTags: data => dispatch(syncTags(data)),
+    toggleModal: payload => dispatch(toggleModal(payload)),
   };
 }
 
