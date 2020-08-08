@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import * as Constants from "../../constants";
 import { log, removeDuplicates } from "../../utils";
 import {
-  addBookmark,
   addTags,
   createBookmark,
   createTag,
@@ -42,8 +41,6 @@ interface IGlobalStateProps {
 interface IOwnProps {}
 
 interface IDispatchProps {
-  addBookmark;
-  addTags;
   createBookmark;
   createTag;
   deleteBookmark;
@@ -58,8 +55,6 @@ interface IDispatchProps {
 type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
 
 function Home({
-  addBookmark,
-  addTags,
   authentication,
   bookmarks,
   createBookmark,
@@ -261,7 +256,6 @@ function mapDispatchToProps(dispatch) {
     signOutUser: () => dispatch(signOutUser()),
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     createTag: tags => dispatch(createTag(tags)),
-    addTags: (tags, id) => dispatch(addTags({ tags, id })),
     deleteBookmark: id => dispatch(deleteBookmark({ id })),
     editBookmark: (id, editedUrl) => dispatch(editBookmark({ id, editedUrl })),
     syncBookmarks: data => dispatch(syncBookmarks(data)),

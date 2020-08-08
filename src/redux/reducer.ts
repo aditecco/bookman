@@ -7,8 +7,6 @@ import { log, clipText } from "../utils";
 import initialState from "./initialState";
 import { IInitialState } from "../types/initial-state";
 import {
-  addBookmark,
-  addTags,
   createBookmarkError,
   createBookmarkPending,
   createBookmarkSuccess,
@@ -269,25 +267,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   },
 
   // @ts-ignore
-  [addBookmark](state, action) {
-    const {
-      payload: { url, id },
-    } = action;
-
-    return {
-      ...state,
-      bookmarks: [
-        {
-          id,
-          url,
-          timestamp: new Date().toLocaleString(),
-        },
-        ...state.bookmarks,
-      ],
-    };
-  },
-
-  // @ts-ignore
   [editBookmark](state, action) {
     const {
       payload: { id, editedUrl },
@@ -318,25 +297,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       bookmarks: [
         ...state.bookmarks.slice(0, toDelete),
         ...state.bookmarks.slice(toDelete + 1),
-      ],
-    };
-  },
-
-  // @ts-ignore
-  [addTags](state, action) {
-    const {
-      payload: { tags, id },
-    } = action;
-
-    return {
-      ...state,
-      tags: [
-        {
-          id,
-          tags: tags.split(","),
-          timestamp: new Date().toLocaleString(),
-        },
-        ...state.tags,
       ],
     };
   },

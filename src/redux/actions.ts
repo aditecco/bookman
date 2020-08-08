@@ -8,20 +8,6 @@ type Action = object;
 
 // TODO Create generic error action
 
-// syncData
-export const syncData = createAction<Action>("SYNC_DATA");
-export const syncBookmarks = createAction<Action>("SYNC_BOOKMARKS");
-export const syncTags = createAction<Action>("SYNC_TAGS");
-
-
-// 
-export const addBookmark = createAction<Action>("ADD_BOOKMARK");
-export const editBookmark = createAction<Action>("EDIT_BOOKMARK");
-export const deleteBookmark = createAction<Action>("DELETE_BOOKMARK");
-export const addTags = createAction<Action>("ADD_TAGS");
-export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS");
-export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
-
 
 // signUpUser
 export const signUpUser = createAction<Action>("SIGN_UP_USER");
@@ -44,6 +30,41 @@ export const signOutUserSuccess = createAction<Action>("SIGN_OUT_USER_SUCCESS");
 export const signOutUserError = createAction<Action>("SIGN_OUT_USER_ERROR");
 
 
+// createBookmark
+export const createBookmark = createAction<Action>("CREATE_BOOKMARK");
+export const createBookmarkPending = createAction<Action>("CREATE_BOOKMARK_PENDING");
+export const createBookmarkSuccess = createAction<Action>("CREATE_BOOKMARK_SUCCESS");
+export const createBookmarkError = createAction<Action>("CREATE_BOOKMARK_ERROR");
+
+// deleteBookmark
+export const deleteBookmark = createAction<Action>("DELETE_BOOKMARK");
+export const deleteBookmarkPending = createAction<Action>("DELETE_BOOKMARK_PENDING");
+export const deleteBookmarkSuccess = createAction<Action>("DELETE_BOOKMARK_SUCCESS");
+export const deleteBookmarkError = createAction<Action>("DELETE_BOOKMARK_ERROR");
+
+// createTag
+export const createTag = createAction<Action>("CREATE_TAG");
+export const createTagPending = createAction<Action>("CREATE_TAG_PENDING");
+export const createTagSuccess = createAction<Action>("CREATE_TAG_SUCCESS");
+export const createTagError = createAction<Action>("CREATE_TAG_ERROR");
+
+
+// syncData
+export const syncData = createAction<Action>("SYNC_DATA");
+export const syncBookmarks = createAction<Action>("SYNC_BOOKMARKS");
+export const syncTags = createAction<Action>("SYNC_TAGS");
+
+// -------------------------------------------------------
+
+// 
+export const editBookmark = createAction<Action>("EDIT_BOOKMARK");
+export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS");
+export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
+
+
+
+
+
 // convertContent
 export const convertContent = createAction<Action>("CONVERT_CONTENT");
 export const convertContentError = createAction<Action>("CONVERT_CONTENT_ERROR");
@@ -58,18 +79,7 @@ export const createNoteSuccess = createAction<Action>("CREATE_NOTE_SUCCESS");
 export const createNoteError = createAction<Action>("CREATE_NOTE_ERROR");
 
 
-// createBookmark
-export const createBookmark = createAction<Action>("CREATE_BOOKMARK");
-export const createBookmarkPending = createAction<Action>("CREATE_BOOKMARK_PENDING");
-export const createBookmarkSuccess = createAction<Action>("CREATE_BOOKMARK_SUCCESS");
-export const createBookmarkError = createAction<Action>("CREATE_BOOKMARK_ERROR");
 
-
-// createTag
-export const createTag = createAction<Action>("CREATE_TAG");
-export const createTagPending = createAction<Action>("CREATE_TAG_PENDING");
-export const createTagSuccess = createAction<Action>("CREATE_TAG_SUCCESS");
-export const createTagError = createAction<Action>("CREATE_TAG_ERROR");
 
 
 // createRemoteContent
