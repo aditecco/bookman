@@ -4,7 +4,7 @@ App
 
 import React, { Suspense, useEffect } from "react";
 import { connect } from "react-redux";
-import Authentication from "./components/Authentication";
+import Authentication from "./components/Authentication/Authentication";
 import Spinner from "./components/Spinner/Spinner";
 import * as firebase from "firebase/app";
 import { setAuthState, stopLoading } from "./redux/actions";

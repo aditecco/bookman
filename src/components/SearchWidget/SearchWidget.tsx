@@ -3,8 +3,8 @@ SearchWidget
 --------------------------------- */
 
 import React, { ChangeEvent } from "react";
-import InputField from "../InputField";
-import BaseButton from "../BaseButton";
+import InputField from "../InputField/InputField";
+import BaseButton from "../BaseButton/BaseButton";
 
 export default function SearchWidget({ closeIcon, onSearchReset, ...props }) {
   return (

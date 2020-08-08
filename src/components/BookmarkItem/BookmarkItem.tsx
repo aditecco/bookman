@@ -6,8 +6,10 @@
 import React, { ReactElement } from "react";
 
 // comps
-import PillButton from "./PillButton";
-import { IBookmark } from "../types/bookman";
+import PillButton from "../PillButton/PillButton";
+import { IBookmark } from "../../types/bookman";
+import BookmarkForm from "../BookmarkForm/BookmarkForm";
+import InputField from "../InputField/InputField";
 
 interface IOwnProps extends IBookmark {
   fKey: string;
@@ -134,7 +136,16 @@ const BookmarkItem = ({
 
           <ul className={root + "ControlsContainer"}>
             <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
-              <a href="#" onClick={() => onEditClick({ content: "HEY!" })}>
+              <a
+                href="#"
+                onClick={() =>
+                  onEditClick({
+                    content: (
+                      <InputField onChange={null} placeholder={url} value="" />
+                    ),
+                  })
+                }
+              >
                 edit
               </a>
             </li>

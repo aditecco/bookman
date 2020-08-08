@@ -3,16 +3,22 @@
 *******************/
 
 // deps
-import React, { useState } from "react";
+import React, { useState, ReactElement } from "react";
 import uuidv4 from "uuid";
 
 // components
-import InputField from "./InputField";
-import BaseButton from "./BaseButton";
-import { IContentMeta, IBookmark, ITag } from "../types/bookman";
-import { log } from "../utils";
+import InputField from "../InputField/InputField";
+import BaseButton from "../BaseButton/BaseButton";
+import { IContentMeta, IBookmark, ITag } from "../../types/bookman";
+import { log } from "../../utils";
 
-export default function BookmarkForm({ onCreateBookmark }) {
+interface IOwnProps {
+  onCreateBookmark;
+}
+
+export default function BookmarkForm({
+  onCreateBookmark,
+}: IOwnProps): ReactElement {
   const initialState = {
     url: "",
     tags: "",

@@ -4,8 +4,8 @@ Sidebar
 
 import React, { ReactElement } from "react";
 import { removeDuplicates } from "../../utils";
-import BaseButton from "../BaseButton";
-import TagItem from "../TagItem";
+import BaseButton from "../BaseButton/BaseButton";
+import TagItem from "../TagItem/TagItem";
 
 interface IOwnProps {
   filteredTags: string[];

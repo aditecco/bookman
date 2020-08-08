@@ -3,9 +3,9 @@ Authentication
 --------------------------------- */
 
 import React from "react";
-import { signInUser, signUpUser } from "../redux/actions";
-import AuthForm from "./AuthForm/AuthForm";
-import TabSwitcher from "./TabSwitcher/TabSwitcher";
+import { signInUser, signUpUser } from "../../redux/actions";
+import AuthForm from "../AuthForm/AuthForm";
+import TabSwitcher from "../TabSwitcher/TabSwitcher";
 
 export default function Authentication() {
   return (

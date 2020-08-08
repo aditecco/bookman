@@ -20,10 +20,10 @@ import {
 } from "../../redux/actions";
 
 // components
-import BookmarkForm from "../../components/BookmarkForm";
-import BaseButton from "../../components/BaseButton";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import BookmarkForm from "../../components/BookmarkForm/BookmarkForm";
+import BaseButton from "../../components/BaseButton/BaseButton";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
 import { IBookmark } from "../../types/bookman";

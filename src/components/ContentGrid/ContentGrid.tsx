@@ -3,7 +3,7 @@ ContentGrid
 --------------------------------- */
 
 import React, { ReactElement } from "react";
-import BookmarkItem from "../BookmarkItem";
+import BookmarkItem from "../BookmarkItem/BookmarkItem";
 import { IBookmark } from "../../types/bookman";
 
 interface IOwnProps {
