@@ -33,6 +33,7 @@ import SearchWidget from "../../components/SearchWidget/SearchWidget";
 import { IBookmark } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { IAuthState } from "../../types/initial-state";
+import ContentGrid from "../../components/ContentGrid/ContentGrid";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -213,69 +214,14 @@ function Home({
           tags={tags}
         />
 
-        {/* BOOKMARKS */}
-        <section className="bookmarkSection">
-          <div className="bookmarkContainer">
-            <h4 className="bookmarkSectionHeading">
-              {filterKey
-                ? filteredBookmarks.length > 1
-                  ? `Showing ${filteredBookmarks.length} bookmarks with tag '${filterKey}'`
-                  : `Showing ${filteredBookmarks.length} bookmark with tag '${filterKey}'`
-                : `Bookmarks - ${bookmarks.length}`}
-            </h4>
-
-            {bookmarks.length ? (
-              <ol className="bookmarkList">
-                {!filterKey
-                  ? !state.found
-                    ? bookmarks.map((bookmark, i) => {
-                        return (
-                          <li className="BookmarkItemContainer" key={i}>
-                            <BookmarkItem
-                              id={bookmark.id}
-                              url={bookmark.url}
-                              tags={bookmark.tags}
-                              timestamp={bookmark.timestamp}
-                              onEditClick={editBookmark}
-                              onDeleteClick={confirmDestructiveAction}
-                            />
-                          </li>
-                        );
-                      })
-                    : state.found.map((bookmark, i) => {
-                        return (
-                          <li className="BookmarkItemContainer" key={i}>
-                            <BookmarkItem
-                              id={bookmark.id}
-                              url={bookmark.url}
-                              tags={bookmark.tags}
-                              timestamp={bookmark.timestamp}
-                              onEditClick={editBookmark}
-                              onDeleteClick={confirmDestructiveAction}
-                            />
-                          </li>
-                        );
-                      })
-                  : filteredBookmarks.map((bookmark, i) => {
-                      return (
-                        <li className="BookmarkItemContainer" key={i}>
-                          <BookmarkItem
-                            id={bookmark.id}
-                            url={bookmark.url}
-                            tags={bookmark.tags}
-                            timestamp={bookmark.timestamp}
-                            onEditClick={editBookmark}
-                            onDeleteClick={confirmDestructiveAction}
-                          />
-                        </li>
-                      );
-                    })}
-              </ol>
-            ) : (
-              <p className="blankSlateMessage">No bookmarks! Create one.</p>
-            )}
-          </div>
-        </section>
+        <ContentGrid
+          bookmarks={bookmarks}
+          destructiveActionHandler={confirmDestructiveAction}
+          editBookmarkHandler={editBookmark}
+          filteredBookmarks={filteredBookmarks}
+          filterKey={filterKey}
+          searchResults={found}
+        />
       </main>
 
       <Footer
