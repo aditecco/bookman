@@ -1,39 +1,23 @@
-
 /******************
   TagItem
 *******************/
 
-// js
-import React from 'react';
+import React, { ReactElement, ReactEventHandler } from "react";
 
+interface IOwnProps {
+  name: string;
+  count?: string;
+  onClick?: ReactEventHandler;
+}
 
-function TagItem(props) {
-  const {
-    name,
-    count,
-    onClick
-  } = props;
-
-  const root = 'TagItem';
+function TagItem({ name, count, onClick }: IOwnProps): ReactElement {
+  const root = "TagItem";
 
   return (
-    <a
-      href="#"
-      className={root}
-      onClick={onClick}
-    >
-      <span className={root + "Name"}>
-        {name}
-      </span>
+    <a href="#" className={root} onClick={onClick}>
+      <span className={root + "Name"}>{name}</span>
 
-      <span className={root + "Count"}>
-        {
-          count !== null || undefined ?
-          ` (${count})`
-          :
-          null
-        }
-      </span>
+      {count && <span className={root + "Count"}>{count}</span>}
     </a>
   );
 }
