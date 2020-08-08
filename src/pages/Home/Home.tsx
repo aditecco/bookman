@@ -22,8 +22,6 @@ import {
 } from "../../redux/actions";
 
 // components
-import BookmarkItem from "../../components/BookmarkItem";
-import TagItem from "../../components/TagItem";
 import BookmarkForm from "../../components/BookmarkForm";
 import BaseButton from "../../components/BaseButton";
 import Navbar from "../../components/Navbar";

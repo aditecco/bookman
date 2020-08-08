@@ -3,14 +3,28 @@
 *******************/
 
 // deps
-import React from "react";
+import React, { ReactElement } from "react";
 
 // comps
 import PillButton from "./PillButton";
 
-const BookmarkItem = props => {
-  const { id, url, tags, timestamp, onEditClick, onDeleteClick } = props;
+interface IOwnProps {
+  id: string;
+  url: string;
+  tags: string[];
+  timestamp: number;
+  onEditClick;
+  onDeleteClick;
+}
 
+const BookmarkItem = ({
+  id,
+  url,
+  tags,
+  timestamp,
+  onEditClick,
+  onDeleteClick,
+}: IOwnProps): ReactElement => {
   const handleDelete = e => {
     // console.log(id);
     onDeleteClick(id);
@@ -73,8 +87,8 @@ const BookmarkItem = props => {
     // console.log(translateLeft);
   };
 
-  const root = "BookmarkItem",
-    urlFilter = /https?\:\/\/(?:www\.)?/;
+  const root = "BookmarkItem";
+  const urlFilter = /https?\:\/\/(?:www\.)?/;
 
   return (
     <article className={root} id={id}>
@@ -96,7 +110,6 @@ const BookmarkItem = props => {
             {
               // TODO …
               tags.length > 2 && (
-                // tags[0] && tags[0]["tags"].length > 2 && (
                 <>
                   <div
                     className={`${root}TagContainerCurtain ${root}TagContainerCurtain--left`}
@@ -127,7 +140,7 @@ const BookmarkItem = props => {
 
       <footer className={root + "Footer"}>
         <div className={root + "TimeStamp"}>
-          <time>{timestamp}</time>
+          <time>{new Date(timestamp).toLocaleDateString()}</time>
         </div>
 
         <div className={root + "Controls"}>
