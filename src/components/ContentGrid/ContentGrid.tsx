@@ -4,14 +4,15 @@ ContentGrid
 
 import React, { ReactElement } from "react";
 import BookmarkItem from "../BookmarkItem";
+import { IBookmark } from "../../types/bookman";
 
 interface IOwnProps {
-  bookmarks;
+  bookmarks: IBookmark[];
   destructiveActionHandler;
   editBookmarkHandler;
-  filteredBookmarks;
-  filterKey;
-  searchResults;
+  filteredBookmarks: IBookmark[];
+  filterKey: string;
+  searchResults: IBookmark[];
 }
 
 export default function ContentGrid({
