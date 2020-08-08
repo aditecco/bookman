@@ -23,8 +23,9 @@ function* signUpUserSaga(action) {
 
   yield put(signUpUserPending());
 
+  // createUserWithEmailAndPassword
   try {
-    const user = yield call(
+    const { user } = yield call(
       {
         context: firebase.auth(),
         fn: firebase.auth().createUserWithEmailAndPassword,
@@ -33,7 +34,15 @@ function* signUpUserSaga(action) {
       password
     );
 
-    yield put(signUpUserSuccess(user));
+    yield put(
+      signUpUserSuccess({
+        user: {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+        },
+      })
+    );
 
     yield put(
       showNotif({

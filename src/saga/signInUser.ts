@@ -36,7 +36,7 @@ function* signInUserSaga(action) {
     );
 
     // signInWithEmailAndPassword
-    const user = yield call(
+    const { user } = yield call(
       {
         context,
         fn: context.signInWithEmailAndPassword,
@@ -45,7 +45,15 @@ function* signInUserSaga(action) {
       password
     );
 
-    yield put(signInUserSuccess(user));
+    yield put(
+      signInUserSuccess({
+        user: {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+        },
+      })
+    );
 
     yield put(
       showNotif({

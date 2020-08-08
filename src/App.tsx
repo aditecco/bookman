@@ -29,19 +29,19 @@ function App({ authentication: { authenticated }, loading }) {
          *  signup, login or persistent session
          */
 
-        // prettier-ignore
-        if (user)
-        {
+        if (user) {
           log("@@@ user is present");
-          
-          dispatch(setAuthState({
-            authenticated: true,
-            user
-          }))
-        }
-        
-        else
-        {
+
+          // @ts-ignore
+          const { uid, displayName, email, lastLoginAt, createdAt } = user;
+
+          dispatch(
+            setAuthState({
+              authenticated: true,
+              user: { uid, displayName, email, lastLoginAt, createdAt },
+            })
+          );
+        } else {
           log("@@@, no user is present", user);
         }
 

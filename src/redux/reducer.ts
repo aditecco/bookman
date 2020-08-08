@@ -53,9 +53,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [signUpUserSuccess](state, action) {
     const {
-      payload: {
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
-      },
+      payload: { user },
     } = action;
 
     return {
@@ -64,7 +62,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       authentication: {
         ...state.authentication,
         authenticated: true,
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+        user,
       },
     };
   },
@@ -93,9 +91,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [signInUserSuccess](state, action) {
     const {
-      payload: {
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
-      },
+      payload: { user },
     } = action;
 
     return {
@@ -104,7 +100,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       authentication: {
         ...state.authentication,
         authenticated: true,
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+        user,
       },
     };
   },
@@ -156,10 +152,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [setAuthState](state, action) {
     const {
-      payload: {
-        authenticated,
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
-      },
+      payload: { authenticated, user },
     } = action;
 
     return {
@@ -168,7 +161,7 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       authentication: {
         ...state.authentication,
         authenticated,
-        user: { uid, displayName, photoURL, email, lastLoginAt, createdAt },
+        user,
       },
     };
   },
