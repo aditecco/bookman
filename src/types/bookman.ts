@@ -23,7 +23,7 @@ export interface IEnrichedContentMeta extends IContentMeta {
 
 export interface IBookmark extends IEnrichedContentMeta {
   url: string;
-  tags?: string[];
+  tags?: ITag[];
   tagKeys?: string[];
 }
 

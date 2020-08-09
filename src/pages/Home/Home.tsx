@@ -26,14 +26,14 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
-import { IBookmark } from "../../types/bookman";
+import { IBookmark, ITag } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { IAuthState } from "../../types/initial-state";
 import ContentGrid from "../../components/ContentGrid/ContentGrid";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
-  tags: string[];
+  tags: ITag[];
   authentication: IAuthState;
 }
 
@@ -83,17 +83,13 @@ function Home({
   );
 
   const { filterKey, found, searchQuery } = state;
-  const filteredTags = removeDuplicates(tags).filter(tag => tag === filterKey);
-  const filteredBookmarks = bookmarks.filter(
-    (bookmark: IBookmark) => bookmark.tags && bookmark.tags.includes(filterKey)
+  const filteredTags = removeDuplicates(tags.map(tag => tag.value)).filter(
+    val => val === filterKey
   );
-
-  // updates state w/ tag filter
-  function handleTagSorting(e) {
-    e.preventDefault();
-
-    setState({ filterKey: e.target.innerHTML });
-  }
+  const filteredBookmarks = bookmarks.filter(
+    (bookmark: IBookmark) =>
+      bookmark.tags && bookmark.tags.map(tag => tag.value).includes(filterKey)
+  );
 
   // gets confirmation for destructive actions
   function confirmDestructiveAction(...args) {
@@ -117,6 +113,13 @@ function Home({
 
   function handleSearchReset() {
     setState({ searchQuery: "", found: null });
+  }
+
+  // updates state w/ tag filter
+  function handleTagFiltering(e) {
+    e.preventDefault();
+
+    setState({ filterKey: e.target.innerHTML });
   }
 
   /**
@@ -157,16 +160,18 @@ function Home({
         const tags = await tagsRef.once("value");
         const tagValues = tags.val();
 
-        tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k].value));
+        tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k]));
       }
 
       syncBookmarks({
         ...bookmark,
         ...(_tags.length ? { tags: _tags } : {}),
       });
+
+      _tags.length && syncTags(_tags);
     });
 
-    tagsRef.on("child_added", snap => syncTags(snap.val().value));
+    // tagsRef.on("child_added", snap => syncTags(snap.val().value));
 
     bookmarksRef.on("child_removed", async snap => {
       log("removed!");
@@ -206,7 +211,7 @@ function Home({
       <main className="wrapper mainContentWrapper">
         <Sidebar
           filteredTags={filteredTags}
-          filterHandler={handleTagSorting}
+          filterHandler={handleTagFiltering}
           filterResetHandler={() => setState({ filterKey: "" })}
           filterKey={filterKey}
           tags={tags}

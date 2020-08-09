@@ -34,6 +34,7 @@ function* deleteBookmarkSaga(action) {
   try {
     const context = db.ref();
 
+    // !!! TODO delete if tags are used ONLY in this bookmark
     const tagsToDelete =
       tagKeys &&
       tagKeys.reduce((acc, key) => {

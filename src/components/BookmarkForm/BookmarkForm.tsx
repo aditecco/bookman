@@ -65,7 +65,7 @@ export default function BookmarkForm({
     return url;
   }
 
-  function processTags(tags) {
+  function processTags(tags: string): string[] | boolean {
     if (!tags) return true;
 
     // TODO What if it's just one tag?
@@ -118,7 +118,8 @@ export default function BookmarkForm({
         ...generateNewItem(),
         url,
         tags: tags
-          ? processTags(tags).map(
+          ? // @ts-ignore
+            processTags(tags).map(
               tag => ({ value: tag, ...generateNewItem() } as ITag)
             )
           : [],
