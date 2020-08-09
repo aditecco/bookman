@@ -160,7 +160,10 @@ const BookmarkItem = ({
                       <>
                         <BookmarkForm
                           submitLabel="update"
-                          valuesToUpdate={{ url, tags: tags.toString() }}
+                          valuesToUpdate={{
+                            url,
+                            tags: tags.map(tag => tag.value).toString(),
+                          }}
                           onUpdateBookmark={(newUrl, newTags) =>
                             dispatch(
                               updateBookmark({
