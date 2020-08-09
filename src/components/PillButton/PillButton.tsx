@@ -9,7 +9,7 @@ const root = "PillButton";
 type TPropsFromTag = Partial<ITag>;
 
 interface IOwnProps extends TPropsFromTag {
-  fKey?: string;
+  _key?: string;
   label: string;
   href?: string;
   onClick?: ReactEventHandler;

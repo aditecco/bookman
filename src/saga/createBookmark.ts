@@ -48,7 +48,7 @@ function* createBookmarkSaga(action) {
       acc[`/users/${uid}/tags/${newTagRef}`] = true;
       acc[`/tags/${newTagRef}`] = {
         ...tag,
-        key: newTagRef,
+        _key: newTagRef,
         bookmarks: { [newBookmarkRef]: true },
         createdBy: uid,
       } as TTagInDB;
@@ -61,7 +61,7 @@ function* createBookmarkSaga(action) {
       [`/users/${uid}/bookmarks/${newBookmarkRef}`]: true,
       [`/bookmarks/${newBookmarkRef}`]: {
         ...bookmark,
-        key: newBookmarkRef,
+        _key: newBookmarkRef,
         createdBy: uid,
         // we override tags
         tags: tagRefs.length

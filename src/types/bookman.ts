@@ -14,10 +14,11 @@ export interface IUser {
 export interface IContentMeta {
   id: string;
   timestamp: number;
+  updatedAt?: number;
 }
 
 export interface IEnrichedContentMeta extends IContentMeta {
-  key: string;
+  _key?: string;
   createdBy: string;
 }
 
@@ -42,23 +43,33 @@ export type TFetchUserBookmarksResponse = "";
 export type TFetchUserTagsResponse = "";
 
 /**
- * 
- * {
-  createdBy: 'xr44Zf92BaW8P0Mr6WsfdsaYoMS2',
-  id: 'b402a4bc-dea6-4ce5-a2ae-52ddac9c901e',
-  key: '-ME-tUT5-Ja7Eyu1Ytn4',
-  timestamp: 1596669163460,
-  tagKeys: [
-    '-ME-tUT6LVnHtmJ5anMi',
-    '-ME-tUT6LVnHtmJ5anMj',
-    '-ME-tUT6LVnHtmJ5anMk'
-  ],
-  tags: [
-    'a',
-    'v',
-    'c'
-  ],
-  url: 'tagRefs'
+
+BOOKMARK
+{
+  "-ME0-1jsB7QVfHW7ZaPQ" : {
+    "createdBy" : "QtiwtZ2mZ0esaCwrnAFTQFLGEPe2",
+    "id" : "767e3d55-6c4c-4abd-9efe-be8e237f25f6",
+    "key" : "-ME0-1jsB7QVfHW7ZaPQ",
+    "tagKeys" : [ "-ME0-1jtX75gtZha7oVx", "-ME0-1jtX75gtZha7oVy", "-ME0-1jtX75gtZha7oVz" ],
+    "tags" : {
+      "-ME0-1jtX75gtZha7oVx" : true,
+    },
+    "timestamp" : 1596670880824,
+    "url" : "https://stackoverflow.com/questions/39712833/firebase-performance-how-many-children-per-node"
+  },    
 },
- * 
+
+TAG
+{
+  "-ME0-1jtX75gtZha7oVx" : {
+    "bookmarks" : {
+      "-ME0-1jsB7QVfHW7ZaPQ" : true
+    },
+    "createdBy" : "QtiwtZ2mZ0esaCwrnAFTQFLGEPe2",
+    "id" : "8a48c4da-c9d0-4a05-98c9-cbb99349bc8c",
+    "key" : "-ME0-1jtX75gtZha7oVx",
+    "timestamp" : 1596670880824,
+    "value" : "firebase"
+  },    
+}
  */

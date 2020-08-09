@@ -14,15 +14,13 @@ type TOwnProps = IBookmark;
 
 export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
-
   const initialState = { ...props }; // initial state is an IBookmark
+  const { _key, id, timestamp, createdBy, url, tags, tagKeys } = props;
 
   const [state, setState] = useReducer(
     (state: IBookmark, newState) => ({ ...state, ...newState }),
     initialState
   );
-
-  const { id, timestamp, key: fKey, createdBy, url, tags, tagKeys } = props;
 
   return (
     <div className="UpdateMask">
@@ -38,17 +36,18 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
 
       {tags && (
         <div className="tagContainer">
-          {tags.map(tag => (
-            <PillButton
-              {...tag}
-              fKey={tag.key}
-              label={tag.value}
-              // TODO use UUID?
-              key={tag.id.substring(tag.id.length - 6)}
-              onClick={_ =>
-                setState({ tags: state.tags.filter(t => t.key !== tag.key) })
-              }
-            />
+          {tags.map((tag, i) => (
+            <span key={i}>
+              <PillButton
+                {...tag}
+                label={tag.value}
+                onClick={() =>
+                  setState({
+                    tags: state.tags.filter(t => t._key !== tag._key),
+                  })
+                }
+              />
+            </span>
           ))}
         </div>
       )}

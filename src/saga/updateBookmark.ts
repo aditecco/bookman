@@ -20,9 +20,9 @@ import { IInitialState } from "../types/initial-state";
 
 function* updateBookmarkSaga(action) {
   log(action);
-  const {
-    payload: { newUrl, fKey: key, markedTags },
-  } = action;
+
+  const { payload: updatedBookmark } = action;
+  const { _key: bookmarkKey, url: newUrl } = updatedBookmark;
 
   const authSelector = (state: IInitialState) => state.authentication;
   const {
@@ -31,14 +31,19 @@ function* updateBookmarkSaga(action) {
 
   /**
    *
-   * 1. Modify the URL √
-   *  - URL is updated in the DB bookmark √
-   * 2. Mark tags for deletion √
-   *  - tag refs are set to null in the DB bookmark
-   *    - if the tags were used **only in that bookmark:**
-   *      - remove the tags from /tags
-   *      - remove the tags refs from /users/{uid}/tags
-   *    - if not, remove only from the bookmark's reference
+   * - get the modified bookmark
+   *  - URL is saved as-is
+   *  - tags
+   *    - some/all tags were removed
+   *      - for tags that were NOT used only in that bookmark
+   *        - remove from bookmark refs
+   *        - remove from tag keys
+   *        - remove bookmark from those tags' refs
+   *      - for tags were used only in that bookmark
+   *        - remove from bookmark refs
+   *        - remove from tag keys
+   *        - remove from `/tags`
+   *        - remove from `/users/{uid}/tags`
    */
 
   yield put(updateBookmarkPending());
@@ -46,14 +51,33 @@ function* updateBookmarkSaga(action) {
   try {
     const context = db.ref();
 
+    const removedTags: string[] = updatedBookmark.tagKeys.filter(
+      k => !updatedBookmark.tags.map(tag => tag._key).includes(k)
+    );
+
     const tagsToUpdate =
-      markedTags.length &&
-      markedTags.reduce((acc, key) => {
-        acc[`/tags/${key}`] = null;
-        acc[`/users/${uid}/tags/${key}`] = null;
+      removedTags.length &&
+      removedTags.reduce((acc, k) => {
+        acc[`/tags/${k}/bookmarks/${bookmarkKey}`] = null;
+        // acc[`/users/${uid}/tags/${key}`] = null;
 
         return acc;
       }, {});
+
+    log({
+      [`/bookmarks/${bookmarkKey}`]: {
+        ...updatedBookmark,
+        tags: updatedBookmark.tags.reduce((acc, tag) => {
+          acc[tag._key] = true;
+
+          return acc;
+        }, {}),
+        tagKeys: updatedBookmark.tags.map(tag => tag._key),
+      },
+      ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
+    });
+
+    return;
 
     yield call(
       {
@@ -61,10 +85,7 @@ function* updateBookmarkSaga(action) {
         fn: context.update,
       },
 
-      {
-        [`/bookmarks/${key}/url`]: newUrl,
-        ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
-      }
+      {}
     );
 
     yield put(updateBookmarkSuccess());

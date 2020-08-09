@@ -18,7 +18,7 @@ database types
 export type TBookmarkInDB = {
   [k in TEntityKey]: TFirebaseRelationship | null;
 } & {
-  key: string;
+  _key: string;
   id: string;
   timestamp: number;
   url: string;
@@ -29,7 +29,7 @@ export type TBookmarkInDB = {
 export type TTagInDB = {
   [k in TEntityKey]: TFirebaseRelationship | null;
 } & {
-  key: string;
+  _key: string;
   id: string;
   timestamp: number;
   value: string;

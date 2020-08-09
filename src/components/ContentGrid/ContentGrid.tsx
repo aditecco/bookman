@@ -28,9 +28,6 @@ export default function ContentGrid({
       <li className="BookmarkItemContainer" key={i}>
         <BookmarkItem
           {...bookmark}
-          // TODO use UUID?
-          key={bookmark.id.substring(bookmark.id.length - 6)}
-          fKey={bookmark.key}
           onDeleteClick={destructiveActionHandler}
           onEditClick={editBookmarkHandler}
         />

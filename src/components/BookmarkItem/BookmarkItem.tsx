@@ -18,7 +18,6 @@ import UpdateMask from "../UpdateMask/UpdateMask";
 type TPropsFromBookmark = Partial<IBookmark>;
 
 interface IOwnProps extends TPropsFromBookmark {
-  fKey: string;
   onEditClick;
   onDeleteClick;
 }
@@ -26,7 +25,7 @@ interface IOwnProps extends TPropsFromBookmark {
 const BookmarkItem = ({
   id,
   timestamp,
-  fKey,
+  _key,
   createdBy,
   url,
   tags,
@@ -124,13 +123,7 @@ const BookmarkItem = ({
             <ul className={root + "TagContainer"}>
               {tags.map((tag, i) => (
                 <li key={i}>
-                  <PillButton
-                    {...tag}
-                    fKey={tag.key}
-                    label={tag.value}
-                    // TODO use UUID?
-                    key={tag.id.substring(tag.id.length - 6)}
-                  />
+                  <PillButton {...tag} label={tag.value} />
                 </li>
               ))}
             </ul>
@@ -157,14 +150,13 @@ const BookmarkItem = ({
                     content: (
                       <UpdateMask
                         {...{
+                          _key,
                           id,
                           timestamp,
-                          key: undefined,
                           createdBy,
                           url,
                           tags,
                           tagKeys,
-                          fKey,
                         }}
                       />
                     ),
@@ -181,7 +173,7 @@ const BookmarkItem = ({
                 onClick={e => {
                   e.preventDefault();
 
-                  onDeleteClick(fKey, tagKeys);
+                  onDeleteClick(_key, tagKeys);
                 }}
               >
                 delete
