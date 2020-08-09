@@ -20,59 +20,58 @@ import { IInitialState } from "../types/initial-state";
 
 function* updateBookmarkSaga(action) {
   log(action);
-  // const {
-  //   payload: { key, tags: tagKeys },
-  // } = action;
+  const {
+    payload: { newUrl, newTags, fKey: key, tagKeys },
+  } = action;
 
-  // const authSelector = (state: IInitialState) => state.authentication;
-  // const {
-  //   user: { uid },
-  // } = yield select(authSelector);
+  const authSelector = (state: IInitialState) => state.authentication;
+  const {
+    user: { uid },
+  } = yield select(authSelector);
 
-  // yield put(updateBookmarkPending());
+  yield put(updateBookmarkPending());
 
-  // try {
-  //   const context = db.ref();
+  try {
+    const context = db.ref();
+    let tagsToUpdate;
+    // const tagsToUpdate =
+    //   tagKeys &&
+    //   tagKeys.reduce((acc, key) => {
+    //     acc[`/tags/${key}`] = null;
+    //     acc[`/users/${uid}/tags/${key}`] = null;
 
-  //   const tagsToUpdate =
-  //     tagKeys &&
-  //     tagKeys.reduce((acc, key) => {
-  //       acc[`/tags/${key}`] = null;
-  //       acc[`/users/${uid}/tags/${key}`] = null;
+    //     return acc;
+    //   }, {});
 
-  //       return acc;
-  //     }, {});
+    yield call(
+      {
+        context,
+        fn: context.update,
+      },
 
-  //   yield call(
-  //     {
-  //       context,
-  //       fn: context.update,
-  //     },
+      {
+        [`/bookmarks/${key}/url`]: newUrl,
+        ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
+      }
+    );
 
-  //     {
-  //       [`/bookmarks/${key}`]: null,
-  //       [`/users/${uid}/bookmarks/${key}`]: null,
-  //       ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
-  //     }
-  //   );
+    yield put(updateBookmarkSuccess());
 
-  //   yield put(updateBookmarkSuccess(key));
+    yield put(
+      showNotif({
+        message: `Bookmark updated.`,
+        icon: "refresh",
+        timeOut: 2000,
+        theme: "light",
+      })
+    );
 
-  //   yield put(
-  //     showNotif({
-  //       message: `Bookmark removed.`,
-  //       icon: "remove_circle",
-  //       timeOut: 2000,
-  //       theme: "light",
-  //     })
-  //   );
-
-  //   //
-  // } catch (error) {
-  //   //
-  //   console.error(error);
-  //   yield put(updateBookmarkError({ error }));
-  // }
+    //
+  } catch (error) {
+    //
+    console.error(error);
+    yield put(updateBookmarkError({ error }));
+  }
 }
 
 /**

@@ -144,12 +144,21 @@ const BookmarkItem = ({
               <a
                 href="#"
                 onClick={() =>
+                  // this will open the modal
+                  // and populate it w/ a form
                   onEditClick({
                     content: (
                       <BookmarkForm
                         valuesToUpdate={{ url, tags: tags.toString() }}
-                        onUpdateBookmark={(url, tags) =>
-                          dispatch(updateBookmark({ url, tags }))
+                        onUpdateBookmark={(newUrl, newTags) =>
+                          dispatch(
+                            updateBookmark({
+                              newUrl,
+                              newTags,
+                              fKey,
+                              tagKeys,
+                            })
+                          )
                         }
                       />
                     ),
