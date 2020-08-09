@@ -6,13 +6,14 @@ import React, { ReactElement } from "react";
 import { removeDuplicates } from "../../utils";
 import BaseButton from "../BaseButton/BaseButton";
 import TagItem from "../TagItem/TagItem";
+import { ITag } from "../../types/bookman";
 
 interface IOwnProps {
   filteredTags: string[];
   filterHandler;
   filterResetHandler;
   filterKey;
-  tags;
+  tags: ITag[];
 }
 
 export default function Sidebar({
@@ -27,7 +28,7 @@ export default function Sidebar({
       <aside className="tagListContainer">
         {!filterKey ? (
           <h4 className="tagSectionHeading">
-            {`tags - ${removeDuplicates(tags).length}`}
+            {`tags - ${removeDuplicates(tags.map(tag => tag.value)).length}`}
           </h4>
         ) : (
           <BaseButton
@@ -43,7 +44,7 @@ export default function Sidebar({
             ? tags.map((tag, i) => {
                 return (
                   <li key={i}>
-                    <TagItem name={tag} onClick={filterHandler} />
+                    <TagItem name={tag.value} onClick={filterHandler} />
                   </li>
                 );
               })

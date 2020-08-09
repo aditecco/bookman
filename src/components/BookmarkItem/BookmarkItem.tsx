@@ -14,7 +14,9 @@ import { log } from "../../utils";
 import { useDispatch } from "react-redux";
 import { updateBookmark } from "../../redux/actions";
 
-interface IOwnProps extends IBookmark {
+type TPropsFromBookmark = Partial<IBookmark>;
+
+interface IOwnProps extends TPropsFromBookmark {
   fKey: string;
   onEditClick;
   onDeleteClick;
@@ -123,7 +125,14 @@ const BookmarkItem = ({
             <ul className={root + "TagContainer"}>
               {tags.map((tag, i) => (
                 <li key={i}>
-                  <PillButton label={tag} href={null} />
+                  <PillButton
+                    {...tag}
+                    fKey={tag.key}
+                    label={tag.value}
+                    href={null}
+                    // TODO use UUID?
+                    key={tag.id.substring(tag.id.length - 6)}
+                  />
                 </li>
               ))}
             </ul>
@@ -165,7 +174,7 @@ const BookmarkItem = ({
                         />
 
                         {tags.map(tag => (
-                          <PillButton label={tag} />
+                          <PillButton label={tag.value} />
                         ))}
                       </>
                     ),

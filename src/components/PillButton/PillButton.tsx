@@ -3,9 +3,13 @@
 *******************/
 
 import React, { ReactElement, ReactEventHandler } from "react";
+import { ITag } from "../../types/bookman";
 const root = "PillButton";
 
-interface IOwnProps {
+type TPropsFromTag = Partial<ITag>;
+
+interface IOwnProps extends TPropsFromTag {
+  fKey?: string;
   label: string;
   href?: string;
   onClick?: ReactEventHandler;
