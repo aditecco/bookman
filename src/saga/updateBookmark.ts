@@ -21,9 +21,9 @@ import { IInitialState } from "../types/initial-state";
 function* updateBookmarkSaga(action) {
   log(action);
   const {
-    payload: { newUrl, newTags, fKey: key, tagKeys },
+    payload: { newUrl, fKey: key, markedTags },
   } = action;
-
+  return;
   const authSelector = (state: IInitialState) => state.authentication;
   const {
     user: { uid },

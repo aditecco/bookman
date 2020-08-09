@@ -187,7 +187,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [syncTags](state, action) {
     const { payload: _tags } = action;
-    log(action);
 
     return {
       ...state,
