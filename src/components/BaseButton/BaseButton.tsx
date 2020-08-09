@@ -12,7 +12,8 @@ import React, { ReactElement, ReactEventHandler, ReactChildren } from "react";
 // styles
 
 interface IOwnProps {
-  className?: string;
+  // TODO improve
+  className?: string | "button--naked" | "button--outline";
   onClick: ReactEventHandler;
   onKeyDown?: ReactEventHandler;
   label?: string;

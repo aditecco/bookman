@@ -1,6 +1,6 @@
-/******************
-  PillButton
-*******************/
+/* ---------------------------------
+PillButton
+--------------------------------- */
 
 import React, { ReactElement, ReactEventHandler } from "react";
 import { ITag } from "../../types/bookman";

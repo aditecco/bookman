@@ -4,7 +4,7 @@ UpdateMask
 
 import React, { ReactElement, useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { updateBookmark } from "../../redux/actions";
+import { updateBookmark, toggleModal } from "../../redux/actions";
 import { IBookmark } from "../../types/bookman";
 import BaseButton from "../BaseButton/BaseButton";
 import InputField from "../InputField/InputField";
@@ -15,11 +15,11 @@ type TOwnProps = IBookmark;
 export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
 
-  // TODO move all state management here,
-  // extract from BookmarkForm
+  const initialState = { ...props }; // initial state is an IBookmark
+
   const [state, setState] = useReducer(
     (state: IBookmark, newState) => ({ ...state, ...newState }),
-    { ...props }
+    initialState
   );
 
   const { id, timestamp, key: fKey, createdBy, url, tags, tagKeys } = props;
@@ -28,32 +28,45 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
     <div className="UpdateMask">
       <InputField
         className="BaseInput"
+        value={url}
         onChange={e =>
           setState({
-            url: e.currentTarget.value,
+            url: e.target.value,
           })
         }
-        value={url}
       />
 
-      <div className="tagContainer">
-        {tags.map(tag => (
-          <PillButton
-            {...tag}
-            fKey={tag.key}
-            label={tag.value}
-            // TODO use UUID?
-            key={tag.id.substring(tag.id.length - 6)}
-            onClick={_ =>
-              setState({ tags: state.tags.filter(t => t.key !== tag.key) })
-            }
-          />
-        ))}
-      </div>
+      {tags && (
+        <div className="tagContainer">
+          {tags.map(tag => (
+            <PillButton
+              {...tag}
+              fKey={tag.key}
+              label={tag.value}
+              // TODO use UUID?
+              key={tag.id.substring(tag.id.length - 6)}
+              onClick={_ =>
+                setState({ tags: state.tags.filter(t => t.key !== tag.key) })
+              }
+            />
+          ))}
+        </div>
+      )}
+
+      <BaseButton
+        className="button--outline"
+        label="Cancel"
+        onClick={() => {
+          setState(initialState);
+          dispatch(toggleModal());
+        }}
+      />
 
       <BaseButton
         label="Update"
-        onClick={() => dispatch(updateBookmark(state))}
+        onClick={() =>
+          dispatch(updateBookmark({ ...state, updatedAt: Date.now() }))
+        }
       />
     </div>
   );

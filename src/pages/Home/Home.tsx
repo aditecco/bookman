@@ -218,7 +218,6 @@ function Home({
         <ContentGrid
           bookmarks={bookmarks}
           destructiveActionHandler={confirmDestructiveAction}
-          // editBookmarkHandler={editBookmark}
           editBookmarkHandler={toggleModal}
           filteredBookmarks={filteredBookmarks}
           filterKey={filterKey}
