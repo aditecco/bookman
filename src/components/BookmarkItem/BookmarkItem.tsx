@@ -159,11 +159,12 @@ const BookmarkItem = ({
                         {...{
                           id,
                           timestamp,
-                          key: fKey,
+                          key: undefined,
                           createdBy,
                           url,
                           tags,
                           tagKeys,
+                          fKey,
                         }}
                       />
                     ),

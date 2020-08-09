@@ -19,7 +19,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
   // extract from BookmarkForm
   const [state, setState] = useReducer(
     (state: IBookmark, newState) => ({ ...state, ...newState }),
-    { ...props, marked: [] }
+    { ...props }
   );
 
   const { id, timestamp, key: fKey, createdBy, url, tags, tagKeys } = props;
@@ -45,10 +45,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
             // TODO use UUID?
             key={tag.id.substring(tag.id.length - 6)}
             onClick={_ =>
-              setState(marked => ({
-                ...marked,
-                [tag.key]: !marked[tag.key],
-              }))
+              setState({ tags: state.tags.filter(t => t.key !== tag.key) })
             }
           />
         ))}
