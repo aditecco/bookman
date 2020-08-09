@@ -1,10 +1,9 @@
-
 /******************
   BaseButton
 *******************/
 
 // js
-import React from 'react';
+import React, { ReactElement, ReactEventHandler, ReactChildren } from "react";
 
 // components
 
@@ -12,21 +11,29 @@ import React from 'react';
 
 // styles
 
+interface IOwnProps {
+  className?: string;
+  onClick: ReactEventHandler;
+  onKeyDown?: ReactEventHandler;
+  label?: string;
+  href?: string;
+  style?;
+  children?;
+}
 
-function BaseButton(props) {
-  const {
-    className,
-    onClick,
-    onKeyDown,
-    label,
-    href,
-    style,
-    children,
-  } = props;
-
-  const root = 'BaseButton';
+function BaseButton({
+  className,
+  onClick,
+  onKeyDown,
+  label,
+  href,
+  style,
+  children,
+}: IOwnProps): ReactElement {
+  const root = "BaseButton";
 
   return (
+    // TODO convert to <button>
     <a
       className={`${root} ${className}`}
       href={href}

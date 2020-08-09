@@ -157,8 +157,11 @@ const BookmarkItem = ({
                     content: (
                       <UpdateMask
                         {...{
+                          id,
+                          timestamp,
+                          key: fKey,
+                          createdBy,
                           url,
-                          fKey,
                           tags,
                           tagKeys,
                         }}

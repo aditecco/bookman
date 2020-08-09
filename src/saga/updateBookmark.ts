@@ -23,7 +23,7 @@ function* updateBookmarkSaga(action) {
   const {
     payload: { newUrl, fKey: key, markedTags },
   } = action;
-  return;
+
   const authSelector = (state: IInitialState) => state.authentication;
   const {
     user: { uid },
@@ -31,28 +31,29 @@ function* updateBookmarkSaga(action) {
 
   /**
    *
-   * 1. Modify the URL
-   *  - URL is updated in the DB bookmark
-   * 2. Mark tags for deletion
+   * 1. Modify the URL √
+   *  - URL is updated in the DB bookmark √
+   * 2. Mark tags for deletion √
    *  - tag refs are set to null in the DB bookmark
    *    - if the tags were used **only in that bookmark:**
    *      - remove the tags from /tags
    *      - remove the tags refs from /users/{uid}/tags
+   *    - if not, remove only from the bookmark's reference
    */
 
   yield put(updateBookmarkPending());
 
   try {
     const context = db.ref();
-    let tagsToUpdate;
-    // const tagsToUpdate =
-    //   tagKeys &&
-    //   tagKeys.reduce((acc, key) => {
-    //     acc[`/tags/${key}`] = null;
-    //     acc[`/users/${uid}/tags/${key}`] = null;
 
-    //     return acc;
-    //   }, {});
+    const tagsToUpdate =
+      markedTags.length &&
+      markedTags.reduce((acc, key) => {
+        acc[`/tags/${key}`] = null;
+        acc[`/users/${uid}/tags/${key}`] = null;
+
+        return acc;
+      }, {});
 
     yield call(
       {

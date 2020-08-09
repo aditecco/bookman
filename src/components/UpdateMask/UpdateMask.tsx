@@ -2,69 +2,80 @@
 UpdateMask
 --------------------------------- */
 
-import React, { ReactElement, useState } from "react";
-import BookmarkForm from "../BookmarkForm/BookmarkForm";
-import { updateBookmark } from "../../redux/actions";
-import PillButton from "../PillButton/PillButton";
-import { ITag } from "../../types/bookman";
+import React, { ReactElement, useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { log } from "../../utils";
+import { updateBookmark } from "../../redux/actions";
+import { IBookmark } from "../../types/bookman";
+import BaseButton from "../BaseButton/BaseButton";
+import InputField from "../InputField/InputField";
+import PillButton from "../PillButton/PillButton";
 
-interface IOwnProps {
-  url: string;
-  fKey: string;
-  tags: ITag[];
-  tagKeys: string[];
-}
+type TOwnProps = IBookmark;
 
-export default function UpdateMask({
-  url,
-  fKey,
-  tags,
-  tagKeys,
-}: IOwnProps): ReactElement {
+export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
 
   // TODO move all state management here,
   // extract from BookmarkForm
-  const [markedTags, setMarkedTags] = useState({});
+  const [state, setState] = useReducer(
+    (state: IBookmark, newState) => ({ ...state, ...newState }),
+    { ...props, marked: [] }
+  );
+
+  const { id, timestamp, key: fKey, createdBy, url, tags, tagKeys } = props;
 
   return (
-    <>
-      <BookmarkForm
-        submitLabel="update"
-        valuesToUpdate={{
-          url,
-          tags: tags.map(tag => tag.value).toString(),
-        }}
-        onUpdateBookmark={(newUrl, newTags) =>
-          dispatch(
-            updateBookmark({
-              newUrl,
-              // newTags,
-              fKey,
-              // tagKeys,
-              markedTags: Object.keys(markedTags).filter(k => markedTags[k]),
-            })
-          )
+    <div className="UpdateMask">
+      <InputField
+        className="BaseInput"
+        onChange={e =>
+          setState({
+            url: e.currentTarget.value,
+          })
         }
+        value={url}
       />
 
-      {tags.map(tag => (
-        <PillButton
-          {...tag}
-          fKey={tag.key}
-          label={tag.value}
-          // TODO use UUID?
-          key={tag.id.substring(tag.id.length - 6)}
-          onClick={_ =>
-            setMarkedTags(marked => ({
-              ...marked,
-              [tag.key]: !marked[tag.key],
-            }))
-          }
-        />
-      ))}
-    </>
+      <div className="tagContainer">
+        {tags.map(tag => (
+          <PillButton
+            {...tag}
+            fKey={tag.key}
+            label={tag.value}
+            // TODO use UUID?
+            key={tag.id.substring(tag.id.length - 6)}
+            onClick={_ =>
+              setState(marked => ({
+                ...marked,
+                [tag.key]: !marked[tag.key],
+              }))
+            }
+          />
+        ))}
+      </div>
+
+      <BaseButton
+        label="Update"
+        onClick={() => dispatch(updateBookmark(state))}
+      />
+    </div>
   );
+}
+
+{
+  /* <>
+  <BookmarkForm
+    submitLabel="update"
+    valuesToUpdate={{
+      url,
+      tags: tags.map(tag => tag.value).toString(),
+    }}
+    onUpdateBookmark={
+    }
+  />
+
+  
+    />
+  ))}
+</> */
 }

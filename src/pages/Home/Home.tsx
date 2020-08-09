@@ -188,8 +188,6 @@ function Home({
     <div className="page Home">
       {/* Navbar */}
       <Navbar onLogoClick={() => console.log("logo click!")} debug={false}>
-        <BaseButton style={{ visibility: "hidden" }} />
-
         <SearchWidget
           className="searchInput"
           placeholder="search…"
