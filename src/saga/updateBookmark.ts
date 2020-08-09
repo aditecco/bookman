@@ -29,6 +29,17 @@ function* updateBookmarkSaga(action) {
     user: { uid },
   } = yield select(authSelector);
 
+  /**
+   *
+   * 1. Modify the URL
+   *  - URL is updated in the DB bookmark
+   * 2. Mark tags for deletion
+   *  - tag refs are set to null in the DB bookmark
+   *    - if the tags were used **only in that bookmark:**
+   *      - remove the tags from /tags
+   *      - remove the tags refs from /users/{uid}/tags
+   */
+
   yield put(updateBookmarkPending());
 
   try {

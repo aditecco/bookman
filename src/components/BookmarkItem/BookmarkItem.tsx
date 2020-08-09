@@ -148,19 +148,26 @@ const BookmarkItem = ({
                   // and populate it w/ a form
                   onEditClick({
                     content: (
-                      <BookmarkForm
-                        valuesToUpdate={{ url, tags: tags.toString() }}
-                        onUpdateBookmark={(newUrl, newTags) =>
-                          dispatch(
-                            updateBookmark({
-                              newUrl,
-                              newTags,
-                              fKey,
-                              tagKeys,
-                            })
-                          )
-                        }
-                      />
+                      <>
+                        <BookmarkForm
+                          submitLabel="update"
+                          valuesToUpdate={{ url, tags: tags.toString() }}
+                          onUpdateBookmark={(newUrl, newTags) =>
+                            dispatch(
+                              updateBookmark({
+                                newUrl,
+                                newTags,
+                                fKey,
+                                tagKeys,
+                              })
+                            )
+                          }
+                        />
+
+                        {tags.map(tag => (
+                          <PillButton label={tag} />
+                        ))}
+                      </>
                     ),
                   })
                 }

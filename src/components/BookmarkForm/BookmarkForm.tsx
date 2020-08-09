@@ -16,12 +16,14 @@ interface IOwnProps {
   onCreateBookmark?;
   onUpdateBookmark?;
   valuesToUpdate?: { url: string; tags: string };
+  submitLabel?: string;
 }
 
 export default function BookmarkForm({
   onCreateBookmark,
   onUpdateBookmark,
   valuesToUpdate,
+  submitLabel = "save",
 }: IOwnProps): ReactElement {
   const initialState = {
     url: valuesToUpdate?.url || "",
@@ -157,7 +159,7 @@ export default function BookmarkForm({
 
       <BaseButton
         className="submitButton"
-        label="save"
+        label={submitLabel}
         onClick={handleSubmit}
       />
     </form>
