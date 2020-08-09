@@ -13,6 +13,7 @@ import InputField from "../InputField/InputField";
 import { log } from "../../utils";
 import { useDispatch } from "react-redux";
 import { updateBookmark } from "../../redux/actions";
+import UpdateMask from "../UpdateMask/UpdateMask";
 
 type TPropsFromBookmark = Partial<IBookmark>;
 
@@ -83,8 +84,6 @@ const BookmarkItem = ({
   const root = "BookmarkItem";
   const urlFilter = /https?\:\/\/(?:www\.)?/;
 
-  const dispatch = useDispatch();
-
   return (
     <article className={root} id={id}>
       <a className={root + "LinkWrapper"} href={url} target="_blank">
@@ -129,7 +128,6 @@ const BookmarkItem = ({
                     {...tag}
                     fKey={tag.key}
                     label={tag.value}
-                    href={null}
                     // TODO use UUID?
                     key={tag.id.substring(tag.id.length - 6)}
                   />
@@ -157,29 +155,14 @@ const BookmarkItem = ({
                   // and populate it w/ a form
                   onEditClick({
                     content: (
-                      <>
-                        <BookmarkForm
-                          submitLabel="update"
-                          valuesToUpdate={{
-                            url,
-                            tags: tags.map(tag => tag.value).toString(),
-                          }}
-                          onUpdateBookmark={(newUrl, newTags) =>
-                            dispatch(
-                              updateBookmark({
-                                newUrl,
-                                newTags,
-                                fKey,
-                                tagKeys,
-                              })
-                            )
-                          }
-                        />
-
-                        {tags.map(tag => (
-                          <PillButton label={tag.value} />
-                        ))}
-                      </>
+                      <UpdateMask
+                        {...{
+                          url,
+                          fKey,
+                          tags,
+                          tagKeys,
+                        }}
+                      />
                     ),
                   })
                 }
