@@ -13,7 +13,7 @@ import {
 import { db } from "../index";
 import { IInitialState } from "../types/initial-state";
 import { TTagBundle } from "../types/bookman";
-import { TBookmarkInDB, TTagInDB } from "../types/database";
+import { TBookmarkInDB, TTagInDB } from "../types/bookman";
 
 function* createBookmarkSaga(action) {
   const { payload: bookmark } = action;
