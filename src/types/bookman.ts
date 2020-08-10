@@ -29,6 +29,7 @@ export interface IBookmark extends IEnrichedContentMeta {
 }
 
 export interface ITag extends IEnrichedContentMeta {
+  bookmarks: {};
   value: string;
 }
 
@@ -41,6 +42,39 @@ export type TTagBundle = ITag[];
 export type TFetchUserBookmarksResponse = "";
 
 export type TFetchUserTagsResponse = "";
+
+export type TBookmarkInDB = {
+  [k in TEntityKey]: TFirebaseRelationship | null;
+} &
+  IBookmark;
+
+export type TTagInDB = {
+  [k in TEntityKey]: TFirebaseRelationship | null;
+} &
+  ITag;
+
+export type TEntityKey = "bookmarks" | "tags" | "users";
+
+export type TFirebaseRelationship = { [k: string]: boolean };
+
+export type TFirebaseKey = string;
+
+export type TFirebaseUID = string;
+
+export interface IUserInDB {}
+
+/**
+ - User
+  <-> Bookmark
+  <-> Tag
+  -> Setting
+- Bookmark
+  <-> Tag
+- Tag
+  <-> Bookmark
+- Setting
+  <- User
+ */
 
 /**
 
