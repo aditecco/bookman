@@ -13,6 +13,7 @@ import {
 import { db } from "../index";
 import { log } from "../utils";
 import { IInitialState } from "../types/initial-state";
+import { ITag } from "../types/bookman";
 
 /**
  * updateBookmarkSaga
@@ -21,7 +22,9 @@ import { IInitialState } from "../types/initial-state";
 function* updateBookmarkSaga(action) {
   log(action);
 
-  const { payload: updatedBookmark } = action;
+  const {
+    payload: { removedTags, ...updatedBookmark },
+  } = action;
   const { _key: bookmarkKey, url: newUrl } = updatedBookmark;
 
   const authSelector = (state: IInitialState) => state.authentication;
@@ -51,15 +54,28 @@ function* updateBookmarkSaga(action) {
   try {
     const context = db.ref();
 
-    const removedTags: string[] = updatedBookmark.tagKeys.filter(
-      k => !updatedBookmark.tags.map(tag => tag._key).includes(k)
-    );
+    // find out if the tags are not referenced in other bookmarks
+    const leaves = removedTags
+      .filter((tag: ITag) => Object.keys(tag.bookmarks).length === 1)
+      .map(leaf => leaf._key);
 
     const tagsToUpdate =
       removedTags.length &&
-      removedTags.reduce((acc, k) => {
-        acc[`/tags/${k}/bookmarks/${bookmarkKey}`] = null;
-        // acc[`/users/${uid}/tags/${key}`] = null;
+      removedTags.reduce((acc, tag) => {
+        // tag was used only in that bookmark
+        if (leaves.length && leaves.includes(tag._key)) {
+          // remove from `/tags`
+          acc[`/tags/${tag._key}`] = null;
+
+          // remove from `/users/{uid}/tags`
+          acc[`/users/${uid}/tags/${tag._key}`] = null;
+        }
+
+        // tag was NOT used only in that bookmark
+        else {
+          // remove bookmark from the tag's refs
+          acc[`/tags/${tag._key}/bookmarks/${bookmarkKey}`] = null;
+        }
 
         return acc;
       }, {});
@@ -67,12 +83,14 @@ function* updateBookmarkSaga(action) {
     log({
       [`/bookmarks/${bookmarkKey}`]: {
         ...updatedBookmark,
+        // remove from bookmark refs
         tags: updatedBookmark.tags.reduce((acc, tag) => {
           acc[tag._key] = true;
 
           return acc;
         }, {}),
-        tagKeys: updatedBookmark.tags.map(tag => tag._key),
+        // remove from tag keys
+        // tagKeys: updatedBookmark.tags.map(tag => tag._key),
       },
       ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
     });

@@ -14,8 +14,9 @@ type TOwnProps = IBookmark;
 
 export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
-  const initialState = { ...props }; // initial state is an IBookmark
   const { _key, id, timestamp, createdBy, url, tags, tagKeys } = props;
+
+  const initialState = { ...props, removedTags: [] };
 
   const [state, setState] = useReducer(
     (state: IBookmark, newState) => ({ ...state, ...newState }),
@@ -44,6 +45,8 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                 onClick={() =>
                   setState({
                     tags: state.tags.filter(t => t._key !== tag._key),
+                    tagKeys: state.tagKeys.filter(k => k !== tag._key),
+                    removedTags: [...state.removedTags, tag],
                   })
                 }
               />
