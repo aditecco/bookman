@@ -25,12 +25,6 @@ function* createBookmarkSaga(action) {
     user: { uid },
   } = yield select(authSelector);
 
-  yield put(createBookmarkPending());
-
-  const tagsRef = db.ref(`/tags`).orderByChild("createdBy").equalTo(uid);
-  const tagsSnap = yield tagsRef.once("value");
-  const tagValues = tagsSnap.val();
-
   /**
    * detectPreexistingTags
    */
@@ -44,6 +38,8 @@ function* createBookmarkSaga(action) {
     );
   }
 
+  yield put(createBookmarkPending());
+
   try {
     const context = db.ref();
     const newBookmarkRef = db.ref("/bookmarks").push().key;
@@ -53,44 +49,57 @@ function* createBookmarkSaga(action) {
       throw new Error("Missing FireBase key!");
     }
 
-    // we build the update payload for the tags part…
-    const tagUpdates = (bookmark.tags as TTagBundle).reduce((acc, tag) => {
-      const preExistingTag = detectPreexistingTags(tagValues, tag);
+    let tagUpdates = {};
 
-      // if the tag already exists in DB,
-      // based on value
-      if (preExistingTag) {
-        tagRefs.push(preExistingTag._key);
+    /**
+     * process this part only if tags are present
+     */
 
-        // we write a new ref for this bookmark
-        // into the existing tag's 'bookmarks'
-        acc[`/tags/${preExistingTag._key}/bookmarks`] = {
-          ...preExistingTag.bookmarks,
-          [newBookmarkRef]: true,
-        };
-      }
+    if (bookmark.tags.length) {
+      log("tags!!");
+      const tagsRef = db.ref(`/tags`).orderByChild("createdBy").equalTo(uid);
+      const tagsSnap = yield tagsRef.once("value");
+      const tagValues = tagsSnap.val();
 
-      // if, instead, it's a new tag
-      else {
-        const newTagRef = db.ref("/tags").push().key;
+      // we build the update payload for the tags part…
+      tagUpdates = (bookmark.tags as TTagBundle).reduce((acc, tag) => {
+        const preExistingTag = detectPreexistingTags(tagValues, tag);
 
-        if (!newTagRef) {
-          throw new Error("Missing FireBase key!");
+        // if the tag already exists in DB,
+        // based on value
+        if (preExistingTag) {
+          tagRefs.push(preExistingTag._key);
+
+          // we write a new ref for this bookmark
+          // into the existing tag's 'bookmarks'
+          acc[`/tags/${preExistingTag._key}/bookmarks`] = {
+            ...preExistingTag.bookmarks,
+            [newBookmarkRef]: true,
+          };
         }
 
-        tagRefs.push(newTagRef);
+        // if, instead, it's a new tag
+        else {
+          const newTagRef = db.ref("/tags").push().key;
 
-        acc[`/users/${uid}/tags/${newTagRef}`] = true;
-        acc[`/tags/${newTagRef}`] = {
-          ...tag,
-          _key: newTagRef,
-          bookmarks: { [newBookmarkRef]: true },
-          createdBy: uid,
-        } as TTagInDB;
-      }
+          if (!newTagRef) {
+            throw new Error("Missing FireBase key!");
+          }
 
-      return acc;
-    }, {});
+          tagRefs.push(newTagRef);
+
+          acc[`/users/${uid}/tags/${newTagRef}`] = true;
+          acc[`/tags/${newTagRef}`] = {
+            ...tag,
+            _key: newTagRef,
+            bookmarks: { [newBookmarkRef]: true },
+            createdBy: uid,
+          } as TTagInDB;
+        }
+
+        return acc;
+      }, {});
+    }
 
     // …then for the bookmark part
     const bookmarkUpdates = {
@@ -112,8 +121,6 @@ function* createBookmarkSaga(action) {
       } as TBookmarkInDB,
     };
 
-    log(tagUpdates, bookmarkUpdates);
-    return;
     // we create the bookmark remotely
     yield call(
       {
