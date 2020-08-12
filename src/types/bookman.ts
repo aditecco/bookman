@@ -22,12 +22,14 @@ export interface IEnrichedContentMeta extends IContentMeta {
   createdBy: string;
 }
 
+// TODO decide which one to keep: this one or the DB version!
 export interface IBookmark extends IEnrichedContentMeta {
   url: string;
   tags?: ITag[];
   tagKeys?: string[];
 }
 
+// TODO decide which one to keep: this one or the DB version!
 export interface ITag extends IEnrichedContentMeta {
   bookmarks: {};
   value: string;
@@ -52,6 +54,8 @@ export type TTagInDB = {
   [k in TEntityKey]: TFirebaseRelationship | null;
 } &
   ITag;
+
+export type TTagsInDB = Record<TFirebaseKey, TTagInDB>;
 
 export type TEntityKey = "bookmarks" | "tags" | "users";
 

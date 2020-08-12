@@ -12,7 +12,7 @@ import {
 } from "../redux/actions";
 import { db } from "../index";
 import { IInitialState } from "../types/initial-state";
-import { TTagBundle, ITag } from "../types/bookman";
+import { TTagBundle, ITag, TTagsInDB } from "../types/bookman";
 import { TBookmarkInDB, TTagInDB } from "../types/bookman";
 import { log } from "../utils";
 
@@ -28,14 +28,19 @@ function* createBookmarkSaga(action) {
   yield put(createBookmarkPending());
 
   const tagsRef = db.ref(`/tags`).orderByChild("createdBy").equalTo(uid);
-  const tagSnap = yield tagsRef.once("value");
-  const tagValues = tagSnap.val();
+  const tagsSnap = yield tagsRef.once("value");
+  const tagValues = tagsSnap.val();
 
-  function detectPreexistingTags(existingTags, candidateTag) {
+  /**
+   * detectPreexistingTags
+   */
+
+  function detectPreexistingTags(
+    existingTags: TTagsInDB,
+    candidateTag: ITag
+  ): TTagInDB | undefined {
     return Object.values(existingTags).find(
-      tag =>
-        // @ts-ignore
-        tag.value === candidateTag.value
+      tag => tag.value === candidateTag.value
     );
   }
 
@@ -50,22 +55,22 @@ function* createBookmarkSaga(action) {
 
     // we build the update payload for the tags part…
     const tagUpdates = (bookmark.tags as TTagBundle).reduce((acc, tag) => {
-      // @ts-ignore
       const preExistingTag = detectPreexistingTags(tagValues, tag);
 
-      //
+      // if the tag already exists in DB,
+      // based on value
       if (preExistingTag) {
-        // @ts-ignore
         tagRefs.push(preExistingTag._key);
-        // @ts-ignore
+
+        // we write a new ref for this bookmark
+        // into the existing tag's 'bookmarks'
         acc[`/tags/${preExistingTag._key}/bookmarks`] = {
-          // @ts-ignore
           ...preExistingTag.bookmarks,
           [newBookmarkRef]: true,
         };
       }
 
-      //
+      // if, instead, it's a new tag
       else {
         const newTagRef = db.ref("/tags").push().key;
 
