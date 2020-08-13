@@ -56,7 +56,6 @@ function* createBookmarkSaga(action) {
      */
 
     if (bookmark.tags.length) {
-      log("tags!!");
       const tagsRef = db.ref(`/tags`).orderByChild("createdBy").equalTo(uid);
       const tagsSnap = yield tagsRef.once("value");
       const tagValues = tagsSnap.val();

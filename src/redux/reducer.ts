@@ -188,9 +188,26 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   [syncTags](state, action) {
     const { payload: _tags } = action;
 
+    function removeDupes(tags) {
+      const clone = [...tags];
+      const marked = tags.findIndex((tag, i) =>
+        clone
+          .slice(0, i)
+          .concat(clone.slice(i + 1))
+          .map(t => t.value)
+          .includes(tag.value)
+      );
+
+      if (marked > -1) {
+        tags.splice(marked, 1);
+      }
+
+      return tags;
+    }
+
     return {
       ...state,
-      tags: [..._tags, ...state.tags],
+      tags: removeDupes([..._tags, ...state.tags]),
     };
   },
 

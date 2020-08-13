@@ -140,7 +140,8 @@ function Home({
     const tagsRef = db
       .ref(`/tags`)
       .orderByChild("createdBy")
-      .equalTo(authentication.user.uid);
+      .equalTo(authentication.user.uid)
+      .limitToLast(50);
 
     // const userTagsRef = db.ref(`/users/${authentication.user.uid}/tags`);
 
