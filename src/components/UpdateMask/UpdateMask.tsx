@@ -19,57 +19,65 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
   const initialState = { ...props, removedTags: [] };
 
   const [state, setState] = useReducer(
-    (state: IBookmark, newState) => ({ ...state, ...newState }),
+    (state, newState) => ({ ...state, ...newState }),
     initialState
   );
 
   return (
     <div className="UpdateMask">
-      <InputField
-        className="BaseInput"
-        value={url}
-        onChange={e =>
-          setState({
-            url: e.target.value,
-          })
-        }
-      />
+      <header className="UpdateMaskHeader">
+        <h4>Update bookmark</h4>
+      </header>
 
-      {tags && (
-        <div className="tagContainer">
-          {tags.map((tag, i) => (
-            <span key={i}>
-              <PillButton
-                {...tag}
-                label={tag.value}
-                onClick={() =>
-                  setState({
-                    tags: state.tags.filter(t => t._key !== tag._key),
-                    tagKeys: state.tagKeys.filter(k => k !== tag._key),
-                    removedTags: [...state.removedTags, tag],
-                  })
-                }
-              />
-            </span>
-          ))}
-        </div>
-      )}
+      <div className="UpdateMaskBody">
+        <InputField
+          className="BaseInput"
+          value={url}
+          onChange={e =>
+            setState({
+              url: e.target.value,
+            })
+          }
+        />
 
-      <BaseButton
-        className="button--outline"
-        label="Cancel"
-        onClick={() => {
-          setState(initialState);
-          dispatch(toggleModal());
-        }}
-      />
+        {tags && (
+          <div className="tagContainer">
+            {tags.map((tag, i) => (
+              <span key={i}>
+                <PillButton
+                  {...tag}
+                  label={tag.value}
+                  onClick={() =>
+                    setState({
+                      tags: state.tags.filter(t => t._key !== tag._key),
+                      tagKeys: state.tagKeys.filter(k => k !== tag._key),
+                      removedTags: [...state.removedTags, tag],
+                    })
+                  }
+                />
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
 
-      <BaseButton
-        label="Update"
-        onClick={() =>
-          dispatch(updateBookmark({ ...state, updatedAt: Date.now() }))
-        }
-      />
+      <div className="UpdateMaskControls">
+        <BaseButton
+          className="button--outline"
+          label="Cancel"
+          onClick={() => {
+            setState(initialState);
+            dispatch(toggleModal());
+          }}
+        />
+
+        <BaseButton
+          label="Update"
+          onClick={() =>
+            dispatch(updateBookmark({ ...state, updatedAt: Date.now() }))
+          }
+        />
+      </div>
     </div>
   );
 }

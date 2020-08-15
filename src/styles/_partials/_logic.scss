@@ -121,6 +121,12 @@ functions & mixins
   border-radius: 100%;
 }
 
+@mixin uiFoundation() {
+  background-color: white;
+  box-shadow: $lightShadow;
+  border-radius: $radius;
+}
+
 /* ---------------------------------
 other
 --------------------------------- */
