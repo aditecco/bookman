@@ -13,6 +13,7 @@ interface IOwnProps {
   filterHandler;
   filterResetHandler;
   filterKey;
+  sortFn?: (arg0, arg1) => number;
   tags: ITag[];
 }
 
@@ -21,6 +22,7 @@ export default function Sidebar({
   filterHandler,
   filterResetHandler,
   filterKey,
+  sortFn = (a, b) => a.value < b.value && -1,
   tags,
 }: IOwnProps): ReactElement {
   return (
@@ -41,7 +43,7 @@ export default function Sidebar({
 
         <ul className="tagList">
           {!filterKey
-            ? tags.map((tag, i) => {
+            ? [...tags].sort(sortFn).map((tag, i) => {
                 return (
                   <li key={i}>
                     <TagItem
