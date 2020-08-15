@@ -26,7 +26,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
-import { IBookmark, ITag } from "../../types/bookman";
+import { IBookmark, ITag, TBookmarkInDB } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { IAuthState } from "../../types/initial-state";
 import ContentGrid from "../../components/ContentGrid/ContentGrid";
@@ -150,16 +150,17 @@ function Home({
     // https://firebase.google.com/docs/database/web/read-and-write
 
     bookmarksRef.on("child_added", async snap => {
-      const bookmark = snap.val();
+      const bookmark: TBookmarkInDB = snap.val();
       const _tags = [];
+      const { tags, tagKeys } = bookmark;
 
+      // enrich bookmarks w/ tag values
+      // extracted from the DB.
       // Firebase will ignore empty arrays,
       // so we'll get only tags with a length
-      if (bookmark.tags) {
-        // we get the Firebase keys for the tags
-        const tagKeys = Object.keys(bookmark.tags);
-        const tags = await tagsRef.once("value");
-        const tagValues = tags.val();
+      if (tags && tagKeys) {
+        const tagsSnap = await tagsRef.once("value");
+        const tagValues = tagsSnap.val();
 
         tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k]));
       }
@@ -168,11 +169,9 @@ function Home({
         ...bookmark,
         ...(_tags.length ? { tags: _tags } : {}),
       });
-
-      _tags.length && syncTags(_tags);
     });
 
-    // tagsRef.on("child_added", snap => syncTags(snap.val().value));
+    tagsRef.on("child_added", snap => syncTags(snap.val()));
 
     bookmarksRef.on("child_removed", async snap => {
       log("removed!");
