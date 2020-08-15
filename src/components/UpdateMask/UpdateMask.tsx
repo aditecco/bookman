@@ -47,8 +47,14 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                 <PillButton
                   {...tag}
                   label={tag.value}
+                  eventClass={
+                    state.removedTags.find(t => t._key === tag._key)
+                      ? "PillButton--clicked"
+                      : ""
+                  }
                   onClick={() =>
                     setState({
+                      // TODO prevent multiple submissions
                       tags: state.tags.filter(t => t._key !== tag._key),
                       tagKeys: state.tagKeys.filter(k => k !== tag._key),
                       removedTags: [...state.removedTags, tag],

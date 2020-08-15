@@ -16,4 +16,9 @@
   color: $flat-blue-1;
   cursor: pointer;
   // @media (max-width: 768px) { margin-bottom: $margin / 2; }
+
+  &--clicked {
+    border-color: $flat-blue-4;
+    color: $flat-blue-4;
+  }
 }

@@ -23,11 +23,12 @@ UpdateMask
   &Body {
     .tagContainer {
       padding: 10px 0 16px;
+      overflow-x: auto;
 
-      @include flex(row wrap);
+      @include flex(row wrap, flex-start);
 
-      > *:not(:first-child) {
-        margin-left: 10px;
+      > *:not(:last-child) {
+        margin-right: 10px;
       }
     }
   }

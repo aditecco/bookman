@@ -13,11 +13,17 @@ interface IOwnProps extends TPropsFromTag {
   label: string;
   href?: string;
   onClick?: ReactEventHandler;
+  eventClass?: string;
 }
 
-function PillButton({ label, href, onClick }: IOwnProps): ReactElement {
+function PillButton({
+  label,
+  href,
+  onClick,
+  eventClass,
+}: IOwnProps): ReactElement {
   return (
-    <a className={root} href={href} onClick={onClick}>
+    <a className={`${root} ${eventClass || ""}`} href={href} onClick={onClick}>
       {label}
     </a>
   );
