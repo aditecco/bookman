@@ -27,7 +27,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
   return (
     <div className="UpdateMask">
       <header className="UpdateMaskHeader">
-        <h4>Update bookmark</h4>
+        <h4>Edit bookmark</h4>
       </header>
 
       <div className="UpdateMaskBody">
@@ -71,9 +71,11 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                         });
                   }}
                 >
-                  {!state.removedTags[tag._key] && (
-                    <MaterialIcon icon="close" />
-                  )}
+                  <MaterialIcon
+                    icon={
+                      !state.removedTags[tag._key] ? "clear" : "fast_rewind"
+                    }
+                  />
                 </PillButton>
               </span>
             ))}
