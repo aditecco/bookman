@@ -20,6 +20,7 @@ type TPropsFromBookmark = Partial<IBookmark>;
 interface IOwnProps extends TPropsFromBookmark {
   onEditClick;
   onDeleteClick;
+  descriptions?: boolean;
 }
 
 const BookmarkItem = ({
@@ -32,6 +33,7 @@ const BookmarkItem = ({
   tagKeys,
   onEditClick,
   onDeleteClick,
+  descriptions,
 }: IOwnProps): ReactElement => {
   /* ---------------------------------
   temporary, quick & dirty solution
@@ -92,12 +94,31 @@ const BookmarkItem = ({
           </h4>
         </header>
 
-        <span className={root + "Content"}>{url.replace(urlFilter, "")}</span>
+        {/******************
+          URL
+        ******************/}
+
+        {descriptions ? (
+          <span className={root + "Content"}>
+            {url
+              .replace(urlFilter, "")
+              .split("/")
+              .pop()
+              .split("-")
+              .map(w => w.charAt(0).toUpperCase() + w.substring(1))
+              .join(" ")}
+          </span>
+        ) : (
+          <span className={root + "Content"}>{url.replace(urlFilter, "")}</span>
+        )}
       </a>
 
       <section className={root + "Body"}>
         {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
+        {/******************
+          TAGS
+        ******************/}
         {tags && (
           <>
             {

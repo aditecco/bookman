@@ -2,7 +2,7 @@
 ContentGrid
 --------------------------------- */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import BookmarkItem from "../BookmarkItem/BookmarkItem";
 import { IBookmark } from "../../types/bookman";
 
@@ -23,11 +23,14 @@ export default function ContentGrid({
   filterKey,
   searchResults,
 }: IOwnProps): ReactElement {
+  const [descriptions, toggleDescriptions] = useState(false);
+
   function bookmarkItemRenderer(bookmark: IBookmark, i: number) {
     return (
       <li className="BookmarkItemContainer" key={i}>
         <BookmarkItem
           {...bookmark}
+          descriptions={descriptions}
           onDeleteClick={destructiveActionHandler}
           onEditClick={editBookmarkHandler}
         />
@@ -36,15 +39,25 @@ export default function ContentGrid({
   }
 
   return (
-    <section className="bookmarkSection">
+    <section className="ContentGrid">
       <div className="bookmarkContainer">
-        <h4 className="bookmarkSectionHeading">
-          {filterKey
-            ? filteredBookmarks.length > 1
-              ? `Showing ${filteredBookmarks.length} bookmarks with tag '${filterKey}'`
-              : `Showing ${filteredBookmarks.length} bookmark with tag '${filterKey}'`
-            : `Bookmarks - ${bookmarks.length}`}
-        </h4>
+        <header className="bookmarkSectionHeader">
+          <h4 className="bookmarkSectionHeading">
+            {filterKey
+              ? filteredBookmarks.length > 1
+                ? `Showing ${filteredBookmarks.length} bookmarks with tag '${filterKey}'`
+                : `Showing ${filteredBookmarks.length} bookmark with tag '${filterKey}'`
+              : `Bookmarks - ${bookmarks.length}`}
+          </h4>
+
+          <button
+            type="button"
+            className="toggleButton"
+            onClick={() => toggleDescriptions(toggle => !toggle)}
+          >
+            Toggle descriptions
+          </button>
+        </header>
 
         {bookmarks.length ? (
           <ol className="bookmarkList">

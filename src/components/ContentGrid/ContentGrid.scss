@@ -1,0 +1,70 @@
+/* ---------------------------------
+.ContentGrid
+--------------------------------- */
+
+.ContentGrid {
+  .bookmarkSectionHeader {
+    @include flex(row wrap, space-between);
+
+    .toggleButton {
+      @extend %resetButtons;
+      @include smallHeading();
+
+      cursor: pointer;
+
+      &:hover {
+        color: $hover;
+      }
+    }
+  }
+
+  .bookmarkContainer {
+    .bookmarkSectionHeading {
+      @include smallHeading;
+      margin-bottom: $margin;
+      // font-family: $titleFont;
+      // font-weight: 700;
+      // font-size: $small;
+      // color: $flat-gray-4;
+      // text-transform: uppercase;
+    }
+
+    .bookmarkList {
+      @include box(0, 0, true);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      grid-gap: 20px;
+
+      @media screen and (max-width: $SM) {
+        grid-template-columns: initial;
+        justify-content: center;
+      }
+
+      // >li:not(.blankSlateMessage) {
+      //   transition-property: all;
+      //   transition-duration: 300ms;
+      //   transition-delay: 300ms;
+      //   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      //   // transition-timing-function: ease;
+      //   visibility: hidden;
+      //   opacity: 0;
+      //   transform: translateY(-500%);
+      //   &.visible {
+      //     transform: translateY(0);
+      //     visibility: visible;
+      //     opacity: 1;
+      //   }
+      // }
+
+      .blankSlateMessage {
+      }
+
+      .BookmarkItemContainer {
+        transition: transform 0.3s ease;
+        &:hover {
+          transform: scale(1.01) translateY(-10px);
+        }
+      }
+    }
+  }
+}

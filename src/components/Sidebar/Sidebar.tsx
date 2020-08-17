@@ -26,7 +26,7 @@ export default function Sidebar({
   tags,
 }: IOwnProps): ReactElement {
   return (
-    <section className="tagSection">
+    <section className="Sidebar">
       <aside className="tagListContainer">
         {!filterKey ? (
           <h4 className="tagSectionHeading">
