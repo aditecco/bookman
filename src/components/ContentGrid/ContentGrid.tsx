@@ -3,7 +3,7 @@ ContentGrid
 --------------------------------- */
 
 import React, { ReactElement, useState } from "react";
-import BookmarkItem from "../BookmarkItem/BookmarkItem";
+import BookmarkCard from "../BookmarkCard/BookmarkCard";
 import { IBookmark } from "../../types/bookman";
 
 interface IOwnProps {
@@ -25,10 +25,10 @@ export default function ContentGrid({
 }: IOwnProps): ReactElement {
   const [descriptions, toggleDescriptions] = useState(true);
 
-  function bookmarkItemRenderer(bookmark: IBookmark, i: number) {
+  function bookmarkCardRenderer(bookmark: IBookmark, i: number) {
     return (
-      <li className="BookmarkItemContainer" key={i}>
-        <BookmarkItem
+      <li className="BookmarkCardContainer" key={i}>
+        <BookmarkCard
           {...bookmark}
           descriptions={descriptions}
           onDeleteClick={destructiveActionHandler}
@@ -63,9 +63,9 @@ export default function ContentGrid({
           <ol className="bookmarkList">
             {!filterKey
               ? !searchResults
-                ? bookmarks.map(bookmarkItemRenderer)
-                : searchResults.map(bookmarkItemRenderer)
-              : filteredBookmarks.map(bookmarkItemRenderer)}
+                ? bookmarks.map(bookmarkCardRenderer)
+                : searchResults.map(bookmarkCardRenderer)
+              : filteredBookmarks.map(bookmarkCardRenderer)}
           </ol>
         ) : (
           <p className="blankSlateMessage">No bookmarks! Create one.</p>

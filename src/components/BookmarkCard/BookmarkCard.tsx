@@ -1,5 +1,5 @@
 /******************
-  BookmarkItem
+  BookmarkCard
 *******************/
 
 // deps
@@ -24,7 +24,7 @@ interface IOwnProps extends TPropsFromBookmark {
   descriptions?: boolean;
 }
 
-const BookmarkItem = ({
+const BookmarkCard = ({
   id,
   timestamp,
   _key,
@@ -83,7 +83,7 @@ const BookmarkItem = ({
     // console.log(translateLeft);
   };
 
-  const root = "BookmarkItem";
+  const root = "BookmarkCard";
 
   return (
     <article className={root} id={id}>
@@ -201,4 +201,4 @@ const BookmarkItem = ({
   );
 };
 
-export default BookmarkItem;
+export default BookmarkCard;

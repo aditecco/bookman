@@ -1,9 +1,9 @@
 /* ---------------------------------
-.BookmarkItem
+.BookmarkCard
 --------------------------------- */
 
-.BookmarkItem {
-  $root: ".BookmarkItem";
+.BookmarkCard {
+  $root: ".BookmarkCard";
   border-radius: 6px;
   box-shadow: $shadow;
   margin-bottom: $margin;
@@ -62,7 +62,7 @@
       background: linear-gradient(to right, $transparent, rgba(white, 0.9) 15%);
       z-index: 1;
 
-      &.BookmarkItemTagContainerCurtain--left {
+      &.BookmarkCardTagContainerCurtain--left {
         right: auto;
         left: 0;
         background: linear-gradient(
