@@ -5,7 +5,6 @@
 .PillButton {
   @extend %resetAnchors;
   display: inline-block;
-  min-width: 99px;
   padding: 4px 8px;
   border: $border;
   border-radius: $radius;
@@ -14,6 +13,7 @@
   font-size: $small;
   text-align: center;
   color: $flat-blue-1;
+  white-space: nowrap;
   cursor: pointer;
 
   &:hover {
