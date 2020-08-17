@@ -21,8 +21,7 @@
   transition: all 500ms ease;
 
   &:hover {
-    background-color: mix($accent, black, 70%);
-    // box-shadow: 0 2px 20px rgba(black, .25);
+    background-color: $hover;
   }
 
   &.button--naked {
@@ -34,6 +33,10 @@
   &.button--outline {
     @extend .button--naked;
     border: 2px solid $accent;
-    // …hover
+
+    &:hover {
+      border: 2px solid $hover;
+      color: $hover;
+    }
   }
 }

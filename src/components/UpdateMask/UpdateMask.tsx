@@ -9,6 +9,7 @@ import { IBookmark } from "../../types/bookman";
 import BaseButton from "../BaseButton/BaseButton";
 import InputField from "../InputField/InputField";
 import PillButton from "../PillButton/PillButton";
+import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 type TOwnProps = IBookmark;
 
@@ -16,7 +17,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
   const { _key, id, timestamp, createdBy, url, tags, tagKeys } = props;
 
-  const initialState = { ...props, removedTags: [] };
+  const initialState = { ...props, removedTags: {} };
 
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -48,19 +49,32 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                   {...tag}
                   label={tag.value}
                   eventClass={
-                    state.removedTags.find(t => t._key === tag._key)
-                      ? "PillButton--clicked"
-                      : ""
+                    state.removedTags[tag._key] ? "PillButton--marked" : ""
                   }
-                  onClick={() =>
-                    setState({
-                      // TODO prevent multiple submissions
-                      tags: state.tags.filter(t => t._key !== tag._key),
-                      tagKeys: state.tagKeys.filter(k => k !== tag._key),
-                      removedTags: [...state.removedTags, tag],
-                    })
-                  }
-                />
+                  onClick={() => {
+                    state.removedTags[tag._key]
+                      ? setState({
+                          removedTags: {
+                            ...state.removedTags,
+                            [tag._key]: false,
+                          },
+                          tags: [...state.tags, tag],
+                          tagKeys: [...state.tagKeys, tag._key],
+                        })
+                      : setState({
+                          removedTags: {
+                            ...state.removedTags,
+                            [tag._key]: true,
+                          },
+                          tags: state.tags.filter(t => t._key !== tag._key),
+                          tagKeys: state.tagKeys.filter(k => k !== tag._key),
+                        });
+                  }}
+                >
+                  {!state.removedTags[tag._key] && (
+                    <MaterialIcon icon="close" />
+                  )}
+                </PillButton>
               </span>
             ))}
           </div>

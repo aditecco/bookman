@@ -2,7 +2,13 @@
 PillButton
 --------------------------------- */
 
-import React, { ReactElement, ReactEventHandler } from "react";
+import React, {
+  ReactElement,
+  ReactEventHandler,
+  Children,
+  ReactChildren,
+  ReactNode,
+} from "react";
 import { ITag } from "../../types/bookman";
 const root = "PillButton";
 
@@ -14,6 +20,7 @@ interface IOwnProps extends TPropsFromTag {
   href?: string;
   onClick?: ReactEventHandler;
   eventClass?: string;
+  children?: ReactNode;
 }
 
 function PillButton({
@@ -21,10 +28,12 @@ function PillButton({
   href,
   onClick,
   eventClass,
+  children,
 }: IOwnProps): ReactElement {
   return (
     <a className={`${root} ${eventClass || ""}`} href={href} onClick={onClick}>
       {label}
+      {children}
     </a>
   );
 }
