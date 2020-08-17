@@ -22,7 +22,8 @@ Header
         cursor: pointer;
       }
 
-      #{$root}Logo {
+      #{$root}LogoType {
+        display: inline-block;
         font-family: $workSans;
         font-weight: 500;
         font-size: $body + 1;
@@ -33,13 +34,17 @@ Header
         border-bottom: 2px solid $accent;
         margin: 0;
       }
+
+      #{$root}Logo {
+        margin: 0 4px 4px 0;
+        vertical-align: middle;
+      }
     }
 
     #{$root}MainNav {
       @include flex(row nowrap, space-between, center);
-      flex-basis: 70%;
+
       @media screen and (max-width: $SM) {
-        flex: 1;
       }
     }
   }

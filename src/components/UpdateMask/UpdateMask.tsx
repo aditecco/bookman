@@ -72,9 +72,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                   }}
                 >
                   <MaterialIcon
-                    icon={
-                      !state.removedTags[tag._key] ? "clear" : "fast_rewind"
-                    }
+                    icon={!state.removedTags[tag._key] ? "clear" : "undo"}
                   />
                 </PillButton>
               </span>

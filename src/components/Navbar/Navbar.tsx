@@ -14,10 +14,8 @@ function Navbar(props) {
     <header className={root}>
       <div className={`wrapper ${root}Wrapper`}>
         <div className={root + "LogoContainer"} onClick={props.onLogoClick}>
-          <h1 className={root + "Logo"}>
-            <MaterialIcon icon="link" />
-            BookMan
-          </h1>
+          <MaterialIcon icon="link" className={root + "Logo"} />
+          <h1 className={root + "LogoType"}>BookMan</h1>
         </div>
 
         <nav className={root + "MainNav"}>
