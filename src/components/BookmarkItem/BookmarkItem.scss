@@ -1,11 +1,9 @@
-
 /* ---------------------------------
 .BookmarkItem
 --------------------------------- */
 
 .BookmarkItem {
-  $root: '.BookmarkItem';
-  width: 300px;
+  $root: ".BookmarkItem";
   border-radius: 6px;
   box-shadow: $shadow;
   margin-bottom: $margin;
@@ -16,11 +14,12 @@
   }
 
   &LinkWrapper {
-    @include truncate(100%);
     display: block;
     padding: 30px $padding 30px;
     text-decoration: none;
-    background: rgba($flat-gray-1, .4);
+    background: rgba($flat-gray-1, 0.4);
+    line-height: 26px;
+    height: 160px;
     border: {
       top-left-radius: 6px;
       top-right-radius: 6px;
@@ -33,41 +32,44 @@
       }
     }
 
-    #{$root}Content {
+    #{$root}ContentUrl {
+      @include truncate(100%);
+      margin: 0;
       color: $flat-blue-1;
       font-size: $title;
+    }
+
+    #{$root}ContentDescription {
+      @extend #{$root}ContentUrl;
+      white-space: unset;
+      text-overflow: unset;
+      overflow: unset;
     }
   }
 
   #{$root}Body {
     position: relative;
     padding-right: 0;
-    &Heading { @include smallHeading }
+    &Heading {
+      @include smallHeading;
+    }
     #{$root}TagContainerCurtain {
       position: absolute;
       height: 100%;
       width: 40px;
       top: 0;
       right: 0;
-      background:
-        linear-gradient(
-          to right,
-          $transparent,
-          rgba(white, .9) 15%
-        )
-      ;
+      background: linear-gradient(to right, $transparent, rgba(white, 0.9) 15%);
       z-index: 1;
 
       &.BookmarkItemTagContainerCurtain--left {
         right: auto;
         left: 0;
-        background:
-          linear-gradient(
-            to left,
-            $transparent,
-            rgba(white, .9) 15%
-          )
-        ;
+        background: linear-gradient(
+          to left,
+          $transparent,
+          rgba(white, 0.9) 15%
+        );
       }
 
       a {
@@ -79,9 +81,11 @@
           color: $flat-gray-4;
           font-size: 32px;
           padding: 42% 0;
-          transition: transform .2s;
+          transition: transform 0.2s;
 
-          &:hover { transform: scale(1.33); }
+          &:hover {
+            transform: scale(1.33);
+          }
         }
       }
     }
@@ -89,15 +93,26 @@
       @include box(($padding / 2) 0, 0, true);
       @include flex(row nowrap, flex-start, center);
       overflow-x: hidden;
-      &::-webkit-scrollbar {}
-      &::-webkit-scrollbar-button {}
-      &::-webkit-scrollbar-track {}
-      &::-webkit-scrollbar-track-piece {}
-      &::-webkit-scrollbar-thumb {}
-      &::-webkit-scrollbar-corner {}
-      &::-webkit-resizer {}
-      > *:not(:last-child) { margin-right: $margin / 2; }
-      .PillButton { margin-bottom: 0; }
+      &::-webkit-scrollbar {
+      }
+      &::-webkit-scrollbar-button {
+      }
+      &::-webkit-scrollbar-track {
+      }
+      &::-webkit-scrollbar-track-piece {
+      }
+      &::-webkit-scrollbar-thumb {
+      }
+      &::-webkit-scrollbar-corner {
+      }
+      &::-webkit-resizer {
+      }
+      > *:not(:last-child) {
+        margin-right: $margin / 2;
+      }
+      .PillButton {
+        margin-bottom: 0;
+      }
     }
   }
   #{$root}Footer {
@@ -114,7 +129,9 @@
       }
     }
     #{$root}Controls {
-      &Heading { @include smallHeading }
+      &Heading {
+        @include smallHeading;
+      }
       &Container {
         @include box(0, 0, true);
         @include flex(row nowrap, space-evenly, center);
@@ -129,9 +146,13 @@
             color: $flat-gray-2;
             text-transform: uppercase;
             text-decoration: none;
-            &:hover { background-color: $flat-gray-1; }
+            &:hover {
+              background-color: $flat-gray-1;
+            }
           }
-          &__edit { margin-right: $margin / 2; }
+          &__edit {
+            margin-right: $margin / 2;
+          }
           &__delete {
             a:hover {
               border: 2px solid $error;

@@ -2,6 +2,9 @@
 Utils
 --------------------------------- */
 
+import { urlFilter } from "./constants";
+import { replace } from "lodash";
+
 // concise console.log
 export const log = window.console.log.bind(window.console);
 
@@ -114,6 +117,31 @@ export function clipText(t: string, maxLength: number = 15) {
   if (t.length < maxLength) return t;
 
   return t.substring(0, maxLength) + "…";
+}
+
+/**
+ * Creates bookmark descriptions out of URL slugs
+ */
+
+export function slugToDesc(url: string): string {
+  let desc: string;
+
+  if (url.charAt(url.length - 1) === "/") {
+    url = url.substr(0, url.length - 1);
+  }
+
+  desc = url
+    .replace(urlFilter, "")
+    .split("/")
+    .pop()
+    .split("-")
+    .map(w => w.charAt(0).toUpperCase() + w.substring(1))
+    .join(" ")
+    .replace(".html", "")
+    .replace("#", "")
+    .replace(/[\d]*/, "");
+
+  return desc || url;
 }
 
 /**

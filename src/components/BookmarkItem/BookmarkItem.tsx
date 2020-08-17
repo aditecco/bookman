@@ -10,10 +10,11 @@ import PillButton from "../PillButton/PillButton";
 import { IBookmark } from "../../types/bookman";
 import BookmarkForm from "../BookmarkForm/BookmarkForm";
 import InputField from "../InputField/InputField";
-import { log } from "../../utils";
+import { log, slugToDesc } from "../../utils";
 import { useDispatch } from "react-redux";
 import { updateBookmark } from "../../redux/actions";
 import UpdateMask from "../UpdateMask/UpdateMask";
+import { urlFilter } from "../../constants";
 
 type TPropsFromBookmark = Partial<IBookmark>;
 
@@ -83,7 +84,6 @@ const BookmarkItem = ({
   };
 
   const root = "BookmarkItem";
-  const urlFilter = /https?\:\/\/(?:www\.)?/;
 
   return (
     <article className={root} id={id}>
@@ -92,25 +92,19 @@ const BookmarkItem = ({
           <h4 className={root + "Heading"}>
             {url.replace(urlFilter, "").split("/").slice(0, 1)}
           </h4>
+
+          {/******************
+            URL
+          ******************/}
+
+          {descriptions ? (
+            <h3 className={root + "ContentDescription"}>{slugToDesc(url)}</h3>
+          ) : (
+            <h3 className={root + "ContentUrl"}>
+              {url.replace(urlFilter, "")}
+            </h3>
+          )}
         </header>
-
-        {/******************
-          URL
-        ******************/}
-
-        {descriptions ? (
-          <span className={root + "Content"}>
-            {url
-              .replace(urlFilter, "")
-              .split("/")
-              .pop()
-              .split("-")
-              .map(w => w.charAt(0).toUpperCase() + w.substring(1))
-              .join(" ")}
-          </span>
-        ) : (
-          <span className={root + "Content"}>{url.replace(urlFilter, "")}</span>
-        )}
       </a>
 
       <section className={root + "Body"}>

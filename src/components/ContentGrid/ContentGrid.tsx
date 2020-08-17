@@ -23,7 +23,7 @@ export default function ContentGrid({
   filterKey,
   searchResults,
 }: IOwnProps): ReactElement {
-  const [descriptions, toggleDescriptions] = useState(false);
+  const [descriptions, toggleDescriptions] = useState(true);
 
   function bookmarkItemRenderer(bookmark: IBookmark, i: number) {
     return (
@@ -55,7 +55,7 @@ export default function ContentGrid({
             className="toggleButton"
             onClick={() => toggleDescriptions(toggle => !toggle)}
           >
-            Toggle descriptions
+            &middot; {descriptions ? "Descriptions on" : "Descriptions off"}
           </button>
         </header>
 
