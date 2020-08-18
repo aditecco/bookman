@@ -1,5 +1,5 @@
 /* ---------------------------------
-AuthenticatedRoutes
+Routes
 --------------------------------- */
 
 import React from "react";
@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Modal from "./components/Modal/Modal";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
+import Profile from "./pages/Profile/Profile";
+import Settings from "./pages/Settings/Settings";
 
 export function BlankPage({ title, children }) {
   return (
@@ -18,7 +20,7 @@ export function BlankPage({ title, children }) {
   );
 }
 
-export default function AuthenticatedRoutes() {
+export default function Routes() {
   return (
     <Router>
       <NotificationMessage />
@@ -26,6 +28,10 @@ export default function AuthenticatedRoutes() {
 
       <Switch>
         <Route path={"/"} exact component={Home} />
+
+        <Route path={"/profile"} exact component={Profile} />
+
+        <Route path={"/settings"} exact component={Settings} />
 
         <Route
           render={({ location }) => (

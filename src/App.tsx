@@ -11,7 +11,7 @@ import { setAuthState, stopLoading } from "./redux/actions";
 import { useDispatch } from "react-redux";
 import { log } from "./utils";
 
-const AuthenticatedRoutes = React.lazy(() => import("./AuthenticatedRoutes"));
+const Routes = React.lazy(() => import("./Routes"));
 
 function App({ authentication: { authenticated }, loading }) {
   const dispatch = useDispatch();
@@ -41,8 +41,6 @@ function App({ authentication: { authenticated }, loading }) {
               user: { uid, displayName, email, lastLoginAt, createdAt },
             })
           );
-        } else {
-          log("@@@, no user is present", user);
         }
 
         dispatch(stopLoading());
@@ -62,7 +60,7 @@ function App({ authentication: { authenticated }, loading }) {
     <Spinner />
   ) : authenticated ? (
     <Suspense fallback={<Spinner />}>
-      <AuthenticatedRoutes />
+      <Routes />
     </Suspense>
   ) : (
     <Authentication />
