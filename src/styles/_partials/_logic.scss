@@ -10,11 +10,10 @@ resets & placeholders
   box-sizing: border-box;
 }
 
-%setBody {
+%setLayout {
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
-  font-size: 62.5%;
 }
 
 // % { flex-grow: 1; }
