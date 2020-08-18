@@ -17,6 +17,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();
   const { _key, id, timestamp, createdBy, url, tags, tagKeys } = props;
 
+  // ...props contains nearly all the properties of a bookmark
   const initialState = { ...props, removedTags: {} };
 
   const [state, setState] = useReducer(
@@ -56,7 +57,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                       ? setState({
                           removedTags: {
                             ...state.removedTags,
-                            [tag._key]: false,
+                            [tag._key]: null,
                           },
                           tags: [...state.tags, tag],
                           tagKeys: [...state.tagKeys, tag._key],
@@ -64,7 +65,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
                       : setState({
                           removedTags: {
                             ...state.removedTags,
-                            [tag._key]: true,
+                            [tag._key]: tag,
                           },
                           tags: state.tags.filter(t => t._key !== tag._key),
                           tagKeys: state.tagKeys.filter(k => k !== tag._key),

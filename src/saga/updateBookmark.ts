@@ -13,15 +13,13 @@ import {
 import { db } from "../index";
 import { log } from "../utils";
 import { IInitialState } from "../types/initial-state";
-import { ITag } from "../types/bookman";
+import { ITag, TFirebaseKey } from "../types/bookman";
 
 /**
  * updateBookmarkSaga
  */
 
 function* updateBookmarkSaga(action) {
-  log(action);
-
   const {
     payload: { removedTags, ...updatedBookmark },
   } = action;
@@ -54,14 +52,19 @@ function* updateBookmarkSaga(action) {
   try {
     const context = db.ref();
 
-    // find out if the tags are not referenced in other bookmarks
-    const leaves = removedTags
-      .filter((tag: ITag) => Object.keys(tag.bookmarks).length === 1)
-      .map(leaf => leaf._key);
+    const hasTags = Object.values(
+      removedTags as Record<TFirebaseKey, ITag>
+    ).filter((tag: ITag) => tag);
 
-    const tagsToUpdate =
-      removedTags.length &&
-      removedTags.reduce((acc, tag) => {
+    let tagsToUpdate;
+
+    if (hasTags.length) {
+      // find out if the tags are not referenced in other bookmarks
+      const leaves = hasTags
+        .filter((tag: ITag) => Object.keys(tag.bookmarks).length === 1)
+        .map(leaf => leaf._key);
+
+      tagsToUpdate = hasTags.reduce((acc, tag) => {
         // tag was used only in that bookmark
         if (leaves.length && leaves.includes(tag._key)) {
           // remove from `/tags`
@@ -79,23 +82,7 @@ function* updateBookmarkSaga(action) {
 
         return acc;
       }, {});
-
-    log({
-      [`/bookmarks/${bookmarkKey}`]: {
-        ...updatedBookmark,
-        // remove from bookmark refs
-        tags: updatedBookmark.tags.reduce((acc, tag) => {
-          acc[tag._key] = true;
-
-          return acc;
-        }, {}),
-        // remove from tag keys
-        // tagKeys: updatedBookmark.tags.map(tag => tag._key),
-      },
-      ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
-    });
-
-    return;
+    }
 
     yield call(
       {
@@ -103,7 +90,20 @@ function* updateBookmarkSaga(action) {
         fn: context.update,
       },
 
-      {}
+      {
+        [`/bookmarks/${bookmarkKey}`]: {
+          ...updatedBookmark,
+          // tags are already updated in UpdateMask,
+          // but we have to convert them back to references
+          tags: updatedBookmark.tags.reduce((acc, tag) => {
+            acc[tag._key] = true;
+
+            return acc;
+          }, {}),
+          // tagKeys arrive already processed from UpdateMask
+        },
+        ...(tagsToUpdate ? { ...tagsToUpdate } : {}),
+      }
     );
 
     yield put(updateBookmarkSuccess());
