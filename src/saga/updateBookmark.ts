@@ -9,6 +9,7 @@ import {
   updateBookmarkError,
   updateBookmarkSuccess,
   showNotif,
+  toggleModal,
 } from "../redux/actions";
 import { db } from "../index";
 import { log } from "../utils";
@@ -107,6 +108,8 @@ function* updateBookmarkSaga(action) {
     );
 
     yield put(updateBookmarkSuccess());
+
+    yield put(toggleModal());
 
     yield put(
       showNotif({

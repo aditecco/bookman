@@ -10,6 +10,7 @@ import BaseButton from "../BaseButton/BaseButton";
 import InputField from "../InputField/InputField";
 import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
+import InfoMessage from "../InfoMessage/InfoMessage";
 
 type TOwnProps = IBookmark;
 
@@ -32,6 +33,12 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
       </header>
 
       <div className="UpdateMaskBody">
+        <InfoMessage
+          icon="info_outline"
+          body="Write in the text field to edit the URL. Click on a tag to mark it for
+        deletion; click again to undo."
+        />
+
         <InputField
           className="BaseInput"
           value={url}

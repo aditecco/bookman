@@ -1,0 +1,25 @@
+/* ---------------------------------
+InfoMessage
+--------------------------------- */
+
+.InfoMessage {
+  &Content {
+    $iconSize: 20px;
+
+    display: flex;
+    align-items: center;
+    background-color: $paleYellow;
+    padding: 10px $iconSize;
+    border-radius: $radius;
+    font-size: 14px;
+    line-height: 22px;
+    color: $fontAlt;
+
+    i.material-icons {
+      margin-right: $iconSize;
+      font-size: $iconSize;
+      vertical-align: middle;
+      margin-top: -4px;
+    }
+  }
+}
