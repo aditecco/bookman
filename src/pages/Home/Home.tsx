@@ -83,14 +83,13 @@ function Home({
     }),
     {
       error: null,
-      loading: !dataTransfer.loadingBookmarks || !dataTransfer.loadingTags,
       searchQuery: "",
       filterKey: "",
       found: null,
     }
   );
 
-  const { error, filterKey, found, searchQuery, loading } = state;
+  const { error, filterKey, found, searchQuery } = state;
   const filteredTags = removeDuplicates(tags.map(tag => tag.value)).filter(
     val => val === filterKey
   );
@@ -207,7 +206,7 @@ function Home({
       log("removed!");
     });
 
-    // we turn off the observer
+    // we turn off the observers
     return () => {
       bookmarksRef.off();
       tagsRef.off();
@@ -243,7 +242,7 @@ function Home({
         <div className="wrapper error">
           <InfoMessage type={InfoMessageTypes.error} body={error.message} />
         </div>
-      ) : loading ? (
+      ) : dataTransfer.loadingBookmarks || dataTransfer.loadingTags ? (
         <Spinner />
       ) : (
         <main className="wrapper mainContentWrapper">
