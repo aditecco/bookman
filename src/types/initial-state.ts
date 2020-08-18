@@ -30,6 +30,11 @@ export interface IModalState {
   forceOpen: boolean;
 }
 
+export interface IDataTransferState {
+  loadingBookmarks: boolean;
+  loadingTags: boolean;
+}
+
 // TODO
 export interface IErrorState {}
 
@@ -38,6 +43,7 @@ export interface IInitialState {
   loading: boolean;
   error: null | IErrorState;
   authentication: IAuthState;
+  dataTransfer: IDataTransferState;
   bookmarks: IBookmark[];
   tags: string[];
   notificationMessage: INotificationMessageState;

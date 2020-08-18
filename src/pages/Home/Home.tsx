@@ -28,7 +28,7 @@ import { db } from "../../index";
 import SearchWidget from "../../components/SearchWidget/SearchWidget";
 import { IBookmark, ITag, TBookmarkInDB } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { IAuthState } from "../../types/initial-state";
+import { IAuthState, IDataTransferState } from "../../types/initial-state";
 import ContentGrid from "../../components/ContentGrid/ContentGrid";
 import InfoMessage, {
   InfoMessageTypes,
@@ -39,6 +39,7 @@ interface IGlobalStateProps {
   bookmarks: IBookmark[];
   tags: ITag[];
   authentication: IAuthState;
+  dataTransfer: IDataTransferState;
 }
 
 interface IOwnProps {}
@@ -72,6 +73,7 @@ function Home({
   signUpUser,
   tags,
   toggleModal,
+  dataTransfer,
 }: TProps) {
   //
   const [state, setState] = useReducer(
@@ -81,7 +83,7 @@ function Home({
     }),
     {
       error: null,
-      loading: false,
+      loading: !dataTransfer.loadingBookmarks || !dataTransfer.loadingTags,
       searchQuery: "",
       filterKey: "",
       found: null,
@@ -288,11 +290,13 @@ function mapStateToProps({
   bookmarks,
   tags,
   authentication,
+  dataTransfer,
 }: IGlobalStateProps) {
   return {
     bookmarks,
     tags,
     authentication,
+    dataTransfer,
   };
 }
 

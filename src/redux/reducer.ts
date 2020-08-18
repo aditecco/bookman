@@ -180,6 +180,10 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
 
     return {
       ...state,
+      dataTransfer: {
+        ...state.dataTransfer,
+        loadingBookmarks: false,
+      },
       bookmarks: [bookmark, ...state.bookmarks],
     };
   },
@@ -188,6 +192,10 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   [syncTags](state, action) {
     return {
       ...state,
+      dataTransfer: {
+        ...state.dataTransfer,
+        loadingTags: false,
+      },
       tags: [action.payload, ...state.tags],
     };
   },

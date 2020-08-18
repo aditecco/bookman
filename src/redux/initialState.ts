@@ -17,6 +17,10 @@ export default {
     authenticated: false,
     user: null,
   },
+  dataTransfer: {
+    loadingBookmarks: true,
+    loadingTags: true,
+  },
   bookmarks: [],
   tags: [],
   notificationMessage: {
