@@ -3,10 +3,11 @@ Layout
 --------------------------------- */
 
 .Layout {
-  // need to 'escape' the var!
-  height: calc(100vh - #{$headerHeight});
+  @extend %setLayout;
 
-  // > main {
-  //   height: 100%;
-  // }
+  [class$="Content"] {
+    flex-grow: 1;
+    margin-top: $navbarHeight;
+    padding: $padding;
+  }
 }

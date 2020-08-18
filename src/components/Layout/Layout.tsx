@@ -3,13 +3,15 @@ Layout
 --------------------------------- */
 
 import React, { ReactFragment, ReactElement } from "react";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 // import Navbar from "../Navbar/Navbar";
 // import AppHeader from "../AppHeader/AppHeader";
 // import AppFooter from "../AppFooter/AppFooter";
 
 interface OwnProps {
-  children: ReactElement | any; // TODO
-  rootClass: string;
+  children?: ReactElement | any; // TODO
+  root: string;
   selected?: number | undefined;
   hasNav?: boolean;
   hasHeader?: boolean;
@@ -18,28 +20,19 @@ interface OwnProps {
 
 export default function Layout({
   children,
-  rootClass,
+  root: rootClass,
   selected,
   hasNav = true,
   hasHeader = true,
   hasFooter = false,
-}: OwnProps): ReactFragment {
+}: OwnProps): ReactElement {
   return (
-    <>
-      {/* {hasHeader && <AppHeader />} */}
+    <div className={"Layout" + " " + rootClass}>
+      <Navbar />
 
-      <div className={"Layout" + " " + rootClass}>
-        <main className={rootClass + "Content"}>{children}</main>
+      <main className={rootClass + "Content"}>{children}</main>
 
-        {/*
-          comes _before_ the nav so that we
-          can  create 'conditional styles' with
-          the adjacent selector
-        */}
-        {/* {hasFooter && <AppFooter />} */}
-
-        {/* {hasNav && <Navbar selected={selected} />} */}
-      </div>
-    </>
+      <Footer />
+    </div>
   );
 }
