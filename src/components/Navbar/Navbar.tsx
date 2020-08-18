@@ -7,7 +7,7 @@ import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 function Navbar(props) {
-  const root = "Header";
+  const root = "Navbar";
   const { debug } = props;
 
   return (

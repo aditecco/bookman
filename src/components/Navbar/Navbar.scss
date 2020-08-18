@@ -1,12 +1,14 @@
 /* ---------------------------------
-Header
+Navbar
 --------------------------------- */
 
-.Header {
-  $root: ".Header";
+.Navbar {
+  $root: ".Navbar";
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 2;
-  width: 100%;
   margin-bottom: 0;
   background-color: rgba($flat-gray-1, 0.9);
   box-shadow: 0 2px 30px rgba($flat-gray-2, 0.4);
@@ -31,13 +33,15 @@ Header
         // letter-spacing: 3px;
         color: $font;
         padding: 0 0 ($padding / 5);
-        border-bottom: 2px solid $accent;
+        // border-bottom: 2px solid $accent;
         margin: 0;
       }
 
       #{$root}Logo {
-        margin: 0 4px 4px 0;
+        // margin: 0 4px 4px 0;
+        margin: 0 2px 2px 0;
         vertical-align: middle;
+        color: $accent;
       }
     }
 

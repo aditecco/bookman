@@ -34,6 +34,7 @@ import InfoMessage, {
   InfoMessageTypes,
 } from "../../components/InfoMessage/InfoMessage";
 import Spinner from "../../components/Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -225,6 +226,8 @@ function Home({
           onChange={handleSearch}
           onSearchReset={handleSearchReset}
         />
+
+        <Link to="/profile">profile</Link>
       </Navbar>
 
       {/* inputSection */}
@@ -234,10 +237,7 @@ function Home({
         </div>
       </section>
 
-      <section></section>
-
       {/* content */}
-
       {error ? (
         <div className="wrapper error">
           <InfoMessage type={InfoMessageTypes.error} body={error.message} />
@@ -265,12 +265,7 @@ function Home({
         </main>
       )}
 
-      <Footer
-        footerInfo={`BookMan
-      ${process.env.REACT_APP_APP_VERSION} ${
-          process.env.BUILD_ID && process.env.BUILD_ID.substring(0, 4)
-        }`}
-      >
+      <Footer>
         <div>
           {authentication.user && "Welcome," + authentication.user.email}
 
