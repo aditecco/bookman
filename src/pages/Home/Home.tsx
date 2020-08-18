@@ -30,6 +30,10 @@ import { IBookmark, ITag, TBookmarkInDB } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { IAuthState } from "../../types/initial-state";
 import ContentGrid from "../../components/ContentGrid/ContentGrid";
+import InfoMessage, {
+  InfoMessageTypes,
+} from "../../components/InfoMessage/InfoMessage";
+import Spinner from "../../components/Spinner/Spinner";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -76,16 +80,19 @@ function Home({
       ...newState,
     }),
     {
+      error: null,
+      loading: false,
       searchQuery: "",
       filterKey: "",
       found: null,
     }
   );
 
-  const { filterKey, found, searchQuery } = state;
+  const { error, filterKey, found, searchQuery, loading } = state;
   const filteredTags = removeDuplicates(tags.map(tag => tag.value)).filter(
     val => val === filterKey
   );
+
   const filteredBookmarks = bookmarks.filter(
     (bookmark: IBookmark) =>
       bookmark.tags && bookmark.tags.map(tag => tag.value).includes(filterKey)
@@ -114,6 +121,10 @@ function Home({
 
     if (result.length) {
       setState({ found: result });
+    } else {
+      setState({
+        error: { message: `No results for ${searchQuery}` },
+      });
     }
 
     setState({ searchQuery });
@@ -124,7 +135,7 @@ function Home({
    */
 
   function handleSearchReset() {
-    setState({ searchQuery: "", found: null });
+    setState({ searchQuery: "", found: null, error: null });
   }
 
   /**
@@ -222,25 +233,36 @@ function Home({
         </div>
       </section>
 
-      {/* content */}
-      <main className="wrapper mainContentWrapper">
-        <Sidebar
-          filteredTags={filteredTags}
-          filterHandler={handleTagFiltering}
-          filterResetHandler={() => setState({ filterKey: "" })}
-          filterKey={filterKey}
-          tags={tags}
-        />
+      <section></section>
 
-        <ContentGrid
-          bookmarks={bookmarks}
-          destructiveActionHandler={confirmDestructiveAction}
-          editBookmarkHandler={toggleModal}
-          filteredBookmarks={filteredBookmarks}
-          filterKey={filterKey}
-          searchResults={found}
-        />
-      </main>
+      {/* content */}
+
+      {error ? (
+        <div className="wrapper error">
+          <InfoMessage type={InfoMessageTypes.error} body={error.message} />
+        </div>
+      ) : loading ? (
+        <Spinner />
+      ) : (
+        <main className="wrapper mainContentWrapper">
+          <Sidebar
+            filteredTags={filteredTags}
+            filterHandler={handleTagFiltering}
+            filterResetHandler={() => setState({ filterKey: "" })}
+            filterKey={filterKey}
+            tags={tags}
+          />
+
+          <ContentGrid
+            bookmarks={bookmarks}
+            destructiveActionHandler={confirmDestructiveAction}
+            editBookmarkHandler={toggleModal}
+            filteredBookmarks={filteredBookmarks}
+            filterKey={filterKey}
+            searchResults={found}
+          />
+        </main>
+      )}
 
       <Footer
         footerInfo={`BookMan
