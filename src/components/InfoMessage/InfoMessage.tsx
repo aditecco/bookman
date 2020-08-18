@@ -8,11 +8,16 @@ import MaterialIcon from "../MaterialIcon/MaterialIcon";
 interface IOwnProps {
   icon: string;
   body: string;
+  type?: "info" | "warning" | "error";
 }
 
-export default function InfoMessage({ icon, body }: IOwnProps): ReactElement {
+export default function InfoMessage({
+  type = "info",
+  icon,
+  body,
+}: IOwnProps): ReactElement {
   return (
-    <div className="InfoMessage">
+    <div className={"InfoMessage InfoMessage--" + type}>
       <p className="InfoMessageContent">
         <MaterialIcon icon={icon} />
         {body}

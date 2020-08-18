@@ -91,7 +91,11 @@ function Home({
       bookmark.tags && bookmark.tags.map(tag => tag.value).includes(filterKey)
   );
 
-  // gets confirmation for destructive actions
+  /**
+   * confirmDestructiveAction
+   * gets confirmation for destructive actions
+   */
+
   function confirmDestructiveAction(...args) {
     const confirmDialog = window.confirm(Constants.MESSAGE__CONFIRM_DELETION);
 
@@ -100,22 +104,34 @@ function Home({
       : console.log("Canceled deletion.");
   }
 
+  /**
+   * handleSearch
+   */
+
   function handleSearch(e) {
-    const { value: key } = e.currentTarget;
-    const result = bookmarks.filter(b => b.url.includes(key));
+    const { value: searchQuery } = e.currentTarget;
+    const result = bookmarks.filter(b => b.url.includes(searchQuery));
 
     if (result.length) {
       setState({ found: result });
     }
 
-    setState({ searchQuery: key });
+    setState({ searchQuery });
   }
+
+  /**
+   * handleSearchReset
+   */
 
   function handleSearchReset() {
     setState({ searchQuery: "", found: null });
   }
 
-  // updates state w/ tag filter
+  /**
+   * handleTagFiltering
+   * updates state w/ tag filter
+   */
+
   function handleTagFiltering(e) {
     e.preventDefault();
 
@@ -125,6 +141,7 @@ function Home({
   /**
    * Firebase sync
    */
+
   useEffect(() => {
     const bookmarksRef = db
       .ref(`/bookmarks`)
