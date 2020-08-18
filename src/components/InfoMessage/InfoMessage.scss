@@ -34,6 +34,7 @@ InfoMessage
 
   &.InfoMessage--error {
     .InfoMessageContent {
+      background-color: lighten($flat-red-1, 20%);
     }
   }
 }

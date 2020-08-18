@@ -34,7 +34,6 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
 
       <div className="UpdateMaskBody">
         <InfoMessage
-          icon="info_outline"
           body="Write in the text field to edit the URL. Click on a tag to mark it for
         deletion; click again to undo."
         />
