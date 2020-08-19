@@ -72,8 +72,8 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
       const bookmarksRef = db
         .ref(`/bookmarks`)
         .orderByChild("createdBy")
-        .equalTo(authentication.user.uid);
-      // .limitToLast(100)
+        .equalTo(authentication.user.uid)
+        .limitToLast(50);
 
       // const userBookmarksRef = db.ref(
       //   `/users/${authentication.user.uid}/bookmarks`
@@ -83,8 +83,7 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
       const tagsRef = db
         .ref(`/tags`)
         .orderByChild("createdBy")
-        .equalTo(authentication.user.uid)
-        .limitToLast(50);
+        .equalTo(authentication.user.uid);
 
       // const userTagsRef = db.ref(`/users/${authentication.user.uid}/tags`);
 

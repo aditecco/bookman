@@ -14,12 +14,10 @@ import Layout from "./components/Layout/Layout";
 // BlankPage
 export function BlankPage({ title, children }) {
   return (
-    <Layout root="NotFound">
-      <div className="BlankPage">
-        <h1>{title}</h1>
+    <Layout root="BlankPage">
+      <h1>{title}</h1>
 
-        {children}
-      </div>
+      {children}
     </Layout>
   );
 }
