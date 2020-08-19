@@ -1,6 +1,6 @@
-/******************
-	Navbar
-*******************/
+/* ---------------------------------
+Navbar
+--------------------------------- */
 
 import React from "react";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";

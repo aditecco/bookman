@@ -9,17 +9,22 @@ import Modal from "./components/Modal/Modal";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
+import Layout from "./components/Layout/Layout";
 
+// BlankPage
 export function BlankPage({ title, children }) {
   return (
-    <div className="BlankPage">
-      <h1>{title}</h1>
+    <Layout root="NotFound">
+      <div className="BlankPage">
+        <h1>{title}</h1>
 
-      {children}
-    </div>
+        {children}
+      </div>
+    </Layout>
   );
 }
 
+// Routes
 export default function Routes() {
   return (
     <Router>
@@ -27,11 +32,11 @@ export default function Routes() {
       <Modal />
 
       <Switch>
-        <Route path={"/"} exact component={Home} />
+        <Route path="/" exact component={Home} />
 
-        <Route path={"/profile"} exact component={Profile} />
+        <Route path="/profile" exact component={Profile} />
 
-        <Route path={"/settings"} exact component={Settings} />
+        <Route path="/settings" exact component={Settings} />
 
         <Route
           render={({ location }) => (
