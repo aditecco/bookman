@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { log } from "./utils";
 import { db } from ".";
 import { TBookmarkInDB } from "./types/bookman";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { BlankPage } from "./Routes";
 
 const Routes = React.lazy(() => import("./Routes"));
@@ -154,9 +154,13 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
                 }
               >
                 {matchesAuthenticatedRoute ? (
-                  <h4>
-                    You need to be authenticated to see {location.pathname}
-                  </h4>
+                  <>
+                    <h4>
+                      You need to be authenticated to see {location.pathname}
+                    </h4>
+
+                    <Link to="/">Go to Authentication</Link>
+                  </>
                 ) : (
                   <h4>Sorry, nothing to see at {location.pathname}</h4>
                 )}

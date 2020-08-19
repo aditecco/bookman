@@ -48,7 +48,7 @@ function* signUpUserSaga(action) {
       showNotif({
         message: `Welcome, ${email}!`,
         icon: "star",
-        timeOut: 2000,
+        timeout: 2000,
         theme: "light",
       })
     );

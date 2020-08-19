@@ -63,7 +63,7 @@ function* deleteBookmarkSaga(action) {
       showNotif({
         message: `Bookmark removed.`,
         icon: "remove_circle",
-        timeOut: 2000,
+        timeout: 2000,
         theme: "light",
       })
     );

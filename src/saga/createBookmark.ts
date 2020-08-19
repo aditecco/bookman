@@ -142,7 +142,7 @@ function* createBookmarkSaga(action) {
       showNotif({
         message: `Created new bookmark!`,
         icon: "star",
-        timeOut: 2000,
+        timeout: 2000,
         theme: "light",
       })
     );

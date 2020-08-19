@@ -202,16 +202,16 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [showNotif](state, action) {
     const {
-      payload: { message, icon, timeOut, theme = "dark" },
+      payload: { message, icon, timeout, theme = "dark" },
     } = action;
 
     return {
       ...state,
       notificationMessage: {
-        isVisible: true,
+        visible: true,
         message: clipText(message, 25),
         icon,
-        timeOut,
+        timeout,
         theme,
       },
     };

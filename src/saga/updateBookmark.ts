@@ -115,7 +115,7 @@ function* updateBookmarkSaga(action) {
       showNotif({
         message: `Bookmark updated.`,
         icon: "refresh",
-        timeOut: 2000,
+        timeout: 2000,
         theme: "light",
       })
     );

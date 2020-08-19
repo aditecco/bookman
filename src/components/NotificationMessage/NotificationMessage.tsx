@@ -10,20 +10,20 @@ import { RootState } from "../../store";
 
 export default function NotificationMessage() {
   const dispatch = useDispatch();
-  const { message, icon, isVisible, timeOut, theme } = useSelector(
+  const { message, icon, visible, timeout, theme } = useSelector(
     (state: RootState) => state.notificationMessage
   );
 
   useEffect(() => {
-    isVisible &&
+    visible &&
       setTimeout(() => {
         dispatch(hideNotif());
-      }, timeOut);
-  }, [isVisible]);
+      }, timeout);
+  }, [visible]);
 
-  return isVisible ? (
+  return visible ? (
     <div
-      className={`NotificationMessage ${isVisible ? "isVisible" : ""} ${
+      className={`NotificationMessage ${visible ? "visible" : ""} ${
         theme === "light" ? "light" : ""
       }`}
     >

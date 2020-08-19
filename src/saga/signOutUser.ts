@@ -33,7 +33,7 @@ function* signOutUserSaga() {
       showNotif({
         message: `Logged out. Bye!`,
         icon: "star",
-        timeOut: 2000,
+        timeout: 2000,
         theme: "light",
       })
     );

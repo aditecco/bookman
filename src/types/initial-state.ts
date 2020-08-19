@@ -17,10 +17,10 @@ export interface IAuthState {
 }
 
 export interface INotificationMessageState {
-  isVisible: boolean;
+  visible: boolean;
   message: string;
   icon: string;
-  timeOut: number;
+  timeout: number;
   theme: string;
 }
 

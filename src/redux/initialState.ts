@@ -24,10 +24,10 @@ export default {
   bookmarks: [],
   tags: [],
   notificationMessage: {
-    isVisible: false,
+    visible: false,
     message: "",
     icon: "",
-    timeOut: 0,
+    timeout: 0,
     theme: "",
   },
   modal: {
