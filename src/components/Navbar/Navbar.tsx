@@ -3,37 +3,23 @@
 *******************/
 
 import React from "react";
-import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
+import { Link } from "react-router-dom";
 
 function Navbar(props) {
   const root = "Navbar";
-  const { debug } = props;
 
   return (
     <header className={root}>
       <div className={`wrapper ${root}Wrapper`}>
-        <div className={root + "LogoContainer"} onClick={props.onLogoClick}>
-          <MaterialIcon icon="link" className={root + "Logo"} />
-          <h1 className={root + "LogoType"}>BookMan</h1>
-        </div>
+        <Link to="/">
+          <div className={root + "LogoContainer"}>
+            <MaterialIcon icon="link" className={root + "Logo"} />
+            <h1 className={root + "LogoType"}>bookman</h1>
+          </div>
+        </Link>
 
-        <nav className={root + "MainNav"}>
-          {debug && (
-            <PillButton
-              href="#"
-              label="Reset"
-              onClick={() => {
-                localStorage.clear();
-                window.location.reload();
-                console.clear();
-                console.info("App reset.");
-              }}
-            />
-          )}
-
-          {props.children}
-        </nav>
+        <nav className={root + "Menu"}>{props.children}</nav>
       </div>
     </header>
   );

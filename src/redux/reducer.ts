@@ -148,7 +148,6 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
       ...state,
       loading: false,
       authentication: { authenticated: false, user: null },
-      // userData: null,
     };
   },
 

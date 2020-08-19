@@ -35,6 +35,7 @@ import InfoMessage, {
 } from "../../components/InfoMessage/InfoMessage";
 import Spinner from "../../components/Spinner/Spinner";
 import { Link } from "react-router-dom";
+import Layout from "../../components/Layout/Layout";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -215,9 +216,9 @@ function Home({
   }, []);
 
   return (
-    <div className="page Home">
+    <Layout root="Home" hasNav>
       {/* Navbar */}
-      <Navbar onLogoClick={() => console.log("logo click!")} debug={false}>
+      {/* <Navbar>
         <SearchWidget
           className="searchInput"
           placeholder="search…"
@@ -228,7 +229,8 @@ function Home({
         />
 
         <Link to="/profile">profile</Link>
-      </Navbar>
+        <Link to="/settings">settings</Link>
+      </Navbar> */}
 
       {/* inputSection */}
       <section className="inputSection">
@@ -264,19 +266,7 @@ function Home({
           />
         </main>
       )}
-
-      <Footer>
-        <div>
-          {authentication.user && "Welcome," + authentication.user.email}
-
-          <div>
-            <a href="#" onClick={() => signOutUser()}>
-              Logout
-            </a>
-          </div>
-        </div>
-      </Footer>
-    </div>
+    </Layout>
   );
 }
 

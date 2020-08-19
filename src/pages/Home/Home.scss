@@ -2,6 +2,12 @@
 Home.scss
 --------------------------------- */
 
+// Layout comp override
+.Layout.Home .HomeContent {
+  padding: 0;
+}
+
+// actual Home CSS
 .Home {
   .mainContentWrapper {
     width: 100%;
@@ -25,11 +31,6 @@ Home.scss
   .inputSection {
     width: 100%;
     padding: ($padding * 2) 0;
-    margin-top: 56px;
-    // TODO
-    // find a way to avoid
-    // using React's root ID
-    // box-shadow: $innerShadow;
     background-color: rgba($flat-gray-2, 0.2);
   }
 }

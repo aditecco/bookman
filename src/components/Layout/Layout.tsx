@@ -2,37 +2,42 @@
 Layout
 --------------------------------- */
 
-import React, { ReactFragment, ReactElement } from "react";
-import Navbar from "../Navbar/Navbar";
+import React, { ReactElement, ReactNode } from "react";
 import Footer from "../Footer/Footer";
-// import Navbar from "../Navbar/Navbar";
-// import AppHeader from "../AppHeader/AppHeader";
-// import AppFooter from "../AppFooter/AppFooter";
+import Navbar from "../Navbar/Navbar";
+import { Link } from "react-router-dom";
+import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 interface OwnProps {
-  children?: ReactElement | any; // TODO
+  children?: ReactNode;
   root: string;
-  selected?: number | undefined;
   hasNav?: boolean;
-  hasHeader?: boolean;
   hasFooter?: boolean;
 }
 
 export default function Layout({
   children,
-  root: rootClass,
-  selected,
+  root,
   hasNav = true,
-  hasHeader = true,
-  hasFooter = false,
+  hasFooter = true,
 }: OwnProps): ReactElement {
   return (
-    <div className={"Layout" + " " + rootClass}>
-      <Navbar />
+    <div className={"Layout" + " " + root}>
+      {hasNav && (
+        <Navbar>
+          <Link className="menuButton" to="/profile">
+            <MaterialIcon icon="account_circle" />
+          </Link>
 
-      <main className={rootClass + "Content"}>{children}</main>
+          <Link className="menuButton" to="/settings">
+            <MaterialIcon icon="settings" />
+          </Link>
+        </Navbar>
+      )}
 
-      <Footer />
+      <main className={root + "Content"}>{children}</main>
+
+      {hasFooter && <Footer />}
     </div>
   );
 }
