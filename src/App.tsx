@@ -140,11 +140,30 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
         <Route path="/" exact component={Authentication} />
 
         <Route
-          render={({ location }) => (
-            <BlankPage title="404">
-              <h4>Sorry, nothing to see at {location.pathname}</h4>
-            </BlankPage>
-          )}
+          render={({ location }) => {
+            const matchesAuthenticatedRoute = [
+              "/settings",
+              "/profile",
+            ].includes(location.pathname);
+
+            return (
+              <BlankPage
+                title={
+                  matchesAuthenticatedRoute
+                    ? "Please log in or sign up"
+                    : "Not found"
+                }
+              >
+                {matchesAuthenticatedRoute ? (
+                  <h4>
+                    You need to be authenticated to see {location.pathname}
+                  </h4>
+                ) : (
+                  <h4>Sorry, nothing to see at {location.pathname}</h4>
+                )}
+              </BlankPage>
+            );
+          }}
         />
       </Switch>
     </Router>
