@@ -122,7 +122,6 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
       });
 
       return () => {
-        log("OFF!");
         bookmarksRef.off();
         tagsRef.off();
       }; // this will unsubscribe from the obs.
