@@ -3,30 +3,19 @@ Home
 --------------------------------- */
 
 // deps
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import { connect } from "react-redux";
 import * as Constants from "../../constants";
-import { log, removeDuplicates } from "../../utils";
+import { removeDuplicates } from "../../utils";
 import {
   createBookmark,
-  createTag,
   deleteBookmark,
-  signInUser,
-  signOutUser,
-  signUpUser,
-  syncBookmarks,
-  syncTags,
   toggleModal,
 } from "../../redux/actions";
 
 // components
 import BookmarkForm from "../../components/BookmarkForm/BookmarkForm";
-import BaseButton from "../../components/BaseButton/BaseButton";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-import { db } from "../../index";
-import SearchWidget from "../../components/SearchWidget/SearchWidget";
-import { IBookmark, ITag, TBookmarkInDB } from "../../types/bookman";
+import { IBookmark, ITag } from "../../types/bookman";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { IAuthState, IDataTransferState } from "../../types/initial-state";
 import ContentGrid from "../../components/ContentGrid/ContentGrid";
@@ -34,7 +23,6 @@ import InfoMessage, {
   InfoMessageTypes,
 } from "../../components/InfoMessage/InfoMessage";
 import Spinner from "../../components/Spinner/Spinner";
-import { Link } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 
 interface IGlobalStateProps {
@@ -48,34 +36,19 @@ interface IOwnProps {}
 
 interface IDispatchProps {
   createBookmark;
-  createTag;
   deleteBookmark;
-  editBookmark;
-  signInUser;
-  signOutUser;
-  signUpUser;
-  syncBookmarks;
-  syncTags;
   toggleModal;
 }
 
 type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
 
 function Home({
-  authentication,
   bookmarks,
   createBookmark,
-  createTag,
+  dataTransfer,
   deleteBookmark,
-  editBookmark,
-  syncBookmarks,
-  syncTags,
-  signInUser,
-  signOutUser,
-  signUpUser,
   tags,
   toggleModal,
-  dataTransfer,
 }: TProps) {
   //
   const [state, setState] = useReducer(
@@ -91,7 +64,7 @@ function Home({
     }
   );
 
-  const { error, filterKey, found, searchQuery } = state;
+  const { error, filterKey, found } = state;
   const filteredTags = removeDuplicates(tags.map(tag => tag.value)).filter(
     val => val === filterKey
   );
@@ -115,33 +88,6 @@ function Home({
   }
 
   /**
-   * handleSearch
-   */
-
-  function handleSearch(e) {
-    const { value: searchQuery } = e.currentTarget;
-    const result = bookmarks.filter(b => b.url.includes(searchQuery));
-
-    if (result.length) {
-      setState({ found: result });
-    } else {
-      setState({
-        error: { message: `No results for ${searchQuery}` },
-      });
-    }
-
-    setState({ searchQuery });
-  }
-
-  /**
-   * handleSearchReset
-   */
-
-  function handleSearchReset() {
-    setState({ searchQuery: "", found: null, error: null });
-  }
-
-  /**
    * handleTagFiltering
    * updates state w/ tag filter
    */
@@ -152,29 +98,8 @@ function Home({
     setState({ filterKey: e.target.innerHTML });
   }
 
-  /**
-   * Firebase sync
-   */
-
-  useEffect(() => {}, []);
-
   return (
     <Layout root="Home" hasNav>
-      {/* Navbar */}
-      {/* <Navbar>
-        <SearchWidget
-          className="searchInput"
-          placeholder="search…"
-          closeIcon="close"
-          value={searchQuery}
-          onChange={handleSearch}
-          onSearchReset={handleSearchReset}
-        />
-
-        <Link to="/profile">profile</Link>
-        <Link to="/settings">settings</Link>
-      </Navbar> */}
-
       {/* inputSection */}
       <section className="inputSection">
         <div className="wrapper">
@@ -229,14 +154,8 @@ function mapStateToProps({
 
 function mapDispatchToProps(dispatch) {
   return {
-    signUpUser: (email, password) => dispatch(signUpUser({ email, password })),
-    signInUser: (email, password) => dispatch(signInUser({ email, password })),
-    signOutUser: () => dispatch(signOutUser()),
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
-    createTag: tags => dispatch(createTag(tags)),
     deleteBookmark: (key, tags) => dispatch(deleteBookmark({ key, tags })),
-    syncBookmarks: data => dispatch(syncBookmarks(data)),
-    syncTags: data => dispatch(syncTags(data)),
     toggleModal: payload => dispatch(toggleModal(payload)),
   };
 }
