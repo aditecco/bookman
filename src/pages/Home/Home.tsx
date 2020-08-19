@@ -156,64 +156,7 @@ function Home({
    * Firebase sync
    */
 
-  useEffect(() => {
-    const bookmarksRef = db
-      .ref(`/bookmarks`)
-      .orderByChild("createdBy")
-      .equalTo(authentication.user.uid);
-    // .limitToLast(100)
-
-    // const userBookmarksRef = db.ref(
-    //   `/users/${authentication.user.uid}/bookmarks`
-    // );
-    // .orderByChild('timestamp').limitToLast(50);
-
-    const tagsRef = db
-      .ref(`/tags`)
-      .orderByChild("createdBy")
-      .equalTo(authentication.user.uid)
-      .limitToLast(50);
-
-    // const userTagsRef = db.ref(`/users/${authentication.user.uid}/tags`);
-
-    // "Your callback will be triggered for the initial data
-    // and again whenever the data changes."
-    // https://firebase.google.com/docs/database/web/read-and-write
-
-    bookmarksRef.on("child_added", async snap => {
-      const bookmark: TBookmarkInDB = snap.val();
-      const _tags = [];
-      const { tags, tagKeys } = bookmark;
-
-      // enrich bookmarks w/ tag values
-      // extracted from the DB.
-      // Firebase will ignore empty arrays,
-      // so we'll get only tags with a length
-      if (tags && tagKeys) {
-        const tagsSnap = await tagsRef.once("value");
-        const tagValues = tagsSnap.val();
-
-        tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k]));
-      }
-
-      syncBookmarks({
-        ...bookmark,
-        ...(_tags.length ? { tags: _tags } : {}),
-      });
-    });
-
-    tagsRef.on("child_added", snap => syncTags(snap.val()));
-
-    bookmarksRef.on("child_removed", async snap => {
-      log("removed!");
-    });
-
-    // we turn off the observers
-    return () => {
-      bookmarksRef.off();
-      tagsRef.off();
-    };
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Layout root="Home" hasNav>

@@ -7,14 +7,25 @@ import { connect } from "react-redux";
 import Authentication from "./components/Authentication/Authentication";
 import Spinner from "./components/Spinner/Spinner";
 import * as firebase from "firebase/app";
-import { setAuthState, stopLoading } from "./redux/actions";
+import {
+  setAuthState,
+  stopLoading,
+  syncBookmarks,
+  syncTags,
+} from "./redux/actions";
 import { useDispatch } from "react-redux";
 import { log } from "./utils";
+import { db } from ".";
+import { TBookmarkInDB } from "./types/bookman";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BlankPage } from "./Routes";
 
 const Routes = React.lazy(() => import("./Routes"));
 
-function App({ authentication: { authenticated }, loading }) {
+function App({ authentication, loading, syncBookmarks, syncTags }) {
   const dispatch = useDispatch();
+  const { authenticated } = authentication;
+
   /**
    * Auth observer
    */
@@ -56,6 +67,68 @@ function App({ authentication: { authenticated }, loading }) {
     return () => observer(); // this will unsubscribe from the obs.
   }, []);
 
+  useEffect(() => {
+    if (authentication.user) {
+      const bookmarksRef = db
+        .ref(`/bookmarks`)
+        .orderByChild("createdBy")
+        .equalTo(authentication.user.uid);
+      // .limitToLast(100)
+
+      // const userBookmarksRef = db.ref(
+      //   `/users/${authentication.user.uid}/bookmarks`
+      // );
+      // .orderByChild('timestamp').limitToLast(50);
+
+      const tagsRef = db
+        .ref(`/tags`)
+        .orderByChild("createdBy")
+        .equalTo(authentication.user.uid)
+        .limitToLast(50);
+
+      // const userTagsRef = db.ref(`/users/${authentication.user.uid}/tags`);
+
+      // "Your callback will be triggered for the initial data
+      // and again whenever the data changes."
+      // https://firebase.google.com/docs/database/web/read-and-write
+
+      bookmarksRef.on("child_added", async snap => {
+        log("b added");
+        const bookmark: TBookmarkInDB = snap.val();
+        const _tags = [];
+        const { tags, tagKeys } = bookmark;
+
+        // enrich bookmarks w/ tag values
+        // extracted from the DB.
+        // Firebase will ignore empty arrays,
+        // so we'll get only tags with a length
+        if (tags && tagKeys) {
+          const tagsSnap = await tagsRef.once("value");
+          const tagValues = tagsSnap.val();
+
+          tagKeys.forEach(k => tagValues[k] && _tags.push(tagValues[k]));
+        }
+
+        syncBookmarks({
+          ...bookmark,
+          ...(_tags.length ? { tags: _tags } : {}),
+        });
+      });
+
+      tagsRef.on("child_added", snap => syncTags(snap.val()));
+
+      bookmarksRef.on("child_removed", async snap => {
+        log("removed!");
+      });
+
+      return () => {
+        log("OFF!");
+        bookmarksRef.off();
+        tagsRef.off();
+      }; // this will unsubscribe from the obs.
+    }
+  }, [authentication.user]);
+
   return loading ? (
     <Spinner />
   ) : authenticated ? (
@@ -63,7 +136,19 @@ function App({ authentication: { authenticated }, loading }) {
       <Routes />
     </Suspense>
   ) : (
-    <Authentication />
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Authentication} />
+
+        <Route
+          render={({ location }) => (
+            <BlankPage title="404">
+              <h4>Sorry, nothing to see at {location.pathname}</h4>
+            </BlankPage>
+          )}
+        />
+      </Switch>
+    </Router>
   );
 }
 
@@ -72,7 +157,10 @@ const mapStateToProps = ({ authentication, loading }) => ({
   loading,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  syncBookmarks: data => dispatch(syncBookmarks(data)),
+  syncTags: data => dispatch(syncTags(data)),
+});
 
 // @ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(App);
