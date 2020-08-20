@@ -60,7 +60,7 @@ export const rand = () => {
 };
 
 // capitalize
-export function capitalize(word: string) {
+export function capitalize(word: string): string | undefined {
   const capitalizer = w => w.charAt(0).toUpperCase() + w.slice(1);
 
   if (!word) return undefined;
@@ -120,7 +120,7 @@ export function clipText(t: string, maxLength: number = 15) {
 }
 
 /**
- * Creates bookmark descriptions out of URL slugs
+ * Creates bookmark descriptions out of URL slugs (WIP)
  */
 
 export function slugToDesc(url: string): string {

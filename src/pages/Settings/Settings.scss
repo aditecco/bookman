@@ -1,0 +1,26 @@
+/* ---------------------------------
+Settings
+--------------------------------- */
+
+.Settings {
+  // TODO move to Layout
+  .pageHeader {
+    @include container(600px);
+    text-align: center;
+    padding: $padding 0;
+  }
+
+  .settingList {
+    @include box(0, 0, true);
+    @include container(600px);
+    margin-top: 20px;
+
+    .settingItem {
+      @include flex(row wrap, space-between, center);
+
+      + .settingItem {
+        margin-top: $margin / 2;
+      }
+    }
+  }
+}

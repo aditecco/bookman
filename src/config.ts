@@ -5,12 +5,9 @@ config
 import { TSettings } from "./types/bookman";
 
 export const settings: TSettings = {
-  showDescriptions: true,
-  lorem: false,
-  ipsum: false,
-  dolor: false,
-  sit: true,
-  amet: true,
+  show_descriptions: true,
+  lorem_ipsum: false,
+  dolor_sit_amet: false,
 };
 
 export function updateSettings(prevSettings, settings): TSettings {

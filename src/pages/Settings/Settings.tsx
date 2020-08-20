@@ -6,6 +6,7 @@ import React, { ReactElement, useContext } from "react";
 import Layout from "../../components/Layout/Layout";
 import BaseButton from "../../components/BaseButton/BaseButton";
 import { SettingsContext } from "../../Routes";
+import { capitalize } from "../../utils";
 
 interface IOwnProps {}
 
@@ -14,10 +15,17 @@ export default function Settings(props: IOwnProps): ReactElement {
 
   return (
     <Layout root="Settings">
+      {/* TODO move to Layout */}
+      <header className="pageHeader">
+        <h1>Your settings</h1>
+      </header>
+
       <ul className="settingList">
         {Object.entries(settings).map(([setting, value], i) => (
-          <li key={"setting" + i}>
-            {setting}: {String(value)}
+          <li className="settingItem" key={"setting" + i}>
+            {capitalize(setting.split("_").join(" "))}
+            {/* {setting}: {String(value)} */}
+
             <BaseButton
               onClick={() => {
                 updateSettings({

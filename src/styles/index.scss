@@ -19,17 +19,17 @@ imports
 components & pages
 --------------------------------- */
 
-@import "../components/Navbar/Navbar.scss";
-@import "../components/InputField/InputField.scss";
-@import "../components/BookmarkForm/BookmarkForm.scss";
-@import "../components/ContentGrid/ContentGrid.scss";
-@import "../components/Sidebar/Sidebar.scss";
-@import "../components/BaseButton/BaseButton.scss";
+@import "../components/Navbar/Navbar";
+@import "../components/InputField/InputField";
+@import "../components/BookmarkForm/BookmarkForm";
+@import "../components/ContentGrid/ContentGrid";
+@import "../components/Sidebar/Sidebar";
+@import "../components/BaseButton/BaseButton";
 @import "../components/PillButton/PillButton";
-@import "../components/BookmarkCard/BookmarkCard.scss";
-@import "../components/TagItem/TagItem.scss";
-@import "../components/Footer/Footer.scss";
-@import "../components/Spinner/Spinner.scss";
+@import "../components/BookmarkCard/BookmarkCard";
+@import "../components/TagItem/TagItem";
+@import "../components/Footer/Footer";
+@import "../components/Spinner/Spinner";
 @import "../components/NotificationMessage/NotificationMessage";
 @import "../components/Modal/Modal";
 @import "../components/SearchWidget/SearchWidget";
