@@ -2,9 +2,10 @@
 ContentGrid
 --------------------------------- */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useContext } from "react";
 import BookmarkCard from "../BookmarkCard/BookmarkCard";
 import { IBookmark } from "../../types/bookman";
+import { SettingsContext } from "../../Routes";
 
 interface IOwnProps {
   bookmarks: IBookmark[];
@@ -23,7 +24,8 @@ export default function ContentGrid({
   filterKey,
   searchResults,
 }: IOwnProps): ReactElement {
-  const [descriptions, toggleDescriptions] = useState(true);
+  const [settings, updateSettings] = useContext(SettingsContext);
+  const { show_descriptions: descriptions } = settings;
 
   function bookmarkCardRenderer(bookmark: IBookmark, i: number) {
     return (
@@ -53,7 +55,7 @@ export default function ContentGrid({
           <button
             type="button"
             className="toggleButton"
-            onClick={() => toggleDescriptions(toggle => !toggle)}
+            onClick={() => updateSettings({ show_descriptions: !descriptions })}
           >
             &middot; {descriptions ? "Descriptions on" : "Descriptions off"}
           </button>
