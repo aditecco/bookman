@@ -2,26 +2,27 @@
 App
 --------------------------------- */
 
+import * as firebase from "firebase/app";
 import React, { Suspense, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { db } from ".";
 import Authentication from "./components/Authentication/Authentication";
 import Spinner from "./components/Spinner/Spinner";
-import * as firebase from "firebase/app";
 import {
   setAuthState,
   stopLoading,
   syncBookmarks,
   syncTags,
 } from "./redux/actions";
-import { useDispatch } from "react-redux";
-import { log } from "./utils";
-import { db } from ".";
-import { TBookmarkInDB } from "./types/bookman";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { BlankPage } from "./Routes";
+import { TBookmarkInDB } from "./types/bookman";
+import { log } from "./utils";
 
+// lazy init
 const Routes = React.lazy(() => import("./Routes"));
 
+// App
 function App({ authentication, loading, syncBookmarks, syncTags }) {
   const dispatch = useDispatch();
   const { authenticated } = authentication;
@@ -92,7 +93,6 @@ function App({ authentication, loading, syncBookmarks, syncTags }) {
       // https://firebase.google.com/docs/database/web/read-and-write
 
       bookmarksRef.on("child_added", async snap => {
-        log("b added");
         const bookmark: TBookmarkInDB = snap.val();
         const _tags = [];
         const { tags, tagKeys } = bookmark;

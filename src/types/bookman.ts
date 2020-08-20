@@ -35,10 +35,6 @@ export interface ITag extends IEnrichedContentMeta {
   value: string;
 }
 
-export interface ISetting {
-  //
-}
-
 export type TTagBundle = ITag[];
 
 export type TFetchUserBookmarksResponse = "";
@@ -66,6 +62,14 @@ export type TFirebaseKey = string;
 export type TFirebaseUID = string;
 
 export interface IUserInDB {}
+
+export interface ISetting {
+  //
+}
+
+export interface ISettings {
+  showDescriptions: boolean;
+}
 
 /**
  - User

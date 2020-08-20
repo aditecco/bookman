@@ -2,7 +2,7 @@
 Routes
 --------------------------------- */
 
-import React from "react";
+import React, { useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Modal from "./components/Modal/Modal";
@@ -10,6 +10,7 @@ import NotificationMessage from "./components/NotificationMessage/NotificationMe
 import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import Layout from "./components/Layout/Layout";
+import { settings, updateSettings } from "./config";
 
 // BlankPage
 export function BlankPage({ title, children }) {
@@ -22,28 +23,33 @@ export function BlankPage({ title, children }) {
   );
 }
 
+// context init
+export const SettingsContext = React.createContext(null);
+
 // Routes
 export default function Routes() {
   return (
-    <Router>
-      <NotificationMessage />
-      <Modal />
+    <SettingsContext.Provider value={useReducer(updateSettings, settings)}>
+      <Router>
+        <NotificationMessage />
+        <Modal />
 
-      <Switch>
-        <Route path="/" exact component={Home} />
+        <Switch>
+          <Route path="/" exact component={Home} />
 
-        <Route path="/profile" exact component={Profile} />
+          <Route path="/profile" exact component={Profile} />
 
-        <Route path="/settings" exact component={Settings} />
+          <Route path="/settings" exact component={Settings} />
 
-        <Route
-          render={({ location }) => (
-            <BlankPage title="404">
-              <h4>Sorry, nothing to see at {location.pathname}</h4>
-            </BlankPage>
-          )}
-        />
-      </Switch>
-    </Router>
+          <Route
+            render={({ location }) => (
+              <BlankPage title="404">
+                <h4>Sorry, nothing to see at {location.pathname}</h4>
+              </BlankPage>
+            )}
+          />
+        </Switch>
+      </Router>
+    </SettingsContext.Provider>
   );
 }
