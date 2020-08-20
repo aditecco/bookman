@@ -67,9 +67,9 @@ export interface ISetting {
   //
 }
 
-export interface ISettings {
-  showDescriptions: boolean;
-}
+export type TSettings = Record<TSettingLabel, boolean>;
+
+export type TSettingLabel = "showDescriptions" | string;
 
 /**
  - User

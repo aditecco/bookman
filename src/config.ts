@@ -2,11 +2,18 @@
 config
 --------------------------------- */
 
-import { ISettings } from "./types/bookman";
+import { TSettings } from "./types/bookman";
 
-export const settings: ISettings = { showDescriptions: true };
+export const settings: TSettings = {
+  showDescriptions: true,
+  lorem: false,
+  ipsum: false,
+  dolor: false,
+  sit: true,
+  amet: true,
+};
 
-export function updateSettings(prevSettings, settings): ISettings {
+export function updateSettings(prevSettings, settings): TSettings {
   return {
     ...prevSettings,
     ...settings,
