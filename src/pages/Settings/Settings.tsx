@@ -27,6 +27,7 @@ export default function Settings(props: IOwnProps): ReactElement {
             {/* {setting}: {String(value)} */}
 
             <BaseButton
+              className={value ? "" : "button--outline"}
               onClick={() => {
                 updateSettings({
                   [setting]: !value,
