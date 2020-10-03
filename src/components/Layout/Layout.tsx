@@ -32,6 +32,10 @@ export default function Layout({
           <Link className="menuButton" to="/settings">
             <MaterialIcon icon="settings" />
           </Link>
+
+          <Link className="menuButton" to="/admin">
+            <MaterialIcon icon="dashboard" />
+          </Link>
         </Navbar>
       )}
 

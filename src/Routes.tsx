@@ -11,6 +11,7 @@ import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import Layout from "./components/Layout/Layout";
 import { settings, updateSettings } from "./config";
+import Admin from "./pages/Admin/Admin";
 
 // BlankPage
 export function BlankPage({ title, children }) {
@@ -40,6 +41,8 @@ export default function Routes() {
           <Route path="/profile" exact component={Profile} />
 
           <Route path="/settings" exact component={Settings} />
+
+          <Route path="/admin" exact component={Admin} />
 
           <Route
             render={({ location }) => (

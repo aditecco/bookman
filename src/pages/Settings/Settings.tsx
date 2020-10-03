@@ -5,7 +5,7 @@ Settings
 import React, { ReactElement, useContext } from "react";
 import Layout from "../../components/Layout/Layout";
 import BaseButton from "../../components/BaseButton/BaseButton";
-import { SettingsContext } from "../../Routes";
+import { SettingsContext } from "../../routes";
 import { capitalize } from "../../utils";
 
 interface IOwnProps {}

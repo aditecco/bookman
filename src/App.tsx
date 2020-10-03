@@ -15,12 +15,12 @@ import {
   syncBookmarks,
   syncTags,
 } from "./redux/actions";
-import { BlankPage } from "./Routes";
+import { BlankPage } from "./routes";
 import { TBookmarkInDB } from "./types/bookman";
 import { log } from "./utils";
 
 // lazy init
-const Routes = React.lazy(() => import("./Routes"));
+const Routes = React.lazy(() => import("./routes"));
 
 // App
 function App({ authentication, loading, syncBookmarks, syncTags }) {

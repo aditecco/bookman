@@ -13,6 +13,7 @@ imports
 @import "./_partials/_typography";
 @import "./_partials/_animations";
 @import "./_partials/_fx";
+@import "~antd/dist/antd.css";
 @import "./_partials/common";
 
 /* ---------------------------------
@@ -40,3 +41,4 @@ components & pages
 @import "../pages/Home/Home";
 @import "../pages/Profile/Profile";
 @import "../pages/Settings/Settings";
+@import "../pages/Admin/Admin";

@@ -5,7 +5,7 @@ ContentGrid
 import React, { ReactElement, useState, useContext } from "react";
 import BookmarkCard from "../BookmarkCard/BookmarkCard";
 import { IBookmark } from "../../types/bookman";
-import { SettingsContext } from "../../Routes";
+import { SettingsContext } from "../../routes";
 
 interface IOwnProps {
   bookmarks: IBookmark[];

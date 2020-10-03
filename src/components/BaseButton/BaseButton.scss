@@ -22,6 +22,7 @@
 
   &:hover {
     background-color: $hover;
+    color: white; // we force it to prevent overriding by antd
   }
 
   &.button--naked {
