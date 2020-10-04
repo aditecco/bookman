@@ -4,9 +4,13 @@ Admin
 
 import React, { ReactElement } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { IBookmark, ITag } from "../../types/bookman";
+import PillButton from "../../components/PillButton/PillButton";
+import { log } from "../../utils";
+import BaseButton from "../../components/BaseButton/BaseButton";
 
 interface IOwnProps {}
 
@@ -17,7 +21,10 @@ export default function Admin(props: IOwnProps): ReactElement {
     <Layout root="Admin">
       <Table
         bordered
-        dataSource={bookmarks.map(b => ({ key: b._key, ...b }))}
+        dataSource={bookmarks.map((bookmark: IBookmark) => ({
+          key: bookmark._key,
+          ...bookmark,
+        }))}
         columns={[
           {
             title: "URL",
@@ -25,14 +32,44 @@ export default function Admin(props: IOwnProps): ReactElement {
             key: "url",
           },
           {
+            title: "Tags",
+            dataIndex: "tags",
+            key: "tags",
+            render(tags: ITag[]) {
+              return tags?.map((tag, i) => (
+                <PillButton
+                  label={tag.value}
+                  style={i !== tags.length - 1 ? { marginRight: 6 } : {}}
+                  key={tag.id}
+                />
+              ));
+            },
+          },
+          {
             title: "Timestamp",
             dataIndex: "timestamp",
             key: "timestamp",
+            render(timestamp) {
+              return new Date(timestamp).toLocaleString();
+            },
           },
           {
             title: "ID",
             dataIndex: "id",
             key: "id",
+          },
+          {
+            title: "Actions",
+            key: "actions",
+            render(_, record) {
+              return (
+                <BaseButton
+                  label="action"
+                  className="button--outline"
+                  onClick={_ => window.alert(record.id)}
+                />
+              );
+            },
           },
         ]}
       />
