@@ -34,7 +34,7 @@ export default function Settings(props: IOwnProps): ReactElement {
                 });
               }}
             >
-              {value ? `Disable` : `Enable`}
+              {value ? `ON` : `OFF`}
             </BaseButton>
           </li>
         ))}
