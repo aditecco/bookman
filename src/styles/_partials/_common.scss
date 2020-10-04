@@ -12,8 +12,14 @@ common
   font-size: 16px;
 }
 
-body {
-  background-color: $flat-gray-1;
+// reinforcing the selector
+// and forcing some properties
+// to avoid Ant overriding styles
+html {
+  body {
+    line-height: 1.15;
+    background-color: $flat-gray-1;
+  }
 }
 
 // a, a:hover, a:visited { color: rgba(0,0,0,.8); }

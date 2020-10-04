@@ -6,14 +6,12 @@ main.scss
 imports
 --------------------------------- */
 
-@import "~normalize.css/normalize.css";
 @import "./_partials/_logic";
 @import "./_partials/_vars";
 @import "./_partials/_colors";
 @import "./_partials/_typography";
 @import "./_partials/_animations";
 @import "./_partials/_fx";
-@import "~antd/dist/antd.css";
 @import "./_partials/vendor";
 @import "./_partials/common";
 
