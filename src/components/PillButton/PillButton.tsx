@@ -8,6 +8,7 @@ import React, {
   Children,
   ReactChildren,
   ReactNode,
+  CSSProperties,
 } from "react";
 import { ITag } from "../../types/bookman";
 const root = "PillButton";
@@ -21,6 +22,7 @@ interface IOwnProps extends TPropsFromTag {
   onClick?: ReactEventHandler;
   eventClass?: string;
   children?: ReactNode;
+  style?: CSSProperties;
 }
 
 function PillButton({
@@ -29,9 +31,15 @@ function PillButton({
   onClick,
   eventClass,
   children,
+  style,
 }: IOwnProps): ReactElement {
   return (
-    <a className={`${root} ${eventClass || ""}`} href={href} onClick={onClick}>
+    <a
+      className={`${root} ${eventClass || ""}`}
+      href={href}
+      onClick={onClick}
+      style={style}
+    >
       {label}
       {children}
     </a>
