@@ -2,11 +2,12 @@
 Layout
 --------------------------------- */
 
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useContext } from "react";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
+import { SettingsContext } from "../../routes";
 
 interface OwnProps {
   children?: ReactNode;
@@ -21,6 +22,9 @@ export default function Layout({
   hasNav = true,
   hasFooter = true,
 }: OwnProps): ReactElement {
+
+  const [{admin_mode}] = useContext(SettingsContext);
+
   return (
     <div className={"Layout" + " " + root}>
       {hasNav && (
@@ -33,9 +37,9 @@ export default function Layout({
             <MaterialIcon icon="settings" />
           </Link>
 
-          <Link className="menuButton" to="/admin">
+          {admin_mode && (<Link className="menuButton" to="/admin">
             <MaterialIcon icon="dashboard" />
-          </Link>
+          </Link>)}
         </Navbar>
       )}
 
