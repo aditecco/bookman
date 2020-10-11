@@ -104,15 +104,20 @@ export default function Admin(props: IOwnProps): ReactElement {
                     dataIndex: "bookmarks",
                     key: "bookmarks",
                     render(bookmarks) {
-                      return Object.keys(bookmarks).map((key, i) => (
-                        <PillButton
-                          label={key}
-                          style={
-                            i !== bookmarks.length - 1 ? { marginRight: 6 } : {}
-                          }
-                          key={i}
-                        />
-                      ));
+                      return Object.keys(bookmarks).map((key, i) => {
+                        const l = Object.keys(bookmarks).length;
+
+                        return (
+                          <a
+                            style={i !== l - 1 ? { marginRight: 6 } : {}}
+                            href="#"
+                            key={i}
+                            onClick={null}
+                          >
+                            {i !== l - 1 ? `${key}, ` : key}
+                          </a>
+                        );
+                      });
                     },
                   },
                   {
