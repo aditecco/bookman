@@ -4,7 +4,7 @@ Admin
 
 import React, { ReactElement } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Table, Tag } from "antd";
+import { Table, Tag, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { IBookmark, ITag } from "../../types/bookman";
@@ -14,6 +14,18 @@ import BaseButton from "../../components/BaseButton/BaseButton";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
 interface IOwnProps {}
+
+/**
+ *
+ * pagination
+ * ellipsis
+ * multiple selection & mass operations
+ * fixed headers
+ * filter & sort
+ * loading
+ * click to copy elided cell values
+ *
+ */
 
 export default function Admin(props: IOwnProps): ReactElement {
   const { bookmarks, tags } = useSelector((state: RootState) => state);
@@ -26,7 +38,8 @@ export default function Admin(props: IOwnProps): ReactElement {
             name: "Bookmarks",
             content: (
               <Table
-                bordered
+                sticky
+                size="middle"
                 dataSource={bookmarks.map((bookmark: IBookmark) => ({
                   key: bookmark._key,
                   ...bookmark,
@@ -36,6 +49,14 @@ export default function Admin(props: IOwnProps): ReactElement {
                     title: "URL",
                     dataIndex: "url",
                     key: "url",
+                    ellipsis: {
+                      showTitle: false,
+                    },
+                    render: url => (
+                      <Tooltip placement="topLeft" title={url}>
+                        {url}
+                      </Tooltip>
+                    ),
                   },
                   {
                     title: "Tags",
@@ -65,6 +86,14 @@ export default function Admin(props: IOwnProps): ReactElement {
                     title: "ID",
                     dataIndex: "id",
                     key: "id",
+                    ellipsis: {
+                      showTitle: false,
+                    },
+                    render: id => (
+                      <Tooltip placement="topLeft" title={id}>
+                        {id}
+                      </Tooltip>
+                    ),
                   },
                   {
                     title: "Actions",
@@ -88,7 +117,7 @@ export default function Admin(props: IOwnProps): ReactElement {
             name: "Tags",
             content: (
               <Table
-                bordered
+                size="middle"
                 dataSource={tags.map((tag: ITag) => ({
                   key: tag._key,
                   ...tag,
@@ -132,6 +161,14 @@ export default function Admin(props: IOwnProps): ReactElement {
                     title: "ID",
                     dataIndex: "id",
                     key: "id",
+                    ellipsis: {
+                      showTitle: false,
+                    },
+                    render: id => (
+                      <Tooltip placement="topLeft" title={id}>
+                        {id}
+                      </Tooltip>
+                    ),
                   },
                   {
                     title: "Actions",
