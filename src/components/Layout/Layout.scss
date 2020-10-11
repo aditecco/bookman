@@ -5,7 +5,7 @@ Layout
 .Layout {
   @extend %setLayout;
 
-  [class$="Content"] {
+  > main[class$="Content"] {
     flex-grow: 1;
     margin-top: $navbarHeight;
     padding: $padding;

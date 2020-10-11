@@ -45,7 +45,7 @@ export interface IInitialState {
   authentication: IAuthState;
   dataTransfer: IDataTransferState;
   bookmarks: IBookmark[];
-  tags: string[];
+  tags: ITag[];
   notificationMessage: INotificationMessageState;
   modal: IModalState;
 }

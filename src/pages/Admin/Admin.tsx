@@ -11,65 +11,139 @@ import { IBookmark, ITag } from "../../types/bookman";
 import PillButton from "../../components/PillButton/PillButton";
 import { log } from "../../utils";
 import BaseButton from "../../components/BaseButton/BaseButton";
+import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
 interface IOwnProps {}
 
 export default function Admin(props: IOwnProps): ReactElement {
-  const bookmarks = useSelector((state: RootState) => state.bookmarks);
+  const { bookmarks, tags } = useSelector((state: RootState) => state);
 
   return (
     <Layout root="Admin">
-      <Table
-        bordered
-        dataSource={bookmarks.map((bookmark: IBookmark) => ({
-          key: bookmark._key,
-          ...bookmark,
-        }))}
-        columns={[
+      <TabSwitcher
+        tabs={[
           {
-            title: "URL",
-            dataIndex: "url",
-            key: "url",
+            name: "Bookmarks",
+            content: (
+              <Table
+                bordered
+                dataSource={bookmarks.map((bookmark: IBookmark) => ({
+                  key: bookmark._key,
+                  ...bookmark,
+                }))}
+                columns={[
+                  {
+                    title: "URL",
+                    dataIndex: "url",
+                    key: "url",
+                  },
+                  {
+                    title: "Tags",
+                    dataIndex: "tags",
+                    key: "tags",
+                    render(tags: ITag[]) {
+                      return tags?.map((tag, i) => (
+                        <PillButton
+                          label={tag.value}
+                          style={
+                            i !== tags.length - 1 ? { marginRight: 6 } : {}
+                          }
+                          key={tag.id}
+                        />
+                      ));
+                    },
+                  },
+                  {
+                    title: "Timestamp",
+                    dataIndex: "timestamp",
+                    key: "timestamp",
+                    render(timestamp) {
+                      return new Date(timestamp).toLocaleString();
+                    },
+                  },
+                  {
+                    title: "ID",
+                    dataIndex: "id",
+                    key: "id",
+                  },
+                  {
+                    title: "Actions",
+                    key: "actions",
+                    render(_, record) {
+                      return (
+                        <BaseButton
+                          label="action"
+                          className="button--outline"
+                          onClick={_ => window.alert(record.id)}
+                        />
+                      );
+                    },
+                  },
+                ]}
+              />
+            ),
           },
+
           {
-            title: "Tags",
-            dataIndex: "tags",
-            key: "tags",
-            render(tags: ITag[]) {
-              return tags?.map((tag, i) => (
-                <PillButton
-                  label={tag.value}
-                  style={i !== tags.length - 1 ? { marginRight: 6 } : {}}
-                  key={tag.id}
-                />
-              ));
-            },
-          },
-          {
-            title: "Timestamp",
-            dataIndex: "timestamp",
-            key: "timestamp",
-            render(timestamp) {
-              return new Date(timestamp).toLocaleString();
-            },
-          },
-          {
-            title: "ID",
-            dataIndex: "id",
-            key: "id",
-          },
-          {
-            title: "Actions",
-            key: "actions",
-            render(_, record) {
-              return (
-                <BaseButton
-                  label="action"
-                  className="button--outline"
-                  onClick={_ => window.alert(record.id)}
-                />
-              );
-            },
+            name: "Tags",
+            content: (
+              <Table
+                bordered
+                dataSource={tags.map((tag: ITag) => ({
+                  key: tag._key,
+                  ...tag,
+                }))}
+                columns={[
+                  {
+                    title: "Value",
+                    dataIndex: "value",
+                    key: "value",
+                  },
+                  {
+                    title: "Bookmarks",
+                    dataIndex: "bookmarks",
+                    key: "bookmarks",
+                    render(bookmarks) {
+                      return Object.keys(bookmarks).map((key, i) => (
+                        <PillButton
+                          label={key}
+                          style={
+                            i !== bookmarks.length - 1 ? { marginRight: 6 } : {}
+                          }
+                          key={i}
+                        />
+                      ));
+                    },
+                  },
+                  {
+                    title: "Timestamp",
+                    dataIndex: "timestamp",
+                    key: "timestamp",
+                    render(timestamp) {
+                      return new Date(timestamp).toLocaleString();
+                    },
+                  },
+                  {
+                    title: "ID",
+                    dataIndex: "id",
+                    key: "id",
+                  },
+                  {
+                    title: "Actions",
+                    key: "actions",
+                    render(_, record) {
+                      return (
+                        <BaseButton
+                          label="action"
+                          className="button--outline"
+                          onClick={_ => window.alert(record.id)}
+                        />
+                      );
+                    },
+                  },
+                ]}
+              />
+            ),
           },
         ]}
       />

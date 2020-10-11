@@ -4,8 +4,17 @@ TabSwitcher
 
 import React, { useState, ReactElement } from "react";
 
+interface IOwnProps {
+  tabs: ITabConfig[]
+}
+
+interface ITabConfig {
+    name: string
+    content: ReactElement | React.FC | string
+}
+
 // TODO
-export default function TabSwitcher({ tabs }: { tabs: any[] }): ReactElement {
+export default function TabSwitcher({ tabs }: IOwnProps): ReactElement {
   const [selected, setSelected] = useState(0);
 
   return (

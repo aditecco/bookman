@@ -16,8 +16,16 @@ TabSwitcher
     outline: 1px solid #dddddd3b;
     border-top: 1px solid $flat-gray-1;
     background-color: transparent;
-    padding: 6px 1rem;
+    padding: 10px 20px;
     opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      border-top: 3px solid rgba(white, 0.5);
+      background-color: rgba(white, 0.5);
+      opacity: 1;
+    }
 
     + .TabButton {
       margin-left: 0.25rem;
@@ -26,6 +34,11 @@ TabSwitcher
     &--selected {
       opacity: 1;
       border-top: 3px solid $accent;
+
+      &:hover {
+        @extend .TabButton--selected;
+        background-color: rgba(white, 0.5);
+      }
     }
   }
 
