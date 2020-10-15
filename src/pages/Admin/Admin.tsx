@@ -2,9 +2,9 @@
 Admin
 --------------------------------- */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Table, Tag, Tooltip } from "antd";
+import { Modal, Table, Tag, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { IBookmark, ITag } from "../../types/bookman";
@@ -28,12 +28,25 @@ interface IOwnProps {}
  */
 
 export default function Admin(props: IOwnProps): ReactElement {
+  const INITIAL_MODAL = { visible: false, content: null };
+
   const { bookmarks, tags } = useSelector((state: RootState) => state);
+  const [showModal, setShowModal] = useState(INITIAL_MODAL);
 
   return (
     <Layout root="Admin">
+      <Modal
+        title="Basic Modal"
+        visible={showModal.visible}
+        onOk={_ => setShowModal(INITIAL_MODAL)}
+        // onCancel={null}
+      >
+        {showModal.content}
+      </Modal>
+
       <TabSwitcher
         tabs={[
+          // bookmarks table
           {
             name: "Bookmarks",
             content: (
@@ -113,6 +126,7 @@ export default function Admin(props: IOwnProps): ReactElement {
             ),
           },
 
+          // tags table
           {
             name: "Tags",
             content: (
@@ -129,11 +143,12 @@ export default function Admin(props: IOwnProps): ReactElement {
                     key: "value",
                   },
                   {
-                    title: "Bookmarks",
+                    title: "Associated bookmarks",
                     dataIndex: "bookmarks",
                     key: "bookmarks",
                     render(bookmarks) {
-                      return Object.keys(bookmarks).map((key, i) => {
+                      const bookmarkArray = Object.keys(bookmarks);
+                      const content = bookmarkArray.map((key, i) => {
                         const l = Object.keys(bookmarks).length;
 
                         return (
@@ -147,6 +162,16 @@ export default function Admin(props: IOwnProps): ReactElement {
                           </a>
                         );
                       });
+
+                      return (
+                        <BaseButton
+                          label={String(bookmarkArray.length)}
+                          className="button--naked"
+                          onClick={_ =>
+                            setShowModal({ visible: true, content })
+                          }
+                        />
+                      );
                     },
                   },
                   {
@@ -178,7 +203,9 @@ export default function Admin(props: IOwnProps): ReactElement {
                         <BaseButton
                           label="action"
                           className="button--outline"
-                          onClick={_ => window.alert(record.id)}
+                          onClick={_ =>
+                            setShowModal({ visible: true, content: record.id })
+                          }
                         />
                       );
                     },
