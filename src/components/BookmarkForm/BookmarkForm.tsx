@@ -14,6 +14,7 @@ import { log } from "../../utils";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import PillButton from "../PillButton/PillButton";
 
 interface IOwnProps {
   onCreateBookmark?;
@@ -34,6 +35,7 @@ export default function BookmarkForm({
   };
 
   const [state, setState] = useState(initialState);
+  const [_tags, set_tags] = useState<string[]>([]);
   const existingTags = useSelector((state: RootState) => state.tags);
 
   const { url, tags } = state;
@@ -148,10 +150,8 @@ export default function BookmarkForm({
 
   // handleItemClick
   function handleItemClick(tag: string) {
-    setState(prevState => ({
-      ...prevState,
-      tags: !prevState.tags ? `${tag},` : (prevState.tags += `${tag},`),
-    }));
+    set_tags(prev_tags => [...prev_tags, tag]);
+    setState(_ => ({ ..._, tags: "" }));
   }
 
   return (
@@ -174,7 +174,9 @@ export default function BookmarkForm({
           placeholder="Linux, JavaScript (comma separated)"
           value={tags}
           onChange={handleTagChange}
-        />
+        >
+          {_tags?.length && _tags.map(_tag => <PillButton label={_tag} />)}
+        </InputField>
 
         {state.tags && (
           <AutoSuggest
