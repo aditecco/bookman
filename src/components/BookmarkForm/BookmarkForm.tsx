@@ -11,6 +11,9 @@ import InputField from "../InputField/InputField";
 import BaseButton from "../BaseButton/BaseButton";
 import { IContentMeta, IBookmark, ITag } from "../../types/bookman";
 import { log } from "../../utils";
+import AutoSuggest from "../AutoSuggest/AutoSuggest";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface IOwnProps {
   onCreateBookmark?;
@@ -29,17 +32,21 @@ export default function BookmarkForm({
     url: valuesToUpdate?.url || "",
     tags: valuesToUpdate?.tags || "",
   };
+
   const [state, setState] = useState(initialState);
+  const existingTags = useSelector((state: RootState) => state.tags);
 
   const { url, tags } = state;
   const root = "BookmarkForm";
 
+  // handleUrlChange
   function handleUrlChange(e) {
     const { value: url } = e.currentTarget;
 
     setState(prevState => ({ ...prevState, url }));
   }
 
+  // handleTagChange
   function handleTagChange(e) {
     const { value: tags } = e.currentTarget;
 
@@ -60,11 +67,12 @@ export default function BookmarkForm({
   //   }
   // }
 
-  // TODO
+  // TODO processTags
   function processUrl(url) {
     return url;
   }
 
+  // processTags
   function processTags(tags: string): string[] | boolean {
     if (!tags) return true;
 
@@ -82,12 +90,14 @@ export default function BookmarkForm({
       .map(tag => tag.trim());
   }
 
+  // handleInvalidInput
   function handleInvalidInput() {
     alert(
       "URL is required! -- Or, there's a problem with how tags are formatted."
     );
   }
 
+  // generateNewItem
   function generateNewItem(): IContentMeta {
     return {
       id: uuidv4(),
@@ -95,6 +105,7 @@ export default function BookmarkForm({
     };
   }
 
+  // handleSubmit
   function handleSubmit() {
     /**
      * TO SUBMIT
@@ -135,6 +146,14 @@ export default function BookmarkForm({
     setState(initialState);
   }
 
+  // handleItemClick
+  function handleItemClick(tag: string) {
+    setState(prevState => ({
+      ...prevState,
+      tags: !prevState.tags ? `${tag},` : (prevState.tags += `${tag},`),
+    }));
+  }
+
   return (
     <form
       className={root}
@@ -156,6 +175,14 @@ export default function BookmarkForm({
           value={tags}
           onChange={handleTagChange}
         />
+
+        {state.tags && (
+          <AutoSuggest
+            content={existingTags.filter(tag => tag.value.startsWith(tags))}
+            limit={5}
+            onItemClick={handleItemClick}
+          />
+        )}
       </div>
 
       <BaseButton
