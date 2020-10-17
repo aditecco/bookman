@@ -3,12 +3,10 @@ PillButton
 --------------------------------- */
 
 import React, {
+  CSSProperties,
   ReactElement,
   ReactEventHandler,
-  Children,
-  ReactChildren,
   ReactNode,
-  CSSProperties,
 } from "react";
 import { ITag } from "../../types/bookman";
 const root = "PillButton";
