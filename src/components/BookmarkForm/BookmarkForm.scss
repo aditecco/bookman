@@ -1,4 +1,3 @@
-
 /* ========================
 .BookmarkForm
 ======================== */
@@ -9,28 +8,12 @@
   .inputGroup {
     flex-grow: 1;
     margin-right: $margin;
-    border: 1px solid rgba($flat-gray-4, .2);
+    border: 1px solid rgba($flat-gray-4, 0.2);
     border-radius: $radius;
-
-    .InputField {
-      label { display: none; }
-
-      .urlInput,
-      .tagInput {
-        width: 100%;
-        padding: 12px ($padding / 2);
-        border: none;
-        font-size: $body + 1;
-        background-color: transparent;
-        &:focus { outline: 2px solid rgba($accent, .8); }
-      }
-
-      .urlInput { border-bottom: 1px solid rgba($flat-gray-4, .2); }
-    }
   }
 
-  .submitButton {}
-
+  .submitButton {
+  }
 
   /*
     media
@@ -44,12 +27,12 @@
       margin: 0 auto;
     }
 
-
     .inputGroup {
       flex-grow: initial;
       margin-bottom: $margin;
     }
 
-    .submitButton {}
+    .submitButton {
+    }
   }
 }
