@@ -15,6 +15,7 @@ import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import PillButton from "../PillButton/PillButton";
+import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 interface IOwnProps {
   onCreateBookmark?;
@@ -53,6 +54,25 @@ export default function BookmarkForm({
     const { value: tags } = e.currentTarget;
 
     setState(prevState => ({ ...prevState, tags }));
+  }
+
+  function handleTagKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    const { key } = e;
+
+    // TODO key or keyCode?
+    switch (key) {
+      case ",": // keyCode: Comma
+      case "Enter":
+      case "Tab": // keyCode: Enter
+        handleAutoSuggestItemAdd(tags);
+
+        // empty the controlled input
+        setState(_ => ({ ..._, tags: "" }));
+        break;
+
+      default:
+        break;
+    }
   }
 
   // handleKeyDown = (e) => {
@@ -149,16 +169,33 @@ export default function BookmarkForm({
   }
 
   // handleItemClick
-  function handleItemClick(tag: string) {
-    set_tags(prev_tags => [...prev_tags, tag]);
+  function handleAutoSuggestItemAdd(tag: string) {
+    set_tags((prev_tags: string[]) => {
+      if (prev_tags.find(prevTag => prevTag === tag)) {
+        return prev_tags;
+      }
+
+      return [...prev_tags, tag];
+    });
+
+    // empty the controlled input
     setState(_ => ({ ..._, tags: "" }));
   }
 
+  // handleItemClick
+  function handleAutoSuggestItemDelete(tag: string) {
+    set_tags((prev_tags: string[]) => {
+      const tagToDelete = prev_tags.findIndex(prevTag => prevTag === tag);
+
+      return [
+        ...prev_tags.slice(0, tagToDelete),
+        ...prev_tags.slice(tagToDelete + 1),
+      ];
+    });
+  }
+
   return (
-    <form
-      className={root}
-      // onKeyDown={this.handleKeyDown}
-    >
+    <form className={root}>
       <div className="inputGroup">
         <InputField
           className="urlInput"
@@ -174,15 +211,26 @@ export default function BookmarkForm({
           placeholder="Linux, JavaScript (comma separated)"
           value={tags}
           onChange={handleTagChange}
+          onKeyDown={handleTagKeyDown}
         >
-          {_tags?.length && _tags.map(_tag => <PillButton label={_tag} />)}
+          {_tags?.length
+            ? _tags.map((_tag, i) => (
+                <PillButton
+                  label={_tag}
+                  style={i !== _tags.length - 1 ? { marginRight: 6 } : {}}
+                  onClick={() => handleAutoSuggestItemDelete(_tag)}
+                >
+                  <MaterialIcon icon="clear" />
+                </PillButton>
+              ))
+            : null}
         </InputField>
 
         {state.tags && (
           <AutoSuggest
             content={existingTags.filter(tag => tag.value.startsWith(tags))}
             limit={5}
-            onItemClick={handleItemClick}
+            onItemClick={handleAutoSuggestItemAdd}
           />
         )}
       </div>

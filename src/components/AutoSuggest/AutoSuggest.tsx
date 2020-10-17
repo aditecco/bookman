@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import Skeleton from "react-loading-skeleton";
 import { ITag } from "../../types/bookman";
-// import MaterialIcon from "../Misc/MaterialIcon";
+import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 interface OwnProps {
   content: ITag[];
@@ -51,12 +51,12 @@ export default function AutoSuggest({
               <h4 className="AutoSuggestItemTitle">{tag.value}</h4>
 
               <p className="AutoSuggestItemDesc">
-                <span className="ItemYear">
-                  {new Date(tag.timestamp)?.toLocaleDateString()}
-                </span>{" "}
-                &mdash;{" "}
                 <span className="ItemType">
                   {`${Object.keys(tag.bookmarks)?.length} bookmarks`}
+                </span>{" "}
+                &mdash;{" "}
+                <span className="ItemYear">
+                  {new Date(tag.timestamp)?.toLocaleDateString()}
                 </span>
               </p>
             </div>
@@ -69,7 +69,7 @@ export default function AutoSuggest({
             className="AutoSuggestShowMoreButton"
             onClick={() => setItemsToShow(content.length)}
           >
-            {/* <MaterialIcon icon="arrow_forward" /> Show more… */}
+            <MaterialIcon icon="arrow_forward" /> Show more…
           </button>
         )}
       </ul>
