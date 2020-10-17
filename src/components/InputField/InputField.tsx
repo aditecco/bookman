@@ -11,6 +11,7 @@ import React, { ReactNode, useState, ChangeEvent } from "react";
 
 // styles
 
+type TAdditionalInputProps = JSX.IntrinsicElements["input"];
 interface IOwnProps {
   children?: ReactNode;
   className?: string;
@@ -20,6 +21,8 @@ interface IOwnProps {
   value: string;
 }
 
+type EnrichedOwnProps = IOwnProps & TAdditionalInputProps;
+
 function InputField({
   className,
   label,
@@ -27,7 +30,8 @@ function InputField({
   placeholder,
   children,
   value,
-}: IOwnProps) {
+  ...additionalInputProps
+}: EnrichedOwnProps) {
   const root = "InputField";
 
   return (
@@ -35,6 +39,7 @@ function InputField({
       <label htmlFor={className}>{label}</label>
 
       <input
+        {...additionalInputProps}
         className={className}
         placeholder={placeholder}
         type="text"
@@ -42,7 +47,7 @@ function InputField({
         onChange={e => onChange(e)}
       />
 
-      {children}
+      {children && <div className="InputFieldChildren">{children}</div>}
     </div>
   );
 }
