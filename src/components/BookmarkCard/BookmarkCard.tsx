@@ -14,7 +14,7 @@ import { log, slugToDesc } from "../../utils";
 import { useDispatch } from "react-redux";
 import { updateBookmark } from "../../redux/actions";
 import UpdateMask from "../UpdateMask/UpdateMask";
-import { urlFilter } from "../../constants";
+import { URL_FILTER } from "../../constants";
 
 type TPropsFromBookmark = Partial<IBookmark>;
 
@@ -90,7 +90,7 @@ const BookmarkCard = ({
       <a className={root + "LinkWrapper"} href={url} target="_blank">
         <header className={root + "Header"}>
           <h4 className={root + "Heading"}>
-            {url.replace(urlFilter, "").split("/").slice(0, 1)}
+            {url.replace(URL_FILTER, "").split("/").slice(0, 1)}
           </h4>
 
           {/******************
@@ -101,7 +101,7 @@ const BookmarkCard = ({
             <h3 className={root + "ContentDescription"}>{slugToDesc(url)}</h3>
           ) : (
             <h3 className={root + "ContentUrl"}>
-              {url.replace(urlFilter, "")}
+              {url.replace(URL_FILTER, "")}
             </h3>
           )}
         </header>

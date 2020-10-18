@@ -2,7 +2,7 @@
 Utils
 --------------------------------- */
 
-import { urlFilter } from "./constants";
+import { URL_FILTER } from "./constants";
 import { replace } from "lodash";
 
 // concise console.log
@@ -131,7 +131,7 @@ export function slugToDesc(url: string): string {
   }
 
   desc = url
-    .replace(urlFilter, "")
+    .replace(URL_FILTER, "")
     .split("/")
     .pop()
     .split("-")
