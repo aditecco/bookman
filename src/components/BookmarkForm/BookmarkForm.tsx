@@ -152,6 +152,7 @@ export default function BookmarkForm({
 
     // we reset nonetheless
     setState(initialState);
+    set_tags([]);
   }
 
   // handleItemClick
