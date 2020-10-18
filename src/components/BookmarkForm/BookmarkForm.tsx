@@ -12,10 +12,12 @@ import BaseButton from "../BaseButton/BaseButton";
 import { IContentMeta, IBookmark, ITag } from "../../types/bookman";
 import { log } from "../../utils";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
+import { TAG_VALIDATOR } from "../../constants";
+import { showNotif } from "../../redux/actions";
 
 interface IOwnProps {
   onCreateBookmark?;
@@ -38,6 +40,7 @@ export default function BookmarkForm({
   const [state, setState] = useState(initialState);
   const [_tags, set_tags] = useState<string[]>([]);
   const existingTags = useSelector((state: RootState) => state.tags);
+  const dispatch = useDispatch();
 
   const { url, tags } = state;
   const root = "BookmarkForm";
@@ -61,7 +64,7 @@ export default function BookmarkForm({
 
     // TODO key or keyCode?
     switch (key) {
-      case ",": // keyCode: Comma
+      // case ",": // keyCode: Comma
       case "Enter":
       case "Tab": // keyCode: Enter
         handleAutoSuggestItemAdd(tags);
@@ -75,47 +78,33 @@ export default function BookmarkForm({
     }
   }
 
-  // handleKeyDown = (e) => {
-  //   // e.preventDefault();
-  //   console.log(e.key);
-  //   console.log(e.target);
-
-  //   const
-  //     key = e.key,
-  //     target = e.target.classList;
-
-  //   if (key === 'Enter' && target.contains('submitButton')) {
-  //     console.log('yo');
-  //   }
-  // }
-
   // TODO processTags
   function processUrl(url) {
     return url;
   }
 
   // processTags
-  function processTags(tags: string): string[] | boolean {
-    if (!tags) return true;
+  function processTags(tags: string[]): string[] | boolean {
+    // stop submit if nullish
+    if (!tags) return false;
 
-    // TODO What if it's just one tag?
-    if (!tags.includes(",")) return false;
+    // allow submit if no tags
+    if (!tags.length) return true;
 
-    // TODO also check that there's exactly 1 comma per word, -1
-    // - maybe use an input mask
-    // - if there's a comma at the end, strip it
-    // - if there's a ,, remove the unneeded comma
-
-    return tags
-      .trim()
-      .split(",")
-      .map(tag => tag.trim());
+    // default tag processing
+    return tags.map(tag => tag.replace(TAG_VALIDATOR, "").trim().toLowerCase());
   }
 
   // handleInvalidInput
   function handleInvalidInput() {
-    alert(
-      "URL is required! -- Or, there's a problem with how tags are formatted."
+    // TODO create switch to handle different cases
+    dispatch(
+      showNotif({
+        message: `URL is required!`,
+        icon: "error",
+        timeout: 4000,
+        theme: "dark",
+      })
     );
   }
 
@@ -135,13 +124,10 @@ export default function BookmarkForm({
      * - Valid URL
      * - valid tags if present, or no tags
      *
-     * TODO
-     * - can't submit only one tag
-     * - one tag + comma creates empty tag
      */
 
     //  submit rules
-    if (!url || !processTags(tags)) {
+    if (!url || !processTags(_tags)) {
       return handleInvalidInput();
     }
 
@@ -150,9 +136,9 @@ export default function BookmarkForm({
       onCreateBookmark({
         ...generateNewItem(),
         url,
-        tags: tags
+        tags: _tags.length
           ? // @ts-ignore
-            processTags(tags).map(
+            processTags(_tags).map(
               tag => ({ value: tag, ...generateNewItem() } as ITag)
             )
           : [],
@@ -208,7 +194,7 @@ export default function BookmarkForm({
         <InputField
           className="tagInput"
           label="tag(s)"
-          placeholder="Linux, JavaScript (comma separated)"
+          placeholder="i.e. JavaScript, Front-end"
           value={tags}
           onChange={handleTagChange}
           onKeyDown={handleTagKeyDown}
@@ -216,6 +202,7 @@ export default function BookmarkForm({
           {_tags?.length
             ? _tags.map((_tag, i) => (
                 <PillButton
+                  key={i}
                   label={_tag}
                   style={i !== _tags.length - 1 ? { marginRight: 6 } : {}}
                   onClick={() => handleAutoSuggestItemDelete(_tag)}
