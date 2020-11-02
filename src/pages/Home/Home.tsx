@@ -69,9 +69,8 @@ function Home({
     val => val === filterKey
   );
 
-  const filteredBookmarks = bookmarks.filter(
-    (bookmark: IBookmark) =>
-      bookmark.tags && bookmark.tags.map(tag => tag.value).includes(filterKey)
+  const filteredBookmarks = bookmarks.filter((bookmark: IBookmark) =>
+    bookmark?.tags?.map(tag => tag.value)?.includes(filterKey)
   );
 
   /**
