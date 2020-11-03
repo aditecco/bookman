@@ -22,8 +22,7 @@ export default function Layout({
   hasNav = true,
   hasFooter = true,
 }: OwnProps): ReactElement {
-
-  const [{admin_mode}] = useContext(SettingsContext);
+  const admin_mode = useContext(SettingsContext)?.[0]?.["admin_mode"] ?? false;
 
   return (
     <div className={"Layout" + " " + root}>
@@ -37,9 +36,11 @@ export default function Layout({
             <MaterialIcon icon="settings" />
           </Link>
 
-          {admin_mode && (<Link className="menuButton" to="/admin">
-            <MaterialIcon icon="dashboard" />
-          </Link>)}
+          {admin_mode && (
+            <Link className="menuButton" to="/admin">
+              <MaterialIcon icon="dashboard" />
+            </Link>
+          )}
         </Navbar>
       )}
 
