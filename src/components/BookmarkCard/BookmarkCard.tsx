@@ -136,7 +136,7 @@ const BookmarkCard = ({
             }
 
             <ul className={root + "TagContainer"}>
-              {tags.map((tag, i) => (
+              {tags.map?.((tag, i) => (
                 <li key={i}>
                   <PillButton {...tag} label={tag.value} />
                 </li>

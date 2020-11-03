@@ -69,9 +69,13 @@ function Home({
     val => val === filterKey
   );
 
-  const filteredBookmarks = bookmarks.filter((bookmark: IBookmark) =>
-    bookmark?.tags?.map(tag => tag.value)?.includes(filterKey)
-  );
+  const filteredBookmarks = bookmarks.filter((bookmark: IBookmark) => {
+    if (bookmark?.tags?.length) {
+      return bookmark.tags.map(tag => tag.value).includes(filterKey);
+    }
+
+    return false;
+  });
 
   /**
    * confirmDestructiveAction
