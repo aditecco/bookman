@@ -7,6 +7,7 @@ to save & organize bookmarks, and can persist the data via the browser's localSt
 
 
 It should
+- offer 'tag collections' as set of tags the user can assign to a new bookmark
 - let the user edit a tag
 - offer BM export functionality
 - offer pagination or infinite scrolling
@@ -18,7 +19,6 @@ It should
 - let the user hide the input section
 - auto-complete tags
 - offer sorting by multiple tags
-- offer 'tag collections'
 
 Inbox/High-level tasks:
   ✔ Upgrade CRA @focus @done(20-07-26 16:07)
