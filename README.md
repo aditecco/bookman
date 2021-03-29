@@ -1,10 +1,16 @@
-![BookMan demo GIF](assets/bookman-demo-2810.gif)
 
-BookMan is a React-based bookmark manager.
+
+BookMan
+=======
+
+![BookMan Screenshot](./preview/bmn-01.png)
+
+
+BookMan is a bookmark manager. See the [demo GIF (8 MB)](./preview/bookman-demo-2810.gif)
 
 #### Stack
 
 - React
 - Redux
-- Saga
+- Redux-Saga
 - Firebase
