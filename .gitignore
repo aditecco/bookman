@@ -35,3 +35,7 @@ yarn-error.log*
 
 # webstorm support folder
 .idea/
+
+# framework/build tool files
+.next
+next-env.d.ts
