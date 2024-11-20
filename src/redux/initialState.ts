@@ -7,9 +7,9 @@ import { IInitialState } from "../types/initial-state";
 export default {
   meta: {
     app: "BookMan",
-    version: `${process.env.REACT_APP_APP_VERSION}`,
+    version: `${process.env.NEXT_PUBLIC_VERSION}`,
     build: `${process.env.BUILD_ID}`, // will be resolved by Netlify
-    source: `${process.env.REACT_APP_APP_SOURCE}`,
+    source: `${process.env.NEXT_PUBLIC_APP_SOURCE}`,
   },
   loading: true,
   error: null,
