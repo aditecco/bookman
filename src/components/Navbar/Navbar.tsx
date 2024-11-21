@@ -4,7 +4,7 @@ Navbar
 
 import React from "react";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 function Navbar(props) {
   const root = "Navbar";
@@ -12,7 +12,7 @@ function Navbar(props) {
   return (
     <header className={root}>
       <div className={`wrapper ${root}Wrapper`}>
-        <Link to="/">
+        <Link href="/">
           <div className={root + "LogoContainer"}>
             <MaterialIcon icon="link" className={root + "Logo"} />
             <h1 className={root + "LogoType"}>bookman</h1>
