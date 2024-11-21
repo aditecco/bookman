@@ -2,16 +2,8 @@
 Routes
 --------------------------------- */
 
-import React, { useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Modal from "./components/Modal/Modal";
-import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
-import Profile from "./pages/Profile/Profile";
-import Settings from "./pages/Settings/Settings";
+import React from "react";
 import Layout from "./components/Layout/Layout";
-import { settings, updateSettings } from "./config";
-import Admin from "./pages/Admin/Admin";
 
 // BlankPage
 export function BlankPage({ title, children }) {
@@ -28,6 +20,7 @@ export function BlankPage({ title, children }) {
 export const SettingsContext = React.createContext(null);
 
 // Routes
+/*
 export default function Routes() {
   return (
     <SettingsContext.Provider value={useReducer(updateSettings, settings)}>
@@ -56,3 +49,4 @@ export default function Routes() {
     </SettingsContext.Provider>
   );
 }
+*/
