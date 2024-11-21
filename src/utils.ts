@@ -3,13 +3,16 @@ Utils
 --------------------------------- */
 
 import { URL_FILTER } from "./constants";
-import { replace } from "lodash";
 
 // concise console.log
-export const log = window.console.log.bind(window.console);
+export const log =
+  typeof window !== "undefined" ? window.console.log.bind(window.console) : {};
 
 // concise querySelector
-export const $ = window.document.querySelector.bind(window.document);
+export const $ =
+  typeof window !== "undefined"
+    ? window.document.querySelector.bind(window.document)
+    : {};
 
 // buildQuery
 export const buildQuery = params =>
