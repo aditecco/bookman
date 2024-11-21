@@ -7,6 +7,7 @@
     "antd": "^4.6.6",
     "autoprefixer": "^10.4.20",
     "axios": "1.7.4",
+    "classnames": "^2.5.1",
     "flat-ui-colors-sass": "^1.0.0",
     "lodash": "4.17.21",
     "next": "^15.0.3",
