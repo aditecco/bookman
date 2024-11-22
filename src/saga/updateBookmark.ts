@@ -2,19 +2,18 @@
 updateBookmark
 --------------------------------- */
 
-import { put, takeEvery, select, call } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
-  updateBookmark,
-  updateBookmarkPending,
-  updateBookmarkError,
-  updateBookmarkSuccess,
   showNotif,
   toggleModal,
+  updateBookmark,
+  updateBookmarkError,
+  updateBookmarkPending,
+  updateBookmarkSuccess,
 } from "../redux/actions";
-import { db } from "../index";
-import { log } from "../utils";
 import { IInitialState } from "../types/initial-state";
 import { ITag, TFirebaseKey } from "../types/bookman";
+import { db } from "../mocks";
 
 /**
  * updateBookmarkSaga
