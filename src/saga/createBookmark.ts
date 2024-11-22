@@ -2,19 +2,23 @@
 createBookmark
 --------------------------------- */
 
-import { call, put, takeEvery, select } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
-  showNotif,
   createBookmark,
-  createBookmarkPending,
   createBookmarkError,
+  createBookmarkPending,
   createBookmarkSuccess,
+  showNotif,
 } from "../redux/actions";
-import { db } from "../index";
+import { db } from "../mocks";
 import { IInitialState } from "../types/initial-state";
-import { TTagBundle, ITag, TTagsInDB } from "../types/bookman";
-import { TBookmarkInDB, TTagInDB } from "../types/bookman";
-import { log } from "../utils";
+import {
+  ITag,
+  TBookmarkInDB,
+  TTagBundle,
+  TTagInDB,
+  TTagsInDB,
+} from "../types/bookman";
 
 function* createBookmarkSaga(action) {
   const { payload: bookmark } = action;

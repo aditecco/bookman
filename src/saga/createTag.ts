@@ -2,17 +2,15 @@
 createTag
 --------------------------------- */
 
-import { call, put, takeEvery, select } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
-  showNotif,
   createTag,
-  createTagPending,
   createTagError,
+  createTagPending,
   createTagSuccess,
 } from "../redux/actions";
-import { db } from "../index";
+import { db } from "../mocks";
 import { IInitialState } from "../types/initial-state";
-import { log } from "../utils";
 import { TTagBundle } from "../types/bookman";
 
 function* createTagSaga(action) {

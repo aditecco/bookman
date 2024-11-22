@@ -6,11 +6,11 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
   signOutUser,
-  signOutUserPending,
   signOutUserError,
+  signOutUserPending,
   signOutUserSuccess,
 } from "../redux/actions";
-import * as firebase from "firebase/app";
+import { firebase } from "../mocks";
 
 /**
  * signOutUserSaga
@@ -20,7 +20,7 @@ function* signOutUserSaga() {
   yield put(signOutUserPending());
 
   try {
-    const context = firebase.auth();
+    const context = firebase?.auth?.();
 
     yield call({
       context,

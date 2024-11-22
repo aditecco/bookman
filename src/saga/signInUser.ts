@@ -6,11 +6,11 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
   signInUser,
-  signInUserPending,
   signInUserError,
+  signInUserPending,
   signInUserSuccess,
 } from "../redux/actions";
-import * as firebase from "firebase/app";
+import { firebase } from "../mocks";
 
 /**
  * signInUserSaga
@@ -24,7 +24,7 @@ function* signInUserSaga(action) {
   yield put(signInUserPending());
 
   try {
-    const context = firebase.auth();
+    const context = firebase?.auth();
 
     // setPersistence
     yield call(
@@ -32,7 +32,7 @@ function* signInUserSaga(action) {
         context,
         fn: context.setPersistence,
       },
-      firebase.auth.Auth.Persistence.LOCAL
+      firebase?.auth?.Auth?.Persistence?.LOCAL
     );
 
     // signInWithEmailAndPassword

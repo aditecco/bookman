@@ -6,11 +6,11 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
   signUpUser,
-  signUpUserPending,
   signUpUserError,
+  signUpUserPending,
   signUpUserSuccess,
 } from "../redux/actions";
-import * as firebase from "firebase/app";
+import { firebase } from "../mocks";
 
 /**
  * signUpUserSaga
@@ -27,8 +27,8 @@ function* signUpUserSaga(action) {
   try {
     const { user } = yield call(
       {
-        context: firebase.auth(),
-        fn: firebase.auth().createUserWithEmailAndPassword,
+        context: firebase?.auth?.(),
+        fn: firebase?.auth?.().createUserWithEmailAndPassword,
       },
       email,
       password

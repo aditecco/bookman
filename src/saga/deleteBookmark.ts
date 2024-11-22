@@ -2,17 +2,15 @@
 deleteBookmark
 --------------------------------- */
 
-import { put, takeEvery, select, call } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
   deleteBookmark,
-  deleteBookmarkPending,
   deleteBookmarkError,
+  deleteBookmarkPending,
   deleteBookmarkSuccess,
-  deleteLocalContent,
   showNotif,
 } from "../redux/actions";
-import { db } from "../index";
-import { log } from "../utils";
+import { db } from "../mocks";
 import { IInitialState } from "../types/initial-state";
 
 /**
