@@ -52,7 +52,7 @@ export default function Layout({
         </Navbar>
       )}
 
-      <main className={classNames("Content", root)}>{children}</main>
+      <main className={classNames(root && root + "Content")}>{children}</main>
 
       {hasFooter && <Footer />}
     </div>
