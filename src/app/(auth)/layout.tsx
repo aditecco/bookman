@@ -10,5 +10,9 @@ type OwnProps = {};
 export default function Layout({
   children,
 }: PropsWithChildren<OwnProps>): React.JSX.Element {
-  return <LayoutComponent root={"Authentication"}>{children}</LayoutComponent>;
+  return (
+    <LayoutComponent root={"Authentication"} hasNav={false}>
+      {children}
+    </LayoutComponent>
+  );
 }
