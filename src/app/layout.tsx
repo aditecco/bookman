@@ -1,11 +1,8 @@
-"use client";
-
 import "../styles/index.scss";
 import { Archivo, Fira_Sans, Work_Sans } from "next/font/google";
 import Head from "next/head";
 import { ReactNode } from "react";
-import store from "../store";
-import { Provider } from "react-redux";
+import { Metadata } from "next";
 
 const archivo = Archivo({
   weight: ["400", "700"],
@@ -22,10 +19,10 @@ const workSans = Work_Sans({
   subsets: ["latin"],
 });
 
-// export const metadata: Metadata = {
-//   title: "BookMan",
-//   description: "Web app created with Next.js.",
-// };
+export const metadata: Metadata = {
+  title: "BookMan",
+  description: "Web app created with Next.js.",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -41,9 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </Head>
 
       <body>
-        <div id="root">
-          <Provider store={store}>{children}</Provider>
-        </div>
+        <div id="root">{children}</div>
       </body>
     </html>
   );
