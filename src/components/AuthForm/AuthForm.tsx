@@ -3,11 +3,9 @@ AuthForm
 --------------------------------- */
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { capitalize } from "../../utils";
 
 export default function AuthForm({ intent, actionHandler }) {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,8 +22,6 @@ export default function AuthForm({ intent, actionHandler }) {
       window.alert("nope!");
       return;
     }
-
-    dispatch(actionHandler({ email, password }));
   }
 
   return (
