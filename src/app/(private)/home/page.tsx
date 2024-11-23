@@ -1,3 +1,5 @@
+"use client";
+
 /* ---------------------------------
 Home
 --------------------------------- */
@@ -5,25 +7,24 @@ Home
 // deps
 import React, { useReducer } from "react";
 import { connect } from "react-redux";
-import * as Constants from "../../constants";
-import { removeDuplicates } from "../../utils";
+import * as Constants from "../../../constants";
+import { removeDuplicates } from "../../../utils";
 import {
   createBookmark,
   deleteBookmark,
   toggleModal,
-} from "../../redux/actions";
+} from "../../../redux/actions";
 
 // components
-import BookmarkForm from "../../components/BookmarkForm/BookmarkForm";
-import { IBookmark, ITag } from "../../types/bookman";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import { IAuthState, IDataTransferState } from "../../types/initial-state";
-import ContentGrid from "../../components/ContentGrid/ContentGrid";
+import BookmarkForm from "../../../components/BookmarkForm/BookmarkForm";
+import { IBookmark, ITag } from "../../../types/bookman";
+import Sidebar from "../../../components/Sidebar/Sidebar";
+import { IAuthState, IDataTransferState } from "../../../types/initial-state";
+import ContentGrid from "../../../components/ContentGrid/ContentGrid";
 import InfoMessage, {
   InfoMessageTypes,
-} from "../../components/InfoMessage/InfoMessage";
-import Spinner from "../../components/Spinner/Spinner";
-import Layout from "../../components/Layout/Layout";
+} from "../../../components/InfoMessage/InfoMessage";
+import Spinner from "../../../components/Spinner/Spinner";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -102,7 +103,7 @@ function Home({
   }
 
   return (
-    <Layout root="Home" hasNav>
+    <>
       {/* inputSection */}
       <section className="inputSection">
         <div className="wrapper">
@@ -137,7 +138,7 @@ function Home({
           />
         </main>
       )}
-    </Layout>
+    </>
   );
 }
 
