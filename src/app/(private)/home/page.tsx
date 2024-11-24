@@ -5,13 +5,14 @@ Home
 --------------------------------- */
 
 // deps
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { connect } from "react-redux";
 import * as Constants from "../../../constants";
 import { removeDuplicates } from "../../../utils";
 import {
   createBookmark,
   deleteBookmark,
+  fetchBookmarks,
   toggleModal,
 } from "../../../store/actions";
 
@@ -25,6 +26,7 @@ import InfoMessage, {
   InfoMessageTypes,
 } from "../../../components/InfoMessage/InfoMessage";
 import Spinner from "../../../components/Spinner/Spinner";
+import apiClient from "../../../lib/apiClient";
 
 interface IGlobalStateProps {
   bookmarks: IBookmark[];
@@ -45,6 +47,7 @@ type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
 
 function Home({
   bookmarks,
+  fetchBookmarks,
   createBookmark,
   dataTransfer,
   deleteBookmark,
@@ -102,6 +105,20 @@ function Home({
     setState({ filterKey: e.target.innerHTML });
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data: bookmarks } = (await apiClient.get("/bookmarks")) ?? {};
+
+        fetchBookmarks(bookmarks);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <>
       {/* inputSection */}
@@ -158,7 +175,7 @@ function mapStateToProps({
 
 function mapDispatchToProps(dispatch) {
   return {
-    // fetchBookmarks: () => dispatch(fetchBookmarks()),
+    fetchBookmarks: bookmarks => dispatch(fetchBookmarks(bookmarks)),
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     deleteBookmark: (key, tags) => dispatch(deleteBookmark({ key, tags })),
     toggleModal: payload => dispatch(toggleModal(payload)),

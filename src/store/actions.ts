@@ -30,6 +30,9 @@ export const signOutUserSuccess = createAction<Action>("SIGN_OUT_USER_SUCCESS");
 export const signOutUserError = createAction<Action>("SIGN_OUT_USER_ERROR");
 
 
+// fetchBookmarks
+export const fetchBookmarks = createAction<Action>("FETCH_BOOKMARKS");
+
 // createBookmark
 export const createBookmark = createAction<Action>("CREATE_BOOKMARK");
 export const createBookmarkPending = createAction<Action>("CREATE_BOOKMARK_PENDING");
@@ -63,7 +66,7 @@ export const syncTags = createAction<Action>("SYNC_TAGS");
 
 // -------------------------------------------------------
 
-// 
+//
 export const importLocalBookmarks = createAction<Action>("IMPORT_LOCAL_BOOKMARKS");
 export const importLocalTags = createAction<Action>("IMPORT_LOCAL_TAGS");
 

@@ -9,6 +9,7 @@ import {
   deleteBookmarkError,
   deleteBookmarkPending,
   deleteBookmarkSuccess,
+  fetchBookmarks,
   hideNotif,
   importLocalBookmarks,
   importLocalTags,
@@ -160,6 +161,13 @@ const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore
   [stopLoading](state) {
     return { ...state, loading: false };
+  },
+
+  // @ts-ignore
+  [fetchBookmarks](state, action) {
+    const { payload: bookmarks } = action;
+
+    return Object.assign({}, state, { bookmarks });
   },
 
   // @ts-ignore
