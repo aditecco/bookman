@@ -8,7 +8,7 @@ import {
   createTagError,
   createTagPending,
   createTagSuccess,
-} from "../redux/actions";
+} from "../store/actions";
 import { db } from "../mocks";
 import { IInitialState } from "../types/initial-state";
 import { TTagBundle } from "../types/bookman";

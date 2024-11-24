@@ -4,9 +4,9 @@ NotificationMessage
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideNotif } from "../../redux/actions";
+import { hideNotif } from "../../store/actions";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 
 export default function NotificationMessage() {
   const dispatch = useDispatch();

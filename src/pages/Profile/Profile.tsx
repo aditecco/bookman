@@ -4,10 +4,10 @@ Profile
 
 import React, { ReactElement } from "react";
 import Layout from "../../components/Layout/Layout";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import BaseButton from "../../components/BaseButton/BaseButton";
-import { signOutUser } from "../../redux/actions";
+import { signOutUser } from "../../store/actions";
 
 interface IOwnProps {}
 

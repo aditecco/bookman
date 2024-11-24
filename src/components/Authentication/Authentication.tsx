@@ -3,11 +3,10 @@ Authentication
 --------------------------------- */
 
 import React from "react";
-import { signInUser, signUpUser } from "../../redux/actions";
+import { signInUser, signUpUser } from "../../store/actions";
 import AuthForm from "../AuthForm/AuthForm";
 import TabSwitcher from "../TabSwitcher/TabSwitcher";
 import Layout from "../Layout/Layout";
-import Navbar from "../Navbar/Navbar";
 
 export default function Authentication() {
   return (

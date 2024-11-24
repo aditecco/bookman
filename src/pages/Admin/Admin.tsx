@@ -6,7 +6,7 @@ import React, { ReactElement, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { Modal, Table, Tooltip } from "antd";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { IBookmark, ITag } from "../../types/bookman";
 import PillButton from "../../components/PillButton/PillButton";
 import BaseButton from "../../components/BaseButton/BaseButton";

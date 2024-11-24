@@ -4,7 +4,7 @@ UpdateMask
 
 import React, { ReactElement, useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { updateBookmark, toggleModal } from "../../redux/actions";
+import { toggleModal, updateBookmark } from "../../store/actions";
 import { IBookmark } from "../../types/bookman";
 import BaseButton from "../BaseButton/BaseButton";
 import InputField from "../InputField/InputField";
@@ -121,7 +121,7 @@ export default function UpdateMask(props: TOwnProps): ReactElement {
     }
   />
 
-  
+
     />
   ))}
 </> */

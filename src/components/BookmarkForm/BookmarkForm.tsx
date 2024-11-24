@@ -12,11 +12,11 @@ import BaseButton from "../BaseButton/BaseButton";
 import { IBookmark, IContentMeta, ITag } from "../../types/bookman";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 import { TAG_VALIDATOR } from "../../constants";
-import { showNotif } from "../../redux/actions";
+import { showNotif } from "../../store/actions";
 
 interface IOwnProps {
   onCreateBookmark?;

@@ -13,7 +13,7 @@ import {
   createBookmark,
   deleteBookmark,
   toggleModal,
-} from "../../../redux/actions";
+} from "../../../store/actions";
 
 // components
 import BookmarkForm from "../../../components/BookmarkForm/BookmarkForm";
@@ -158,6 +158,7 @@ function mapStateToProps({
 
 function mapDispatchToProps(dispatch) {
   return {
+    // fetchBookmarks: () => dispatch(fetchBookmarks()),
     createBookmark: bookmark => dispatch(createBookmark(bookmark)),
     deleteBookmark: (key, tags) => dispatch(deleteBookmark({ key, tags })),
     toggleModal: payload => dispatch(toggleModal(payload)),

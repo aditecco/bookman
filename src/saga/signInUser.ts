@@ -9,7 +9,7 @@ import {
   signInUserError,
   signInUserPending,
   signInUserSuccess,
-} from "../redux/actions";
+} from "../store/actions";
 import { firebase } from "../mocks";
 
 /**

@@ -5,8 +5,8 @@ Modal
 import React from "react";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "../../redux/actions";
-import { RootState } from "../../store";
+import { toggleModal } from "../../store/actions";
+import { RootState } from "../../store/store";
 
 export default function Modal() {
   const { open, content } = useSelector((state: RootState) => state.modal);

@@ -5,7 +5,7 @@ Layout
 --------------------------------- */
 
 import React, { PropsWithChildren } from "react";
-import store from "../../store";
+import store from "../../store/store";
 import { Provider } from "react-redux";
 import LayoutComponent from "../../components/Layout/Layout";
 

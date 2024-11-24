@@ -10,7 +10,7 @@ import {
   updateBookmarkError,
   updateBookmarkPending,
   updateBookmarkSuccess,
-} from "../redux/actions";
+} from "../store/actions";
 import { IInitialState } from "../types/initial-state";
 import { ITag, TFirebaseKey } from "../types/bookman";
 import { db } from "../mocks";

@@ -9,7 +9,7 @@ import {
   signOutUserError,
   signOutUserPending,
   signOutUserSuccess,
-} from "../redux/actions";
+} from "../store/actions";
 import { firebase } from "../mocks";
 
 /**
