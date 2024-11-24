@@ -4,12 +4,11 @@ Admin
 
 import React, { ReactElement, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Modal, Table, Tag, Tooltip } from "antd";
+import { Modal, Table, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { IBookmark, ITag } from "../../types/bookman";
 import PillButton from "../../components/PillButton/PillButton";
-import { log } from "../../utils";
 import BaseButton from "../../components/BaseButton/BaseButton";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
@@ -319,5 +318,5 @@ export default function Admin(props: IOwnProps): ReactElement {
           },
         ]}
       />
- 
+
  */

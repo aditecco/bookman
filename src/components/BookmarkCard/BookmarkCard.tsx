@@ -1,6 +1,6 @@
 /******************
   BookmarkCard
-*******************/
+ *******************/
 
 // deps
 import React, { ReactElement } from "react";
@@ -8,11 +8,7 @@ import React, { ReactElement } from "react";
 // comps
 import PillButton from "../PillButton/PillButton";
 import { IBookmark } from "../../types/bookman";
-import BookmarkForm from "../BookmarkForm/BookmarkForm";
-import InputField from "../InputField/InputField";
-import { log, slugToDesc } from "../../utils";
-import { useDispatch } from "react-redux";
-import { updateBookmark } from "../../redux/actions";
+import { slugToDesc } from "../../utils";
 import UpdateMask from "../UpdateMask/UpdateMask";
 import { URL_FILTER } from "../../constants";
 

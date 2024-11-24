@@ -1,16 +1,15 @@
 /******************
   BookmarkForm
-*******************/
+ *******************/
 
 // deps
-import React, { useState, ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import uuidv4 from "uuid";
 
 // components
 import InputField from "../InputField/InputField";
 import BaseButton from "../BaseButton/BaseButton";
-import { IContentMeta, IBookmark, ITag } from "../../types/bookman";
-import { log } from "../../utils";
+import { IBookmark, IContentMeta, ITag } from "../../types/bookman";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -139,7 +138,7 @@ export default function BookmarkForm({
         tags: _tags.length
           ? // @ts-ignore
             processTags(_tags).map(
-              tag => ({ value: tag, ...generateNewItem() } as ITag)
+              tag => ({ value: tag, ...generateNewItem() }) as ITag
             )
           : [],
       } as IBookmark);

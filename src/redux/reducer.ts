@@ -3,26 +3,16 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-import { log, clipText } from "../utils";
+import { clipText } from "../utils";
 import initialState from "./initialState";
-import { IInitialState } from "../types/initial-state";
 import {
-  createBookmarkError,
-  createBookmarkPending,
-  createBookmarkSuccess,
-  createTagError,
-  createTagPending,
-  createTagSuccess,
-  deleteBookmark,
   deleteBookmarkError,
   deleteBookmarkPending,
   deleteBookmarkSuccess,
-  destroyUser,
   hideNotif,
   importLocalBookmarks,
   importLocalTags,
   setAuthState,
-  setInitialData,
   showNotif,
   signInUserError,
   signInUserPending,
@@ -37,11 +27,10 @@ import {
   syncBookmarks,
   syncTags,
   toggleModal,
+  updateBookmarkError,
   updateBookmarkPending,
   updateBookmarkSuccess,
-  updateBookmarkError,
 } from "./actions";
-import updateBookmark from "../saga/updateBookmark";
 
 const reducer = createReducer(/*initialState as IInitialState,*/ initialState, {
   // @ts-ignore

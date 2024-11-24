@@ -2,7 +2,7 @@
 Utils
 --------------------------------- */
 
-import { URL_FILTER } from "./constants";
+import { URL_FILTER } from "../constants";
 
 // concise console.log
 export const log =
