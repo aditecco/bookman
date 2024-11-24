@@ -13,7 +13,7 @@ import {
 import { db } from "../mocks";
 import { IInitialState } from "../types/initial-state";
 import {
-  ITag,
+  TagType,
   TBookmarkInDB,
   TTagBundle,
   TTagInDB,
@@ -35,7 +35,7 @@ function* createBookmarkSaga(action) {
 
   function detectPreexistingTags(
     existingTags: TTagsInDB,
-    candidateTag: ITag
+    candidateTag: TagType
   ): TTagInDB | undefined {
     return Object.values(existingTags).find(
       tag => tag.value === candidateTag.value

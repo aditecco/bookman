@@ -12,7 +12,7 @@ import {
   updateBookmarkSuccess,
 } from "../store/actions";
 import { IInitialState } from "../types/initial-state";
-import { ITag, TFirebaseKey } from "../types/bookman";
+import { TagType, TFirebaseKey } from "../types/bookman";
 import { db } from "../mocks";
 
 /**
@@ -53,15 +53,15 @@ function* updateBookmarkSaga(action) {
     const context = db.ref();
 
     const hasTags = Object.values(
-      removedTags as Record<TFirebaseKey, ITag>
-    ).filter((tag: ITag) => tag);
+      removedTags as Record<TFirebaseKey, TagType>
+    ).filter((tag: TagType) => tag);
 
     let tagsToUpdate;
 
     if (hasTags.length) {
       // find out if the tags are not referenced in other bookmarks
       const leaves = hasTags
-        .filter((tag: ITag) => Object.keys(tag.bookmarks).length === 1)
+        .filter((tag: TagType) => Object.keys(tag.bookmarks).length === 1)
         .map(leaf => leaf._key);
 
       tagsToUpdate = hasTags.reduce((acc, tag) => {

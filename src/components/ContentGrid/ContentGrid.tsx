@@ -2,18 +2,17 @@
 ContentGrid
 --------------------------------- */
 
-import React, { ReactElement, useState, useContext } from "react";
+import React, { ReactElement } from "react";
 import BookmarkCard from "../BookmarkCard/BookmarkCard";
-import { IBookmark } from "../../types/bookman";
-import { SettingsContext } from "../../routes";
+import { BookmarkType } from "../../types/bookman";
 
 interface IOwnProps {
-  bookmarks: IBookmark[];
+  bookmarks: BookmarkType[];
   destructiveActionHandler;
   editBookmarkHandler;
-  filteredBookmarks: IBookmark[];
+  filteredBookmarks: BookmarkType[];
   filterKey: string;
-  searchResults: IBookmark[];
+  searchResults: BookmarkType[];
 }
 
 export default function ContentGrid({
@@ -24,15 +23,15 @@ export default function ContentGrid({
   filterKey,
   searchResults,
 }: IOwnProps): ReactElement {
-  const [settings, updateSettings] = useContext(SettingsContext);
-  const { show_descriptions: descriptions } = settings;
+  // const [settings, updateSettings] = useContext(SettingsContext);
+  // const { show_descriptions: descriptions } = settings;
 
-  function bookmarkCardRenderer(bookmark: IBookmark, i: number) {
+  function bookmarkCardRenderer(bookmark: BookmarkType, i: number) {
     return (
       <li className="BookmarkCardContainer" key={i}>
         <BookmarkCard
           {...bookmark}
-          descriptions={descriptions}
+          descriptions={bookmark.Title}
           onDeleteClick={destructiveActionHandler}
           onEditClick={editBookmarkHandler}
         />
@@ -55,9 +54,9 @@ export default function ContentGrid({
           <button
             type="button"
             className="toggleButton"
-            onClick={() => updateSettings({ show_descriptions: !descriptions })}
+            //   onClick={() => updateSettings({ show_descriptions: !descriptions })}
           >
-            &middot; {descriptions ? "Descriptions on" : "Descriptions off"}
+            // &middot; {false ? "Descriptions on" : "Descriptions off"}
           </button>
         </header>
 

@@ -6,7 +6,7 @@ import React, { ReactElement } from "react";
 import { removeDuplicates } from "../../utils";
 import BaseButton from "../BaseButton/BaseButton";
 import TagItem from "../TagItem/TagItem";
-import { ITag } from "../../types/bookman";
+import { TagType } from "../../types/bookman";
 
 interface IOwnProps {
   filteredTags: string[];
@@ -14,7 +14,7 @@ interface IOwnProps {
   filterResetHandler;
   filterKey;
   sortFn?: (arg0, arg1) => number;
-  tags: ITag[];
+  tags: TagType[];
 }
 
 export default function Sidebar({

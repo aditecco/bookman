@@ -5,14 +5,14 @@ UpdateMask
 import React, { ReactElement, useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { toggleModal, updateBookmark } from "../../store/actions";
-import { IBookmark } from "../../types/bookman";
+import { BookmarkType } from "../../types/bookman";
 import BaseButton from "../BaseButton/BaseButton";
 import InputField from "../InputField/InputField";
 import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 import InfoMessage from "../InfoMessage/InfoMessage";
 
-type TOwnProps = IBookmark;
+type TOwnProps = BookmarkType;
 
 export default function UpdateMask(props: TOwnProps): ReactElement {
   const dispatch = useDispatch();

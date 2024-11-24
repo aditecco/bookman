@@ -9,7 +9,7 @@ import uuidv4 from "uuid";
 // components
 import InputField from "../InputField/InputField";
 import BaseButton from "../BaseButton/BaseButton";
-import { IBookmark, IContentMeta, ITag } from "../../types/bookman";
+import { BookmarkType, IContentMeta, TagType } from "../../types/bookman";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -138,10 +138,10 @@ export default function BookmarkForm({
         tags: _tags.length
           ? // @ts-ignore
             processTags(_tags).map(
-              tag => ({ value: tag, ...generateNewItem() }) as ITag
+              tag => ({ value: tag, ...generateNewItem() }) as TagType
             )
           : [],
-      } as IBookmark);
+      } as BookmarkType);
     }
 
     // if we are in an update scenario

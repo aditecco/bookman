@@ -2,18 +2,13 @@
 AutoSuggest
 --------------------------------- */
 
-import React, {
-  useState,
-  useEffect,
-  ReactElement,
-  SetStateAction,
-} from "react";
+import React, { ReactElement, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { ITag } from "../../types/bookman";
+import { TagType } from "../../types/bookman";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 
 interface OwnProps {
-  content: ITag[];
+  content: TagType[];
   limit: number;
   onItemClick: (arg: string) => void;
 }

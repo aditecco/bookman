@@ -8,10 +8,11 @@ import React, {
   ReactEventHandler,
   ReactNode,
 } from "react";
-import { ITag } from "../../types/bookman";
+import { TagType } from "../../types/bookman";
+
 const root = "PillButton";
 
-type TPropsFromTag = Partial<ITag>;
+type TPropsFromTag = Partial<TagType>;
 
 interface IOwnProps extends TPropsFromTag {
   _key?: string;

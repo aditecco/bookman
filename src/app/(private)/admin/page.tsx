@@ -7,7 +7,7 @@ import Layout from "../../../components/Layout/Layout";
 import { Modal, Table, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { IBookmark, ITag } from "../../../types/bookman";
+import { BookmarkType, TagType } from "../../../types/bookman";
 import PillButton from "../../../components/PillButton/PillButton";
 import BaseButton from "../../../components/BaseButton/BaseButton";
 import TabSwitcher from "../../../components/TabSwitcher/TabSwitcher";
@@ -52,7 +52,7 @@ export default function Admin(props: IOwnProps): ReactElement {
               <Table
                 sticky
                 size="middle"
-                dataSource={bookmarks.map((bookmark: IBookmark) => ({
+                dataSource={bookmarks.map((bookmark: BookmarkType) => ({
                   key: bookmark._key,
                   ...bookmark,
                 }))}
@@ -74,7 +74,7 @@ export default function Admin(props: IOwnProps): ReactElement {
                     title: "Tags",
                     dataIndex: "tags",
                     key: "tags",
-                    render(tags: ITag[]) {
+                    render(tags: TagType[]) {
                       return tags?.map((tag, i) => (
                         <PillButton
                           label={tag.value}
@@ -131,7 +131,7 @@ export default function Admin(props: IOwnProps): ReactElement {
             content: (
               <Table
                 size="middle"
-                dataSource={tags.map((tag: ITag) => ({
+                dataSource={tags.map((tag: TagType) => ({
                   key: tag._key,
                   ...tag,
                 }))}

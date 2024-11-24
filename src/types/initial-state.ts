@@ -2,7 +2,7 @@
 Initial state types
 --------------------------------- */
 
-import { IUser, IBookmark, ITag } from "./bookman";
+import { BookmarkType, IUser, TagType } from "./bookman";
 
 export interface IAppMeta {
   app: string;
@@ -44,8 +44,8 @@ export interface IInitialState {
   error: null | IErrorState;
   authentication: IAuthState;
   dataTransfer: IDataTransferState;
-  bookmarks: IBookmark[];
-  tags: ITag[];
+  bookmarks: BookmarkType[];
+  tags: TagType[];
   notificationMessage: INotificationMessageState;
   modal: IModalState;
 }
