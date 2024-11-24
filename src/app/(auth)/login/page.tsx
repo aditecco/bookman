@@ -7,6 +7,7 @@ LoginForm
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { ERROR__GENERIC_ERROR } from "../../../constants";
 
 export default function LoginForm(): React.JSX.Element {
   const [email, setEmail] = useState("");
@@ -34,9 +35,11 @@ export default function LoginForm(): React.JSX.Element {
 
       await axios.post("/api/login", { email, password });
 
-      await router.push("/home");
+      router.push("/home");
     } catch (err) {
-      setError(err.message);
+      setError(
+        err.response?.data?.error ?? err.message ?? ERROR__GENERIC_ERROR
+      );
       console.error(err);
     } finally {
       setLoading(false);

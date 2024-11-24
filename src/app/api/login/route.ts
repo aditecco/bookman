@@ -3,18 +3,30 @@ Login route
 --------------------------------- */
 
 import { NextResponse } from "next/server";
+import axios from "axios";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { email, password } = await req.json();
 
-    // TODO send to BE
+    const { data } =
+      (await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/local`, {
+        identifier: email,
+        password,
+      })) ?? {};
+
+    console.log(data);
 
     return NextResponse.json({ message: "Login successful" }, { status: 200 });
+    // TODO redirect won't work
     // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_HOST}/home`);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error processing request", error: error.message },
+      // BE writes the error to: error.response.data.error.message
+      {
+        message: "Error processing request",
+        error: error.response.data.error.message,
+      },
       { status: 400 }
     );
   }
