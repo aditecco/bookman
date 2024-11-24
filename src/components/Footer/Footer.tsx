@@ -6,7 +6,7 @@ import React, { ReactElement, ReactNode } from "react";
 
 function Footer({
   footerInfo = `BookMan
-  ${process.env.NEXT_PUBLIC_VERSION} ${
+  ${process.env.NEXT_PUBLIC_APP_VERSION} ${
     process.env.BUILD_ID && process.env.BUILD_ID.substring(0, 4)
   }`,
   children,
