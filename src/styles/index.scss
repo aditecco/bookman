@@ -38,7 +38,7 @@ components & pages
 @import "../components/InfoMessage/InfoMessage";
 @import "../components/AutoSuggest/AutoSuggest.scss";
 @import "../components/Layout/Layout";
-@import "../pages/Home/Home";
-@import "../pages/Profile/Profile";
-@import "../pages/Settings/Settings";
-@import "../pages/Admin/Admin";
+@import "pages/home";
+@import "pages/profile";
+@import "pages/settings";
+@import "pages/admin";
