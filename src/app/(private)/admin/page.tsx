@@ -3,14 +3,14 @@ Admin
 --------------------------------- */
 
 import React, { ReactElement, useState } from "react";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../../components/Layout/Layout";
 import { Modal, Table, Tooltip } from "antd";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { IBookmark, ITag } from "../../types/bookman";
-import PillButton from "../../components/PillButton/PillButton";
-import BaseButton from "../../components/BaseButton/BaseButton";
-import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
+import { RootState } from "../../../store/store";
+import { IBookmark, ITag } from "../../../types/bookman";
+import PillButton from "../../../components/PillButton/PillButton";
+import BaseButton from "../../../components/BaseButton/BaseButton";
+import TabSwitcher from "../../../components/TabSwitcher/TabSwitcher";
 
 interface IOwnProps {}
 
