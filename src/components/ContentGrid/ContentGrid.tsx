@@ -31,7 +31,7 @@ export default function ContentGrid({
       <li className="BookmarkCardContainer" key={i}>
         <BookmarkCard
           {...bookmark}
-          descriptions={bookmark.Title}
+          descriptions
           onDeleteClick={destructiveActionHandler}
           onEditClick={editBookmarkHandler}
         />
