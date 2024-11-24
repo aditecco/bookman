@@ -18,8 +18,7 @@ import {
 
 // components
 import BookmarkForm from "../../../components/BookmarkForm/BookmarkForm";
-import { IBookmark, ITag } from "../../../types/bookman";
-import Sidebar from "../../../components/Sidebar/Sidebar";
+import { BookmarkType, TagType } from "../../../types/bookman";
 import { IAuthState, IDataTransferState } from "../../../types/initial-state";
 import ContentGrid from "../../../components/ContentGrid/ContentGrid";
 import InfoMessage, {
@@ -27,10 +26,11 @@ import InfoMessage, {
 } from "../../../components/InfoMessage/InfoMessage";
 import Spinner from "../../../components/Spinner/Spinner";
 import apiClient from "../../../lib/apiClient";
+import Sidebar from "../../../components/Sidebar/Sidebar";
 
 interface IGlobalStateProps {
-  bookmarks: IBookmark[];
-  tags: ITag[];
+  bookmarks: BookmarkType[];
+  tags: TagType[];
   authentication: IAuthState;
   dataTransfer: IDataTransferState;
 }
@@ -69,13 +69,13 @@ function Home({
   );
 
   const { error, filterKey, found } = state;
-  const filteredTags = removeDuplicates(tags.map(tag => tag.value)).filter(
+  const filteredTags = removeDuplicates(tags.map(tag => tag.Name)).filter(
     val => val === filterKey
   );
 
-  const filteredBookmarks = bookmarks.filter((bookmark: IBookmark) => {
-    if (bookmark?.tags?.length) {
-      return bookmark.tags.map(tag => tag.value).includes(filterKey);
+  const filteredBookmarks = bookmarks.filter((bookmark: BookmarkType) => {
+    if (bookmark?.Tags?.length) {
+      return bookmark.Tags.map(tag => tag.Name).includes(filterKey);
     }
 
     return false;
@@ -133,7 +133,7 @@ function Home({
         <div className="wrapper error">
           <InfoMessage type={InfoMessageTypes.error} body={error.message} />
         </div>
-      ) : dataTransfer.loadingBookmarks || dataTransfer.loadingTags ? (
+      ) : !bookmarks?.length ? (
         <Spinner />
       ) : (
         <main className="wrapper mainContentWrapper">
