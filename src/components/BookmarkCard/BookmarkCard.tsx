@@ -7,12 +7,11 @@ import React, { ReactElement } from "react";
 
 // comps
 import PillButton from "../PillButton/PillButton";
-import { IBookmark } from "../../types/bookman";
+import { BookmarkType } from "../../types/bookman";
 import { slugToDesc } from "../../utils";
-import UpdateMask from "../UpdateMask/UpdateMask";
 import { URL_FILTER } from "../../constants";
 
-type TPropsFromBookmark = Partial<IBookmark>;
+type TPropsFromBookmark = Partial<BookmarkType>;
 
 interface IOwnProps extends TPropsFromBookmark {
   onEditClick;
@@ -22,12 +21,11 @@ interface IOwnProps extends TPropsFromBookmark {
 
 const BookmarkCard = ({
   id,
-  timestamp,
-  _key,
-  createdBy,
-  url,
-  tags,
-  tagKeys,
+  URL: url,
+  Author: author,
+  Tags: tags,
+  Title: title,
+  createdAt,
   onEditClick,
   onDeleteClick,
   descriptions,
@@ -134,7 +132,7 @@ const BookmarkCard = ({
             <ul className={root + "TagContainer"}>
               {tags.map?.((tag, i) => (
                 <li key={i}>
-                  <PillButton {...tag} label={tag.value} />
+                  <PillButton {...tag} label={tag.Name} />
                 </li>
               ))}
             </ul>
@@ -144,7 +142,7 @@ const BookmarkCard = ({
 
       <footer className={root + "Footer"}>
         <div className={root + "TimeStamp"}>
-          <time>{new Date(timestamp).toLocaleDateString()}</time>
+          <time>{new Date(createdAt).toLocaleDateString()}</time>
         </div>
 
         <div className={root + "Controls"}>
@@ -154,24 +152,25 @@ const BookmarkCard = ({
             <li className={`${root}ControlsItem ${root}ControlsItem__edit`}>
               <a
                 href="#"
-                onClick={() =>
+                onClick={
+                  () => {}
                   // this will open the modal
                   // and populate it w/ a form
-                  onEditClick({
-                    content: (
-                      <UpdateMask
-                        {...{
-                          _key,
-                          id,
-                          timestamp,
-                          createdBy,
-                          url,
-                          tags,
-                          tagKeys,
-                        }}
-                      />
-                    ),
-                  })
+                  // onEditClick({
+                  //   content: (
+                  //     <UpdateMask
+                  //       {...{
+                  //         _key,
+                  //         id,
+                  //         timestamp,
+                  //         createdBy,
+                  //         url,
+                  //         tags,
+                  //         tagKeys,
+                  //       }}
+                  //     />
+                  //   ),
+                  // })
                 }
               >
                 edit
@@ -184,7 +183,7 @@ const BookmarkCard = ({
                 onClick={e => {
                   e.preventDefault();
 
-                  onDeleteClick(_key, tagKeys);
+                  // onDeleteClick(_key, tagKeys);
                 }}
               >
                 delete
