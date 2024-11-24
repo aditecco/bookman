@@ -2,7 +2,9 @@
 
 import dynamic from "next/dynamic";
 
-const Home = dynamic(() => import("../../pages/Home/Home"), { ssr: false });
+const Home = dynamic(() => import("../app/(private)/home/page"), {
+  ssr: false,
+});
 
 export function ClientOnly() {
   return <Home />;
