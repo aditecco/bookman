@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(data, { status: 200 });
     // TODO redirect won't work
-    // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_HOST}/home`);
+    // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_HOST}/bookmarks`);
   } catch (error) {
     return NextResponse.json(
       {

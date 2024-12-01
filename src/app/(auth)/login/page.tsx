@@ -48,7 +48,7 @@ export default function LoginForm(): React.JSX.Element {
         })
       );
 
-      router.push("/home");
+      router.push("/bookmarks");
     } catch (err) {
       setError(
         err.response?.data?.message ?? err.message ?? ERROR__GENERIC_ERROR
