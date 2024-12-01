@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       {
         // BE writes the error to: error.response.data.error.message
         message: error.response.data.error.message,
-        error,
+        // error,
       },
       { status: 400 }
     );
