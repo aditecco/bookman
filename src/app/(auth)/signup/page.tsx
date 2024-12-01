@@ -4,10 +4,10 @@
 Page
 --------------------------------- */
 
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 type OwnProps = {};
 
-export default function Page({}: PropsWithChildren<OwnProps>): React.JSX.Element {
-  return <></>;
+export default function Page(): React.JSX.Element {
+  return <h1>Hey</h1>;
 }
