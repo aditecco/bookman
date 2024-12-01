@@ -45,7 +45,7 @@ interface IDispatchProps {
 
 type TProps = IGlobalStateProps & IDispatchProps & IOwnProps;
 
-function Home({
+function Bookmarks({
   bookmarks,
   fetchBookmarks,
   createBookmark,
@@ -182,6 +182,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const WithRedux = connect(mapStateToProps, mapDispatchToProps)(Home);
+const WithRedux = connect(mapStateToProps, mapDispatchToProps)(Bookmarks);
 
 export default WithRedux;
