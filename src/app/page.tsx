@@ -2,16 +2,16 @@
 Page
 --------------------------------- */
 
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import Link from "next/link";
 
 type OwnProps = {};
 
-export default function Page({}: PropsWithChildren<OwnProps>): React.JSX.Element {
+export default function Page(): React.JSX.Element {
   return (
     <div>
       yo
-      <Link href={"/home"}>Home</Link>
+      <Link href={"/bookmarks"}>Home</Link>
     </div>
   );
 }
