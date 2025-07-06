@@ -1,5 +1,5 @@
 /******************
-  BookmarkForm
+BookmarkForm
  *******************/
 
 // deps
@@ -13,8 +13,8 @@ import AutoSuggest from "../AutoSuggest/AutoSuggest";
 import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 import { TAG_VALIDATOR } from "../../constants";
-import { useAppStore } from "../../stores/appStore";
 import { useTags } from "../../hooks/useTags";
+import toast from "react-hot-toast";
 
 interface IOwnProps {
   onCreateBookmark?: (bookmarkData: any) => void;
@@ -39,7 +39,6 @@ export default function BookmarkForm({
   const [state, setState] = useState(initialState);
   const [_tags, set_tags] = useState<string[]>([]);
   const { uniqueTagNames } = useTags();
-  const { addNotification } = useAppStore();
 
   const { url, tags } = state;
   const root = "BookmarkForm";
@@ -71,6 +70,7 @@ export default function BookmarkForm({
   }
 
   // processTags
+  // TODO this stuff can be handled in the bookmarks service
   function processTags(tags: string[]): string[] | boolean {
     if (!tags) return false;
     if (!tags.length) return true;
@@ -79,13 +79,10 @@ export default function BookmarkForm({
 
   // handleInvalidInput
   function handleInvalidInput() {
-    addNotification({
-      message: "URL is required!",
-      type: "error",
-      timeout: 4000
-    });
+    toast.error("URL is required!");
   }
 
+  // TODO this stuff is handled on the DB
   // generateNewItem
   function generateNewItem() {
     return {
@@ -95,21 +92,21 @@ export default function BookmarkForm({
   }
 
   // handleSubmit
-  function handleSubmit() {
-    if (!url || !processTags(_tags)) {
-      return handleInvalidInput();
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!url) {
+      handleInvalidInput();
+
+      return;
     }
 
     if (onCreateBookmark) {
-      const processedTags = processTags(_tags);
+      // const processedTags = processTags(_tags);
       onCreateBookmark({
-        ...generateNewItem(),
+        // ...generateNewItem(),
         url,
-        tags: Array.isArray(processedTags) && processedTags.length
-          ? processedTags.map(
-              tag => ({ value: tag, ...generateNewItem() })
-            )
-          : [],
+        tags: _tags ?? [],
       });
     }
 
@@ -165,7 +162,7 @@ export default function BookmarkForm({
 
         <BaseButton
           className="submitButton"
-          onClick={handleSubmit}
+          onClick={e => handleSubmit(e)}
           label={isLoading ? "Creating..." : submitLabel}
         />
       </div>
@@ -186,7 +183,8 @@ export default function BookmarkForm({
       )}
 
       {/* auto suggest */}
-      {uniqueTagNames.length > 0 && (
+      {/* TODO… */}
+      {false && uniqueTagNames.length > 0 && (
         <AutoSuggest
           content={uniqueTagNames.map(name => ({
             id: 0,
@@ -197,7 +195,7 @@ export default function BookmarkForm({
             publishedAt: new Date().toISOString(),
             value: name,
             timestamp: Date.now(),
-            bookmarks: {}
+            bookmarks: {},
           }))}
           limit={5}
           onItemClick={handleAutoSuggestItemAdd}
