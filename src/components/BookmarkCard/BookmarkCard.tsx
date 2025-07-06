@@ -21,7 +21,7 @@ interface IOwnProps extends TPropsFromBookmark {
 
 const BookmarkCard = ({
   id,
-  URL: url,
+  url,
   Author: author,
   Tags: tags,
   Title: title,
@@ -84,7 +84,7 @@ const BookmarkCard = ({
       <a className={root + "LinkWrapper"} href={url} target="_blank">
         <header className={root + "Header"}>
           <h4 className={root + "Heading"}>
-            {url.replace(URL_FILTER, "").split("/").slice(0, 1)}
+            {url?.replace?.(URL_FILTER, "")?.split("/")?.slice(0, 1)}
           </h4>
 
           {/******************
@@ -95,7 +95,7 @@ const BookmarkCard = ({
             <h3 className={root + "ContentDescription"}>{slugToDesc(url)}</h3>
           ) : (
             <h3 className={root + "ContentUrl"}>
-              {url.replace(URL_FILTER, "")}
+              {url?.replace?.(URL_FILTER, "")}
             </h3>
           )}
         </header>

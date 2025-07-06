@@ -47,8 +47,8 @@ export default function Sidebar({
                 return (
                   <li key={i}>
                     <TagItem
-                      count={String(Object.keys(tag.bookmarks).length || "")}
-                      name={tag.value}
+                      // count={String(Object.keys(tag.bookmarks).length || "")}
+                      name={tag.name}
                       onClick={filterHandler}
                     />
                   </li>

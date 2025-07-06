@@ -127,6 +127,8 @@ export function clipText(t: string, maxLength: number = 15) {
  */
 
 export function slugToDesc(url: string): string {
+  if (!url) return "";
+
   let desc: string;
 
   if (url.charAt(url.length - 1) === "/") {
