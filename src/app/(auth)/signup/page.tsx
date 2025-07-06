@@ -26,6 +26,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submitted", formData);
     
     if (formData.password !== formData.confirmPassword) {
       addNotification({
@@ -39,6 +40,7 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
+      console.log("Attempting to sign up with:", formData.email);
       await signUp(formData.email, formData.password);
       addNotification({
         message: "Account created! Please check your email to confirm.",
@@ -47,6 +49,7 @@ export default function SignupPage() {
       });
       router.push("/login");
     } catch (error: any) {
+      console.error("Signup error:", error);
       addNotification({
         message: error.message || "Signup failed",
         type: "error",
@@ -102,7 +105,7 @@ export default function SignupPage() {
             
             <BaseButton
               className="submitButton"
-              onClick={() => {}} // Form submit will handle this
+              type="submit"
               label={isLoading ? "Creating account..." : "Sign up"}
             />
           </form>
