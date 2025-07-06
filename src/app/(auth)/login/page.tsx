@@ -1,95 +1,94 @@
 "use client";
 
-/* ---------------------------------
-LoginForm
---------------------------------- */
-
 import React, { useState } from "react";
-import axios from "axios";
+import { useAuth } from "../../../hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { ERROR__GENERIC_ERROR, TOKEN_KEY, USER_KEY } from "../../../constants";
+import { useAppStore } from "../../../stores/appStore";
+import InputField from "../../../components/InputField/InputField";
+import BaseButton from "../../../components/BaseButton/BaseButton";
+import Spinner from "../../../components/Spinner/Spinner";
 
-export default function LoginForm(): React.JSX.Element {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
+export default function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const { signIn } = useAuth();
+  const { addNotification } = useAppStore();
   const router = useRouter();
 
-  function validate(input) {
-    return Object.values(input).every(val => val !== "");
-  }
-
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validate({ email, password })) {
-      window.alert("nope!");
-      return;
-    }
+    setIsLoading(true);
 
     try {
-      setError("");
-      setLoading(true);
-
-      const { data } =
-        (await axios.post("/api/login", { email, password })) ?? {};
-
-      if (!data?.jwt || !data?.user) throw new Error(ERROR__GENERIC_ERROR);
-
-      localStorage.setItem(TOKEN_KEY, data.jwt);
-
-      localStorage.setItem(
-        USER_KEY,
-        JSON.stringify({
-          username: data.user.username,
-          email: data.user.email,
-        })
-      );
-
+      await signIn(formData.email, formData.password);
+      addNotification({
+        message: "Welcome back!",
+        type: "success",
+        timeout: 3000
+      });
       router.push("/bookmarks");
-    } catch (err) {
-      setError(
-        err.response?.data?.message ?? err.message ?? ERROR__GENERIC_ERROR
-      );
-      console.error(err);
+    } catch (error: any) {
+      addNotification({
+        message: error.message || "Login failed",
+        type: "error",
+        timeout: 5000
+      });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  if (isLoading) {
+    return <Spinner />;
   }
 
   return (
-    <div className="wrapper thin">
-      {error ? <div className="error">{error}</div> : false}
-
-      <form className="AuthForm" onSubmit={handleLogin}>
-        <label htmlFor="emailField">{`Login email`}</label>
-        <input
-          id="emailField"
-          name="emailField"
-          type="email"
-          className="BaseInput"
-          placeholder={`login.email@example.com`}
-          value={email}
-          onChange={e => setEmail(e.currentTarget.value)}
-        />
-
-        <label htmlFor="passwordField">Password</label>
-        <input
-          id="passwordField"
-          name="passwordField"
-          type="password"
-          className="BaseInput"
-          placeholder="your password"
-          value={password}
-          onChange={e => setPassword(e.currentTarget.value)}
-        />
-
-        <button type="submit" className="BaseButton">
-          Login
-        </button>
-      </form>
+    <div className="AuthPage">
+      <div className="wrapper">
+        <div className="AuthForm">
+          <h1>Login to BookMan</h1>
+          
+          <form onSubmit={handleSubmit}>
+            <InputField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+            
+            <InputField
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+            
+            <BaseButton
+              className="submitButton"
+              onClick={() => {}} // Form submit will handle this
+              label={isLoading ? "Logging in..." : "Login"}
+            />
+          </form>
+          
+          <p>
+            Don't have an account?{" "}
+            <a href="/signup">Sign up</a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

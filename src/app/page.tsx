@@ -2,16 +2,9 @@
 Page
 --------------------------------- */
 
-import React from "react";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
-type OwnProps = {};
-
-export default function Page(): React.JSX.Element {
-  return (
-    <div>
-      yo
-      <Link href={"/bookmarks"}>Home</Link>
-    </div>
-  );
+export default function Page() {
+  // Redirect to login page
+  redirect("/login");
 }

@@ -1,8 +1,8 @@
 import "../styles/index.scss";
 import { Archivo, Fira_Sans, Work_Sans } from "next/font/google";
-import Head from "next/head";
 import { ReactNode } from "react";
 import { Metadata } from "next";
+import QueryProvider from "../providers/QueryProvider";
 
 const archivo = Archivo({
   weight: ["400", "700"],
@@ -30,15 +30,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${archivo.className} ${firaSans.className} ${workSans.className}`}
     >
-      <Head>
+      <head>
         <link
           href="https://fonts.gstatic.com/s/materialicons/v142/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2"
           rel="stylesheet"
         />
-      </Head>
+      </head>
 
       <body>
-        <div id="root">{children}</div>
+        <QueryProvider>
+          <div id="root">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );

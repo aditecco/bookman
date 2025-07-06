@@ -2,38 +2,43 @@
 NotificationMessage
 --------------------------------- */
 
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { hideNotif } from "../../store/actions";
+import React from "react";
+import { useAppStore } from "../../stores/appStore";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
-import { RootState } from "../../store/store";
 
 export default function NotificationMessage() {
-  const dispatch = useDispatch();
-  const { message, icon, visible, timeout, theme } = useSelector(
-    (state: RootState) => state.notificationMessage
-  );
+  const { notifications, removeNotification } = useAppStore();
 
-  useEffect(() => {
-    visible &&
-      setTimeout(() => {
-        dispatch(hideNotif());
-      }, timeout);
-  }, [visible]);
+  if (notifications.length === 0) return null;
 
-  return visible ? (
-    <div
-      className={`NotificationMessage ${visible ? "visible" : ""} ${
-        theme === "light" ? "light" : ""
-      }`}
-    >
-      {icon && (
-        <div className="NotificationMessageVisual">
-          <MaterialIcon icon={icon} />
+  return (
+    <div className="NotificationMessageContainer">
+      {notifications.map((notification) => (
+        <div
+          key={notification.id}
+          className={`NotificationMessage visible ${
+            notification.type === 'success' ? 'light' : ''
+          }`}
+        >
+          <div className="NotificationMessageVisual">
+            <MaterialIcon 
+              icon={
+                notification.type === 'success' ? 'check_circle' : 
+                notification.type === 'error' ? 'error' : 'info'
+              } 
+            />
+          </div>
+
+          <div className="NotificationMessageContent">{notification.message}</div>
+          
+          <button
+            className="NotificationMessageClose"
+            onClick={() => removeNotification(notification.id)}
+          >
+            <MaterialIcon icon="close" />
+          </button>
         </div>
-      )}
-
-      <div className="NotificationMessageContent">{message}</div>
+      ))}
     </div>
-  ) : null;
+  );
 }

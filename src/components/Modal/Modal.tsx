@@ -4,21 +4,21 @@ Modal
 
 import React from "react";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "../../store/actions";
-import { RootState } from "../../store/store";
+import { useAppStore } from "../../stores/appStore";
 
 export default function Modal() {
-  const { open, content } = useSelector((state: RootState) => state.modal);
-  const dispatch = useDispatch();
+  const { modal, closeModal } = useAppStore();
+  const { open, content } = modal;
 
-  return open ? (
+  if (!open) return null;
+
+  return (
     <section className="Modal">
       <div className="ModalControls">
         <button
           type="button"
           className="ModalCloseButton"
-          onClick={() => dispatch(toggleModal())}
+          onClick={closeModal}
         >
           <MaterialIcon icon="close" />
         </button>
@@ -26,5 +26,5 @@ export default function Modal() {
 
       <div className="ModalContainer">{content}</div>
     </section>
-  ) : null;
+  );
 }
