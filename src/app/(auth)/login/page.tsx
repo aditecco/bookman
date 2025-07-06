@@ -14,7 +14,7 @@ export default function LoginPage() {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { signIn } = useAuth();
   const { addNotification } = useAppStore();
   const router = useRouter();
@@ -28,14 +28,14 @@ export default function LoginPage() {
       addNotification({
         message: "Welcome back!",
         type: "success",
-        timeout: 3000
+        timeout: 3000,
       });
       router.push("/bookmarks");
     } catch (error: any) {
       addNotification({
         message: error.message || "Login failed",
         type: "error",
-        timeout: 5000
+        timeout: 5000,
       });
     } finally {
       setIsLoading(false);
@@ -56,7 +56,7 @@ export default function LoginPage() {
       <div className="wrapper">
         <div className="AuthForm">
           <h1>Login to BookMan</h1>
-          
+
           <form onSubmit={handleSubmit}>
             <InputField
               label="Email"
@@ -66,7 +66,7 @@ export default function LoginPage() {
               onChange={handleInputChange}
               required
             />
-            
+
             <InputField
               label="Password"
               name="password"
@@ -75,17 +75,16 @@ export default function LoginPage() {
               onChange={handleInputChange}
               required
             />
-            
+
             <BaseButton
               className="submitButton"
-              onClick={() => {}} // Form submit will handle this
+              type="submit"
               label={isLoading ? "Logging in..." : "Login"}
             />
           </form>
-          
+
           <p>
-            Don't have an account?{" "}
-            <a href="/signup">Sign up</a>
+            Don't have an account? <a href="/signup">Sign up</a>
           </p>
         </div>
       </div>
