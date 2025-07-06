@@ -3,6 +3,7 @@ import { Archivo, Fira_Sans, Work_Sans } from "next/font/google";
 import { ReactNode } from "react";
 import { Metadata } from "next";
 import QueryProvider from "../providers/QueryProvider";
+import { Toaster } from "react-hot-toast";
 
 const archivo = Archivo({
   weight: ["400", "700"],
@@ -38,6 +39,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
 
       <body>
+        <Toaster />
+
         <QueryProvider>
           <div id="root">{children}</div>
         </QueryProvider>
