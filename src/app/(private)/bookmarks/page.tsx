@@ -25,7 +25,14 @@ import { useAppStore } from "../../../stores/appStore";
 
 export default function Bookmarks() {
   const { user } = useAuth();
-  const { bookmarks, isLoading, error, createBookmark, deleteBookmark, isCreating } = useBookmarks();
+  const {
+    bookmarks,
+    isLoading,
+    error,
+    createBookmark,
+    deleteBookmark,
+    isCreating,
+  } = useBookmarks();
   const { uniqueTagNames } = useTags();
   const { openModal, setFilterKey, filterKey } = useAppStore();
 
@@ -47,7 +54,7 @@ export default function Bookmarks() {
     val => val === filterKey
   );
 
-  const filteredBookmarks = bookmarks.filter((bookmark) => {
+  const filteredBookmarks = bookmarks.filter(bookmark => {
     if (bookmark?.tags?.length) {
       return bookmark.tags.map(tag => tag.name).includes(filterKey);
     }
@@ -86,7 +93,7 @@ export default function Bookmarks() {
     const bookmarkWithUser = {
       ...bookmarkData,
       user_id: user.id,
-      tags: bookmarkData.tags?.map((tag: any) => tag.value || tag.name) || []
+      // tags: bookmarkData.tags?.map((tag: any) => tag.value || tag.name) || []
     };
 
     createBookmark(bookmarkWithUser);
@@ -104,9 +111,9 @@ export default function Bookmarks() {
   if (error || localError) {
     return (
       <div className="wrapper error">
-        <InfoMessage 
-          type={InfoMessageTypes.error} 
-          body={error?.message || localError?.message || "An error occurred"} 
+        <InfoMessage
+          type={InfoMessageTypes.error}
+          body={error?.message || localError?.message || "An error occurred"}
         />
       </div>
     );
@@ -121,7 +128,7 @@ export default function Bookmarks() {
       {/* inputSection */}
       <section className="inputSection">
         <div className="wrapper">
-          <BookmarkForm 
+          <BookmarkForm
             onCreateBookmark={handleCreateBookmark}
             isLoading={isCreating}
           />
@@ -131,9 +138,9 @@ export default function Bookmarks() {
       {/* content */}
       {!bookmarks?.length ? (
         <div className="wrapper">
-          <InfoMessage 
-            type={InfoMessageTypes.info} 
-            body="No bookmarks yet. Create your first one above!" 
+          <InfoMessage
+            type={InfoMessageTypes.info}
+            body="No bookmarks yet. Create your first one above!"
           />
         </div>
       ) : (
