@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookmarksService, BookmarkWithTags } from '../services/bookmarks';
 import { useAuth } from './useAuth';
 import { useAppStore } from '../stores/appStore';
+import toast from "react-hot-toast";
 
 export const useBookmarks = () => {
   const { user } = useAuth();
@@ -29,6 +30,7 @@ export const useBookmarks = () => {
         type: 'success',
         timeout: 3000
       });
+      toast.success("Bookmark created successfully!");
     },
     onError: (error) => {
       addNotification({
@@ -38,6 +40,7 @@ export const useBookmarks = () => {
       });
       console.error('Error creating bookmark:', error);
     }
+      toast.error(error.message || "Failed to create bookmark");
   });
 
   const updateBookmarkMutation = useMutation({
