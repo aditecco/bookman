@@ -56,6 +56,7 @@
 
       .BookmarkCardContainer {
         transition: transform 0.3s ease;
+
         &:hover {
           transform: scale(1.01) translateY(-10px);
         }

@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { tagsService } from '../services/tags';
-import { useAuth } from './useAuth';
-import { useAppStore } from '../stores/appStore';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { tagsService } from "../services/tags";
+import { useAuth } from "./useAuth";
+import { useAppStore } from "../stores/appStore";
 
 export const useTags = () => {
   const { user } = useAuth();
@@ -12,18 +12,15 @@ export const useTags = () => {
     data: tags = [],
     isLoading,
     error,
-    refetch
+    refetch,
   } = useQuery({
-    queryKey: ['tags', user?.id],
+    queryKey: ["tags", user?.id],
     queryFn: () => tagsService.getTags(user!.id),
     enabled: !!user?.id,
   });
 
-  const {
-    data: uniqueTagNames = [],
-    isLoading: isLoadingTagNames
-  } = useQuery({
-    queryKey: ['tagNames', user?.id],
+  const { data: uniqueTagNames = [], isLoading: isLoadingTagNames } = useQuery({
+    queryKey: ["tagNames", user?.id],
     queryFn: () => tagsService.getUniqueTagNames(user!.id),
     enabled: !!user?.id,
   });
@@ -32,65 +29,70 @@ export const useTags = () => {
     mutationFn: (tagData: Parameters<typeof tagsService.createTag>[0]) =>
       tagsService.createTag(tagData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tags'] });
-      queryClient.invalidateQueries({ queryKey: ['tagNames'] });
+      queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
-        message: 'Tag created successfully!',
-        type: 'success',
-        timeout: 3000
+        message: "Tag created successfully!",
+        type: "success",
+        timeout: 3000,
       });
     },
-    onError: (error) => {
+    onError: error => {
       addNotification({
-        message: 'Failed to create tag',
-        type: 'error',
-        timeout: 5000
+        message: "Failed to create tag",
+        type: "error",
+        timeout: 5000,
       });
-      console.error('Error creating tag:', error);
-    }
+      console.error("Error creating tag:", error);
+    },
   });
 
   const updateTagMutation = useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof tagsService.updateTag>[1] }) =>
-      tagsService.updateTag(id, updates),
+    mutationFn: ({
+      id,
+      updates,
+    }: {
+      id: string;
+      updates: Parameters<typeof tagsService.updateTag>[1];
+    }) => tagsService.updateTag(id, updates),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tags'] });
-      queryClient.invalidateQueries({ queryKey: ['tagNames'] });
+      queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
-        message: 'Tag updated successfully!',
-        type: 'success',
-        timeout: 3000
+        message: "Tag updated successfully!",
+        type: "success",
+        timeout: 3000,
       });
     },
-    onError: (error) => {
+    onError: error => {
       addNotification({
-        message: 'Failed to update tag',
-        type: 'error',
-        timeout: 5000
+        message: "Failed to update tag",
+        type: "error",
+        timeout: 5000,
       });
-      console.error('Error updating tag:', error);
-    }
+      console.error("Error updating tag:", error);
+    },
   });
 
   const deleteTagMutation = useMutation({
     mutationFn: (id: string) => tagsService.deleteTag(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tags'] });
-      queryClient.invalidateQueries({ queryKey: ['tagNames'] });
+      queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
-        message: 'Tag deleted successfully!',
-        type: 'success',
-        timeout: 3000
+        message: "Tag deleted successfully!",
+        type: "success",
+        timeout: 3000,
       });
     },
-    onError: (error) => {
+    onError: error => {
       addNotification({
-        message: 'Failed to delete tag',
-        type: 'error',
-        timeout: 5000
+        message: "Failed to delete tag",
+        type: "error",
+        timeout: 5000,
       });
-      console.error('Error deleting tag:', error);
-    }
+      console.error("Error deleting tag:", error);
+    },
   });
 
   return {
@@ -106,4 +108,4 @@ export const useTags = () => {
     isUpdating: updateTagMutation.isPending,
     isDeleting: deleteTagMutation.isPending,
   };
-}; 
+};

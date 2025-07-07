@@ -2,15 +2,15 @@
 TabSwitcher
 --------------------------------- */
 
-import React, { useState, ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 
 interface IOwnProps {
-  tabs: ITabConfig[]
+  tabs: ITabConfig[];
 }
 
 interface ITabConfig {
-    name: string
-    content: ReactElement | React.FC | string
+  name: string;
+  content: ReactElement | React.FC | string;
 }
 
 // TODO

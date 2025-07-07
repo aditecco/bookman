@@ -2,7 +2,7 @@
 Spinner
 --------------------------------- */
 
-import React, { ReactNode, ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 interface OwnProps {
   inline?: boolean;

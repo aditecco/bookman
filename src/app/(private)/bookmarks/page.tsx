@@ -149,14 +149,14 @@ export default function Bookmarks() {
             filterHandler={handleTagFiltering}
             filterResetHandler={() => setFilterKey("")}
             filterKey={filterKey}
-            tags={uniqueTagNames.map(name => ({ 
+            tags={uniqueTagNames.map(name => ({
               id: 0,
               documentId: name,
               Name: name,
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
               publishedAt: new Date().toISOString(),
-              value: name
+              value: name,
             }))}
           />
 
@@ -176,8 +176,8 @@ export default function Bookmarks() {
                 Name: tag.name,
                 createdAt: tag.created_at,
                 updatedAt: tag.updated_at,
-                publishedAt: tag.created_at
-              }))
+                publishedAt: tag.created_at,
+              })),
             }))}
             destructiveActionHandler={confirmDestructiveAction}
             editBookmarkHandler={handleEditBookmark}
@@ -196,8 +196,8 @@ export default function Bookmarks() {
                 Name: tag.name,
                 createdAt: tag.created_at,
                 updatedAt: tag.updated_at,
-                publishedAt: tag.created_at
-              }))
+                publishedAt: tag.created_at,
+              })),
             }))}
             filterKey={filterKey}
             searchResults={found}

@@ -1,9 +1,9 @@
 /******************
-  BaseButton
-*******************/
+ BaseButton
+ *******************/
 
 // js
-import React, { ReactElement, ReactEventHandler, ReactChildren } from "react";
+import React, { ReactElement, ReactEventHandler } from "react";
 
 // components
 

@@ -1,14 +1,23 @@
-import { useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-import { useAppStore } from '../stores/appStore';
+import { useEffect } from "react";
+import { supabase } from "../lib/supabase";
+import { useAppStore } from "../stores/appStore";
 
 export const useAuth = () => {
-  const { user, isAuthenticated, authLoading, setUser, setAuthLoading, signOut } = useAppStore();
+  const {
+    user,
+    isAuthenticated,
+    authLoading,
+    setUser,
+    setAuthLoading,
+    signOut,
+  } = useAppStore();
 
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
       setAuthLoading(false);
     };
@@ -16,12 +25,12 @@ export const useAuth = () => {
     getInitialSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-        setAuthLoading(false);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      setAuthLoading(false);
+    });
 
     return () => subscription.unsubscribe();
   }, [setUser, setAuthLoading]);
@@ -29,7 +38,10 @@ export const useAuth = () => {
   const signIn = async (email: string, password: string) => {
     setAuthLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       if (error) throw error;
       return data;
     } catch (error) {
@@ -70,4 +82,4 @@ export const useAuth = () => {
     signUp,
     signOut: handleSignOut,
   };
-}; 
+};

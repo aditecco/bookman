@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import Spinner from './Spinner/Spinner';
+import { useAuth } from "../hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Spinner from "./Spinner/Spinner";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [isAuthenticated, authLoading, router]);
 
@@ -28,4 +28,4 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   }
 
   return <>{children}</>;
-} 
+}

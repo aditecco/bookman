@@ -1,6 +1,6 @@
 /******************
-  TagItem
-*******************/
+ TagItem
+ *******************/
 
 import React, { ReactElement, ReactEventHandler } from "react";
 

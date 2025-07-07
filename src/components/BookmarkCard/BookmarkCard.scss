@@ -8,6 +8,7 @@
   box-shadow: $shadow;
   margin-bottom: $margin;
   background-color: white;
+
   > * {
     padding: ($padding / 2) $padding;
     // border-bottom: 1px solid $flat-gray-1;
@@ -50,9 +51,11 @@
   #{$root}Body {
     position: relative;
     padding-right: 0;
+
     &Heading {
       @include smallHeading;
     }
+
     #{$root}TagContainerCurtain {
       position: absolute;
       height: 100%;
@@ -76,6 +79,7 @@
         @extend %resetAnchors;
         display: block;
         height: 100%;
+
         .material-icons {
           @extend a;
           color: $flat-gray-4;
@@ -89,31 +93,42 @@
         }
       }
     }
+
     #{$root}TagContainer {
       @include box(($padding / 2) 0, 0, true);
       @include flex(row nowrap, flex-start, center);
       overflow-x: hidden;
+
       &::-webkit-scrollbar {
       }
+
       &::-webkit-scrollbar-button {
       }
+
       &::-webkit-scrollbar-track {
       }
+
       &::-webkit-scrollbar-track-piece {
       }
+
       &::-webkit-scrollbar-thumb {
       }
+
       &::-webkit-scrollbar-corner {
       }
+
       &::-webkit-resizer {
       }
+
       > *:not(:last-child) {
         margin-right: $margin / 2;
       }
+
       .PillButton {
       }
     }
   }
+
   #{$root}Footer {
     @include flex(row nowrap, space-evenly, center);
     padding: ($padding / 2) $padding;
@@ -122,18 +137,22 @@
     #{$root}TimeStamp {
       flex-grow: 1;
       padding-right: 0;
+
       time {
         font-size: $xSmall;
         color: $flat-gray-2;
       }
     }
+
     #{$root}Controls {
       &Heading {
         @include smallHeading;
       }
+
       &Container {
         @include box(0, 0, true);
         @include flex(row nowrap, space-evenly, center);
+
         #{$root}ControlsItem {
           a {
             display: block;
@@ -145,13 +164,16 @@
             color: $flat-gray-2;
             text-transform: uppercase;
             text-decoration: none;
+
             &:hover {
               background-color: $flat-gray-1;
             }
           }
+
           &__edit {
             margin-right: $margin / 2;
           }
+
           &__delete {
             a:hover {
               border: 2px solid $error;

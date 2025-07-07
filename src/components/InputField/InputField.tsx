@@ -1,9 +1,9 @@
 /******************
-  InputField
-*******************/
+ InputField
+ *******************/
 
 // js
-import React, { ReactNode, useState, ChangeEvent } from "react";
+import React, { ChangeEvent, ReactNode } from "react";
 
 // components
 
@@ -12,6 +12,7 @@ import React, { ReactNode, useState, ChangeEvent } from "react";
 // styles
 
 type TAdditionalInputProps = JSX.IntrinsicElements["input"];
+
 interface IOwnProps {
   children?: ReactNode;
   className?: string;

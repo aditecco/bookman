@@ -13,24 +13,29 @@ export default function NotificationMessage() {
 
   return (
     <div className="NotificationMessageContainer">
-      {notifications.map((notification) => (
+      {notifications.map(notification => (
         <div
           key={notification.id}
           className={`NotificationMessage visible ${
-            notification.type === 'success' ? 'light' : ''
+            notification.type === "success" ? "light" : ""
           }`}
         >
           <div className="NotificationMessageVisual">
-            <MaterialIcon 
+            <MaterialIcon
               icon={
-                notification.type === 'success' ? 'check_circle' : 
-                notification.type === 'error' ? 'error' : 'info'
-              } 
+                notification.type === "success"
+                  ? "check_circle"
+                  : notification.type === "error"
+                    ? "error"
+                    : "info"
+              }
             />
           </div>
 
-          <div className="NotificationMessageContent">{notification.message}</div>
-          
+          <div className="NotificationMessageContent">
+            {notification.message}
+          </div>
+
           <button
             className="NotificationMessageClose"
             onClick={() => removeNotification(notification.id)}

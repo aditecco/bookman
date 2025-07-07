@@ -1,6 +1,6 @@
 /******************
-  Footer
-*******************/
+ Footer
+ *******************/
 
 import React, { ReactElement, ReactNode } from "react";
 

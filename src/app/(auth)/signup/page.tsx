@@ -19,7 +19,7 @@ export default function SignupPage() {
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { signUp } = useAuth();
   const { addNotification } = useAppStore();
   const router = useRouter();
@@ -27,12 +27,12 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted", formData);
-    
+
     if (formData.password !== formData.confirmPassword) {
       addNotification({
         message: "Passwords don't match",
         type: "error",
-        timeout: 5000
+        timeout: 5000,
       });
       return;
     }
@@ -45,7 +45,7 @@ export default function SignupPage() {
       addNotification({
         message: "Account created! Please check your email to confirm.",
         type: "success",
-        timeout: 5000
+        timeout: 5000,
       });
       router.push("/login");
     } catch (error: any) {
@@ -53,7 +53,7 @@ export default function SignupPage() {
       addNotification({
         message: error.message || "Signup failed",
         type: "error",
-        timeout: 5000
+        timeout: 5000,
       });
     } finally {
       setIsLoading(false);
@@ -74,7 +74,7 @@ export default function SignupPage() {
       <div className="wrapper">
         <div className="AuthForm">
           <h1>Sign up for BookMan</h1>
-          
+
           <form onSubmit={handleSubmit}>
             <InputField
               label="Email"
@@ -84,7 +84,7 @@ export default function SignupPage() {
               onChange={handleInputChange}
               required
             />
-            
+
             <InputField
               label="Password"
               name="password"
@@ -93,7 +93,7 @@ export default function SignupPage() {
               onChange={handleInputChange}
               required
             />
-            
+
             <InputField
               label="Confirm Password"
               name="confirmPassword"
@@ -102,17 +102,16 @@ export default function SignupPage() {
               onChange={handleInputChange}
               required
             />
-            
+
             <BaseButton
               className="submitButton"
               type="submit"
               label={isLoading ? "Creating account..." : "Sign up"}
             />
           </form>
-          
+
           <p>
-            Already have an account?{" "}
-            <a href="/login">Login</a>
+            Already have an account? <a href="/login">Login</a>
           </p>
         </div>
       </div>

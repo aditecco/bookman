@@ -1,11 +1,13 @@
-
 /* ---------------------------------
 .Footer
 --------------------------------- */
 
 .Footer {
   padding: $padding 0;
-  &Wrapper {}
+
+  &Wrapper {
+  }
+
   .FooterInfo {
     display: block;
     text-align: center;

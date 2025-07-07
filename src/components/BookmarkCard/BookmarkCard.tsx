@@ -1,5 +1,5 @@
 /******************
-  BookmarkCard
+ BookmarkCard
  *******************/
 
 // deps
@@ -88,8 +88,8 @@ const BookmarkCard = ({
           </h4>
 
           {/******************
-            URL
-          ******************/}
+           URL
+           ******************/}
 
           {descriptions ? (
             <h3 className={root + "ContentDescription"}>{slugToDesc(url)}</h3>
@@ -105,8 +105,8 @@ const BookmarkCard = ({
         {/* <h6 className={root + "BodyHeading"}>Tags</h6> */}
 
         {/******************
-          TAGS
-        ******************/}
+         TAGS
+         ******************/}
         {tags && (
           <>
             {

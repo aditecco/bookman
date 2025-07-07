@@ -15,11 +15,7 @@ export default function Modal() {
   return (
     <section className="Modal">
       <div className="ModalControls">
-        <button
-          type="button"
-          className="ModalCloseButton"
-          onClick={closeModal}
-        >
+        <button type="button" className="ModalCloseButton" onClick={closeModal}>
           <MaterialIcon icon="close" />
         </button>
       </div>
