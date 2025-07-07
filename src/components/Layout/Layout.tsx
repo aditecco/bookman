@@ -44,11 +44,10 @@ export default function Layout({
             <MaterialIcon icon="settings" />
           </Link>
 
-          {0 && (
-            <Link className="menuButton" href="/admin">
-              <MaterialIcon icon="dashboard" />
-            </Link>
-          )}
+          {/* TODO restore conditional when admin mode is implemented */}
+          {/*<Link className="menuButton" href="/admin">*/}
+          {/*  <MaterialIcon icon="dashboard" />*/}
+          {/*</Link>*/}
         </Navbar>
       )}
 
