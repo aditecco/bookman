@@ -93,7 +93,6 @@ export default function Bookmarks() {
     const bookmarkWithUser = {
       ...bookmarkData,
       user_id: user.id,
-      // tags: bookmarkData.tags?.map((tag: any) => tag.value || tag.name) || []
     };
 
     createBookmark(bookmarkWithUser);
@@ -150,14 +149,56 @@ export default function Bookmarks() {
             filterHandler={handleTagFiltering}
             filterResetHandler={() => setFilterKey("")}
             filterKey={filterKey}
-            tags={uniqueTagNames.map(name => ({ name }))}
+            tags={uniqueTagNames.map(name => ({ 
+              id: 0,
+              documentId: name,
+              Name: name,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              publishedAt: new Date().toISOString(),
+              value: name
+            }))}
           />
 
           <ContentGrid
-            bookmarks={bookmarks}
+            bookmarks={bookmarks.map(bookmark => ({
+              id: parseInt(bookmark.id),
+              documentId: bookmark.id,
+              URL: bookmark.url,
+              Title: bookmark.title || undefined,
+              createdAt: bookmark.created_at,
+              updatedAt: bookmark.updated_at,
+              publishedAt: bookmark.created_at,
+              locale: null,
+              Tags: bookmark.tags.map(tag => ({
+                id: parseInt(tag.id),
+                documentId: tag.id,
+                Name: tag.name,
+                createdAt: tag.created_at,
+                updatedAt: tag.updated_at,
+                publishedAt: tag.created_at
+              }))
+            }))}
             destructiveActionHandler={confirmDestructiveAction}
             editBookmarkHandler={handleEditBookmark}
-            filteredBookmarks={filteredBookmarks}
+            filteredBookmarks={filteredBookmarks.map(bookmark => ({
+              id: parseInt(bookmark.id),
+              documentId: bookmark.id,
+              URL: bookmark.url,
+              Title: bookmark.title || undefined,
+              createdAt: bookmark.created_at,
+              updatedAt: bookmark.updated_at,
+              publishedAt: bookmark.created_at,
+              locale: null,
+              Tags: bookmark.tags.map(tag => ({
+                id: parseInt(tag.id),
+                documentId: tag.id,
+                Name: tag.name,
+                createdAt: tag.created_at,
+                updatedAt: tag.updated_at,
+                publishedAt: tag.created_at
+              }))
+            }))}
             filterKey={filterKey}
             searchResults={found}
           />
