@@ -160,47 +160,47 @@ export default function BookmarkForm({
           onKeyDown={handleTagKeyDown}
         />
 
-        <BaseButton
-          className="submitButton"
-          onClick={e => handleSubmit(e)}
-          label={isLoading ? "Creating..." : submitLabel}
-        />
+        {/* tag suggestions */}
+        {_tags.length > 0 && (
+          <div className="tagSuggestions">
+            {_tags.map(tag => (
+              <PillButton
+                key={tag}
+                label={tag}
+                onClick={() => handleAutoSuggestItemDelete(tag)}
+              >
+                <MaterialIcon icon="close" />
+              </PillButton>
+            ))}
+          </div>
+        )}
+
+        {/* auto suggest */}
+        {/* TODO… */}
+        {false && uniqueTagNames.length > 0 && (
+          <AutoSuggest
+            content={uniqueTagNames.map(name => ({
+              id: 0,
+              documentId: name,
+              Name: name,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              publishedAt: new Date().toISOString(),
+              value: name,
+              timestamp: Date.now(),
+              bookmarks: {},
+            }))}
+            limit={5}
+            onItemClick={handleAutoSuggestItemAdd}
+          />
+        )}
       </div>
 
-      {/* tag suggestions */}
-      {_tags.length > 0 && (
-        <div className="tagSuggestions">
-          {_tags.map(tag => (
-            <PillButton
-              key={tag}
-              label={tag}
-              onClick={() => handleAutoSuggestItemDelete(tag)}
-            >
-              <MaterialIcon icon="close" />
-            </PillButton>
-          ))}
-        </div>
-      )}
-
-      {/* auto suggest */}
-      {/* TODO… */}
-      {false && uniqueTagNames.length > 0 && (
-        <AutoSuggest
-          content={uniqueTagNames.map(name => ({
-            id: 0,
-            documentId: name,
-            Name: name,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            publishedAt: new Date().toISOString(),
-            value: name,
-            timestamp: Date.now(),
-            bookmarks: {},
-          }))}
-          limit={5}
-          onItemClick={handleAutoSuggestItemAdd}
-        />
-      )}
+      <BaseButton
+        className="submitButton"
+        onClick={e => handleSubmit(e)}
+        label={isLoading ? "Creating..." : submitLabel}
+      />
     </form>
   );
 }
