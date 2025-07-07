@@ -21,7 +21,7 @@ interface IOwnProps extends TPropsFromBookmark {
 
 const BookmarkCard = ({
   id,
-  url,
+  URL: url,
   Author: author,
   Tags: tags,
   Title: title,
