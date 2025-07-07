@@ -26,5 +26,9 @@ InputField
 
   &Children {
     padding: 12px ($padding / 2);
+
+    .PillButton + .PillButton {
+      margin-left: 6px;
+    }
   }
 }
