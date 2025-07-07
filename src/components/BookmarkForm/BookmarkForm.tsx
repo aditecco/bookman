@@ -158,22 +158,20 @@ export default function BookmarkForm({
           value={tags}
           onChange={handleTagChange}
           onKeyDown={handleTagKeyDown}
-        />
-
-        {/* tag suggestions */}
-        {_tags.length > 0 && (
-          <div className="tagSuggestions">
-            {_tags.map(tag => (
-              <PillButton
-                key={tag}
-                label={tag}
-                onClick={() => handleAutoSuggestItemDelete(tag)}
-              >
-                <MaterialIcon icon="close" />
-              </PillButton>
-            ))}
-          </div>
-        )}
+        >
+          {/* tag suggestions */}
+          {_tags.length
+            ? _tags.map(tag => (
+                <PillButton
+                  key={tag}
+                  label={tag}
+                  onClick={() => handleAutoSuggestItemDelete(tag)}
+                >
+                  <MaterialIcon icon="close" />
+                </PillButton>
+              ))
+            : null}
+        </InputField>
 
         {/* auto suggest */}
         {/* TODO… */}
