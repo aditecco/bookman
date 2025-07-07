@@ -173,21 +173,22 @@ export default function BookmarkForm({
             : null}
         </InputField>
 
-        {/* auto suggest */}
-        {/* TODO… */}
-        {false && uniqueTagNames.length > 0 && (
+        {/* AUTO SUGGEST */}
+        {state.tags && (
           <AutoSuggest
-            content={uniqueTagNames.map(name => ({
-              id: 0,
-              documentId: name,
-              Name: name,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              publishedAt: new Date().toISOString(),
-              value: name,
-              timestamp: Date.now(),
-              bookmarks: {},
-            }))}
+            content={uniqueTagNames
+              .filter(tag => tag.startsWith(tags))
+              .map(name => ({
+                id: 0,
+                documentId: name,
+                Name: name,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                publishedAt: new Date().toISOString(),
+                value: name,
+                timestamp: Date.now(),
+                bookmarks: {},
+              }))}
             limit={5}
             onItemClick={handleAutoSuggestItemAdd}
           />
