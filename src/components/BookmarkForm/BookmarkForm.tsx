@@ -4,7 +4,6 @@
 
 // deps
 import React, { ReactElement, useState } from "react";
-import uuidv4 from "uuid";
 
 // components
 import InputField from "../InputField/InputField";
@@ -82,31 +81,19 @@ export default function BookmarkForm({
     toast.error("URL is required!");
   }
 
-  // TODO this stuff is handled on the DB
-  // generateNewItem
-  function generateNewItem() {
-    return {
-      id: uuidv4(),
-      timestamp: Date.now(),
-    };
-  }
-
   // handleSubmit
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!url) {
       handleInvalidInput();
-
       return;
     }
 
     if (onCreateBookmark) {
-      // const processedTags = processTags(_tags);
       onCreateBookmark({
-        // ...generateNewItem(),
         url,
-        tags: _tags ?? [],
+        tags: _tags,
       });
     }
 
