@@ -19,6 +19,16 @@ export const useTags = () => {
     enabled: !!user?.id,
   });
 
+  const {
+    data: tagsWithCounts = [],
+    isLoading: isLoadingWithCounts,
+    error: errorWithCounts,
+  } = useQuery({
+    queryKey: ["tagsWithCounts", user?.id],
+    queryFn: () => tagsService.getTagsWithCounts(user!.id),
+    enabled: !!user?.id,
+  });
+
   const { data: uniqueTagNames = [], isLoading: isLoadingTagNames } = useQuery({
     queryKey: ["tagNames", user?.id],
     queryFn: () => tagsService.getUniqueTagNames(user!.id),
@@ -30,6 +40,7 @@ export const useTags = () => {
       tagsService.createTag(tagData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
       queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
         message: "Tag created successfully!",
@@ -57,6 +68,7 @@ export const useTags = () => {
     }) => tagsService.updateTag(id, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
       queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
         message: "Tag updated successfully!",
@@ -78,6 +90,7 @@ export const useTags = () => {
     mutationFn: (id: string) => tagsService.deleteTag(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
       queryClient.invalidateQueries({ queryKey: ["tagNames"] });
       addNotification({
         message: "Tag deleted successfully!",
@@ -97,9 +110,10 @@ export const useTags = () => {
 
   return {
     tags,
+    tagsWithCounts,
     uniqueTagNames,
-    isLoading: isLoading || isLoadingTagNames,
-    error,
+    isLoading: isLoading || isLoadingWithCounts || isLoadingTagNames,
+    error: error || errorWithCounts,
     refetch,
     createTag: createTagMutation.mutate,
     updateTag: updateTagMutation.mutate,

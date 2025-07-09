@@ -26,6 +26,7 @@ export const useBookmarks = () => {
     ) => bookmarksService.createBookmark(bookmarkData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
 
       toast.success("Bookmark created successfully!");
     },
@@ -45,6 +46,7 @@ export const useBookmarks = () => {
     }) => bookmarksService.updateBookmark(id, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
       addNotification({
         message: "Bookmark updated successfully!",
         type: "success",
@@ -65,6 +67,7 @@ export const useBookmarks = () => {
     mutationFn: (id: string) => bookmarksService.deleteBookmark(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+      queryClient.invalidateQueries({ queryKey: ["tagsWithCounts"] });
       addNotification({
         message: "Bookmark deleted successfully!",
         type: "success",
