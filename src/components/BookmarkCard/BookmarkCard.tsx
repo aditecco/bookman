@@ -80,7 +80,10 @@ const BookmarkCard = ({
   const root = "BookmarkCard";
 
   return (
-    <article className={root} id={id}>
+    <article
+      className={root}
+      // id={id}
+    >
       <a className={root + "LinkWrapper"} href={url} target="_blank">
         <header className={root + "Header"}>
           <h4 className={root + "Heading"}>
