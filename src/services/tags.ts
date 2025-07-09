@@ -25,15 +25,17 @@ export const tagsService = {
   // Get all tags for a user with bookmark counts
   async getTagsWithCounts(userId: string): Promise<TagWithCount[]> {
     console.log("Fetching tags with counts for user:", userId);
-    
+
     const { data, error } = await supabase
       .from("tags")
-      .select(`
+      .select(
+        `
         *,
         bookmark_tags!inner(
           bookmark_id
         )
-      `)
+      `
+      )
       .eq("user_id", userId)
       .order("name", { ascending: true });
 

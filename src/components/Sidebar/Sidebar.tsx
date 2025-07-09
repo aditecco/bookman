@@ -32,7 +32,7 @@ export default function Sidebar({
   filterHandler,
   filterResetHandler,
   filterKey,
-  sortFn = (a, b) => a.value < b.value ? -1 : 1,
+  sortFn = (a, b) => (a.value < b.value ? -1 : 1),
   tags,
 }: IOwnProps): ReactElement {
   return (
@@ -53,8 +53,11 @@ export default function Sidebar({
         <ul className="tagList">
           {!filterKey
             ? [...tags].sort(sortFn).map((tag, i) => {
-                const count = tag.bookmarks?.count || 
-                  (typeof tag.bookmarks === 'object' && tag.bookmarks ? Object.keys(tag.bookmarks).length : 0);
+                const count =
+                  tag.bookmarks?.count ||
+                  (typeof tag.bookmarks === "object" && tag.bookmarks
+                    ? Object.keys(tag.bookmarks).length
+                    : 0);
                 return (
                   <li key={i}>
                     <TagItem
