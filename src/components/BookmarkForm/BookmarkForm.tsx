@@ -128,7 +128,7 @@ export default function BookmarkForm({
   }
 
   return (
-    <form className={root}>
+    <form className={root} onSubmit={handleSubmit}>
       <div className="inputGroup">
         <InputField
           className="urlInput"
@@ -184,7 +184,7 @@ export default function BookmarkForm({
 
       <BaseButton
         className="submitButton"
-        onClick={e => handleSubmit(e)}
+        type="submit"
         label={isLoading ? "Creating..." : submitLabel}
       />
     </form>
