@@ -6,15 +6,25 @@ import React, { ReactElement } from "react";
 import { removeDuplicates } from "../../utils";
 import BaseButton from "../BaseButton/BaseButton";
 import TagItem from "../TagItem/TagItem";
-import { TagType } from "../../types/bookman";
+
+interface TagWithCount {
+  id: number;
+  documentId: string;
+  Name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  value: string;
+  bookmarks?: { count: number } | Record<string, any>;
+}
 
 interface IOwnProps {
   filteredTags: string[];
-  filterHandler;
-  filterResetHandler;
-  filterKey;
-  sortFn?: (arg0, arg1) => number;
-  tags: TagType[];
+  filterHandler: (e: React.MouseEvent<HTMLElement>) => void;
+  filterResetHandler: () => void;
+  filterKey: string;
+  sortFn?: (arg0: TagWithCount, arg1: TagWithCount) => number;
+  tags: TagWithCount[];
 }
 
 export default function Sidebar({
@@ -22,7 +32,7 @@ export default function Sidebar({
   filterHandler,
   filterResetHandler,
   filterKey,
-  sortFn = (a, b) => a.value < b.value && -1,
+  sortFn = (a, b) => a.value < b.value ? -1 : 1,
   tags,
 }: IOwnProps): ReactElement {
   return (
@@ -36,7 +46,6 @@ export default function Sidebar({
           <BaseButton
             className="clearTagsButton"
             onClick={filterResetHandler}
-            onKeyDown={null}
             label="clear tags"
           />
         )}
@@ -44,10 +53,12 @@ export default function Sidebar({
         <ul className="tagList">
           {!filterKey
             ? [...tags].sort(sortFn).map((tag, i) => {
+                const count = tag.bookmarks?.count || 
+                  (typeof tag.bookmarks === 'object' && tag.bookmarks ? Object.keys(tag.bookmarks).length : 0);
                 return (
                   <li key={i}>
                     <TagItem
-                      // count={String(Object.keys(tag.bookmarks).length || "")}
+                      count={String(count)}
                       name={tag.value}
                       onClick={filterHandler}
                     />

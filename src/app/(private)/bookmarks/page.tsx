@@ -33,7 +33,7 @@ export default function Bookmarks() {
     deleteBookmark,
     isCreating,
   } = useBookmarks();
-  const { uniqueTagNames } = useTags();
+  const { uniqueTagNames, tagsWithCounts } = useTags();
   const { openModal, setFilterKey, filterKey } = useAppStore();
 
   const [state, setState] = useReducer(
@@ -149,14 +149,15 @@ export default function Bookmarks() {
             filterHandler={handleTagFiltering}
             filterResetHandler={() => setFilterKey("")}
             filterKey={filterKey}
-            tags={uniqueTagNames.map(name => ({
-              id: 0,
-              documentId: name,
-              Name: name,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              publishedAt: new Date().toISOString(),
-              value: name,
+            tags={tagsWithCounts.map(tag => ({
+              id: parseInt(tag.id),
+              documentId: tag.id,
+              Name: tag.name,
+              createdAt: tag.created_at,
+              updatedAt: tag.updated_at,
+              publishedAt: tag.created_at,
+              value: tag.name,
+              bookmarks: { count: tag.bookmark_count },
             }))}
           />
 
