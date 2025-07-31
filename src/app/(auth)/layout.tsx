@@ -4,7 +4,7 @@ Layout
 
 import React, { PropsWithChildren } from "react";
 import LayoutComponent from "../../components/Layout/Layout";
-import AuthGuard from "../../components/AuthGuard";
+import AuthGuard from "../../components/AuthGuard/AuthGuard";
 
 type OwnProps = {};
 

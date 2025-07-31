@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
 
 interface AuthGuardProps {
   children: React.ReactNode;
