@@ -13,6 +13,7 @@ interface IOwnProps {
   filteredBookmarks: BookmarkType[];
   filterKey: string;
   searchResults: BookmarkType[];
+  descriptions?: boolean;
 }
 
 export default function ContentGrid({
@@ -22,6 +23,7 @@ export default function ContentGrid({
   filteredBookmarks,
   filterKey,
   searchResults,
+  descriptions = true,
 }: IOwnProps): ReactElement {
   // const [settings, updateSettings] = useContext(SettingsContext);
   // const { show_descriptions: descriptions } = settings;
@@ -31,7 +33,7 @@ export default function ContentGrid({
       <li className="BookmarkCardContainer" key={i}>
         <BookmarkCard
           {...bookmark}
-          descriptions
+          descriptions={descriptions}
           onDeleteClick={destructiveActionHandler}
           onEditClick={editBookmarkHandler}
         />
