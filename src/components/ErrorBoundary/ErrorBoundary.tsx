@@ -21,7 +21,11 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error(error, errorInfo);
+    // In production, log to external service instead of console
+    if (process.env.NODE_ENV === 'development') {
+      console.error(error, errorInfo);
+    }
+    // TODO: Add error reporting service (e.g., Sentry)
   }
 
   render() {
