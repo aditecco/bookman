@@ -1,10 +1,6 @@
-/* ---------------------------------
-Page
---------------------------------- */
-
 import { redirect } from "next/navigation";
 
 export default function Page() {
-  // Redirect to login page
-  redirect("/login");
+  // Redirect to bookmarks - AuthGuard will handle protection
+  redirect("/bookmarks");
 }
