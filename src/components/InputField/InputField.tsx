@@ -40,12 +40,12 @@ function InputField({
       <label htmlFor={className}>{label}</label>
 
       <input
-        {...additionalInputProps}
+        type="text"
         className={className}
         placeholder={placeholder}
-        type="text"
         value={value}
         onChange={e => onChange(e)}
+        {...additionalInputProps}
       />
 
       {children && <div className="InputFieldChildren">{children}</div>}
