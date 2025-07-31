@@ -138,7 +138,7 @@ export function slugToDesc(url: string): string {
   desc = url
     .replace(URL_FILTER, "")
     .split("/")
-    .pop()
+    .pop() || ""
     .split("-")
     .map(w => w.charAt(0).toUpperCase() + w.substring(1))
     .join(" ")
@@ -180,3 +180,44 @@ export function slugToDesc(url: string): string {
 //     }
 //   }
 // }
+
+/**
+ * Validates and sanitizes URLs
+ * @param url - The URL to validate
+ * @returns Validated URL or null if invalid
+ */
+export function validateAndSanitizeUrl(url: string): string | null {
+  if (!url || typeof url !== 'string') {
+    return null;
+  }
+
+  // Trim whitespace
+  const trimmedUrl = url.trim();
+  
+  // Add protocol if missing
+  let urlToValidate = trimmedUrl;
+  if (!trimmedUrl.startsWith('http://') && !trimmedUrl.startsWith('https://')) {
+    urlToValidate = `https://${trimmedUrl}`;
+  }
+
+  try {
+    const urlObj = new URL(urlToValidate);
+    
+    // Only allow http and https protocols
+    if (urlObj.protocol !== 'http:' && urlObj.protocol !== 'https:') {
+      return null;
+    }
+
+    // Basic domain validation
+    if (!urlObj.hostname || urlObj.hostname.length === 0) {
+      return null;
+    }
+
+    return urlToValidate;
+  } catch {
+    return null;
+  }
+}
+
+// Import sanitization functions from dedicated sanitizer
+export { sanitizeHtml, sanitizeUserInput, sanitizeUrl, sanitizeTag } from './sanitizer';
