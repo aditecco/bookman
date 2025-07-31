@@ -1,48 +1,91 @@
-/* ---------------------------------
-Settings
---------------------------------- */
+"use client";
 
 import React from "react";
-// import Layout from "../../../components/Layout/Layout";
-// import BaseButton from "../../../components/BaseButton/BaseButton";
-// import { SettingsContext } from "../../../routes";
-// import { capitalize } from "../../../utils";
-//
-// interface IOwnProps {}
-//
-// export default function Settings(props: IOwnProps): ReactElement {
-//   const [settings, updateSettings] = useContext(SettingsContext);
-//
-//   return (
-//     <Layout root="Settings">
-//       {/* TODO move to Layout */}
-//       <header className="pageHeader">
-//         <h1>Your settings</h1>
-//       </header>
-//
-//       <ul className="settingList">
-//         {Object.entries(settings).map(([setting, value], i) => (
-//           <li className="settingItem" key={"setting" + i}>
-//             {capitalize(setting.split("_").join(" "))}
-//             {/* {setting}: {String(value)} */}
-//
-//             <BaseButton
-//               className={value ? "" : "button--outline"}
-//               onClick={() => {
-//                 updateSettings({
-//                   [setting]: !value,
-//                 });
-//               }}
-//             >
-//               {value ? `ON` : `OFF`}
-//             </BaseButton>
-//           </li>
-//         ))}
-//       </ul>
-//     </Layout>
-//   );
-// }
+import { useUserSettings } from "../../../hooks/useUserSettings";
+import BaseButton from "../../../components/BaseButton/BaseButton";
+import Spinner from "../../../components/Spinner/Spinner";
+import InfoMessage, { InfoMessageTypes } from "../../../components/InfoMessage/InfoMessage";
+import MaterialIcon from "../../../components/MaterialIcon/MaterialIcon";
 
 export default function Settings() {
-  return <div>Settings</div>;
+  const { settings, isLoading, error, toggleSetting, isUpdating } = useUserSettings();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return (
+      <div className="wrapper error">
+        <InfoMessage
+          type={InfoMessageTypes.error}
+          body="Failed to load settings"
+        />
+      </div>
+    );
+  }
+
+  if (!settings) {
+    return (
+      <div className="wrapper">
+        <InfoMessage
+          type={InfoMessageTypes.info}
+          body="No settings found"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="wrapper">
+      <header className="pageHeader">
+        <h1>Settings</h1>
+        <p>Manage your BookMan preferences</p>
+      </header>
+
+      <div className="settingsContainer">
+        <div className="settingItem">
+          <div className="settingInfo">
+            <h3>Show Descriptions</h3>
+            <p>Display bookmark descriptions in the bookmark list</p>
+          </div>
+          <BaseButton
+            className={settings.show_descriptions ? "button--primary" : "button--outline"}
+            onClick={() => toggleSetting("show_descriptions")}
+            disabled={isUpdating}
+          >
+            {settings.show_descriptions ? "ON" : "OFF"}
+          </BaseButton>
+        </div>
+
+        <div className="settingItem">
+          <div className="settingInfo">
+            <h3>Admin Mode</h3>
+            <p>Enable advanced features and debugging options</p>
+          </div>
+          <BaseButton
+            className={settings.admin_mode ? "button--primary" : "button--outline"}
+            onClick={() => toggleSetting("admin_mode")}
+            disabled={isUpdating}
+          >
+            {settings.admin_mode ? "ON" : "OFF"}
+          </BaseButton>
+        </div>
+
+        <div className="settingItem">
+          <div className="settingInfo">
+            <h3>Account Information</h3>
+            <p>View your account details and preferences</p>
+          </div>
+          <BaseButton
+            className="button--secondary"
+            onClick={() => window.location.href = "/profile"}
+          >
+            <MaterialIcon icon="person" />
+            View Profile
+          </BaseButton>
+        </div>
+      </div>
+    </div>
+  );
 }
