@@ -1,8 +1,29 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import { bookmarksService } from "../services/bookmarks";
 import { useAuth } from "./useAuth";
 import { useAppStore } from "../stores/appStore";
 import toast from "react-hot-toast";
+
+const PAGE_SIZE = 20;
+
+export const useInfiniteBookmarks = () => {
+  const { user } = useAuth();
+  return useInfiniteQuery({
+    queryKey: ["bookmarks-infinite", user?.id],
+    queryFn: async ({ pageParam = 0 }) => {
+      if (!user?.id) return { bookmarks: [], hasMore: false, total: 0 };
+      return bookmarksService.getBookmarksPaginated(user.id, pageParam, PAGE_SIZE);
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.hasMore) {
+        return allPages.length * PAGE_SIZE;
+      }
+      return undefined;
+    },
+    enabled: !!user?.id,
+    initialPageParam: 0,
+  });
+};
 
 export const useBookmarks = () => {
   const { user } = useAuth();
