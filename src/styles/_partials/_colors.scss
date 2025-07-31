@@ -18,3 +18,28 @@ $strokeLight: $backgroundMain;
 $success: $flat-green-1;
 $transparent: rgba(255, 255, 255, 0);
 $hover: mix($accent, black, 60%);
+
+// CSS Variables for modern styling
+:root {
+  --color-primary: #{$accent};
+  --color-primary-light: #{lighten($accent, 10%)};
+  --color-primary-dark: #{darken($accent, 10%)};
+  
+  --color-success: #{$success};
+  --color-success-light: #{rgba($success, 0.1)};
+  --color-warning: #{$flat-orange-1};
+  --color-warning-light: #{rgba($flat-orange-1, 0.1)};
+  --color-error: #{$error};
+  --color-error-light: #{rgba($error, 0.1)};
+  
+  --color-text-primary: #{$font};
+  --color-text-secondary: #{$fontAlt};
+  --color-text-light: #{$fontLight};
+  
+  --color-background-primary: #{$backgroundMain};
+  --color-background-secondary: #{lighten($backgroundMain, 2%)};
+  --color-background-tertiary: #{lighten($backgroundMain, 4%)};
+  
+  --color-border: #{$strokeLight};
+  --color-border-light: #{rgba($strokeLight, 0.5)};
+}
