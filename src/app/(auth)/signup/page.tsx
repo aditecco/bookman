@@ -26,7 +26,6 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted", formData);
 
     if (formData.password !== formData.confirmPassword) {
       addNotification({
@@ -40,7 +39,6 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      console.log("Attempting to sign up with:", formData.email);
       await signUp(formData.email, formData.password);
       addNotification({
         message: "Account created! Please check your email to confirm.",

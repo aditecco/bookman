@@ -24,8 +24,6 @@ export const tagsService = {
 
   // Get all tags for a user with bookmark counts
   async getTagsWithCounts(userId: string): Promise<TagWithCount[]> {
-    console.log("Fetching tags with counts for user:", userId);
-
     const { data, error } = await supabase
       .from("tags")
       .select(
@@ -41,16 +39,11 @@ export const tagsService = {
 
     if (error) throw error;
 
-    console.log("Raw tags data:", data);
-
     // Transform the data to include bookmark counts
-    const tagsWithCounts = data.map(tag => ({
+    return data.map(tag => ({
       ...tag,
       bookmark_count: tag.bookmark_tags?.length || 0,
     }));
-
-    console.log("Tags with counts:", tagsWithCounts);
-    return tagsWithCounts;
   },
 
   // Create a new tag
