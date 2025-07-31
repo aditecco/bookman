@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <link
-          href="https://fonts.gstatic.com/s/materialicons/v142/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         />
       </head>
