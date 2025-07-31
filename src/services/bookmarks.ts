@@ -43,7 +43,7 @@ export const bookmarksService = {
   ): Promise<BookmarkWithTags> {
     const { tags, ...bookmark } = bookmarkData;
 
-    console.log("Creating bookmark:", { bookmark, tags });
+
 
     // Create the bookmark first
     const { data: bookmarkResult, error: bookmarkError } = await supabase
@@ -54,7 +54,7 @@ export const bookmarksService = {
 
     if (bookmarkError) throw bookmarkError;
 
-    console.log("Bookmark created:", bookmarkResult);
+
 
     // Handle tags if provided
     if (tags && tags.length > 0) {
@@ -63,7 +63,7 @@ export const bookmarksService = {
         .map(tag => tag.replace(TAG_VALIDATOR, "").trim().toLowerCase())
         .filter(tag => tag.length > 0);
 
-      console.log("Normalized tags:", normalizedTags);
+
 
       // Get existing tags for this user
       const { data: existingTags, error: existingTagsError } = await supabase
@@ -74,7 +74,7 @@ export const bookmarksService = {
 
       if (existingTagsError) throw existingTagsError;
 
-      console.log("Existing tags found:", existingTags);
+
 
       // Create a map of existing tag names to their IDs
       const existingTagMap = new Map(
@@ -86,7 +86,7 @@ export const bookmarksService = {
         tagName => !existingTagMap.has(tagName)
       );
 
-      console.log("Tags to create:", tagsToCreate);
+
 
       // Create new tags if needed
       let newTags: Tag[] = [];
@@ -103,7 +103,7 @@ export const bookmarksService = {
 
         if (createTagsError) throw createTagsError;
         newTags = createdTags;
-        console.log("New tags created:", newTags);
+
       }
 
       // Combine existing and new tag IDs
@@ -112,7 +112,7 @@ export const bookmarksService = {
         ...newTags.map(tag => tag.id),
       ];
 
-      console.log("All tag IDs for relationships:", allTagIds);
+
 
       // Create bookmark-tag relationships
       if (allTagIds.length > 0) {
@@ -126,7 +126,7 @@ export const bookmarksService = {
           );
 
         if (relationshipError) throw relationshipError;
-        console.log("Bookmark-tag relationships created successfully");
+
       }
     }
 
