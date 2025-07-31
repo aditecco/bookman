@@ -13,6 +13,8 @@ import PillButton from "../PillButton/PillButton";
 import MaterialIcon from "../MaterialIcon/MaterialIcon";
 import { TAG_VALIDATOR } from "../../constants";
 import { useTags } from "../../hooks/useTags";
+import { sanitizeTag, validateAndSanitizeUrl } from "../../utils";
+import { SECURITY_CONFIG, SECURITY_UTILS } from "../../security";
 import toast from "react-hot-toast";
 
 interface IOwnProps {
@@ -73,12 +75,12 @@ export default function BookmarkForm({
   function processTags(tags: string[]): string[] | boolean {
     if (!tags) return false;
     if (!tags.length) return true;
-    return tags.map(tag => tag.replace(TAG_VALIDATOR, "").trim().toLowerCase());
+    return tags.map(tag => sanitizeTag(tag.replace(TAG_VALIDATOR, "")));
   }
 
   // handleInvalidInput
-  function handleInvalidInput() {
-    toast.error("URL is required!");
+  function handleInvalidInput(message: string = "URL is required!") {
+    toast.error(message);
   }
 
   // handleSubmit
@@ -90,15 +92,33 @@ export default function BookmarkForm({
       return;
     }
 
+    // Validate and sanitize URL
+    const validatedUrl = validateAndSanitizeUrl(url);
+    if (!validatedUrl) {
+      handleInvalidInput("Please enter a valid URL");
+      return;
+    }
+
+    // Validate URL length
+    if (
+      !SECURITY_UTILS.validateLength(
+        validatedUrl,
+        SECURITY_CONFIG.URL_VALIDATION.MAX_URL_LENGTH
+      )
+    ) {
+      handleInvalidInput("URL is too long");
+      return;
+    }
+
     if (onCreateBookmark) {
       onCreateBookmark({
-        url,
+        url: validatedUrl,
         tags: _tags,
       });
     }
 
     if (onUpdateBookmark) {
-      onUpdateBookmark(url, tags);
+      onUpdateBookmark(validatedUrl, tags);
     }
 
     setState(initialState);
