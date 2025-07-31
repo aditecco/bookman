@@ -2,28 +2,55 @@
 
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner/Spinner";
 
 interface AuthGuardProps {
   children: React.ReactNode;
+  requireAuth?: boolean;
 }
 
-export default function AuthGuard({ children }: AuthGuardProps) {
-  const { user, isAuthenticated, authLoading } = useAuth();
+export default function AuthGuard({
+  children,
+  requireAuth = true,
+}: AuthGuardProps) {
+  const { isAuthenticated, authLoading } = useAuth();
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && !isAuthenticated) {
-      router.push("/login");
-    }
-  }, [isAuthenticated, authLoading, router]);
+    // Prevent multiple redirects
+    if (isRedirecting) return;
 
-  if (authLoading) {
+    if (!authLoading) {
+      if (requireAuth && !isAuthenticated) {
+        setIsRedirecting(true);
+        router.push("/login");
+      } else if (!requireAuth && isAuthenticated) {
+        // If user is authenticated but on auth pages, redirect to bookmarks
+        setIsRedirecting(true);
+        router.push("/bookmarks");
+      }
+    }
+  }, [isAuthenticated, authLoading, router, requireAuth, isRedirecting]);
+
+  // Show loading spinner while checking authentication
+  if (authLoading || isRedirecting) {
     return <Spinner />;
   }
 
-  if (!isAuthenticated) {
+  // Don't render anything while redirecting
+  if (isRedirecting) {
+    return null;
+  }
+
+  // For protected routes, don't render if not authenticated
+  if (requireAuth && !isAuthenticated) {
+    return null;
+  }
+
+  // For auth pages, don't render if already authenticated
+  if (!requireAuth && isAuthenticated) {
     return null;
   }
 
