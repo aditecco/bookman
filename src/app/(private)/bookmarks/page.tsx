@@ -4,7 +4,7 @@
 Bookmarks Page
 --------------------------------- */
 
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import * as Constants from "../../../constants";
 import { removeDuplicates } from "../../../utils";
 
@@ -18,23 +18,56 @@ import Spinner from "../../../components/Spinner/Spinner";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 
 // hooks
-import { useBookmarks } from "../../../hooks/useBookmarks";
+import {
+  useBookmarks,
+  useInfiniteBookmarks,
+} from "../../../hooks/useBookmarks";
 import { useTags } from "../../../hooks/useTags";
 import { useAuth } from "../../../hooks/useAuth";
 import { useAppStore } from "../../../stores/appStore";
+import { useUserSettings } from "../../../hooks/useUserSettings";
 
 export default function Bookmarks() {
   const { user } = useAuth();
-  const {
-    bookmarks,
-    isLoading,
-    error,
-    createBookmark,
-    deleteBookmark,
-    isCreating,
-  } = useBookmarks();
   const { uniqueTagNames, tagsWithCounts } = useTags();
   const { openModal, setFilterKey, filterKey } = useAppStore();
+  const { settings } = useUserSettings();
+
+  // Infinite bookmarks for fetching
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteBookmarks();
+
+  // Regular bookmarks hook for mutations
+  const { createBookmark, deleteBookmark, isCreating } = useBookmarks();
+
+  // Flatten bookmarks from all pages
+  const bookmarks = data ? data.pages.flatMap(page => page.bookmarks) : [];
+
+  // Infinite scroll sentinel
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        fetchNextPage();
+      }
+    });
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const [state, setState] = useReducer(
     (state, newState) => ({
@@ -79,7 +112,7 @@ export default function Bookmarks() {
    */
   function handleTagFiltering(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
-    const tagName = e.currentTarget.innerHTML;
+    const tagName = e.currentTarget.textContent || "";
     setFilterKey(tagName);
   }
 
@@ -118,93 +151,96 @@ export default function Bookmarks() {
     );
   }
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (!isLoading && !(error || localError))
+    return (
+      <>
+        {/* inputSection */}
+        <section className="inputSection">
+          <div className="wrapper">
+            <BookmarkForm
+              onCreateBookmark={handleCreateBookmark}
+              isLoading={isCreating}
+            />
+          </div>
+        </section>
 
-  return (
-    <>
-      {/* inputSection */}
-      <section className="inputSection">
-        <div className="wrapper">
-          <BookmarkForm
-            onCreateBookmark={handleCreateBookmark}
-            isLoading={isCreating}
-          />
-        </div>
-      </section>
-
-      {/* content */}
-      {!bookmarks?.length ? (
-        <div className="wrapper">
-          <InfoMessage
-            type={InfoMessageTypes.info}
-            body="No bookmarks yet. Create your first one above!"
-          />
-        </div>
-      ) : (
-        <main className="wrapper mainContentWrapper">
-          <Sidebar
-            filteredTags={filteredTags}
-            filterHandler={handleTagFiltering}
-            filterResetHandler={() => setFilterKey("")}
-            filterKey={filterKey}
-            tags={tagsWithCounts.map(tag => ({
-              id: parseInt(tag.id),
-              documentId: tag.id,
-              Name: tag.name,
-              createdAt: tag.created_at,
-              updatedAt: tag.updated_at,
-              publishedAt: tag.created_at,
-              value: tag.name,
-              bookmarks: { count: tag.bookmark_count },
-            }))}
-          />
-
-          <ContentGrid
-            bookmarks={bookmarks.map(bookmark => ({
-              id: parseInt(bookmark.id),
-              documentId: bookmark.id,
-              URL: bookmark.url,
-              Title: bookmark.title || undefined,
-              createdAt: bookmark.created_at,
-              updatedAt: bookmark.updated_at,
-              publishedAt: bookmark.created_at,
-              locale: null,
-              Tags: bookmark.tags.map(tag => ({
+        {/* content */}
+        {!bookmarks?.length ? (
+          <div className="wrapper">
+            <InfoMessage
+              type={InfoMessageTypes.info}
+              body="No bookmarks yet. Create your first one above!"
+            />
+          </div>
+        ) : (
+          <main className="wrapper mainContentWrapper">
+            <Sidebar
+              filteredTags={filteredTags}
+              filterHandler={handleTagFiltering}
+              filterResetHandler={() => setFilterKey("")}
+              filterKey={filterKey}
+              tags={tagsWithCounts.map(tag => ({
                 id: parseInt(tag.id),
                 documentId: tag.id,
                 Name: tag.name,
                 createdAt: tag.created_at,
                 updatedAt: tag.updated_at,
                 publishedAt: tag.created_at,
-              })),
-            }))}
-            destructiveActionHandler={confirmDestructiveAction}
-            editBookmarkHandler={handleEditBookmark}
-            filteredBookmarks={filteredBookmarks.map(bookmark => ({
-              id: parseInt(bookmark.id),
-              documentId: bookmark.id,
-              URL: bookmark.url,
-              Title: bookmark.title || undefined,
-              createdAt: bookmark.created_at,
-              updatedAt: bookmark.updated_at,
-              publishedAt: bookmark.created_at,
-              locale: null,
-              Tags: bookmark.tags.map(tag => ({
-                id: parseInt(tag.id),
-                documentId: tag.id,
-                Name: tag.name,
-                createdAt: tag.created_at,
-                updatedAt: tag.updated_at,
-                publishedAt: tag.created_at,
-              })),
-            }))}
-            filterKey={filterKey}
-            searchResults={found}
-          />
-        </main>
-      )}
-    </>
-  );
+                value: tag.name,
+                bookmarks: { count: tag.bookmark_count },
+              }))}
+            />
+
+            <ContentGrid
+              bookmarks={bookmarks.map(bookmark => ({
+                id: parseInt(bookmark.id),
+                documentId: bookmark.id,
+                URL: bookmark.url,
+                Title: bookmark.title || undefined,
+                createdAt: bookmark.created_at,
+                updatedAt: bookmark.updated_at,
+                publishedAt: bookmark.created_at,
+                locale: null,
+                Tags: bookmark.tags.map(tag => ({
+                  id: parseInt(tag.id),
+                  documentId: tag.id,
+                  Name: tag.name,
+                  createdAt: tag.created_at,
+                  updatedAt: tag.updated_at,
+                  publishedAt: tag.created_at,
+                })),
+              }))}
+              destructiveActionHandler={confirmDestructiveAction}
+              editBookmarkHandler={handleEditBookmark}
+              filteredBookmarks={filteredBookmarks.map(bookmark => ({
+                id: parseInt(bookmark.id),
+                documentId: bookmark.id,
+                URL: bookmark.url,
+                Title: bookmark.title || undefined,
+                createdAt: bookmark.created_at,
+                updatedAt: bookmark.updated_at,
+                publishedAt: bookmark.created_at,
+                locale: null,
+                Tags: bookmark.tags.map(tag => ({
+                  id: parseInt(tag.id),
+                  documentId: tag.id,
+                  Name: tag.name,
+                  createdAt: tag.created_at,
+                  updatedAt: tag.updated_at,
+                  publishedAt: tag.created_at,
+                })),
+              }))}
+              filterKey={filterKey}
+              searchResults={found}
+              descriptions={settings?.show_descriptions ?? true}
+            />
+            {/* Infinite scroll sentinel */}
+            <div ref={loadMoreRef} style={{ height: 40 }} />
+            {isFetchingNextPage && <Spinner />}
+          </main>
+        )}
+      </>
+    );
+
+  return <Spinner />;
 }

@@ -37,6 +37,33 @@ export const bookmarksService = {
     }));
   },
 
+  // Fetch bookmarks with pagination (infinite scroll)
+  async getBookmarksPaginated(userId: string, offset: number, limit: number) {
+    const { data, error, count } = await supabase
+      .from("bookmarks")
+      .select(
+        `*, bookmark_tags(tags(*))`,
+        { count: "exact" }
+      )
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (error) throw error;
+
+    // Transform the data to flatten the tags array
+    const bookmarks = data.map(bookmark => ({
+      ...bookmark,
+      tags: bookmark.bookmark_tags?.map(bt => bt.tags) || [],
+    }));
+
+    return {
+      bookmarks,
+      hasMore: data.length === limit,
+      total: count,
+    };
+  },
+
   // Create a new bookmark with tags
   async createBookmark(
     bookmarkData: BookmarkInsert & { tags?: string[] }
