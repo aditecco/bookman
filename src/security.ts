@@ -36,9 +36,9 @@ export const SECURITY_CONFIG = {
   CSP: {
     DEFAULT_SRC: ["'self'"],
     SCRIPT_SRC: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-    STYLE_SRC: ["'self'", "'unsafe-inline'"],
+    STYLE_SRC: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     IMG_SRC: ["'self'", "data:", "https:"],
-    FONT_SRC: ["'self'", "data:"],
+    FONT_SRC: ["'self'", "data:", "https://fonts.gstatic.com"],
     CONNECT_SRC: ["'self'", "https://*.supabase.co"],
   },
 };
