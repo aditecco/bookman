@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useAppStore } from "../../../stores/appStore";
 import InputField from "../../../components/InputField/InputField";
 import BaseButton from "../../../components/BaseButton/BaseButton";
 import Spinner from "../../../components/Spinner/Spinner";
+import { sanitizeUserInput } from "../../../utils";
+import { SECURITY_UTILS } from "../../../security";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -16,27 +18,39 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { signIn } = useAuth();
-  const { addNotification } = useAppStore();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Sanitize and validate inputs
+    const sanitizedEmail = sanitizeUserInput(formData.email.trim());
+    const sanitizedPassword = sanitizeUserInput(formData.password);
+
+    // Validate email format
+    if (!SECURITY_UTILS.validateEmail(sanitizedEmail)) {
+      toast.error("Please enter a valid email address");
+
+      return;
+    }
+
+    // Validate password length
+    if (sanitizedPassword.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      await signIn(formData.email, formData.password);
-      addNotification({
-        message: "Welcome back!",
-        type: "success",
-        timeout: 3000,
-      });
+      await signIn(sanitizedEmail, sanitizedPassword);
+
+      toast.success("Welcome back!");
+
       router.push("/bookmarks");
     } catch (error: any) {
-      addNotification({
-        message: error.message || "Login failed",
-        type: "error",
-        timeout: 5000,
-      });
+      toast.error("Login failed");
     } finally {
       setIsLoading(false);
     }

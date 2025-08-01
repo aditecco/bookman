@@ -7,10 +7,12 @@ Page
 import React, { useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useAppStore } from "../../../stores/appStore";
 import InputField from "../../../components/InputField/InputField";
 import BaseButton from "../../../components/BaseButton/BaseButton";
 import Spinner from "../../../components/Spinner/Spinner";
+import { sanitizeUserInput } from "../../../utils";
+import { SECURITY_UTILS } from "../../../security";
+import toast from "react-hot-toast";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -21,38 +23,59 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { signUp } = useAuth();
-  const { addNotification } = useAppStore();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      addNotification({
-        message: "Passwords don't match",
-        type: "error",
-        timeout: 5000,
-      });
+    // Sanitize and validate inputs
+    const sanitizedEmail = sanitizeUserInput(formData.email.trim());
+    const sanitizedPassword = sanitizeUserInput(formData.password);
+    const sanitizedConfirmPassword = sanitizeUserInput(
+      formData.confirmPassword
+    );
+
+    // Validate email format
+    if (!SECURITY_UTILS.validateEmail(sanitizedEmail)) {
+      // TODO all the following should be inline messages
+      toast.error("Please enter a valid email address");
+
+      return;
+    }
+
+    // Validate password length
+    if (sanitizedPassword.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+
+      return;
+    }
+
+    // Validate password strength (basic)
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(sanitizedPassword)) {
+      toast.error(
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+      );
+
+      return;
+    }
+
+    // Check if passwords match
+    if (sanitizedPassword !== sanitizedConfirmPassword) {
+      toast.error("Passwords don't match");
+
       return;
     }
 
     setIsLoading(true);
 
     try {
-      await signUp(formData.email, formData.password);
-      addNotification({
-        message: "Account created! Please check your email to confirm.",
-        type: "success",
-        timeout: 5000,
-      });
+      await signUp(sanitizedEmail, sanitizedPassword);
+
+      toast.success("Account created! Please check your email to confirm.");
+
       router.push("/login");
     } catch (error: any) {
-      console.error("Signup error:", error);
-      addNotification({
-        message: error.message || "Signup failed",
-        type: "error",
-        timeout: 5000,
-      });
+      toast.error("Signup failed: " + error.message ?? "Unknown error");
     } finally {
       setIsLoading(false);
     }
