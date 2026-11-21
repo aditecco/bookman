@@ -29,7 +29,8 @@
     "start": "npx serve@latest ./next"
   },
   "engines": {
-    "node": "^24.22.1"
+    "node": "^26.13.1",
+    "npm": ">=11.19.1"
   },
   "eslintConfig": {
     "extends": "react-app"
