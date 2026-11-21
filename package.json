@@ -62,7 +62,7 @@
     "prettier": "^3.4.1"
   },
   "volta": {
-    "node": "22.20.0"
+    "node": "26.13.1"
   },
   "overrides": {
     "postcss": "$postcss"
